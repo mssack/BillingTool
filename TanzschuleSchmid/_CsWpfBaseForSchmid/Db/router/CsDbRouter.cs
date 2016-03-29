@@ -268,5 +268,16 @@ namespace CsWpfBase.Db.router
 			cmd.CommandText = command;
 			return cmd;
 		}
+
+
+		/// <summary>
+		///     All references to this object are freed by setting <see cref="Base.PropertyChanged" /> to null. In inherited
+		///     classes override this method to free all other events.
+		/// </summary>
+		public override void Dispose()
+		{
+			this.Close();
+			base.Dispose();
+		}
 	}
 }
