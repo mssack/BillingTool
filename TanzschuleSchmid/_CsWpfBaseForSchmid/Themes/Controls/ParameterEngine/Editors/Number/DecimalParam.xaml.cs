@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Data;
 using CsWpfBase.Themes.Controls.Editors.Base;
 using CsWpfBase.Themes.Controls.Editors.Number;
 using CsWpfBase.Themes.Controls.ParameterEngine.Base;
@@ -20,10 +21,10 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Editors.Number
 	public class DecimalParam : ParameterEngineBase
 	{
 		#region DependencyProperty Static Keys
-		public static readonly DependencyProperty ValueProperty = DecimalEditor.ValueNumberProperty.AddOwner(typeof (DecimalParam));
-		public static readonly DependencyProperty MinimumProperty = DecimalEditor.MinimumProperty.AddOwner(typeof (DecimalParam));
-		public static readonly DependencyProperty MaximumProperty = DecimalEditor.MaximumProperty.AddOwner(typeof (DecimalParam));
-		public static readonly DependencyProperty AllowNullProperty = NumberEditor.AllowNullProperty.AddOwner(typeof (DecimalParam));
+		public static readonly DependencyProperty MinimumProperty = DependencyProperty.Register("Minimum", typeof(Decimal), typeof(DecimalParam), new FrameworkPropertyMetadata { DefaultValue = default(Decimal), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
+		public static readonly DependencyProperty MaximumProperty = DependencyProperty.Register("Maximum", typeof(Decimal), typeof(DecimalParam), new FrameworkPropertyMetadata { DefaultValue = default(Decimal), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
+		public static readonly DependencyProperty AllowNullProperty = DependencyProperty.Register("AllowNull", typeof(bool), typeof(DecimalParam), new FrameworkPropertyMetadata { DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
+		public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(Decimal?), typeof(DecimalParam), new FrameworkPropertyMetadata { DefaultValue = default(Decimal?), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
 		#endregion
 
 
