@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Modes.developer;
 using BillingTool.Modes.newCashBookEntry;
 using BillingTool.Runtime;
@@ -46,6 +47,8 @@ namespace BillingTool
 					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.Developer;
 				else if (string.Equals(arg, "/newcashbookentry", StringComparison.OrdinalIgnoreCase))
 					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
+				else if (string.Equals(arg, "/createdatabase", StringComparison.OrdinalIgnoreCase))
+					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
 				else if (string.Equals(arg, "/database", StringComparison.OrdinalIgnoreCase))
 				{
 					if (i + 1 >= data.Length)
@@ -69,10 +72,19 @@ namespace BillingTool
 			}
 			else if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.NewCashBookEntry)
 			{
+				if (RuntimeConfiguration.I.CreateDatabaseIfNotExist)
+					Db.Init();
+
 				Db.EnsureConnectivity();
 
 				Current.MainWindow = new NewCashBookEntryWindow {Item = Db.Billing.CashBook.NewRow()};
 				Current.MainWindow.Show();
+			}
+			else if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.CreateDatabase)
+			{
+				Db.CreateDatabase();
+				
+				CsGlobal.App.Exit();
 			}
 		}
 	}

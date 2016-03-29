@@ -34,6 +34,7 @@ namespace BillingTool.Runtime
 				}
 			}
 		}
+		private bool _createDatabaseIfNotExist;
 
 
 		private string _databaseFilePath;
@@ -54,6 +55,12 @@ namespace BillingTool.Runtime
 		{
 			get { return _runtimeMode; }
 			set { SetProperty(ref _runtimeMode, value); }
+		}
+		/// <summary>If set to true the database will be created if it does not already exist.</summary>
+		public bool CreateDatabaseIfNotExist
+		{
+			get { return _createDatabaseIfNotExist; }
+			set { SetProperty(ref _createDatabaseIfNotExist, value); }
 		}
 	}
 }

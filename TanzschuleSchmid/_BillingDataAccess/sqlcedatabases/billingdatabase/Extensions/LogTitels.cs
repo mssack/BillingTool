@@ -7,6 +7,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.Extensions
 {
 	public enum LogTitels
 	{
+		DatenbankErstellt,
 		FinanzbucheintragErstellt,
 		FinanzbucheintragAbgebrochen,
 

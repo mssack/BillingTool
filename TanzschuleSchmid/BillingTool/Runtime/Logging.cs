@@ -6,9 +6,11 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -24,18 +26,16 @@ namespace BillingTool.Runtime
 		/// <param name="titel">The title of the log.</param>
 		/// <param name="content">The content of the log.</param>
 		/// <param name="logType">The type of the log.</param>
-		public static void New(string titel, string content, LogTypes logType, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
+		public static void New(string titel, string content, LogTypes logType = LogTypes.Information, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
 		{
 			var fileInfo = new FileInfo(filePath);
-
-
 
 			Db.EnsureConnectivity();
 			var log = Db.Billing.Logs.NewRow();
 			log.Type = logType;
 			log.Title = titel;
-			log.CodePosition = fileInfo.Name.Replace(fileInfo.Extension, "") + "." + method;
-			log.CommandLine = Environment.CommandLine;
+			log.CodePosition = fileInfo.Name.Replace(".xaml", "").Replace(".cs", "").Replace(fileInfo.Extension, "") + "." + method + "(~)";
+			log.CommandLine = Environment.GetCommandLineArgs().Skip(1).Join(" ");
 			log.Content = content;
 			Db.Billing.Logs.Add(log);
 			Db.Billing.Logs.SaveChanges();
@@ -45,7 +45,7 @@ namespace BillingTool.Runtime
 		/// <param name="titel">The title of the log.</param>
 		/// <param name="content">The content of the log.</param>
 		/// <param name="logType">The type of the log.</param>
-		public static void New(LogTitels titel, string content, LogTypes logType, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
+		public static void New(LogTitels titel, string content, LogTypes logType = LogTypes.Information, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
 		{
 			New(titel.ToString(),content, logType, filePath, method);
 		}

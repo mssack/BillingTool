@@ -23,5 +23,7 @@ namespace BillingTool.Runtime.types
 		Developer,
 		/// <summary>The program is started for an new cash book entry.</summary>
 		NewCashBookEntry,
+		/// <summary>The program is started just for creating a new database.</summary>
+		CreateDatabase,
 	}
 }

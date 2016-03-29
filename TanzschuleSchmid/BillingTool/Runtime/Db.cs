@@ -11,6 +11,7 @@ using System.Data.SqlServerCe;
 using System.IO;
 using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
+using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Db.router;
 
@@ -39,11 +40,7 @@ namespace BillingTool.Runtime
 			if (fileInfo.Exists)
 				return;
 
-
-			using (var installer = new DatabaseInstaller(fileInfo.FullName))
-			{
-				installer.Install();
-			}
+			CreateDatabase();
 		}
 
 		/// <summary>
@@ -96,6 +93,24 @@ namespace BillingTool.Runtime
 			Billing.Dispose();
 			Router.Dispose();
 			Billing = null;
+		}
+
+
+		/// <summary>Creates the database. Throws an Exception if it already exists.</summary>
+		public static void CreateDatabase()
+		{
+			var fileInfo = new FileInfo(RuntimeConfiguration.I.DatabaseFilePath);
+			CreateDatabase(fileInfo);
+		}
+
+
+		private static void CreateDatabase(FileInfo fi)
+		{
+			using (var installer = new DatabaseInstaller(fi.FullName))
+			{
+				installer.Install();
+			}
+			Logs.New(LogTitels.DatenbankErstellt, "Eine neue Datenbank wurde erstellt", LogTypes.Information);
 		}
 
 
