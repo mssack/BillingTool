@@ -5,6 +5,7 @@
 // <date>2016-03-29</date>
 
 using System;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlServerCe;
 using System.IO;
@@ -23,20 +24,41 @@ namespace BillingDataAccessGenerator
 	/// <summary>Interaction logic for App.xaml</summary>
 	public partial class App : Application
 	{
+		/// <summary>the relative path to the sample db inside project.</summary>
+		public string SampleDatabaseFile => Path.Combine(new FileInfo("a").Directory.Parent.Parent.FullName, "SampleDb.sdf");
+		/// <summary>the relative path to the target project folder.</summary>
+		public string TargetProjectFolder => Path.Combine(new FileInfo("a").Directory.Parent.Parent.Parent.FullName, "_BillingDataAccess");
+
+
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
 			GenerateDatabaseClasses();
+			CheckNamingConventions();
 			CsGlobal.App.Exit();
+		}
+
+		/// <summary>Inserts the right naming conventions. If the database file is newly generated you have to execute the db class generator two times.</summary>
+		private void CheckNamingConventions()
+		{
+			var router = new SqlCeRouter(SampleDatabaseFile);
+			var table = new DataTable("__CsDb.NamingConventions");
+			router.LoadTable(table);
+
+			if (table.Rows.Count != 0)
+				return;
+
+			table.Rows.Add(Guid.NewGuid(), "Table", "CashBook", "CashBookEntry", "CashBook");
+			table.Rows.Add(Guid.NewGuid(), "Table", "Logs", "Log", "Logs");
+
+			router.SaveChanges(table);
 		}
 
 		private void GenerateDatabaseClasses()
 		{
-			string sampleDatabase = $@"C:\Users\chris\Desktop\testdatenbank1.sdf";
-			var architecture = CsDb.CodeGen.Create.Architecture_From_SqlCe(new SqlCeRouter(sampleDatabase));
+			var architecture = CsDb.CodeGen.Create.Architecture_From_SqlCe(new SqlCeRouter(SampleDatabaseFile));
 			architecture.Name = "SqlCeDatabases";
 			var codeBundle = architecture.GetCodeBundle();
-			var parentDirectory = Path.Combine(new FileInfo("a").Directory.Parent.Parent.Parent.FullName, "_BillingDataAccess");
-			codeBundle.SetPaths(Path.Combine(parentDirectory, ""), "BillingDataAccess", Path.Combine(parentDirectory, "_BillingDataAccess.csproj"));
+			codeBundle.SetPaths(Path.Combine(TargetProjectFolder, ""), "BillingDataAccess", Path.Combine(TargetProjectFolder, "_BillingDataAccess.csproj"));
 			codeBundle.Write();
 		}
 	}

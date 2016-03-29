@@ -87,20 +87,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DatabaseCreation\SQL Scripts\CreateCashBookTable.txt" />
+    <Compile Include="sqlcedatabases\sampledb\views\JustForNamespacePurpose.cs" />
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
-    <Compile Include="sqlcedatabases\testdatenbank1\dataset\Testdatenbank1.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+    <Compile Include="sqlcedatabases\sampledb\dataset\SampleDb.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\testdatenbank1\tables\CashBookTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+    <Compile Include="sqlcedatabases\sampledb\tables\CashBookTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\testdatenbank1\tables\LogsTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+    <Compile Include="sqlcedatabases\sampledb\tables\LogsTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\testdatenbank1\rowinterfaces\ICashBook.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
-    <Compile Include="sqlcedatabases\testdatenbank1\rowinterfaces\ILog.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
-    <Compile Include="sqlcedatabases\testdatenbank1\rows\CashBook.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
-    <Compile Include="sqlcedatabases\testdatenbank1\rows\Log.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\sampledb\rowinterfaces\ICashBookEntry.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\sampledb\rowinterfaces\ILog.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\sampledb\rows\CashBookEntry.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\sampledb\rows\Log.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
