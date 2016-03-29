@@ -28,10 +28,7 @@ public partial class #Name# : CsDbDataSet
 		{
 			if (_csDbRelations != null)
 				return _csDbRelations;
-			_csDbRelations = new[]
-			{
-				#RelationsForReflection#
-			};
+			#RelationsForReflection#
 			return _csDbRelations;
 		}
 	}

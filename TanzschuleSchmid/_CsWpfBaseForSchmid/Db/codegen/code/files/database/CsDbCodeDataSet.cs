@@ -98,7 +98,10 @@ namespace CsWpfBase.Db.codegen.code.files.database
 		private string TableNames => CodeBundle.Tables.Select(x => $"\"{x.NativeName}\"").Join(", ");
 
 		[Key]
-		private string RelationsForReflection => CodeBundle.Tables.SelectMany(t => t.Relations).Distinct().Select(r =>
+		private string RelationsForReflection =>
+			!CodeBundle.Architecture.Relations.Any()?"":
+			"_csDbRelations = new[]{" +
+			CodeBundle.Tables.SelectMany(t => t.Relations).Distinct().Select(r =>
 			$"new CsDbRelation(" +
 			$"typeof({CodeBundle.TablesNameSpace}.{r.PkKey.Row.Table.Name}), " +
 			$"typeof({CodeBundle.RowsNameSpace}.{r.PkKey.Row.Name}), " +
@@ -112,6 +115,7 @@ namespace CsWpfBase.Db.codegen.code.files.database
 			$"typeof({CodeBundle.RowsNameSpace}.{r.FkKey.Row.Name}).GetProperty(\"{r.FkKey.Name}\"), " +
 			$"typeof({CodeBundle.RowsNameSpace}.{r.FkKey.Row.Name}).GetProperty(\"{r.AssociatedProperty.Name}\"), " +
 			$"typeof({CodeBundle.RowsNameSpace}.{r.PkKey.Row.Name}).GetProperty(\"{r.ReferencingProperty.Name}\")" +
-			$"),").Join("\r\n\t\t\t\t");
+			$"),").Join("\r\n\t\t\t\t")
+			+ "\t\t\t};";
 	}
 }
