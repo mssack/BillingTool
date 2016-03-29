@@ -1,0 +1,6 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack&#xD;
+&lt;author&gt;Christian Sack&lt;/author&gt;&#xD;
+&lt;email&gt;christian@sack.at&lt;/email&gt;&#xD;
+&lt;website&gt;christian.sack.at&lt;/website&gt;&#xD;
+&lt;date&gt;$CURRENT_YEAR$-$CURRENT_MONTH$-$CURRENT_DAY$&lt;/date&gt;</s:String></wpf:ResourceDictionary>
