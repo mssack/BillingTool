@@ -12,12 +12,12 @@ using CsWpfBase.Themes.Controls.Containers;
 
 
 
-namespace BillingTool.Windows
+namespace BillingTool.Modes.commandInfo
 {
-	/// <summary>Interaction logic for NoAppropiateInputWindow.xaml</summary>
-	public partial class NoAppropiateInputWindow : CsWindow
+	/// <summary>Interaction logic for CommandInfoWindow.xaml</summary>
+	public partial class CommandInfoWindow : CsWindow
 	{
-		public NoAppropiateInputWindow()
+		public CommandInfoWindow()
 		{
 			InitializeComponent();
 		}

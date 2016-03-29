@@ -8,7 +8,6 @@ using System;
 using System.Windows;
 using BillingTool.Runtime;
 using BillingTool.Runtime.types;
-using BillingTool.Windows;
 using CsWpfBase.Global;
 
 

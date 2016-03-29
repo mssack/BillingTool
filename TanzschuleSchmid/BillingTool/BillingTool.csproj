@@ -61,36 +61,21 @@
     <Compile Include="Runtime\Db.cs" />
     <Compile Include="Runtime\RuntimeConfiguration.cs" />
     <Compile Include="Runtime\types\RuntimeModes.cs" />
-    <Compile Include="Windows\DeveloperWindow.xaml.cs">
+    <Compile Include="Modes\developer\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\FinalizeBillWindow.xaml.cs">
-      <DependentUpon>FinalizeBillWindow.xaml</DependentUpon>
+    <Compile Include="Modes\commandInfo\CommandInfoWindow.xaml.cs">
+      <DependentUpon>CommandInfoWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\NoAppropiateInputWindow.xaml.cs">
-      <DependentUpon>NoAppropiateInputWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Windows\DeveloperWindow.xaml">
+    <Page Include="Modes\developer\DeveloperWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\FinalizeBillWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\NoAppropiateInputWindow.xaml">
+    <Page Include="Modes\commandInfo\CommandInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,7 +115,9 @@
       <Name>_CsWpfBaseForSchmid</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Modes\newCashBookEntry\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
