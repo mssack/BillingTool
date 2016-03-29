@@ -87,7 +87,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DatabaseCreation\SQL Scripts\CreateCashBookTable.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\Extensions\LogTitels.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\Extensions\LogTypes.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\CashBookEntry.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Log.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\CashBookTable.cs">
       <SubType>Component</SubType>
     </Compile>

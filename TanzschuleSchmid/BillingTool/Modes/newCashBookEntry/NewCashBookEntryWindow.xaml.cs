@@ -9,6 +9,7 @@ using System.Data;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Runtime;
 using CsWpfBase.Global;
@@ -48,8 +49,8 @@ namespace BillingTool.Modes.newCashBookEntry
 		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
 		public void Abort()
 		{
+			Logs.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}] wurde abgebrochen.", LogTypes.Information);
 			Item.Delete();
-			//TODO add logging
 			Exit();
 		}
 
@@ -70,7 +71,9 @@ namespace BillingTool.Modes.newCashBookEntry
 
 			Db.Billing.CashBook.Add(Item);
 			Db.Billing.SaveAnabolic();
-			//TODO add logging
+			Db.Billing.AcceptChanges();
+
+			Logs.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Id='{Item.Id}'] wurde erstellt.", LogTypes.Information);
 			Exit();
 		}
 

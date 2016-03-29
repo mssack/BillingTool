@@ -62,7 +62,9 @@
       <DependentUpon>NewCashBookEntryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Runtime\Db.cs" />
+    <Compile Include="Runtime\Logging.cs" />
     <Compile Include="Runtime\RuntimeConfiguration.cs" />
+    <Compile Include="Runtime\types\CompilerServices.cs" />
     <Compile Include="Runtime\types\RuntimeModes.cs" />
     <Compile Include="Modes\developer\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
