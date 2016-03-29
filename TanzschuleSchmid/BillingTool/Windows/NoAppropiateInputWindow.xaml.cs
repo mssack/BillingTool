@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
+// <author>Christian Sack</author>
+// <email>christian@sack.at</email>
+// <website>christian.sack.at</website>
+// <date>2016-03-29</date>
+
+using System;
+using CsWpfBase.Themes.Controls.Containers;
+
+
+
+
+
 
 namespace BillingTool.Windows
 {
-	/// <summary>
-	/// Interaction logic for NoAppropiateInputWindow.xaml
-	/// </summary>
-	public partial class NoAppropiateInputWindow : Window
+	/// <summary>Interaction logic for NoAppropiateInputWindow.xaml</summary>
+	public partial class NoAppropiateInputWindow : CsWindow
 	{
 		public NoAppropiateInputWindow()
 		{
