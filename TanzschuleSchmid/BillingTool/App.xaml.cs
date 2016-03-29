@@ -44,7 +44,7 @@ namespace BillingTool
 
 				if (string.Equals(arg, "/developer", StringComparison.OrdinalIgnoreCase))
 					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.Developer;
-				if (string.Equals(arg, "/newcashbookentry", StringComparison.OrdinalIgnoreCase))
+				else if (string.Equals(arg, "/newcashbookentry", StringComparison.OrdinalIgnoreCase))
 					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
 				else if (string.Equals(arg, "/database", StringComparison.OrdinalIgnoreCase))
 				{
