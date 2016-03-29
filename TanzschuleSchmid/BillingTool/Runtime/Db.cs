@@ -8,6 +8,8 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlServerCe;
+using System.IO;
+using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Db.router;
@@ -24,11 +26,25 @@ namespace BillingTool.Runtime
 	{
 		/// <summary>
 		///     The billing database loaded from <see cref="RuntimeConfiguration.DatabaseFilePath" />. You have to call <see cref="Connect" /> before accessing
-		///     this property. On application exit dont forget to save (<see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
+		///     this property. On application exit don't forget to save (<see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
 		/// </summary>
 		public static BillingDatabase Billing { get; private set; }
 		private static SqlCeRouter Router { get; set; }
 
+
+		/// <summary>Creates the database if it does not exist.</summary>
+		public static void Init()
+		{
+			var fileInfo = new FileInfo(RuntimeConfiguration.I.DatabaseFilePath);
+			if (fileInfo.Exists)
+				return;
+
+
+			using (var installer = new DatabaseInstaller(fileInfo.FullName))
+			{
+				installer.Install();
+			}
+		}
 
 		/// <summary>
 		///     Used to connect to database file specified in <see cref="RuntimeConfiguration" />. Take care a second call will result in an
@@ -59,7 +75,7 @@ namespace BillingTool.Runtime
 				Connect();
 				return;
 			}
-			
+
 			if (Router.State.IsConnected)
 				return;
 			Router.Open();
@@ -104,10 +120,10 @@ namespace BillingTool.Runtime
 			public override DataSet ExecuteDataSetCommand(string command, object tag = null)
 			{
 				var commands = command.Split(';');
-				DataSet targetSet = new DataSet();
+				var targetSet = new DataSet();
 				foreach (var cmd in commands)
 				{
-					var table = base.ExecuteCommand(cmd);
+					var table = ExecuteCommand(cmd);
 					targetSet.Tables.Add(table);
 				}
 				return targetSet;
