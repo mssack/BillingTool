@@ -21,5 +21,7 @@ namespace BillingTool.Runtime.types
 		Undefined,
 		/// <summary>The program is started for an Developer with administrative rights. In this mode real damage could be done. TAKE CARE.</summary>
 		Developer,
+		/// <summary>The program is started for an new cash book entry.</summary>
+		NewCashBookEntry,
 	}
 }

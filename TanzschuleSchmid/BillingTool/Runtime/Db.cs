@@ -5,6 +5,7 @@
 // <date>2016-03-29</date>
 
 using System;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlServerCe;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
@@ -26,6 +27,7 @@ namespace BillingTool.Runtime
 		///     this property. On application exit dont forget to save (<see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
 		/// </summary>
 		public static BillingDatabase Billing { get; private set; }
+		private static SqlCeRouter Router { get; set; }
 
 
 		/// <summary>
@@ -38,11 +40,12 @@ namespace BillingTool.Runtime
 				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
 
 
-			var router = new SqlCeRouter(RuntimeConfiguration.I.DatabaseFilePath);
-			router.Open();
+			Router = new SqlCeRouter(RuntimeConfiguration.I.DatabaseFilePath);
+			Router.Open();
 
 			Billing = new BillingDatabase();
-			Billing.Set_DbProxy(router);
+			Billing.Set_DbProxy(Router);
+			Billing.LoadSchema();
 		}
 
 		/// <summary>
@@ -56,14 +59,13 @@ namespace BillingTool.Runtime
 				Connect();
 				return;
 			}
-
-			var router = (SqlCeRouter) Billing.DbProxy;
-			if (router.State.IsConnected)
+			
+			if (Router.State.IsConnected)
 				return;
-			router.Open();
+			Router.Open();
 
-			if (!router.State.IsConnected)
-				throw router.State.LastException;
+			if (!Router.State.IsConnected)
+				throw Router.State.LastException;
 		}
 
 		/// <summary>
@@ -75,8 +77,8 @@ namespace BillingTool.Runtime
 			if (Billing == null)
 				return;
 
-			((SqlCeRouter) Billing.DbProxy).Dispose();
 			Billing.Dispose();
+			Router.Dispose();
 			Billing = null;
 		}
 
@@ -94,6 +96,23 @@ namespace BillingTool.Runtime
 
 
 			#region Overrides/Interfaces
+			/// <summary>Executes a command and delivers the result.</summary>
+			/// <returns>
+			///     The number of rows successfully added to or refreshed in the DataSet. This does not include rows affected by statements that do not return
+			///     rows.
+			/// </returns>
+			public override DataSet ExecuteDataSetCommand(string command, object tag = null)
+			{
+				var commands = command.Split(';');
+				DataSet targetSet = new DataSet();
+				foreach (var cmd in commands)
+				{
+					var table = base.ExecuteCommand(cmd);
+					targetSet.Tables.Add(table);
+				}
+				return targetSet;
+			}
+
 			/// <summary>Creates a new <see cref="DbDataAdapter" /> of the specific type using the command. Do not change any settings of the data adapter.</summary>
 			public override DbDataAdapter GetAdapter(DbCommand cmd)
 			{

@@ -1,0 +1,53 @@
+﻿<Window x:Class="BillingTool.Modes.newCashBookEntry.NewCashBookEntryWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+		Title="NewCashBookEntryWindow" Height="300" Width="300" x:Name="Uc" PreviewKeyUp="WindowPreviewKeyUp">
+	<Grid DataContext="{Binding ElementName=Uc, Path=Item}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<GroupBox Grid.Row="0" Header="Belegdaten" Style="{StaticResource ParamGroup}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<StringParam Grid.Row="0" Header="Belegnummer" Value="{Binding Path=ReferenceNumber}" IsReadOnly="True"/>
+				<DecimalParam Grid.Row="1" Header="Betrag" Value="{Binding Path=AmountGross}"/>
+				<DecimalParam Grid.Row="2" Header="Steuer" Value="{Binding Path=TaxPercent}"/>
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="1" Header="Kundendetails" Style="{StaticResource ParamGroup}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<StringParam Grid.Row="0" Header="ID" Value="{Binding Path=CustomerId}"/>
+				<StringParam Grid.Row="1" Header="Bezeichnung" Value="{Binding Path=CustomerName}"/>
+			</Grid>
+		</GroupBox>
+
+
+		<Border Grid.Row="3" Padding="4">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="1" Click="AbbrechenClick" Content="Abbrechen (ESC)"/>
+				<Button Grid.Column="2" Click="BonierenClick" Content="Bonieren (F2)"/>
+			</Grid>
+		</Border>
+	</Grid>
+</Window>

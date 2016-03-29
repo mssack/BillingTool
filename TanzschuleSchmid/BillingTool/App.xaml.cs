@@ -7,6 +7,7 @@
 using System;
 using System.Windows;
 using BillingTool.Modes.developer;
+using BillingTool.Modes.newCashBookEntry;
 using BillingTool.Runtime;
 using BillingTool.Runtime.types;
 using CsWpfBase.Global;
@@ -42,15 +43,15 @@ namespace BillingTool
 					continue;
 
 				if (string.Equals(arg, "/developer", StringComparison.OrdinalIgnoreCase))
-				{
 					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.Developer;
-				}
+				if (string.Equals(arg, "/newcashbookentry", StringComparison.OrdinalIgnoreCase))
+					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
 				else if (string.Equals(arg, "/database", StringComparison.OrdinalIgnoreCase))
 				{
 					if (i + 1 >= data.Length)
 						throw new Exception("You have to pass a database file if you use startup parameter '/database'");
-					
-					RuntimeConfiguration.I.DatabaseFilePath = data[++i];//Use the next argument as file path.
+
+					RuntimeConfiguration.I.DatabaseFilePath = data[++i]; //Use the next argument as file path.
 				}
 				else
 				{
@@ -62,7 +63,17 @@ namespace BillingTool
 		private void ExecuteMode()
 		{
 			if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.Developer)
-				StartupUri = new Uri($"/BillingTool;component/Modes/developer/{nameof(DeveloperWindow)}.xaml", UriKind.RelativeOrAbsolute);
+			{
+				Current.MainWindow = new DeveloperWindow();
+				Current.MainWindow.Show();
+			}
+			else if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.NewCashBookEntry)
+			{
+				Db.EnsureConnectivity();
+
+				Current.MainWindow = new NewCashBookEntryWindow {Item = Db.Billing.CashBook.NewRow()};
+				Current.MainWindow.Show();
+			}
 		}
 	}
 }

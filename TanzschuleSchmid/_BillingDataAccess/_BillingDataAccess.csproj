@@ -87,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DatabaseCreation\SQL Scripts\CreateCashBookTable.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\CashBookTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
   <ItemGroup>
