@@ -11,6 +11,6 @@ using System;
 
 
 
-namespace BillingDataAccess.sqlcedatabases.sampledb.views
+namespace BillingDataAccess.sqlcedatabases.billingdatabase.views
 {
 }

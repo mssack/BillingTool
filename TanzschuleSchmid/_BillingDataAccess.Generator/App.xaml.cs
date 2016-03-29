@@ -27,7 +27,7 @@ namespace BillingDataAccessGenerator
 	public partial class App : Application
 	{
 		/// <summary>the relative path to the sample db inside project.</summary>
-		public string SampleDatabaseFile => Path.Combine(new FileInfo("a").Directory.Parent.Parent.FullName, "SampleDb.sdf");
+		public string SampleDatabaseFile => Path.Combine(new FileInfo("a").Directory.Parent.Parent.FullName, "BillingDatabase.sdf");
 		/// <summary>the relative path to the target project folder.</summary>
 		public string TargetProjectFolder => Path.Combine(new FileInfo("a").Directory.Parent.Parent.Parent.FullName, "_BillingDataAccess");
 
