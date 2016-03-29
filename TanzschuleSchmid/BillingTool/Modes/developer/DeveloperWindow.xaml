@@ -1,13 +1,45 @@
-﻿<Window x:Class="BillingTool.Modes.developer.DeveloperWindow"
+﻿<CsWindow x:Class="BillingTool.Modes.developer.DeveloperWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-		Title="DeveloperWindow" Height="300" Width="300">
+		Title="DeveloperWindow" Height="500" Width="500" Padding="10">
+	
 	<Grid>
-		<GroupBox Style="{StaticResource ParamGroup}" Header="Installation">
-			<Button Content="Reinstall Database" Click="ReinstallDatabase_Click"/>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Grid.Resources>
+			<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+				<Setter Property="FontSize" Value="16"/>
+				<Setter Property="Height" Value="50"/>
+			</Style>
+		</Grid.Resources>
+		<GroupBox Style="{StaticResource ParamGroup}" Header="Test Funktions" FontSize="20">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Button Grid.Row="0" Content="New Cashbook Entry" Click="NewCashBookEntry_Click"/>
+				<Button Grid.Row="1" Content="Info Window" Click="NewCashBookEntry_Click"/>
+				<Button Grid.Row="2" Content="Latest Logs" Click="NewCashBookEntry_Click"/>
+				<Button Grid.Row="3" Content="Tagesbeleg" Click="NewCashBookEntry_Click"/>
+			</Grid>
+		</GroupBox>
+		<GroupBox Grid.Row="1" Style="{StaticResource ParamGroup}" Header="Administrative Functions">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Button Grid.Row="1" Content="Reinstall Database" Click="ReinstallDatabase_Click"/>
+			</Grid>
 		</GroupBox>
 	</Grid>
-</Window>
+</CsWindow>

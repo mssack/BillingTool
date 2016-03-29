@@ -4,46 +4,73 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-		Title="NewCashBookEntryWindow" Height="300" Width="300" x:Name="Uc" KeyUp="WindowKeyUp" >
+		Title="Neuer Eintrag" Height="350" Width="550" x:Name="Uc" KeyUp="WindowKeyUp" >
 	<Grid DataContext="{Binding ElementName=Uc, Path=Item}" Margin="10">
 		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
 
-		<GroupBox Grid.Row="0" Header="Belegdaten" Style="{StaticResource ParamGroup}">
-			<Grid IsSharedSizeScope="True" Width="170" HorizontalAlignment="Left" >
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<StringParam Grid.Row="0" Header="Belegnummer" Value="{Binding Path=ReferenceNumber}" IsReadOnly="True" HorizontalAlignment="Left"/>
-				<DecimalParam Grid.Row="1" Header="Betrag" Value="{Binding Path=AmountGross}" TextAlignment="Right" >
-					<TextBlock Text="€" Margin="5,0,0,0" Width="15"/>
-				</DecimalParam>
-				<DecimalParam Grid.Row="2" Header="Steuer" Value="{Binding Path=TaxPercent}" TextAlignment="Right">
-					<TextBlock Text="%" Margin="5,0,0,0" Width="15"/>
-				</DecimalParam>
-			</Grid>
-		</GroupBox>
-		<GroupBox Grid.Row="1" Header="Kundendetails" Style="{StaticResource ParamGroup}">
+			<GroupBox  Header="Belegdaten" Style="{StaticResource ParamGroup}">
+				<Grid IsSharedSizeScope="True" Width="170" HorizontalAlignment="Left" >
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<StringParam Grid.Row="0" Header="Belegnummer" Value="{Binding Path=ReferenceNumber}" IsReadOnly="True" HorizontalAlignment="Left"/>
+					<DecimalParam Grid.Row="1" Header="Betrag" Value="{Binding Path=AmountGross}" TextAlignment="Right" >
+						<TextBlock Text="€" Margin="5,0,0,0" Width="15"/>
+					</DecimalParam>
+					<DecimalParam Grid.Row="2" Header="Steuer" Value="{Binding Path=TaxPercent}" TextAlignment="Right">
+						<TextBlock Text="%" Margin="5,0,0,0" Width="15"/>
+					</DecimalParam>
+				</Grid>
+			</GroupBox>
+			<GroupBox Grid.Column="1" Header="Abwicklungsdaten" Style="{StaticResource ParamGroup}">
+				<Grid IsSharedSizeScope="True">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<StringParam Grid.Row="0" Header="Rechnungsaussteller" Value="{Binding Path=Issuer}"  AcceptsReturn="True" HeaderAlignment="Top" VerticalContentAlignment="Top"/>
+					<StringParam Grid.Row="1" Header="Empfänger" Value="{Binding Path=Recipient}" MinHeight="60" AcceptsReturn="True" HeaderAlignment="Top" VerticalContentAlignment="Top"/>
+				</Grid>
+			</GroupBox>
+		</Grid>
+
+		<GroupBox Grid.Row="1" Header="Interne Daten" Style="{StaticResource ParamGroup}">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<StringParam Grid.Row="0" Header="ID" Value="{Binding Path=CustomerId}"/>
-				<StringParam Grid.Row="1" Header="Bezeichnung" Value="{Binding Path=CustomerName}"/>
+				<StringParam Grid.Row="0" Header="Id" Value="{Binding Path=InternRecipientId}" AcceptsReturn="True"/>
+				<StringParam Grid.Row="1" Header="Notizen" Value="{Binding Path=InternDescription}" AcceptsReturn="True"/>
 			</Grid>
 		</GroupBox>
 
 
-		<Border Grid.Row="3" Padding="4">
+		<Border Grid.Row="4" Padding="0">
 			<Grid>
+				<Grid.Resources>
+					<Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+						<Setter Property="FontSize" Value="16"/>
+					</Style>
+				</Grid.Resources>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"/>
 					<ColumnDefinition Width="Auto"/>

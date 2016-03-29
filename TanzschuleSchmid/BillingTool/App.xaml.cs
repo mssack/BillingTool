@@ -77,7 +77,7 @@ namespace BillingTool
 
 				Db.EnsureConnectivity();
 
-				Current.MainWindow = new NewCashBookEntryWindow {Item = Db.Billing.CashBook.NewRow()};
+				Current.MainWindow = new NewCashBookEntryWindow(Db.Billing.CashBook.NewRow());
 				Current.MainWindow.Show();
 			}
 			else if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.CreateDatabase)

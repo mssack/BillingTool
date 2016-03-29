@@ -1,12 +1,16 @@
 ﻿CREATE TABLE [CashBook]
 (
-	[Id] uniqueidentifier PRIMARY KEY DEFAULT newid(), 
+	[Id] uniqueidentifier PRIMARY KEY DEFAULT newid(),
 	[ReferenceNumber] integer NOT NULL UNIQUE,
-	[CustomerId] nvarchar(255),
-	[CustomerName] nvarchar(255) NOT NULL,
 	[Date] datetime NOT NULL DEFAULT getdate(),
-	[Description] ntext,
 	[AmountGross] money NOT NULL DEFAULT(0),
 	[TaxPercent] money NOT NULL DEFAULT(0),
+	[Issuer] ntext NOT NULL,
+	[Recipient] ntext NOT NULL,
+	[Text] ntext,
+
+
+	[InternRecipientId] ntext,
+	[InternDescription] ntext,
 	[LastEdited] datetime NOT NULL DEFAULT getdate()
 )

@@ -22,7 +22,7 @@ using CsWpfBase.Global.message;
 
 namespace BillingTool.Modes.newCashBookEntry
 {
-	/// <summary>This window is used to create a new cash book entry inside the database. This is the typical use case for this program.</summary>
+	/// <summary>This window is used to create a new cash book entry inside a generic table. This is the typical use case for this program.</summary>
 	public partial class NewCashBookEntryWindow : Window
 	{
 		#region DP Keys
@@ -34,8 +34,9 @@ namespace BillingTool.Modes.newCashBookEntry
 
 
 		/// <summary>ctor</summary>
-		public NewCashBookEntryWindow()
+		public NewCashBookEntryWindow(CashBookEntry item)
 		{
+			Item = item;
 			InitializeComponent();
 		}
 
@@ -49,7 +50,7 @@ namespace BillingTool.Modes.newCashBookEntry
 		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
 		public void Abort()
 		{
-			Logs.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}] wurde abgebrochen.", LogTypes.Information);
+			Logs.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Table = '{Item.Table.TableName}'] wurde abgebrochen.", LogTypes.Information);
 			Item.Delete();
 			Exit();
 		}
@@ -68,13 +69,12 @@ namespace BillingTool.Modes.newCashBookEntry
 
 			Item.LastEdited = Item.Date = DateTime.Now;
 
+			Item.Table.Add(Item);
+			Item.Table.SaveChanges();
+			Item.Table.AcceptChanges();
 
-			Db.Billing.CashBook.Add(Item);
-			Db.Billing.SaveAnabolic();
-			Db.Billing.AcceptChanges();
-
-			Logs.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Id='{Item.Id}'] wurde erstellt.", LogTypes.Information);
-			Exit();
+			Logs.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag [RefNr = '{Item.ReferenceNumber}', Table = '{Item.Table.TableName}'] wurde erstellt.", LogTypes.Information);
+            Exit();
 		}
 
 

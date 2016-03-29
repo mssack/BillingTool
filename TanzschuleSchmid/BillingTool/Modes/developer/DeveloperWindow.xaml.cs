@@ -7,6 +7,7 @@
 using System;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
+using BillingTool.Modes.newCashBookEntry;
 using BillingTool.Runtime;
 using BillingTool.Runtime.types;
 using CsWpfBase.Global;
@@ -23,7 +24,7 @@ namespace BillingTool.Modes.developer
 	///     The Developer window provides administrative functionality. TAKE CARE whenever it will be used. This window should be opened in
 	///     <see cref="RuntimeModes.Developer" /> Mode.
 	/// </summary>
-	public partial class DeveloperWindow : Window
+	public partial class DeveloperWindow
 	{
 		/// <summary>ctor</summary>
 		public DeveloperWindow()
@@ -52,6 +53,12 @@ namespace BillingTool.Modes.developer
 			}
 
 
+		}
+
+		private void NewCashBookEntry_Click(object sender, RoutedEventArgs e)
+		{
+			Db.EnsureConnectivity();
+			new NewCashBookEntryWindow(Db.Billing.CashBook.NewRow()).Show();
 		}
 	}
 }
