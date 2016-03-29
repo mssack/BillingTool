@@ -54,6 +54,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="RuntimeSettings\StartupParams.cs" />
+    <Compile Include="Windows\FinalizeBillWindow.xaml.cs">
+      <DependentUpon>FinalizeBillWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NoAppropiateInputWindow.xaml.cs">
+      <DependentUpon>NoAppropiateInputWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +72,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\FinalizeBillWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NoAppropiateInputWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -97,9 +111,7 @@
       <Name>_CsWpfBaseForSchmid</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
