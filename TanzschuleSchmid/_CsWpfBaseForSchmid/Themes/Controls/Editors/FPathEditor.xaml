@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:editors="clr-namespace:CsWpfBase.Themes.Controls.Editors"
+					xmlns:base="clr-namespace:CsWpfBase.Themes.Controls.Editors.Base"
+					mc:Ignorable="d">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Base/PathEditor.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+	<Style TargetType="{x:Type editors:FPathEditor}" BasedOn="{StaticResource {x:Type base:PathEditor}}" />
+
+</ResourceDictionary>

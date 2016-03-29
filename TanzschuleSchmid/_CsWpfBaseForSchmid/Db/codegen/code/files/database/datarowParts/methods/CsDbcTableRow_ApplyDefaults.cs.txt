@@ -1,0 +1,5 @@
+﻿///	<summary> Set all values which have default values inside the database to their defaults. This method is automatically invoked if you call <see cref="#TableType#.NewRow"/>. </summary>
+public override void #Name#()
+{
+	#Content#
+}

@@ -1,0 +1,68 @@
+﻿<containers:CsWindow x:Class="CsWpfBase.Global.app.install.agreement.CsgAgreementWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:global="clr-namespace:CsWpfBase.Global" xmlns:attachedProperties="clr-namespace:CsWpfBase.Themes.AttachedProperties"
+					xmlns:containers="clr-namespace:CsWpfBase.Themes.Controls.Containers"
+					Title="License aggrement" Height="500" Width="500" WindowStartupLocation="CenterScreen" FooterVisibility="Collapsed" HeaderVisibility="Collapsed" x:Name="Self" CloseButtonVisibility="Collapsed"
+					MinimizeButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" Padding="10" Topmost="True" ResizeMode="NoResize" attachedProperties:AWindowDragMove.IsActive="True" >
+	<containers:CsWindow.Resources>
+		<Style TargetType="{x:Type GroupBox}">
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="BorderBrush" Value="DimGray" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Margin" Value="0,0,0,5" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="GroupBox">
+						<Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="*" />
+								</Grid.RowDefinitions>
+								<TextBlock Text="{TemplateBinding Header}" FontFamily="Segoe UI Light" FontSize="16" />
+								<ContentPresenter Grid.Row="1" Margin="0,2,0,0" />
+							</Grid>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style TargetType="{x:Type TextBox}">
+			<Setter Property="IsReadOnly" Value="True" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Background" Value="White" />
+			<Setter Property="Margin" Value="0" />
+			<Setter Property="Padding" Value="10" />
+			<Setter Property="TextWrapping" Value="Wrap" />
+			<Setter Property="FontFamily" Value="Lucida console" />
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
+		</Style>
+		<Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+			<Setter Property="Padding" Value="4,2,4,2" />
+			<Setter Property="MinWidth" Value="100" />
+		</Style>
+	</containers:CsWindow.Resources>
+	<Grid DataContext="{Binding ElementName=Self}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBlock Text="{Binding Path=ApplicationName}" FontFamily="Segoe UI Light" FontSize="20" Margin="0,-4,0,0" />
+		<GroupBox Grid.Row="1" Header="License (Freeware, Closed source, No commercial use)">
+			<TextBox Text="{Binding Path=Agreement, Mode=OneWay}" IsReadOnly="True"/>
+		</GroupBox>
+		<GroupBox Grid.Row="2" Header="Privacy">
+			<TextBox Text="{Binding Path=PrivacyAgreement, Mode=OneWay}" IsReadOnly="True" />
+		</GroupBox>
+		<Grid Grid.Row="3">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Button Content="Deny" Click="DenyClicked" />
+			<Button Grid.Column="2" Content="Accept" Click="AcceptClicked" />
+		</Grid>
+	</Grid>
+</containers:CsWindow>

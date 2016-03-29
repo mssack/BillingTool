@@ -1,0 +1,165 @@
+﻿body
+{
+    background-color: #EEEEF2;
+    font-family: "Segoe UI", "Verdana", "Arial";
+    font-size: 9pt;
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+table > tbody > tr > td
+{
+    padding: 0;
+}
+
+h3
+{
+    margin-top: 0;
+    padding-top: 0;
+}
+
+
+
+#Container
+{
+    background-color: white;
+    border: 1px lightgray solid;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+#Container > #Header
+{
+    background-color: #E0E0E2;
+    border-bottom: 1px lightgray solid;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+#Container > #Header > #HeaderText
+{
+    display: inline-block;
+    float: left;
+    font-family: "Segoe UI Light", "Verdana", "Arial";
+    font-size: 30px;
+    line-height: 30px;
+}
+
+#Container > #Header > #Icon
+{
+    display: inline-block;
+    float: left;
+}
+
+#Container > #Header > #Icon img
+{
+    margin-right: 10px;
+    max-height: 30px;
+    max-width: 40px;
+    vertical-align: middle
+}
+
+#Container > #Content
+{
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+#Container > #Footer
+{
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#Container > #Footer > #CreationDate
+{
+    color: gray;
+    float: left;
+    font-size: 10px;
+}
+
+#Container > #Footer > #CopyRights
+{
+    color: gray;
+    float: right;
+    font-size: 10px;
+}
+
+.vertCentered
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.Clr
+{
+    clear: both;
+}
+
+
+
+
+
+/*ToolTip*/
+
+.tooltip
+{
+    cursor: help;
+    outline: none;
+}
+
+.tooltip:hover
+{
+    text-decoration: none;
+}
+
+.tooltip > .tooltipContent
+{
+    cursor: default;
+    display: none;
+    font-family: "Segoe UI", "Verdana", "Arial";
+    line-height: 16px;
+
+
+    
+    margin-left: -7px;
+    padding: 5px 5px;
+    text-align: left;
+    white-space: normal;
+    z-index: 10;
+}
+
+.tooltip:hover > .tooltipContent
+{
+    background: #fffAF0;
+    border: 1px solid #DCA;
+    color: #111;
+    display: block;
+    position: absolute;
+}
+
+.tooltip > .tooltipContent
+{
+    -ms-border-radius: 4px;
+    -ms-box-shadow: 5px 5px 8px #CCC;
+    -webkit-box-shadow: 5px 5px 8px #CCC;
+    border-radius: 4px;
+    box-shadow: 5px 5px 8px #CCC;
+}
+
+/*Sort*/
+
+.sortable > thead
+{
+    cursor: pointer
+}

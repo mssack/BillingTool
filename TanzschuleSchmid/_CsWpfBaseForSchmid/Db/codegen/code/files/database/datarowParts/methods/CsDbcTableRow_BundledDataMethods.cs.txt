@@ -1,0 +1,19 @@
+﻿/// <summary>
+///     Loads the complete data bundle of the current row into a target data set.
+///     <para>A data bundle is defined as a set of all rows inside a database which are connected via relations.</para>
+///     <para>The currently selected row is the root of the bundle</para>
+/// </summary>
+public void Copy_BundledData_Into_DataSet(#DataSetName# target)
+{
+	base.Copy_BundledData_Into_DataSet(target);
+}
+
+/// <summary>
+///     Loads the complete data bundle of the current row into a new data set.
+///     <para>A data bundle is defined as a set of rows inside a database which are connected via relations.</para>
+///     <para>The currently selected row is the root of the bundle</para>
+/// </summary>
+public new #DataSetName# Copy_BundledData_In_New_DataSet()
+{
+	return (#DataSetName#) base.Copy_BundledData_In_New_DataSet();
+}

@@ -1,0 +1,1 @@
+﻿AddRelation("#Name#", #PkTableProperty#.Columns[#PkTableName#.#PkColumnName#], #FkTableProperty#.Columns[#FkTableName#.#FkColumnName#], #DeleteRule#, #UpdateRule#);

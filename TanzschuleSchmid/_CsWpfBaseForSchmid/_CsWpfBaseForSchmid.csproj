@@ -1,0 +1,1394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63CB4E91-9D9C-4C97-8097-FC3964593796}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CsWpfBase</RootNamespace>
+    <AssemblyName>CsWpfBase</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DbTrace</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\CsWpfBase.XML</DocumentationFile>
+    <NoWarn>
+    </NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\CsWpfBase.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="config.txt" />
+    <Compile Include="Db\attributes\CsDbDataRowInterfaceAttribute.cs" />
+    <Compile Include="Db\attributes\CsDbDataContextAttribute.cs" />
+    <Compile Include="Db\attributes\CsDbDataViewRowAttribute.cs" />
+    <Compile Include="Db\attributes\CsDbDataViewAttribute.cs" />
+    <Compile Include="Db\attributes\columnAttributes\CsDbResolvesRelationAttribute.cs" />
+    <Compile Include="Db\attributes\columnAttributes\CsDbDataColumnAttribute.cs" />
+    <Compile Include="Db\attributes\columnAttributes\CsDbNativeDataColumnAttribute.cs" />
+    <Compile Include="Db\attributes\CsDbDataSetAttribute.cs" />
+    <Compile Include="Db\attributes\CsDbDataRowAttribute.cs" />
+    <Compile Include="Db\attributes\CsDbDataTableAttribute.cs" />
+    <Compile Include="Db\codegen\architecture\CsDbArchitecture.cs" />
+    <Compile Include="Db\codegen\architecture\generators\CsDbArcGen_SqlCe.cs" />
+    <Compile Include="Db\codegen\architecture\generators\CsDbArcGen_Sql.cs" />
+    <Compile Include="Db\codegen\architecture\parts\CsDbArcDatabase.cs" />
+    <Compile Include="Db\codegen\architecture\parts\CsDbArcColumn.cs" />
+    <Compile Include="Db\codegen\architecture\parts\CsDbArcRelation.cs" />
+    <Compile Include="Db\codegen\architecture\parts\CsDbArcTable.cs" />
+    <Compile Include="Db\codegen\architecture\parts\bases\CsDbArcTableViewBase.cs" />
+    <Compile Include="Db\codegen\architecture\parts\CsDbArcView.cs" />
+    <Compile Include="Db\codegen\architecture\generators\bases\IGenCsDbArcContext.cs" />
+    <Compile Include="Db\codegen\code\CsDbCodeBundle.cs" />
+    <Compile Include="Db\codegen\code\CsDbCodeBundleWriter.cs" />
+    <Compile Include="Db\codegen\code\extensions\CsDbCodeRelation.cs" />
+    <Compile Include="Db\codegen\code\extensions\CsDbCodeRelationFileTemplate.cs" />
+    <Compile Include="Db\codegen\code\files\database\CsDbCodeDataContext.cs" />
+    <Compile Include="Db\codegen\code\files\CsDbCodeNamespace.cs" />
+    <Compile Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_GetDatabaseByNameMethod.cs" />
+    <Compile Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_LoadConstraintsMethod.cs" />
+    <Compile Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_SetDbProxyMethod.cs" />
+    <Compile Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_DataSetProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_CopyMethods.cs" />
+    <Compile Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_ViewProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyFindOrLoadMethod.cs" />
+    <Compile Include="Db\codegen\code\files\database\CsDbCodeDataView.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\associated\CsDbcTableRow_AssociatedProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\columns\CsDbcTableRow_Column.cs" />
+    <Compile Include="Db\codegen\code\files\database\CsDbCodeDataRow.cs" />
+    <Compile Include="Db\codegen\code\files\database\CsDbCodeDataSet.cs" />
+    <Compile Include="Db\codegen\code\files\database\CsDbCodeDataTable.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\columns\CsDbcTableRow_UnsignedColumn.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\referencing\CsDbcTableRow_ReferencingProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_Reload.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_Invalidate.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_ApplyDefaults.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_Methods.cs" />
+    <Compile Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_RelationEntry.cs" />
+    <Compile Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_TableProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\CsDbcTable_ColAttribute.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\CsDbcTable_Overrides.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyMethodBundle.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\CsDbcTable_PrimaryKeyMethods.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyFindMethod.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyLoadThenFindMethod.cs" />
+    <Compile Include="Db\codegen\code\files\database\datatableParts\methods\CsDbcTable_Methods.cs" />
+    <Compile Include="Db\codegen\code\files\database\dataviewparts\overrides\CsDbcView_Overrides.cs" />
+    <Compile Include="Db\codegen\code\files\database\dataviewparts\row\columns\CsDbcViewRow_Column.cs" />
+    <Compile Include="Db\codegen\code\files\database\dataviewparts\row\columns\CsDbcViewRow_UnsignedColumn.cs" />
+    <Compile Include="Db\codegen\code\files\database\dataviewparts\constants\CsDbcView_Constant.cs" />
+    <Compile Include="Db\codegen\code\files\database\dataviewparts\row\CsDbcViewRow.cs" />
+    <Compile Include="Db\codegen\code\files\database\CsDbCodeDataRowInterface.cs" />
+    <Compile Include="Db\codegen\code\files\database\interfaceParts\CsDbcRowInterface_Member.cs" />
+    <Compile Include="Db\codegen\code\namingconventions\NamingConvention.cs" />
+    <Compile Include="Db\codegen\CsDbCodeGen.cs" />
+    <Compile Include="Db\codegen\CsDbCodeGenConvert.cs" />
+    <Compile Include="Db\codegen\CsDbCodeGenCreate.cs" />
+    <Compile Include="Db\codegen\CsDbCodeGenTracing.cs" />
+    <Compile Include="Db\codegen\CsDbCodeGenStatics.cs" />
+    <Compile Include="Db\router\CsDbRouter.cs" />
+    <Compile Include="Db\router\DbConnectionState.cs" />
+    <Compile Include="Db\interfaces\IContainDbProxy.cs" />
+    <Compile Include="Db\interfaces\IDbProxyAssociateable.cs" />
+    <Compile Include="Db\interfaces\IDbProxy.cs" />
+    <Compile Include="Db\CsDb.cs" />
+    <Compile Include="Db\models\bases\CsDbContextBase.cs" />
+    <Compile Include="Db\models\bases\CsDbDataSetBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Db\models\bases\CsDbTableBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Db\models\bases\CsDbRowBase.cs" />
+    <Compile Include="Db\models\CsDbDataContext.cs" />
+    <Compile Include="Db\models\CsDbDataSet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Db\models\CsDbTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Db\models\CsDbTableRow.cs" />
+    <Compile Include="Db\models\CsDbView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Db\models\CsDbViewRow.cs" />
+    <Compile Include="Db\models\helper\ContractCollection.cs" />
+    <Compile Include="Db\models\helper\CsDbRelation.cs" />
+    <Compile Include="Db\models\helper\ReflectionHelper.cs" />
+    <Compile Include="Db\models\helper\CsDbTableRowCollection.cs" />
+    <Compile Include="Db\models\helper\CsWeakReference.cs" />
+    <Compile Include="Db\models\helper\CsDbRouter_SqlDirect.cs" />
+    <Compile Include="Db\models\internalhelper\CsDbTraceProxy.cs" />
+    <Compile Include="Db\tools\controls\CsDbDataSetEditor.xaml.cs">
+      <DependentUpon>CsDbDataSetEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Db\tools\controls\CsDbTableEditor.xaml.cs">
+      <DependentUpon>CsDbTableEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Db\tools\rowbundlecreators\RowBundleCreator.cs" />
+    <Compile Include="Ev\Attributes\EnumDescriptionAttribute.cs" />
+    <Compile Include="Ev\Exceptions\CsGlobalException.cs" />
+    <Compile Include="Ev\Exceptions\CsGlobalFunctionNotConfiguredException.cs" />
+    <Compile Include="Ev\Objects\Base.cs" />
+    <Compile Include="Ev\Objects\BaseRegister.cs" />
+    <Compile Include="Ev\Objects\BaseRegisterTs.cs" />
+    <Compile Include="Ev\Objects\FuncExt\Endless\BaseEndlessResult.cs" />
+    <Compile Include="Ev\Objects\FuncExt\Endless\BaseEndlessState.cs" />
+    <Compile Include="Ev\Objects\FuncExt\Limited\BaseResult.cs" />
+    <Compile Include="Ev\Objects\FuncExt\Limited\BaseState.cs" />
+    <Compile Include="Ev\Objects\FuncExt\BaseOption.cs" />
+    <Compile Include="Ev\Public\Extensions\BinaryWriterExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ByteArrayConversions.cs" />
+    <Compile Include="Ev\Public\CMD.cs" />
+    <Compile Include="Ev\Public\Extensions\ColorExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\EnumerationHandlingExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\EnumExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ExceptionHandlingExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\FileWritingAndReadingExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ImageExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\IntExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ManagementExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\RandomExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\StreamExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\StringHandlingExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ThreadingExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\TypeExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\VersionExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\WpfExtensions.cs" />
+    <Compile Include="Ev\Public\Markups\XmlLanguage.cs" />
+    <Compile Include="Global\app\install\agreement\CsgAgreementWindow.xaml.cs">
+      <DependentUpon>CsgAgreementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Global\app\install\agreement\CsgAgreementPrivacyAddition.cs" />
+    <Compile Include="Global\app\install\agreement\CsgAgreement.cs" />
+    <Compile Include="Global\app\CsgAppData.cs" />
+    <Compile Include="Global\app\CsgAppInfo.cs" />
+    <Compile Include="Global\app\install\agreement\CsgAppInstallAgreement.cs" />
+    <Compile Include="Global\app\install\shortcut\CsgAppInstallShortcut.cs" />
+    <Compile Include="Global\app\install\shortcut\CsgLnkShortcut.cs" />
+    <Compile Include="Global\computer\Computer.cs" />
+    <Compile Include="Global\computer\CsgComputerDiskDrive.cs" />
+    <Compile Include="Global\computer\CsgComputerGraphic.cs" />
+    <Compile Include="Global\computer\CsgComputerMainBoard.cs" />
+    <Compile Include="Global\computer\CsgComputerNetwork.cs" />
+    <Compile Include="Global\computer\CsgComputerProcessor.cs" />
+    <Compile Include="Global\computer\CsgComputerMemory.cs" />
+    <Compile Include="Global\computer\CsgComputerBios.cs" />
+    <Compile Include="Global\computer\CsgComputerScreen.cs" />
+    <Compile Include="Global\computer\CsgComputerSystem.cs" />
+    <Compile Include="Global\computer\parts\NetworkDevice.cs" />
+    <Compile Include="Global\computer\parts\DiskDriveDevice.cs" />
+    <Compile Include="Global\computer\parts\DiskDrivePartition.cs" />
+    <Compile Include="Global\computer\parts\GraphicDevice.cs" />
+    <Compile Include="Global\computer\parts\LogicalDisk.cs" />
+    <Compile Include="Global\computer\parts\MemoryDevice.cs" />
+    <Compile Include="Ev\CsWpfBaseConfig.cs" />
+    <Compile Include="Global\storage\cache\CsgCache.cs" />
+    <Compile Include="Global\storage\compression\CsgCompression.cs" />
+    <Compile Include="Global\storage\compression\CsgCompressionZip.cs" />
+    <Compile Include="Global\storage\compression\zip\ZipStorer.cs" />
+    <Compile Include="Global\storage\CsgStorage.cs" />
+    <Compile Include="Global\storage\configfile\ConfigFile.cs" />
+    <Compile Include="Global\external\cmd\CsgreCmd.cs" />
+    <Compile Include="Global\external\cmd\CsgreHiddenCmd.cs" />
+    <Compile Include="Global\external\cmd\CsgreHiddenTimedCmd.cs" />
+    <Compile Include="Global\external\cmd\CsgreVisibleCmd.cs" />
+    <Compile Include="Global\external\cmd\CsgreVisibleTimedCmd.cs" />
+    <Compile Include="Global\GlobalFunctions.cs" />
+    <Compile Include="Global\CsGlobal.cs" />
+    <Compile Include="Global\debug\Debug.cs" />
+    <Compile Include="Global\external\External.cs" />
+    <Compile Include="Global\message\CsMessage.cs" />
+    <Compile Include="Global\message\Message.cs" />
+    <Compile Include="Global\os\Os.cs" />
+    <Compile Include="Global\os\user\CsgOsUser.cs" />
+    <Compile Include="Global\storage\resource\Resource.Dictionary.cs" />
+    <Compile Include="Global\storage\resource\Resource.cs" />
+    <Compile Include="Global\storage\scopes\CsgStorageScope.cs" />
+    <Compile Include="Global\transmission\CsgTransmission.cs" />
+    <Compile Include="Global\transmission\secured\http\HttpCryptoServerSession.cs" />
+    <Compile Include="Global\transmission\secured\http\HttpCryptoClientSession.cs" />
+    <Compile Include="Global\transmission\secured\CsgTransmissionSecured.cs" />
+    <Compile Include="Global\transmission\secured\http\CsgTransmissionSecuredHttp.cs" />
+    <Compile Include="Global\wpf\Dragging\DragDropHandler.cs" />
+    <Compile Include="Global\wpf\Dragging\DropOntoAdorner.cs" />
+    <Compile Include="Global\wpf\Storage\Storage.cs" />
+    <Compile Include="Global\wpf\Storage\Storage.ListView.cs" />
+    <Compile Include="Global\wpf\Storage\Storage.Window.cs" />
+    <Compile Include="Global\wpf\Wpf.Dragging.cs" />
+    <Compile Include="Global\wpf\Wpf.VisualTree.cs" />
+    <Compile Include="Global\wpf\Wpf.Time.cs" />
+    <Compile Include="Global\wpf\Wpf.Animation.cs" />
+    <Compile Include="Global\wpf\Wpf.cs" />
+    <Compile Include="Global\debug\CodePosition.cs" />
+    <Compile Include="Ev\Internal\CompilerServices.cs" />
+    <Compile Include="Ev\Objects\SmallHash.cs" />
+    <Compile Include="Ev\Public\Extensions\DataExtensions.cs" />
+    <Compile Include="Ev\Objects\RelayCommand.cs" />
+    <Compile Include="Online\CsOnline.cs" />
+    <Compile Include="Online\key\Key.cs" />
+    <Compile Include="Online\packets\v1\client\CsopClientAppInfo.cs" />
+    <Compile Include="Online\packets\v1\client\CsopClientException.cs" />
+    <Compile Include="Online\packets\v1\client\CsopClientFeedback.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwBiosInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwDiskDriveInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwNetworkInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\parts\CsopV1PartNetworkDevice.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\parts\CsopV1PartLogicalDisk.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\parts\CsopV1PartDiskPartition.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\parts\CsopV1PartDiskDriveDevice.cs" />
+    <Compile Include="Online\packets\v1\client\osparts\CsopClientOsInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\parts\CsopV1PartGraphicDevice.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\parts\CsopV1PartMemoryDevice.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwGraphicInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwProcessorInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwMainBoardInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwComputerSystemInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwScreenInfo.cs" />
+    <Compile Include="Online\packets\v1\client\hardwareinfo\CsopClientHwMemoryInfo.cs" />
+    <Compile Include="Online\packets\v1\client\osparts\CsopV1PartUser.cs" />
+    <Compile Include="Online\packets\v1\client\_CsopClient.cs" />
+    <Compile Include="Online\packets\v1\CsopCrypto.cs" />
+    <Compile Include="Online\packets\CsoPacket.cs" />
+    <Compile Include="Online\packets\v1\server\CsopServerMessage.cs" />
+    <Compile Include="Online\packets\v1\server\CsopServerUpdateAvailable.cs" />
+    <Compile Include="Online\packets\v1\server\CsopServer.cs" />
+    <Compile Include="Online\packets\UnknownPacket.cs" />
+    <Compile Include="Online\parser\Parser.cs" />
+    <Compile Include="Online\response\Response.cs" />
+    <Compile Include="Online\response\ResponseProcess.cs" />
+    <Compile Include="Online\send\Send.cs" />
+    <Compile Include="Online\send\SendAsync.cs" />
+    <Compile Include="Online\send\SendTask.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\treelistview\TreeGridViewItem.xaml.cs">
+      <DependentUpon>TreeGridViewItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\treelistview\TreeGridView.xaml.cs">
+      <DependentUpon>TreeGridView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Containers\HelpTooltip.xaml.cs">
+      <DependentUpon>HelpTooltip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Containers\ItemControl.cs" />
+    <Compile Include="Themes\Controls\Db\DbConnectorAssignerControl.xaml.cs">
+      <DependentUpon>DbConnectorAssignmentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Resources\Converters\image\Conv_PercentToQualityImage.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_IsNotOfTypeToVisibility.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_IsOfTypeToVisibility.cs" />
+    <Compile Include="Themes\Resources\Converters\MultiBindingLevelToMargin.cs" />
+    <Compile Include="Themes\Resources\ShaderEffects\BrightContrastEffect\BrightContrastEffect.cs" />
+    <Compile Include="Themes\AttachedProperties\AGridViewColumn.cs" />
+    <Compile Include="Themes\Controls\Basics\AlternatingTextBox.xaml.cs">
+      <DependentUpon>AlternatingTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Base\NumberEditor.xaml.cs">
+      <DependentUpon>NumberEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Base\PathEditor.xaml.cs">
+      <DependentUpon>PathEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\ComboBoxWithNewButton.xaml.cs">
+      <DependentUpon>ComboBoxWithNewButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\AttachedProperties\AKeyboardFocusRedirection.cs" />
+    <Compile Include="Themes\AttachedProperties\ASort.cs" />
+    <Compile Include="Themes\AttachedProperties\ATextBox.cs" />
+    <Compile Include="Themes\AttachedProperties\AWindowDragMove.cs" />
+    <Compile Include="Themes\AttachedProperties\AWindowResizeBorder.cs" />
+    <Compile Include="Themes\Resources\ShaderEffects\GrayScale\GrayscaleEffect.cs" />
+    <Compile Include="Themes\AttachedProperties\EnumHelpers.cs" />
+    <Compile Include="Themes\Controls\Basics\SeparatorBorder.xaml.cs">
+      <DependentUpon>SeparatorBorder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Base\EditorBase.xaml.cs">
+      <DependentUpon>EditorBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\DateTimeEditor.xaml.cs">
+      <DependentUpon>DateTimeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\ByteEditor.xaml.cs">
+      <DependentUpon>ByteEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\DecimalEditor.xaml.cs">
+      <DependentUpon>DecimalEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\DoubleEditor.xaml.cs">
+      <DependentUpon>DoubleEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\UInt64Editor.xaml.cs">
+      <DependentUpon>UInt64Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\DateEditor.xaml.cs">
+      <DependentUpon>DateEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\DPathEditor.xaml.cs">
+      <DependentUpon>DPathEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\FPathEditor.xaml.cs">
+      <DependentUpon>FPathEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\ImageEditor.xaml.cs">
+      <DependentUpon>ImageEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\Int16Editor.xaml.cs">
+      <DependentUpon>Int16Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\Int32Editor.xaml.cs">
+      <DependentUpon>Int32Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\Int64Editor.xaml.cs">
+      <DependentUpon>Int64Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\TimeEditor.xaml.cs">
+      <DependentUpon>TimeEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\UInt16Editor.xaml.cs">
+      <DependentUpon>UInt16Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Editors\Number\UInt32Editor.xaml.cs">
+      <DependentUpon>UInt32Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\_shared\Extensions.cs" />
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\BoolParam.xaml.cs">
+      <DependentUpon>BoolParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\DateParam.xaml.cs">
+      <DependentUpon>DateParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\DateTimeParam.xaml.cs">
+      <DependentUpon>DateTimeParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\ImageParam.xaml.cs">
+      <DependentUpon>ImageParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\ByteParam.xaml.cs">
+      <DependentUpon>ByteParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\DecimalParam.xaml.cs">
+      <DependentUpon>DecimalParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\DoubleParam.xaml.cs">
+      <DependentUpon>DoubleParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\Int16Param.xaml.cs">
+      <DependentUpon>Int16Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\Int32Param.xaml.cs">
+      <DependentUpon>Int32Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\Int64Param.xaml.cs">
+      <DependentUpon>Int64Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\UInt16Param.xaml.cs">
+      <DependentUpon>UInt16Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\UInt32Param.xaml.cs">
+      <DependentUpon>UInt32Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\Number\UInt64Param.xaml.cs">
+      <DependentUpon>UInt64Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\StringParam.xaml.cs">
+      <DependentUpon>StringParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Editors\TimeParam.xaml.cs">
+      <DependentUpon>TimeParam.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Base\ParameterEngineBase.xaml.cs">
+      <DependentUpon>ParameterEngineBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\Param.xaml.cs">
+      <DependentUpon>Param.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\ParameterEngine\ParamView.xaml.cs">
+      <DependentUpon>ParamView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\Hr.xaml.cs">
+      <DependentUpon>Hr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\InvalidableTextBox.xaml.cs">
+      <DependentUpon>InvalidableTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\StateIcon.xaml.cs">
+      <DependentUpon>StateIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\ImageToggleButton.xaml.cs">
+      <DependentUpon>ImageToggleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Containers\NavigationContainer.xaml.cs">
+      <DependentUpon>NavigationContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Global\message\CsMessageWindow.xaml.cs">
+      <DependentUpon>CsMessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Basics\WaitCircle.xaml.cs">
+      <DependentUpon>WaitCircle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Containers\WindowButton.xaml.cs">
+      <DependentUpon>WindowButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Resources\Converters\ConverterAddins.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_PercentToColor.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_BoolInverter.cs" />
+    <Compile Include="Themes\Generic.xaml.cs">
+      <DependentUpon>Generic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Containers\PopupButton.xaml.cs">
+      <DependentUpon>PopupButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\Containers\CsWindow.xaml.cs">
+      <DependentUpon>CsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Resources\Converters\format\Conv_ArrayToFormattedText.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_BindingStringFormat.cs" />
+    <Compile Include="Themes\Resources\Converters\format\Conv_BitSpeedToFormattedBitSpeed.cs" />
+    <Compile Include="Themes\Resources\Converters\format\Conv_BitSpeedToFormattedByteSpeed.cs" />
+    <Compile Include="Themes\Resources\Converters\format\Conv_BoolToJaNein.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_LessThen.cs" />
+    <Compile Include="Themes\Resources\Converters\visibility\Conv_BoolVisibility.cs" />
+    <Compile Include="Themes\Resources\Converters\format\Conv_BytesToFormattedText.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_DateTimeIsInFuture.cs" />
+    <Compile Include="Themes\Resources\Converters\format\Conv_EnumToDescription.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_GreaterThen.cs" />
+    <Compile Include="Themes\Resources\Converters\visibility\Conv_InvBoolVisibility.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_InvIsNullOrEmpty.cs" />
+    <Compile Include="Themes\Resources\Converters\visibility\Conv_InvNullToVisibility.cs" />
+    <Compile Include="Themes\Resources\Converters\format\Conv_Ipv6AddressToString.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_IsNullOrEmpty.cs" />
+    <Compile Include="Themes\Resources\Converters\logic\Conv_IsOfType.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_MultiBindingStringFormat.cs" />
+    <Compile Include="Themes\Resources\Converters\visibility\Conv_NullToVisibility.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_ThicknessInverter.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_ThicknessZeroSetter.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_TimeDiffference.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_ToStaticList.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_UntilDateTimeConverter.cs" />
+    <Compile Include="Utilitys\AnonComparer.cs" />
+    <Compile Include="Utilitys\codingTestUtils\CsTest.cs" />
+    <Compile Include="Utilitys\codingTestUtils\comparison\CsTestComparison.cs" />
+    <Compile Include="Utilitys\codingTestUtils\data\CsTestData.cs" />
+    <Compile Include="Utilitys\codingTestUtils\data\CsTestDataGenerator.cs" />
+    <Compile Include="Utilitys\ListAssimilator.cs" />
+    <Compile Include="Utilitys\ConfigEngine\Base\ConfigExt.cs" />
+    <Compile Include="Utilitys\ConfigEngine\ConfigCreator.cs" />
+    <Compile Include="Utilitys\ConfigEngine\ConfigMemberAttribute.cs" />
+    <Compile Include="Utilitys\ConfigEngine\ConfigParser.cs" />
+    <Compile Include="Utilitys\DateDiff.cs" />
+    <Compile Include="Utilitys\feedback\FeedbackControl.xaml.cs">
+      <DependentUpon>FeedbackControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilitys\searializer\CsSerializer.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\typeDefinitions\CssDeserializedArray.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\typeDefinitions\_CssDeserializedClass.cs" />
+    <Compile Include="Utilitys\searializer\v1\reflection\CssTypeDefinitionClass.cs" />
+    <Compile Include="Utilitys\searializer\v1\reflection\CssTypeDefinitionPrimitive.cs" />
+    <Compile Include="Utilitys\searializer\v1\reflection\CssTypeDefinition.cs" />
+    <Compile Include="Utilitys\searializer\attributes\CssLegacyAliasAttribute.cs" />
+    <Compile Include="Utilitys\searializer\v1\CssV1.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\CssDeserializationBody.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\typeDefinitions\CssDeserializedDictionary.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\typeDefinitions\CssDeserializedList.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\_CssDeserializationContext.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\CssDeserializationDefinition.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\CssDeserializationHeader.cs" />
+    <Compile Include="Utilitys\searializer\v1\deserialization\_CssDeserializationContextPart.cs" />
+    <Compile Include="Utilitys\searializer\v1\serialization\CssSerializationBody.cs" />
+    <Compile Include="Utilitys\searializer\v1\serialization\CssSerializationDefinition.cs" />
+    <Compile Include="Utilitys\searializer\v1\serialization\_CssSerializationContextPart.cs" />
+    <Compile Include="Utilitys\searializer\v1\serialization\_CssSerializationContext.cs" />
+    <Compile Include="Utilitys\searializer\v1\serialization\CssSerializationHeader.cs" />
+    <Compile Include="Utilitys\templates\ConfigFile.cs" />
+    <Compile Include="Utilitys\templates\FileTemplate.cs" />
+    <Compile Include="Utilitys\DynamicNumber.cs" />
+    <Compile Include="Utilitys\ProcessLock.cs" />
+    <Compile Include="_files\html\CsHtmlPage.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Global\app\CsgApp.cs" />
+    <Compile Include="Global\app\install\CsgAppInstall.cs" />
+    <Compile Include="Global\storage\resource\Resource.File.cs" />
+    <Compile Include="Global\storage\resource\Resource.Path.cs" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_SetDbProxyMethod.cs.txt">
+      <DependentUpon>CsDbcContext_SetDbProxyMethod.cs</DependentUpon>
+    </Resource>
+    <Resource Include="Themes\Resources\ShaderEffects\BrightContrastEffect\bricon.ps" />
+    <Resource Include="Themes\Resources\ShaderEffects\GrayScale\GrayscaleEffect.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Db\tools\controls\CsDbDataSetEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Db\tools\controls\CsDbTableEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Global\app\install\agreement\CsgAgreementWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\AlternatingTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\ComboBoxWithNewButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\Hr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\ImageToggleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\InvalidableTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\SeparatorBorder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\StateIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\Basics\treelistview\TreeGridViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\treelistview\TreeGridView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Containers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Containers\CsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Containers\HelpTooltip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Containers\NavigationContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Containers\PopupButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Containers\WindowButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Db.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Db\DbConnectorAssignmentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Base\EditorBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Base\NumberEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Base\PathEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\DateTimeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\ByteEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\DateEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\DecimalEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\DoubleEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\DPathEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\FPathEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\ImageEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\Int16Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\Int32Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\Int64Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\TimeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\UInt16Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\UInt32Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Editors\Number\UInt64Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\BoolParam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\DateParam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\DateTimeParam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\ImageParam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\ByteParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\DecimalParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\DoubleParam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\Int16Param.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\Int32Param.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\Int64Param.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\UInt16Param.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\UInt32Param.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\Number\UInt64Param.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\StringParam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Editors\TimeParam.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Base\ParameterEngineBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\Param.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParameterEngine\ParamView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_shared\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Connection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Resources\Images\Arrow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Hardware.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Internet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\IO.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Item.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Media.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Message.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Property.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\State.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Switches.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Time.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Uncatagorized.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Images\AppImages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Global\message\CsMessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Standard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Styles-Named.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\Basics\WaitCircle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Resources\Styles-Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilitys\feedback\FeedbackControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\NotStarted.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Item\Add.png" />
+    <Resource Include="Themes\Resources\Images\files\Message\Warning.png" />
+    <Resource Include="Themes\Resources\Images\files\Message\Error.png" />
+    <Resource Include="Themes\Resources\Images\files\Message\FatalError.png" />
+    <Resource Include="Themes\Resources\Images\files\Message\Message.png" />
+    <Resource Include="Themes\Resources\Images\files\Item\Ok.png" />
+    <Resource Include="Themes\Resources\Images\files\Item\Remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Message\Info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Arrow\RightArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropStd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Arrow\DownArrow.png" />
+    <Resource Include="Themes\Resources\Images\files\Arrow\LeftArrow.png" />
+    <Resource Include="Themes\Resources\Images\files\Arrow\UpArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropEdit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Time\Calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropToggle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropNumber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropDirectory.png" />
+    <Resource Include="Themes\Resources\Images\files\Property\PropFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Item\Editable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\QuestionBallon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\QuestionBallonRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\IO\Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\IO\File.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\IO\Floppy.png" />
+    <Resource Include="Themes\Resources\Images\files\IO\Trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropTime.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Window\Close.png" />
+    <Resource Include="Themes\Resources\Images\files\Window\CloseHighlited.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Window\Maximize.png" />
+    <Resource Include="Themes\Resources\Images\files\Window\MaximizeHighlited.png" />
+    <Resource Include="Themes\Resources\Images\files\Window\Restore.png" />
+    <Resource Include="Themes\Resources\Images\files\Window\RestoreHighlited.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Window\Minimize.png" />
+    <Resource Include="Themes\Resources\Images\files\Window\MinimizeHighlited.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\AppImages\SackIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\ShaderEffects\GrayScale\GrayscaleEffect.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropID.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\agreements\EULA German.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\AppImages\AtomCloud.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropBoolean.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WSHControllerLibrary">
+      <Guid>{563DC060-B09A-11D2-A24D-00104BD35090}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\AppImages\AgileSoftwareProduction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Arrow\Back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropPhone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Media\Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Switches\VolumeOff.png" />
+    <Resource Include="Themes\Resources\Images\files\Switches\VolumeOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Switches\BulbOff.png" />
+    <Resource Include="Themes\Resources\Images\files\Switches\BulbOn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropIp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\Automatic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\AutomaticStop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\AutomaticStart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\Reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\Loading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\Success.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\State\Canceled.png" />
+    <Resource Include="Themes\Resources\Images\files\State\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Media\Pause.png" />
+    <Resource Include="Themes\Resources\Images\files\Media\stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Time\Clock.png" />
+    <Resource Include="Themes\Resources\Images\files\Time\Stopwatch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\agreements\EULA English.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\ShaderEffects\BrightContrastEffect\bricon.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Hardware\Monitor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Internet\HttpLink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Internet\Globe.png" />
+    <Resource Include="Themes\Resources\Images\files\Internet\HttpsLink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Internet\RDP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Internet\DNSServerRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Internet\VNC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\html\css\default.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\html\scripts\TableSortScript.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Property\PropMail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Window\OpenWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\PinHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Internet\SSH.png" />
+    <Resource Include="Themes\Resources\Images\files\Internet\Telnet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Window\Pin.png" />
+    <Resource Include="Themes\Resources\Images\files\Window\Unpinned.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\publickeys\csonlinekey1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\agreements\License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\agreements\Privacy.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Connection\ConnectionQuality1.png" />
+    <Resource Include="Themes\Resources\Images\files\Connection\ConnectionQuality2.png" />
+    <Resource Include="Themes\Resources\Images\files\Connection\ConnectionQuality3.png" />
+    <Resource Include="Themes\Resources\Images\files\Connection\ConnectionQuality4.png" />
+    <Resource Include="Themes\Resources\Images\files\Connection\ConnectionQuality5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="_files\html\CsHtmlPage.cs.html">
+      <DependentUpon>CsHtmlPage.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Global\app\install\agreement\CsgAgreement.cs.txt">
+      <DependentUpon>CsgAgreement.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Global\app\install\agreement\CsgAgreementPrivacyAddition.cs.txt">
+      <DependentUpon>CsgAgreementPrivacyAddition.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\AppImages\ChristianSack.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\CsDbCodeDataSet.cs.txt">
+      <DependentUpon>CsDbCodeDataSet.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\CsDbCodeDataTable.cs.txt">
+      <DependentUpon>CsDbCodeDataTable.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\CsDbCodeNamespace.cs.txt">
+      <DependentUpon>CsDbCodeNamespace.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\CsDbCodeDataRow.cs.txt">
+      <DependentUpon>CsDbCodeDataRow.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\dataviewparts\row\columns\CsDbcViewRow_UnsignedColumn.cs.txt">
+      <DependentUpon>CsDbcViewRow_UnsignedColumn.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\CsDbCodeDataView.cs.txt">
+      <DependentUpon>CsDbCodeDataView.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\dataviewparts\row\columns\CsDbcViewRow_Column.cs.txt">
+      <DependentUpon>CsDbcViewRow_Column.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\dataviewparts\row\CsDbcViewRow.cs.txt">
+      <DependentUpon>CsDbcViewRow.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\dataviewparts\overrides\CsDbcView_Overrides.cs.txt">
+      <DependentUpon>CsDbcView_Overrides.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_ApplyDefaults.cs.txt">
+      <DependentUpon>CsDbcTableRow_ApplyDefaults.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_Invalidate.cs.txt">
+      <DependentUpon>CsDbcTableRow_Invalidate.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_Reload.cs.txt">
+      <DependentUpon>CsDbcTableRow_Reload.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_Methods.cs.txt">
+      <DependentUpon>CsDbcTableRow_Methods.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\columns\CsDbcTableRow_UnsignedColumn.cs.txt">
+      <DependentUpon>CsDbcTableRow_UnsignedColumn.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\columns\CsDbcTableRow_Column.cs.txt">
+      <DependentUpon>CsDbcTableRow_Column.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\associated\CsDbcTableRow_AssociatedProperty.cs.txt">
+      <DependentUpon>CsDbcTableRow_AssociatedProperty.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\referencing\CsDbcTableRow_ReferencingProperty.cs.txt">
+      <DependentUpon>CsDbcTableRow_ReferencingProperty.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_ViewProperty.cs.txt">
+      <DependentUpon>CsDbcSet_ViewProperty.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_TableProperty.cs.txt">
+      <DependentUpon>CsDbcSet_TableProperty.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_RelationEntry.cs.txt">
+      <DependentUpon>CsDbcSet_RelationEntry.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\CsDbcTable_ColAttribute.cs.txt">
+      <DependentUpon>CsDbcTable_ColAttribute.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\CsDbcTable_PrimaryKeyMethods.cs.txt">
+      <DependentUpon>CsDbcTable_PrimaryKeyMethods.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\CsDbcTable_Overrides.cs.txt">
+      <DependentUpon>CsDbcTable_Overrides.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyMethodBundle.cs.txt">
+      <DependentUpon>CsDbcTable_ForeignKeyMethodBundle.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\CsDbcTable_Methods.cs.txt">
+      <DependentUpon>CsDbcTable_Methods.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyFindOrLoadMethod.cs.txt">
+      <DependentUpon>CsDbcTable_ForeignKeyFindOrLoadMethod.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyLoadThenFindMethod.cs.txt">
+      <DependentUpon>CsDbcTable_ForeignKeyLoadThenFindMethod.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyFindMethod.cs.txt">
+      <DependentUpon>CsDbcTable_ForeignKeyFindMethod.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\dataviewparts\constants\CsDbcView_Constant.cs.txt">
+      <DependentUpon>CsDbcView_Constant.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\interfaceParts\CsDbcRowInterface_Member.cs.txt">
+      <DependentUpon>CsDbcRowInterface_Member.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_CopyMethods.cs.txt">
+      <DependentUpon>CsDbcTableRow_CopyMethods.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\CsDbCodeDataRowInterface.cs.txt">
+      <DependentUpon>CsDbCodeDataRowInterface.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\CsDbCodeDataContext.cs.txt">
+      <DependentUpon>CsDbCodeDataContext.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\architecture\generators\sqlScripts\NamingConventionTable_Script_Sql.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_DataSetProperty.cs.txt">
+      <DependentUpon>CsDbcContext_DataSetProperty.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_LoadConstraintsMethod.cs.txt">
+      <DependentUpon>CsDbcContext_LoadConstraintsMethod.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_GetDatabaseByNameMethod.cs.txt">
+      <DependentUpon>CsDbcContext_GetDatabaseByNameMethod.cs</DependentUpon>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\architecture\generators\sqlScripts\NamingConventionTable_Script_SqlCe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

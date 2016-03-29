@@ -1,0 +1,29 @@
+﻿/// <summary>'[<c>#NativeName#</c>]': a database context providing all databases accessible for a defined user on the server.</summary>
+[Serializable] [DebuggerStepThrough]
+#DebuggerDisplayAttribute#
+#CsDbDataContextAttribute#
+public partial class #Name# : CsDbDataContext
+{
+	/// <summary>Gets the native database server name of the context (#NativeName#).</summary>
+	public const string NativeName = "#NativeName#";
+	/// <summary>Gets the native database server name of the context (#NativeName#).</summary>
+	public override string #NativeNameConstant# => NativeName;
+
+
+
+#region Databases
+	
+	#DataSetPropertyFields#
+
+
+	#DataSetProperties#
+
+#endregion
+
+
+
+
+	#SetDbProxyMethod#
+	#LoadConstraintsMethod#
+	#GetDatabaseByNameMethod#
+}

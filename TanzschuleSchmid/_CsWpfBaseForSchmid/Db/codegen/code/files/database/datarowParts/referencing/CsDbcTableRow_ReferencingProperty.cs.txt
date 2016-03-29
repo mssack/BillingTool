@@ -1,0 +1,9 @@
+﻿///	<summary>
+///		This field has cached Output. <para/>
+///		<c>#SelectDescription#</c><para/>#RelationDescription#
+///	</summary>
+#Attribute#
+public ContractCollection<#RowType#> #Name#
+{
+	get	{ return #DataFieldName# ?? (#DataFieldName# = Table.DataSet.#TableProperty#.#FindOrLoadMethodName#(#PkColumnName#)); }
+}

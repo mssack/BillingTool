@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+	<BitmapImage x:Key="GIco-Uncat-QuestionBallon-Blue" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/QuestionBallon.png" />
+	<BitmapImage x:Key="GIco-Uncat-QuestionBallon-Red" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/QuestionBallonRed.png" />
+	<BitmapImage x:Key="GIco-Uncat-Pin" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Pin.png" />
+	<BitmapImage x:Key="GIco-Uncat-Pin-Hover" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/PinHover.png" />
+	<BitmapImage x:Key="GIco-Uncat-Gear" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Gear.png" />
+	<BitmapImage x:Key="GIco-Uncat-Eye" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Eye.png" />
+	<BitmapImage x:Key="GIco-Uncat-Image" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Image.png" />
+</ResourceDictionary>

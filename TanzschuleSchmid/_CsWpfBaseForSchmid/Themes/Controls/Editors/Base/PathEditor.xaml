@@ -1,0 +1,83 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:base="clr-namespace:CsWpfBase.Themes.Controls.Editors.Base"
+					xmlns:editors="clr-namespace:CsWpfBase.Themes.Controls.Editors"
+					xmlns:attachedProperties="clr-namespace:CsWpfBase.Themes.AttachedProperties"
+					mc:Ignorable="d">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Base/EditorBase.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="{x:Type base:PathEditor}" BasedOn="{StaticResource EditorBase}">
+		<Setter Property="AllowNonExistingPath" Value="False" />
+		<Setter Property="AllowNull" Value="True" />
+		<Setter Property="AutoSelect" Value="True"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type base:PathEditor}">
+					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+							DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" x:Name="border">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="15" />
+							</Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="1" x:Name="PART_InputTextBox" Padding="{TemplateBinding Padding}" Margin="0" Background="Transparent" BorderThickness="0" attachedProperties:ATextBox.AutoSelection="{Binding Path=AutoSelect}" IsReadOnly="{Binding Path=IsReadOnly}">
+								<TextBox.Style>
+									<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+										<Setter Property="Text" Value="{Binding Path=Value, UpdateSourceTrigger=LostFocus}" />
+										<Style.Triggers>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding Path=Value, Converter={StaticResource GConv-IsNullOrEmpty}}" Value="True" />
+													<Condition Binding="{Binding Path=NullText, Converter={StaticResource GConv-IsNullOrEmpty}}" Value="False" />
+													<Condition Binding="{Binding ElementName=border, Path=IsKeyboardFocusWithin}" Value="False" />
+												</MultiDataTrigger.Conditions>
+												<Setter Property="Text" Value="{Binding Path=NullText}" />
+												<Setter Property="Foreground" Value="DimGray" />
+											</MultiDataTrigger>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding Path=IsValidPath}" Value="False" />
+													<Condition Binding="{Binding ElementName=border, Path=IsKeyboardFocusWithin}" Value="False" />
+												</MultiDataTrigger.Conditions>
+												<Setter Property="Text" Value="Üngültiger Pfad" />
+												<Setter Property="Foreground" Value="Red" />
+											</MultiDataTrigger>
+										</Style.Triggers>
+									</Style>
+								</TextBox.Style>
+							</TextBox>
+							<Button Grid.Column="2" Focusable="False" Style="{StaticResource ImageButton}" Margin="0" Background="{StaticResource GBrush-Border-Normal}" Command="{Binding Path=OpenDialogCommand}"
+									ToolTip="CTRL + F"  Visibility="{Binding Path=IsReadOnly, Converter={StaticResource GConv-InvBoolVisibility}}">
+								<Viewbox>
+									<Image RenderOptions.BitmapScalingMode="HighQuality">
+										<Image.Style>
+											<Style TargetType="{x:Type Image}">
+												<Setter Property="Source" Value="{StaticResource GIco-Io-File}" />
+												<Style.Triggers>
+													<DataTrigger Binding="{Binding Converter={StaticResource GConv-IsOfType}, ConverterParameter={x:Type editors:DPathEditor}}" Value="True">
+														<Setter Property="Source" Value="{StaticResource GIco-Io-Folder}" />
+													</DataTrigger>
+												</Style.Triggers>
+											</Style>
+										</Image.Style>
+									</Image>
+								</Viewbox>
+							</Button>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsValidPath" Value="False">
+				<Setter Property="Background" Value="#10FF0000" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+</ResourceDictionary>

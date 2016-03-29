@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/DateEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/DPathEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/FPathEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/ImageEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/TimeEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/DateTimeEditor.xaml" />
+
+
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/ByteEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/Int16Editor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/Int32Editor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/Int64Editor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/UInt16Editor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/UInt32Editor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/UInt64Editor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/DecimalEditor.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Editors/Number/DoubleEditor.xaml" />
+
+	</ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

@@ -1,0 +1,5 @@
+﻿[field:NonSerialized] private Dictionary<#ParamType#, CsWeakReference<ContractCollection<#RowType#>>> #CacheFieldName# = new Dictionary<#ParamType#, CsWeakReference<ContractCollection<#RowType#>>>();
+
+#FindOrLoadMethod#
+#LoadThenFindMethod#
+#FindMethod#

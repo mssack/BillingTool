@@ -1,0 +1,29 @@
+﻿///	<summary>
+///		This field has cached Output.<para/>
+///		<c>#SelectDescription#</c><para/>#RelationDescription#
+///	</summary>
+#Attribute#
+public #RowType# #Name#
+{
+	get 
+	{
+		if (#IsLoadedPropertyName#)
+			return #DataFieldName#;
+		#CheckNull#
+		#DataFieldName# = Table.DataSet.#TableProperty#.#FindOrLoadMethodName#(#FkPropertyNameSelector#);
+		return #DataFieldName#;
+	}
+	set 
+	{
+		#ForbidNulls#
+		if (value != null && value.Table.DataSet != Table.DataSet) throw new InvalidOperationException("The owning data set have to be equal.");
+		if (value == #DataFieldName#) return;
+
+		#DataFieldName# = value;
+
+		if (value == null)
+			SetDbValue(default(#FkRealType#), #FkNativeColumnNameConstant#, "#FkPropertyName#");
+		else
+			SetDbValue(value.#PkPropertyName#, #FkNativeColumnNameConstant#, "#FkPropertyName#");
+	}
+}

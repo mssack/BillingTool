@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-Window-Close" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/Close.png" />
+	<BitmapImage x:Key="GIco-Window-CloseHighlited" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/CloseHighlited.png" />
+	<BitmapImage x:Key="GIco-Window-Restore" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/Restore.png" />
+	<BitmapImage x:Key="GIco-Window-RestoreHighlited" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/RestoreHighlited.png" />
+	<BitmapImage x:Key="GIco-Window-Maximize" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/Maximize.png" />
+	<BitmapImage x:Key="GIco-Window-MaximizeHighlited" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/MaximizeHighlited.png" />
+	<BitmapImage x:Key="GIco-Window-Minimize" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/Minimize.png" />
+	<BitmapImage x:Key="GIco-Window-MinimizeHighlited" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/MinimizeHighlited.png" />
+	<BitmapImage x:Key="GIco-Window-Open" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/OpenWindow.png" />
+	<BitmapImage x:Key="GIco-Window-Pin" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/Pin.png" />
+	<BitmapImage x:Key="GIco-Window-Unpinned" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Window/Unpinned.png" />
+</ResourceDictionary>

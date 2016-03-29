@@ -1,0 +1,146 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:system="clr-namespace:System;assembly=mscorlib"
+					xmlns:base="clr-namespace:CsWpfBase.Themes.Controls.ParameterEngine.Base"
+					xmlns:attachedProperties="clr-namespace:CsWpfBase.Themes.AttachedProperties"
+					xmlns:containers="clr-namespace:CsWpfBase.Themes.Controls.Containers"
+					mc:Ignorable="d">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="Image" x:Key="IconStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}">
+		<Setter Property="Width" Value="{Binding Path=IconSize}" />
+		<Setter Property="Height" Value="{Binding Path=IconSize}" />
+		<Setter Property="Source" Value="{Binding Path=Icon}" />
+		<Setter Property="Visibility" Value="{Binding Path=IconVisibility}" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="0,0,3,0" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	<Style TargetType="ContentPresenter" x:Key="HeaderStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}">
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="Margin" Value="0,0,3,0" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	<Style TargetType="ContentPresenter" x:Key="ContentStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}">
+		<Setter Property="Margin" Value="0" />
+		<Setter Property="Focusable" Value="False" />
+		<Setter Property="Visibility" Value="{Binding Path=Content, Converter={StaticResource GConv-NullToVisibility}}" />
+	</Style>
+	<Style TargetType="ContentPresenter" x:Key="ExtensionStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}">
+		<Setter Property="Margin" Value="0" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	<Style TargetType="Border" x:Key="ExtensionBorderStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}">
+		<Style.Triggers>
+			<DataTrigger Binding="{Binding Path=ExtensionTemplate}" Value="{x:Null}">
+				<Setter Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+		</Style.Triggers>
+	</Style>
+	<Style TargetType="Border" x:Key="ContentBorderStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}" />
+
+
+	<Style TargetType="{x:Type base:ParameterEngineBase}">
+		<Setter Property="ContentTemplate" Value="{x:Null}" />
+		<Setter Property="HeaderTemplate" Value="{x:Null}" />
+		<Setter Property="ExtensionTemplate" Value="{x:Null}" />
+		<Setter Property="HeaderStringFormat" Value="{}{0}: " />
+		<Setter Property="Margin" Value="1" />
+		<Setter Property="Padding" Value="1,1,1,1" />
+
+		<Setter Property="HeaderVisibility" Value="Visible" />
+		<Setter Property="HeaderAlignment" Value="Center" />
+		<Setter Property="MinHeight" Value="17" />
+		<Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+
+		<Setter Property="Icon" Value="{StaticResource GIco-Property-Std}" />
+		<Setter Property="IconSize" Value="16" />
+		<Setter Property="IconVisibility" Value="Collapsed" />
+		<Setter Property="Focusable" Value="False" />
+
+		<Setter Property="ContentAlignment" Value="Right" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type base:ParameterEngineBase}">
+					<Border DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}" attachedProperties:AKeyboardFocusRedirection.Target="{Binding ElementName=FocusGetter}">
+						<Grid x:Name="FocusGetter">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" SharedSizeGroup="ParameterHeaderColumn" />
+								<ColumnDefinition>
+									<ColumnDefinition.Style>
+										<Style TargetType="{x:Type ColumnDefinition}">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding Path=ContentAlignment}" Value="{x:Static HorizontalAlignment.Right}">
+													<Setter Property="Width" Value="*" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=ExtensionTemplate}" Value="{x:Null}">
+													<Setter Property="Width" Value="Auto" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=ContentAlignment}" Value="{x:Static HorizontalAlignment.Stretch}">
+													<Setter Property="Width" Value="Auto" />
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</ColumnDefinition.Style>
+								</ColumnDefinition>
+								<ColumnDefinition>
+									<ColumnDefinition.Style>
+										<Style TargetType="{x:Type ColumnDefinition}">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding Path=ContentAlignment}" Value="{x:Static HorizontalAlignment.Right}">
+													<Setter Property="Width" Value="Auto" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=ExtensionTemplate}" Value="{x:Null}">
+													<Setter Property="Width" Value="*" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=ContentAlignment}" Value="{x:Static HorizontalAlignment.Stretch}">
+													<Setter Property="Width" Value="*" />
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</ColumnDefinition.Style>
+								</ColumnDefinition>
+							</Grid.ColumnDefinitions>
+							<Border Grid.Column="0" VerticalAlignment="{Binding Path=HeaderAlignment}" Visibility="{Binding Path=HeaderVisibility}">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Image Style="{StaticResource IconStyle}" />
+									<ContentPresenter Grid.Column="1" Style="{StaticResource HeaderStyle}" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
+													ContentStringFormat="{TemplateBinding HeaderStringFormat}" MinHeight="{TemplateBinding MinHeight}" TextElement.Foreground="#262626" />
+								</Grid>
+								<Border.Style>
+									<Style TargetType="{x:Type Border}">
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding Path=Help, Converter={StaticResource GConv-IsNullOrEmpty}}" Value="False">
+												<Setter Property="Cursor" Value="{x:Static Cursors.Help}" />
+												<Setter Property="ToolTipService.InitialShowDelay" Value="2000" />
+												<Setter Property="ToolTipService.BetweenShowDelay" Value="500" />
+												<Setter Property="ToolTipService.ShowDuration" Value="10000" />
+												<Setter Property="ToolTip">
+													<Setter.Value>
+														<containers:HelpTooltip Content="{Binding Path=Help}" ContentTemplate="{Binding Path=HelpTemplate}" />
+													</Setter.Value>
+												</Setter>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Border.Style>
+							</Border>
+							<Border Grid.Column="1" Style="{StaticResource ExtensionBorderStyle}">
+								<ContentPresenter Style="{StaticResource ExtensionStyle}" MinWidth="{Binding Path=ExtensionMinWidth}" Content="{Binding}" ContentTemplate="{TemplateBinding ExtensionTemplate}" />
+							</Border>
+							<Border Grid.Column="2" Style="{StaticResource ContentBorderStyle}">
+								<ContentPresenter Style="{StaticResource ContentStyle}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+							</Border>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

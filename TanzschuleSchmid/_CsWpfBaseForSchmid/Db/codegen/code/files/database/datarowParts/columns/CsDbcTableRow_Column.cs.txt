@@ -1,0 +1,11 @@
+﻿///<summary>
+///		[<c>#DatabaseName#</c>].[<c>#NativeTableName#</c>].[<c>#NativeName#</c>] (#TypeDescription#)#DbDescription#
+///</summary>
+#Attributes#public #Type# #Name#
+{
+	get { return GetDbValue<#Type#>(#TableName#.#NativeNameConstant#); }
+	set 
+	{ 
+		if (!SetDbValue(value, #TableName#.#NativeNameConstant#)) return;
+	}
+}

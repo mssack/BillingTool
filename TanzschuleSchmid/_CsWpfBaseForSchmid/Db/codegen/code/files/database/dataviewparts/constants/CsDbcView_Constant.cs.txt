@@ -1,0 +1,2 @@
+﻿///<summary>Holds native column name of #DatabaseReference# column. Property = <see cref="#PropertyReference#"/>.</summary>
+public const string #Name# = "#Value#";

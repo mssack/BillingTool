@@ -1,0 +1,32 @@
+﻿///<summary>#DefaultDescription#</summary>
+[Serializable]
+#DebuggerDisplayAttribute#
+#CsDbDataRowAttribute#
+public partial class #Name# : CsDbTableRow, #InterfaceName#
+{
+	public #Name#(DataRowBuilder builder) : base(builder){}
+
+	
+	///<summary>References the owning data context, this is equal to the database server. Use this to address databases on the same server.</summary>
+	public new #DataContextType# #DataContextPropertyName# => Table.#DataContextPropertyName#;
+
+	///<summary>References the owning dataset. Use this to address tables in the same database</summary>
+	public new #DataSetType# DataSet => Table.#DataSetPropertyName#;
+
+	///	<summary>Gets the owning table of type <see cref="#TableType#"/>.</summary>
+	public new #TableType# Table => (#TableType#) base.Table;
+
+
+
+
+	#region COLUMNS
+	#Columns#
+	#UnsignedColumns#
+	#endregion
+
+
+
+
+
+	#Methods#
+}

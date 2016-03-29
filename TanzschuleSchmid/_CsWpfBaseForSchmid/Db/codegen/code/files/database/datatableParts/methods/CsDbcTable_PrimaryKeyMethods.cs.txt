@@ -1,0 +1,48 @@
+﻿
+///	<summary>
+///		#FindInLocalDesc#. If nothing is found QUERY WITH <c>#SelectStatementDesc#</c>.<para/>
+///		If no primary key is set execute <see cref="#LoadThenFindName#"/> instead.<para/>
+///		IMPORTENT: Sets primary key if not set already.<para/>
+///	</summary>
+#Attributes#
+public #RowType# #FindOrLoadName#(#ParamType# #ParamName#)
+{
+	if (#ParamName# == null)
+		return null;
+
+	if (PrimaryKey.Length == 0)
+		return #LoadThenFindName#(#ParamNameSelector#);
+
+	return #FindName#(#ParamNameSelector#) ?? #LoadThenFindName#(#ParamNameSelector#);
+}
+///<summary>
+///		QUERY WITH <c>#SelectStatementDesc#</c> THEN #FindInLocalDesc#.<para/>
+///		IMPORTENT: Sets primary key if not set already.<para/>
+///</summary>
+#Attributes#
+public #RowType# #LoadThenFindName#(#ParamType# #ParamName#)
+{
+	if (#ParamName# == null)
+		return null;
+
+	DownloadRows($"#SelectStatement#", false);
+	
+	if (PrimaryKey.Length == 0)
+		PrimaryKey = new[] { Columns[#NativeColumnNameConstant#] };
+
+	return Rows.Find(#ParamNameSelector#) as #RowType#;
+}
+///	<summary>
+///		#FindInLocalDesc#. IMPORTENT: Sets primary key if not set already.<para/>
+///	</summary>
+#Attributes#
+public #RowType# #FindName#(#ParamType# #ParamName#)
+{
+	if (#ParamName# == null)
+		return null;
+
+	if (PrimaryKey.Length == 0)
+		PrimaryKey = new[] { Columns[#NativeColumnNameConstant#] };
+
+	return Rows.Find(#ParamNameSelector#) as #RowType#;
+}

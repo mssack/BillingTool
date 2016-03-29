@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<BitmapImage x:Key="GIco-Internet-Globe" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/Globe.png" />
+	<BitmapImage x:Key="GIco-Internet-Rdp" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/RDP.png" />
+	<BitmapImage x:Key="GIco-Internet-HttpLink" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/HttpLink.png" />
+	<BitmapImage x:Key="GIco-Internet-HttpsLink" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/HttpsLink.png" />
+
+
+	<BitmapImage x:Key="GIco-Internet-Vnc" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/VNC.png" />
+	<BitmapImage x:Key="GIco-Internet-DnsServer" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/DNSServerRed.png" />
+
+	<BitmapImage x:Key="GIco-Internet-Telnet" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/Telnet.png" />
+	<BitmapImage x:Key="GIco-Internet-Ssh" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Internet/SSH.png" />
+
+</ResourceDictionary>

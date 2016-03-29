@@ -1,0 +1,6 @@
+﻿///<summary>#AbsoluteDatabasePath# => Converts signed db version to unsigned version. Use this to set or get the unsigned value from db column."</summary>
+#Attributes#public #Type# #Name#
+{
+	get { return (#Type#) #SignedProperty#; }
+	set { #SignedProperty# = (#SignedType#) value; }
+}

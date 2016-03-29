@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Containers/CsWindow.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Containers/NavigationContainer.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Containers/PopupButton.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/Containers/WindowButton.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

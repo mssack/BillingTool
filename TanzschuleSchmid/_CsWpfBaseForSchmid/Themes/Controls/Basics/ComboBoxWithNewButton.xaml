@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:CsWpfBase.Themes.Controls.Basics">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Styles-Default.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Brushes.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+
+	<Style TargetType="{x:Type local:ComboBoxWithNewButton}" BasedOn="{StaticResource {x:Type ComboBox}}">
+		<Setter Property="Background" Value="{StaticResource GBrush-Background-Button}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-Normal}" />
+		<Setter Property="Padding" Value="5,3,5,3" />
+		<Setter Property="Foreground" Value="#212121" />
+		<Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ComboBox">
+					<Grid>
+						<ToggleButton Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+									Name="ToggleButton" IsChecked="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Cursor="{x:Static Cursors.Hand}">
+							<ToggleButton.Template>
+								<ControlTemplate TargetType="ToggleButton">
+									<Grid>
+										<Border Name="Border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" />
+										<Path Name="Arrow" Width="8" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,4,0" Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z" Fill="{StaticResource GBrush-Border-Normal}"
+											Stretch="Uniform" />
+									</Grid>
+									<ControlTemplate.Triggers>
+										<Trigger Property="IsMouseOver" Value="True">
+											<Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource GBrush-Border-MouseOver}" />
+											<Setter TargetName="Border" Property="Background" Value="{StaticResource GBrush-Background-MouseOver}" />
+										</Trigger>
+									</ControlTemplate.Triggers>
+								</ControlTemplate>
+							</ToggleButton.Template>
+						</ToggleButton>
+						<Border Padding="{TemplateBinding Padding}" Margin="0,0,15,0">
+							<ContentPresenter TextBlock.Foreground="{TemplateBinding Foreground}" IsHitTestVisible="False" Name="ContentSite" Content="{TemplateBinding SelectionBoxItem}"
+											ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" />
+						</Border>
+						<Popup Name="PART_Popup" IsOpen="{Binding Path=IsDropDownOpen, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" VerticalOffset="0">
+							<Grid Name="DropDownGrid" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True">
+								<Border Name="DropDownBorder" Background="White" BorderBrush="{StaticResource GBrush-Border-Normal}" BorderThickness="1">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="*" />
+										</Grid.RowDefinitions>
+										<Button Name="PART_NewButton" Grid.Row="0" Content="Neu" Padding="4,2,4,2" Margin="3" MinWidth="100" HorizontalAlignment="Center" />
+										<ScrollViewer Grid.Row="1" Margin="0" Padding="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+											<ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="False" />
+										</ScrollViewer>
+									</Grid>
+								</Border>
+							</Grid>
+						</Popup>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+</ResourceDictionary>

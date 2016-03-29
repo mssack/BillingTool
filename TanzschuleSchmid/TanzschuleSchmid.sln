@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingDataAccess", "_Bill
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingDataAccess.Generator", "_BillingDataAccess.Generator\_BillingDataAccess.Generator.csproj", "{7451FE44-83E3-49E1-B54B-3A037CC25E94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_CsWpfBaseForSchmid", "_CsWpfBaseForSchmid\_CsWpfBaseForSchmid.csproj", "{63CB4E91-9D9C-4C97-8097-FC3964593796}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,5 @@
+﻿//Defines the remote CsDataServer in debug and in release mode.
+CsOnlineServer = http://service.christian.sack.at/api/upload
+CsOnlineDebugServer = http://localhost:12345/api/upload
+AgreementDeveloperName = Christian Sack
+AgreementDeveloperAddress = AUT, 1230 Wien, A. Baumg. Str. 44 B2/084

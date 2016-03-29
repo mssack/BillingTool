@@ -1,0 +1,3 @@
+﻿If the program is running it sends data including "Computer name, username, usage time and Hardware informations". 
+This service automatically checks for updates.
+The transmitted data is encrypted via an asymmetric encryption mechanism.

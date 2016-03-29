@@ -1,0 +1,6 @@
+﻿///	<summary>Reloads the <see cref="#DataRowName#"/> row by executing following command:<para/><c>$"SELECT * FROM #NativeTableName# WHERE [#NativePrimaryColumn#] = '<see cref="#PrimaryColumnName#"/>'</c></summary>
+public #DataRowName# #Name#()
+{
+	Table.DataSet.#TableProperty#.LoadThenFind(#PrimaryColumnName#);
+	return this;
+}
