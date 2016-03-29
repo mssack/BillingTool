@@ -5,6 +5,7 @@
 // <date>2016-03-29</date>
 
 using System;
+using CsWpfBase.Ev.Objects;
 
 
 
@@ -13,7 +14,7 @@ using System;
 
 namespace BillingTool.RuntimeSettings
 {
-	public sealed class StartupParams
+	public sealed class StartupParams : Base
 	{
 		private static StartupParams _instance;
 		private static readonly object SingletonLock = new object();
