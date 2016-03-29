@@ -1,9 +1,0 @@
-﻿CREATE TABLE [Logs]
-(
-	[Id] uniqueidentifier PRIMARY KEY,
-	[Type] int,
-	[Date] datetime,
-	[StartParams] ntext,
-	[Title] ntext,
-	[Comment] ntext
-)
