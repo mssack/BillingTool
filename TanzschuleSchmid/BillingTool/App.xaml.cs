@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows;
+using BillingTool.Modes.developer;
 using BillingTool.Runtime;
 using BillingTool.Runtime.types;
 using CsWpfBase.Global;
@@ -61,7 +62,7 @@ namespace BillingTool
 		private void ExecuteMode()
 		{
 			if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.Developer)
-				StartupUri = new Uri("/BillingTool;component/Windows/DeveloperWindow.xaml", UriKind.RelativeOrAbsolute);
+				StartupUri = new Uri($"/BillingTool;component/Modes/developer/{nameof(DeveloperWindow)}.xaml", UriKind.RelativeOrAbsolute);
 		}
 	}
 }

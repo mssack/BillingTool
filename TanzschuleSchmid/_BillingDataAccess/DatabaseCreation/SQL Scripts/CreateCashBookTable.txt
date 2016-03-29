@@ -6,7 +6,7 @@
 	[CustomerName] nvarchar(255) NOT NULL,
 	[Date] datetime NOT NULL,
 	[Description] ntext,
-	[AmountGross] money,
-	[TaxPercent] money,
+	[AmountGross] money NOT NULL,
+	[TaxPercent] money NOT NULL,
 	[LastEdited] datetime NOT NULL
 )

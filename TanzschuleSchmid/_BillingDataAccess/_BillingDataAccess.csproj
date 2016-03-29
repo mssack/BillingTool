@@ -88,6 +88,11 @@
   <ItemGroup>
     <Resource Include="DatabaseCreation\SQL Scripts\CreateCashBookTable.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="sqlcedatabases\sampledb\" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
@@ -102,9 +107,6 @@
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ILog.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\CashBookEntry.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Log.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="sqlcedatabases\sampledb\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
