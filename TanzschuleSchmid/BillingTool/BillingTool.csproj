@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\BillingTool.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,7 +54,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RuntimeSettings\StartupParams.cs" />
+    <Compile Include="RuntimeSettings\RuntimeConfiguration.cs" />
+    <Compile Include="RuntimeSettings\types\RuntimeModes.cs" />
+    <Compile Include="Windows\DeveloperWindow.xaml.cs">
+      <DependentUpon>DeveloperWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\FinalizeBillWindow.xaml.cs">
       <DependentUpon>FinalizeBillWindow.xaml</DependentUpon>
     </Compile>
@@ -72,6 +77,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\DeveloperWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\FinalizeBillWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -106,6 +115,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\_BillingDataAccess\_BillingDataAccess.csproj">
+      <Project>{672DE474-CC73-45F5-819A-FDCDD687570F}</Project>
+      <Name>_BillingDataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\_CsWpfBaseForSchmid\_CsWpfBaseForSchmid.csproj">
       <Project>{63CB4E91-9D9C-4C97-8097-FC3964593796}</Project>
       <Name>_CsWpfBaseForSchmid</Name>

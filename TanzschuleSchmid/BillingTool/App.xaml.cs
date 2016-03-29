@@ -6,6 +6,10 @@
 
 using System;
 using System.Windows;
+using BillingTool.RuntimeSettings;
+using BillingTool.RuntimeSettings.types;
+using BillingTool.Windows;
+using CsWpfBase.Global;
 
 
 
@@ -19,7 +23,46 @@ namespace BillingTool
 	{
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
-			//TODO use startup params to modify application startup.
+			if (e.Args.Length == 0)
+			{
+				//TODO Open information window
+				CsGlobal.App.Exit();
+			}
+			ParseCommandLine(e.Args);
+			ExecuteMode();
+		}
+
+		private void ParseCommandLine(string[] data)
+		{
+			for (var i = 0; i < data.Length; i++)
+			{
+				var arg = data[i];
+
+				if (!arg.StartsWith("/"))
+					continue;
+
+				if (string.Equals(arg, "/developer", StringComparison.OrdinalIgnoreCase))
+				{
+					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.Developer;
+				}
+				else if (string.Equals(arg, "/database", StringComparison.OrdinalIgnoreCase))
+				{
+					if (i + 1 >= data.Length)
+						throw new Exception("You have to pass a database file if you use startup parameter '/database'");
+					
+					RuntimeConfiguration.I.DatabaseFilePath = data[++i];//Use the next argument as file path.
+				}
+				else
+				{
+					throw new Exception($"Invalid startup argument['{arg}']. For more information start program without parameters.");
+				}
+			}
+		}
+
+		private void ExecuteMode()
+		{
+			if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.Developer)
+				StartupUri = new Uri("/BillingTool;component/Windows/DeveloperWindow.xaml", UriKind.RelativeOrAbsolute);
 		}
 	}
 }

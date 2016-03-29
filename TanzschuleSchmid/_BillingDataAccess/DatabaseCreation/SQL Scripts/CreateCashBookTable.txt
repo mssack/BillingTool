@@ -1,0 +1,12 @@
+﻿CREATE TABLE [CashBook]
+(
+	[Id] uniqueidentifier PRIMARY KEY, 
+	[ReferenceNumber] integer NOT NULL UNIQUE,
+	[CustomerId] nvarchar(255),
+	[CustomerName] nvarchar(255) NOT NULL,
+	[Date] datetime NOT NULL,
+	[Description] ntext,
+	[AmountGross] money,
+	[TaxPercent] money,
+	[LastEdited] datetime NOT NULL
+)

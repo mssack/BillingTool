@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [Logs]
 (
 	[Id] uniqueidentifier PRIMARY KEY,
-	[Type] int,
-	[Date] datetime,
+	[Type] int NOT NULL,
+	[Date] datetime NOT NULL,
 	[StartParams] ntext,
-	[Title] ntext,
+	[Title] nvarchar NOT NULL,
 	[Comment] ntext
 )

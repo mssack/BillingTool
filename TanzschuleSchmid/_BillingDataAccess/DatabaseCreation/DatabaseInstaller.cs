@@ -68,17 +68,18 @@ namespace BillingDataAccess.DatabaseCreation
 		}
 
 		/// <summary>Installs a fresh new database. Generates a new .sdf file and fills it with the appropriate tables and relations.</summary>
-		public void Install()
+		public void Install(bool removeExistingFile = false)
 		{
 			if (string.IsNullOrEmpty(DatabaseFilePath))
 				throw new IOException("Invalid database file path. The string can not be empty.");
 
 			var dbFile = new FileInfo(DatabaseFilePath);
 
-			if (dbFile.Exists)
+			if (dbFile.Exists && removeExistingFile == false)
 				throw new IOException("The database file already exist. You have to delete it before you can install a new one.");
 
 			dbFile.CreateDirectory_IfNotExists();
+			dbFile.DeleteFile_IfExists();
 
 			CreateDatabaseFile();
 
@@ -86,6 +87,7 @@ namespace BillingDataAccess.DatabaseCreation
 			OpenDatabaseFile();
 
 			CreateLogsTable();
+			CreateCashBookTable();
 
 			CloseDatabaseFile();
 		}
@@ -117,6 +119,10 @@ namespace BillingDataAccess.DatabaseCreation
 		{
 			Execute_SqlScript(Get_SqlScript("CreateLogsTable"));
 		}
+		private void CreateCashBookTable()
+		{
+			Execute_SqlScript(Get_SqlScript("CreateCashBookTable"));
+		}
 
 		/// <summary>
 		///     Returns the file content of a text file inside folder 'BillingDataAccessGenerator\DatabaseCreation\SQL Scripts\{
@@ -131,6 +137,7 @@ namespace BillingDataAccess.DatabaseCreation
 		private void Execute_SqlScript(string script)
 		{
 			var command = new SqlCeCommand(script, Connection);
+			// ReSharper disable once ObjectCreationAsStatement
 			new SqlCeDataAdapter(command);
 			command.ExecuteNonQuery();
 		}
