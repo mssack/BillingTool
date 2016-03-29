@@ -28,13 +28,16 @@ namespace BillingTool.Runtime
 		public static BillingDatabase Billing { get; private set; }
 
 
-		/// <summary>Used to connect to database file specified in <see cref="RuntimeConfiguration" />.</summary>
+		/// <summary>
+		///     Used to connect to database file specified in <see cref="RuntimeConfiguration" />. Take care a second call will result in an
+		///     <see cref="InvalidOperationException" />. To ensure connectivity use <see cref="EnsureConnectivity" />.
+		/// </summary>
 		public static void Connect()
 		{
 			if (Billing != null)
-			{
-				Disconnect();
-			}
+				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
+
+
 			var router = new SqlCeRouter(RuntimeConfiguration.I.DatabaseFilePath);
 			router.Open();
 
@@ -42,7 +45,31 @@ namespace BillingTool.Runtime
 			Billing.Set_DbProxy(router);
 		}
 
-		/// <summary>Used to disconnect from database file specified in <see cref="RuntimeConfiguration" />. DANGER all unsaved files will be lost.</summary>
+		/// <summary>
+		///     Ensures that the database is connected to the program and accessible. This method can be called multiple times while application is running. It
+		///     is advisable to call this method before each database call to ensure connectivity.
+		/// </summary>
+		public static void EnsureConnectivity()
+		{
+			if (Billing == null)
+			{
+				Connect();
+				return;
+			}
+
+			var router = (SqlCeRouter) Billing.DbProxy;
+			if (router.State.IsConnected)
+				return;
+			router.Open();
+
+			if (!router.State.IsConnected)
+				throw router.State.LastException;
+		}
+
+		/// <summary>
+		///     Used to disconnect from database file specified in <see cref="RuntimeConfiguration" />. DANGER all unsaved files will be lost. Ensure that you
+		///     call at least <see cref="CsDbDataSetBase.SaveUnspecific" /> before call <see cref="Disconnect" />.
+		/// </summary>
 		public static void Disconnect()
 		{
 			if (Billing == null)
