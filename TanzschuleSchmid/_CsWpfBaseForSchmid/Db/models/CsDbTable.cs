@@ -173,19 +173,19 @@ namespace CsWpfBase.Db.models
 
 
 		/// <summary>Selects specified rows. local data only</summary>
-		public new TRow[] Select(string selectStatement)
+		public virtual new TRow[] Select(string selectStatement)
 		{
 			return base.Select(selectStatement).Cast<TRow>().ToArray();
 		}
 
 		/// <summary>Selects specified rows and order by <paramref name="sort" />. local data only</summary>
-		public new TRow[] Select(string selectStatement, string sort)
+		public virtual new TRow[] Select(string selectStatement, string sort)
 		{
 			return base.Select(selectStatement, sort).Cast<TRow>().ToArray();
 		}
 
 		/// <summary>Selects specified rows and order by <paramref name="sort" />. local data only</summary>
-		public new TRow[] Select(string selectStatement, string sort, DataViewRowState recordStates)
+		public virtual new TRow[] Select(string selectStatement, string sort, DataViewRowState recordStates)
 		{
 			return base.Select(selectStatement, sort, recordStates).Cast<TRow>().ToArray();
 		}
@@ -194,7 +194,7 @@ namespace CsWpfBase.Db.models
 		///     Creates a new row but do not add it to the collection. This does automatically apply's the default values to the rows specified by the
 		///     <see cref="CsDbRowBase.ApplyDefaults" /> method.
 		/// </summary>
-		public new TRow NewRow()
+		public virtual new TRow NewRow()
 		{
 			var row = (TRow) base.NewRow();
 			row.ApplyDefaults();
@@ -202,7 +202,7 @@ namespace CsWpfBase.Db.models
 		}
 
 		/// <summary>Adds a row by adding it to the rows collection</summary>
-		public TRow Add(TRow item)
+		public virtual TRow Add(TRow item)
 		{
 			Rows.Add(item);
 			return item;
@@ -219,7 +219,7 @@ namespace CsWpfBase.Db.models
 		///     value set this param to false.
 		/// </param>
 		/// <param name="preserveChanges">Specify whether the current changes should be preserved. If you specify false, all changes will be overwritten.</param>
-		protected internal TRow[] DownloadRows(string sqlcommand, bool createCollection = true, bool preserveChanges = true)
+		protected virtual internal TRow[] DownloadRows(string sqlcommand, bool createCollection = true, bool preserveChanges = true)
 		{
 			var table = DbProxy.ExecuteCommand(sqlcommand);
 
