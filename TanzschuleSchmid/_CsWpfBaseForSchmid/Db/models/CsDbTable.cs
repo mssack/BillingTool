@@ -198,6 +198,7 @@ namespace CsWpfBase.Db.models
 		{
 			var row = (TRow) base.NewRow();
 			row.ApplyDefaults();
+			row.ApplyExtendedDefaults();
 			return row;
 		}
 

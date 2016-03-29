@@ -129,11 +129,15 @@ namespace CsWpfBase.Db.codegen.architecture.generators
 				{
 					if (defaultValue.ToLower() == "(getdate())")
 						return CsDb.CodeGen.Statics.DateTimeNowFunction;
+					if (defaultValue.ToLower() == "getdate()")
+						return CsDb.CodeGen.Statics.DateTimeNowFunction;
 					return Convert.ToDateTime(defaultValue.Trim('(', ')', '\''));
 				}
 				if (dotNetType == typeof (Guid))
 				{
 					if (defaultValue.ToLower() == "(newid())")
+						return CsDb.CodeGen.Statics.NewGuidFunction;
+					if (defaultValue.ToLower() == "newid()")
 						return CsDb.CodeGen.Statics.NewGuidFunction;
 					throw new InvalidOperationException("Unknown Default value found. Include a conversion to a valid C# instance. If it is a function please use the 'CsDb.CodeGen.Statics' name space to set the value to a string.");
 				}
@@ -292,6 +296,9 @@ namespace CsWpfBase.Db.codegen.architecture.generators
 						column.Nullable = row["IS_NULLABLE"] == DBNull.Value ? null : row["IS_NULLABLE"].ToString();
 						column.MaxLength = row["CHARACTER_MAXIMUM_LENGTH"] == DBNull.Value ? null : row["CHARACTER_MAXIMUM_LENGTH"].ToString();
 						column.DefaultValue = row["COLUMN_DEFAULT"] == DBNull.Value ? null : row["COLUMN_DEFAULT"].ToString();
+
+						if (column.DefaultValue != null && column.DefaultValue.EndsWith("\r\n"))
+							column.DefaultValue = column.DefaultValue.Substring(0, column.DefaultValue.Length - 2);
 
 						column.DotNetType = CsDb.CodeGen.Convert.ToType((SqlDbType) Enum.Parse(typeof (SqlDbType), column.Type, true));
 						column.DotNetIsNullable = column.Nullable == "YES";

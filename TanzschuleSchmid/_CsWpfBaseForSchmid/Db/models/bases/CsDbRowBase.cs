@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014 - 2016 All Rights Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-01-03</date>
+// <date>2016-03-29</date>
 
 using System;
 using System.Collections.Generic;
@@ -44,10 +44,15 @@ namespace CsWpfBase.Db.models.bases
 		#region Abstract
 		/// <summary>Applys the database default values to the row.</summary>
 		public abstract void ApplyDefaults();
-		#endregion
 
 
-		#region Interfaces
+		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
+		public virtual void ApplyExtendedDefaults()
+		{
+
+		}
+
+
 		/// <summary>occurs whenever a cell changes or a property inside this class.</summary>
 		public virtual event PropertyChangedEventHandler PropertyChanged
 		{
@@ -66,38 +71,11 @@ namespace CsWpfBase.Db.models.bases
 				return dataSetProxy;
 			}
 		}
-		#endregion
-
-
-		/// <summary>Gets the owning table.</summary>
-		public new CsDbTable Table => (CsDbTable) base.Table;
-		/// <summary>Gets the owning DataSet.</summary>
-		public CsDbDataSet DataSet => Table.DataSet;
-		/// <summary>Gets the owning Context.</summary>
-		public CsDbDataContext DataContext => Table.DataContext;
-
-		/// <summary>Get a value which defines if the property changed event is currently used</summary>
-		public bool IsPropertyChangedHandled => _propertyChanged != null;
-
-		/// <summary>Used to prevent duplicated <see cref="OnPropertyChanged" /> invocation. While Outsie cannot invoke property changed.</summary>
-		protected internal ProcessLock ChangeLock => _changeLock ?? (_changeLock = new ProcessLock());
-
-
-		private Dictionary<string, string> NativeNameMapping => _nativeNameMapping ?? (_nativeNameMapping = Reflection.GetNativeNameMapping(GetType()));
 		/// <summary>occurs whenever a cell changes or a property inside this class.</summary>
 		internal virtual event PropertyChangedEventHandler InternalPropertyChanged
 		{
 			add { _internalPropertyChanged = (PropertyChangedEventHandler) Delegate.Combine(_internalPropertyChanged, value); }
 			remove { _internalPropertyChanged = (PropertyChangedEventHandler) Delegate.Remove(_internalPropertyChanged, value); }
-		}
-
-		/// <summary>Gets the relations for this row type.</summary>
-		public CsDbRelation[] GetRelations()
-		{
-			CsDbRelation[] rv;
-			if (Table.DataSet.CsDbRelationsPerTableType.TryGetValue(Table.GetType(), out rv))
-				return rv;
-			return new CsDbRelation[0];
 		}
 
 
@@ -166,6 +144,33 @@ namespace CsWpfBase.Db.models.bases
 			{
 				OnPropertyChanged(dbProp);
 			}
+		}
+		#endregion
+
+
+		/// <summary>Gets the owning table.</summary>
+		public new CsDbTable Table => (CsDbTable) base.Table;
+		/// <summary>Gets the owning DataSet.</summary>
+		public CsDbDataSet DataSet => Table.DataSet;
+		/// <summary>Gets the owning Context.</summary>
+		public CsDbDataContext DataContext => Table.DataContext;
+
+		/// <summary>Get a value which defines if the property changed event is currently used</summary>
+		public bool IsPropertyChangedHandled => _propertyChanged != null;
+
+		/// <summary>Used to prevent duplicated <see cref="OnPropertyChanged" /> invocation. While Outsie cannot invoke property changed.</summary>
+		protected internal ProcessLock ChangeLock => _changeLock ?? (_changeLock = new ProcessLock());
+
+
+		private Dictionary<string, string> NativeNameMapping => _nativeNameMapping ?? (_nativeNameMapping = Reflection.GetNativeNameMapping(GetType()));
+
+		/// <summary>Gets the relations for this row type.</summary>
+		public CsDbRelation[] GetRelations()
+		{
+			CsDbRelation[] rv;
+			if (Table.DataSet.CsDbRelationsPerTableType.TryGetValue(Table.GetType(), out rv))
+				return rv;
+			return new CsDbRelation[0];
 		}
 
 
