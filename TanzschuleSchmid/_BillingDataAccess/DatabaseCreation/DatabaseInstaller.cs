@@ -81,10 +81,13 @@ namespace BillingDataAccess.DatabaseCreation
 			dbFile.CreateDirectory_IfNotExists();
 
 			CreateDatabaseFile();
+
+
 			OpenDatabaseFile();
 
 			CreateLogsTable();
 
+			CloseDatabaseFile();
 		}
 
 
@@ -94,34 +97,40 @@ namespace BillingDataAccess.DatabaseCreation
 			var engine = new SqlCeEngine($"data source={DatabaseFilePath}");
 			engine.CreateDatabase();
 			engine.Dispose();
-
-			//TODO maybe do logging here.
 		}
 
+		/// <summary>opens the <see cref="Connection" />.</summary>
 		private void OpenDatabaseFile()
 		{
 			Connection = new SqlCeConnection($"data source={DatabaseFilePath}");
 			Connection.Open();
 		}
+		/// <summary>Closes the <see cref="Connection" />.</summary>
+		private void CloseDatabaseFile()
+		{
+			Connection.Close();
+			Connection.Dispose();
+			Connection = null;
+		}
 
 		private void CreateLogsTable()
 		{
-			ExecuteSql(GetScript("CreateLogsTable"));
+			Execute_SqlScript(Get_SqlScript("CreateLogsTable"));
 		}
 
 		/// <summary>
 		///     Returns the file content of a text file inside folder 'BillingDataAccessGenerator\DatabaseCreation\SQL Scripts\{
 		///     <paramref name="scriptName" />}.txt'
 		/// </summary>
-		private string GetScript(string scriptName)
+		private string Get_SqlScript(string scriptName)
 		{
 			return CsGlobal.Storage.Resource.File.Read("BillingDataAccess", $@"DatabaseCreation\SQL Scripts\{scriptName}.txt");
 		}
 
 		/// <summary>Executes a SQL command on the connection.</summary>
-		private void ExecuteSql(string cmd)
+		private void Execute_SqlScript(string script)
 		{
-			var command = new SqlCeCommand(cmd, Connection);
+			var command = new SqlCeCommand(script, Connection);
 			new SqlCeDataAdapter(command);
 			command.ExecuteNonQuery();
 		}
