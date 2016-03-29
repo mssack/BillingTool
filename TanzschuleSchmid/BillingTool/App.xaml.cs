@@ -6,8 +6,8 @@
 
 using System;
 using System.Windows;
-using BillingTool.RuntimeSettings;
-using BillingTool.RuntimeSettings.types;
+using BillingTool.Runtime;
+using BillingTool.Runtime.types;
 using BillingTool.Windows;
 using CsWpfBase.Global;
 

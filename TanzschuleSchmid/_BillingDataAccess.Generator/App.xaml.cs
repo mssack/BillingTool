@@ -19,6 +19,8 @@ using CsWpfBase.Global;
 
 
 
+// ReSharper disable PossibleNullReferenceException
+
 namespace BillingDataAccessGenerator
 {
 	/// <summary>Interaction logic for App.xaml</summary>
@@ -65,6 +67,7 @@ namespace BillingDataAccessGenerator
 
 
 
+	/// <summary>Used to connect to an sdf file.</summary>
 	internal class SqlCeRouter : CsDbRouter
 	{
 		private readonly string _databaseFilePath;

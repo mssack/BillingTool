@@ -11,7 +11,7 @@ using System;
 
 
 
-namespace BillingTool.RuntimeSettings.types
+namespace BillingTool.Runtime.types
 {
 	/// <summary>The possible runtime modes of the application.</summary>
 	[Serializable]

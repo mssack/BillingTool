@@ -7,8 +7,8 @@
 using System;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
-using BillingTool.RuntimeSettings;
-using BillingTool.RuntimeSettings.types;
+using BillingTool.Runtime;
+using BillingTool.Runtime.types;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 

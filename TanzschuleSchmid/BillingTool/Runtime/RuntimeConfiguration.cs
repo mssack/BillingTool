@@ -5,7 +5,7 @@
 // <date>2016-03-29</date>
 
 using System;
-using BillingTool.RuntimeSettings.types;
+using BillingTool.Runtime.types;
 using CsWpfBase.Ev.Objects;
 
 
@@ -13,7 +13,7 @@ using CsWpfBase.Ev.Objects;
 
 
 
-namespace BillingTool.RuntimeSettings
+namespace BillingTool.Runtime
 {
 	/// <summary>The runtime configuration gives feedback about the current application mode and configuration.</summary>
 	public sealed class RuntimeConfiguration : Base

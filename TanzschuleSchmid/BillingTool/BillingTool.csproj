@@ -54,8 +54,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="RuntimeSettings\RuntimeConfiguration.cs" />
-    <Compile Include="RuntimeSettings\types\RuntimeModes.cs" />
+    <Compile Include="Runtime\RuntimeConfiguration.cs" />
+    <Compile Include="Runtime\types\RuntimeModes.cs" />
     <Compile Include="Windows\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
     </Compile>
