@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-09-26</date>
+// <date>2016-03-29</date>
 
 using System;
 using System.Windows;
@@ -42,7 +42,49 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Base
 		public static readonly DependencyProperty HeaderVisibilityProperty = DependencyProperty.Register("HeaderVisibility", typeof (Visibility), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof (bool), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty AutoSelectProperty = DependencyProperty.Register("AutoSelect", typeof (bool), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty TextAlignmentProperty = DependencyProperty.Register("TextAlignment", typeof (TextAlignment), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(TextAlignment), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
+
+
+		public static double GetIconSize(DependencyObject obj)
+		{
+			return (double) obj.GetValue(IconSizeProperty);
+		}
+
+		public static void SetIconSize(DependencyObject obj, double value)
+		{
+			obj.SetValue(IconSizeProperty, value);
+		}
+
+		public static HorizontalAlignment GetHeaderAlignment(DependencyObject obj)
+		{
+			return (HorizontalAlignment) obj.GetValue(HeaderAlignmentProperty);
+		}
+
+		public static void SetHeaderAlignment(DependencyObject obj, HorizontalAlignment value)
+		{
+			obj.SetValue(HeaderAlignmentProperty, value);
+		}
+
+		public static Visibility GetIconVisibility(DependencyObject obj)
+		{
+			return (Visibility) obj.GetValue(IconVisibilityProperty);
+		}
+
+		public static void SetIconVisibility(DependencyObject obj, Visibility value)
+		{
+			obj.SetValue(IconVisibilityProperty, value);
+		}
+
+		public static BitmapSource GetIcon(DependencyObject obj)
+		{
+			return (BitmapSource) obj.GetValue(IconProperty);
+		}
+
+		public static void SetIcon(DependencyObject obj, BitmapSource value)
+		{
+			obj.SetValue(IconProperty, value);
+		}
 
 
 		static ParameterEngineBase()
@@ -146,6 +188,11 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Base
 			set { SetValue(AutoSelectProperty, value); }
 		}
 
+		public TextAlignment TextAlignment
+		{
+			get { return (TextAlignment) GetValue(TextAlignmentProperty); }
+			set { SetValue(TextAlignmentProperty, value); }
+		}
 
 		/// <summary>Do not use this</summary>
 		public DataTemplate ExtensionTemplate
@@ -158,46 +205,6 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Base
 		{
 			get { return (double) GetValue(ExtensionMinWidthProperty); }
 			set { SetValue(ExtensionMinWidthProperty, value); }
-		}
-
-		public static double GetIconSize(DependencyObject obj)
-		{
-			return (double) obj.GetValue(IconSizeProperty);
-		}
-
-		public static void SetIconSize(DependencyObject obj, double value)
-		{
-			obj.SetValue(IconSizeProperty, value);
-		}
-
-		public static HorizontalAlignment GetHeaderAlignment(DependencyObject obj)
-		{
-			return (HorizontalAlignment) obj.GetValue(HeaderAlignmentProperty);
-		}
-
-		public static void SetHeaderAlignment(DependencyObject obj, HorizontalAlignment value)
-		{
-			obj.SetValue(HeaderAlignmentProperty, value);
-		}
-
-		public static Visibility GetIconVisibility(DependencyObject obj)
-		{
-			return (Visibility) obj.GetValue(IconVisibilityProperty);
-		}
-
-		public static void SetIconVisibility(DependencyObject obj, Visibility value)
-		{
-			obj.SetValue(IconVisibilityProperty, value);
-		}
-
-		public static BitmapSource GetIcon(DependencyObject obj)
-		{
-			return (BitmapSource) obj.GetValue(IconProperty);
-		}
-
-		public static void SetIcon(DependencyObject obj, BitmapSource value)
-		{
-			obj.SetValue(IconProperty, value);
 		}
 
 		private void ContentChanged(object oldValue, object newValue)

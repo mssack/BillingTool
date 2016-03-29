@@ -21,7 +21,7 @@
             <Setter.Value>
 				<DataTemplate DataType="{x:Type local:DecimalParam}">
 					<number:DecimalEditor Value="{Binding Path=Value}" AllowNull="{Binding Path=AllowNull}" Minimum="{Binding Path=Minimum}" Maximum="{Binding Path=Maximum}" Margin="0"
-										Padding="{Binding Path=Padding}" IsReadOnly="{Binding Path=IsReadOnly}" AutoSelect="{Binding Path=AutoSelect}"/>
+										Padding="{Binding Path=Padding}" IsReadOnly="{Binding Path=IsReadOnly}" AutoSelect="{Binding Path=AutoSelect}" TextAlignment="{Binding Path=TextAlignment}"/>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>

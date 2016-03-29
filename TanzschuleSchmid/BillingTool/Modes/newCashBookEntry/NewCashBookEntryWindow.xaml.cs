@@ -104,16 +104,16 @@ namespace BillingTool.Modes.newCashBookEntry
 		}
 		
 
-		private void WindowPreviewKeyUp(object sender, KeyEventArgs e)
+		private void WindowKeyUp(object sender, KeyEventArgs e)
 		{
-			if (e.SystemKey != Key.F2 && e.SystemKey != Key.Escape)
+			if (e.Key != Key.F2 && e.Key != Key.Escape)
 				return;
 
 			e.Handled = true;
 
-			if (e.SystemKey == Key.F2)
+			if (e.Key == Key.F2)
 				Accept();
-			else if (e.SystemKey == Key.Escape)
+			else if (e.Key == Key.Escape)
 				Abort();
 		}
 	}

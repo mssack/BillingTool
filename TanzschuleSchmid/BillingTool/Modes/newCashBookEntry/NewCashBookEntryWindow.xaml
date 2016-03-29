@@ -4,8 +4,8 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-		Title="NewCashBookEntryWindow" Height="300" Width="300" x:Name="Uc" PreviewKeyUp="WindowPreviewKeyUp">
-	<Grid DataContext="{Binding ElementName=Uc, Path=Item}">
+		Title="NewCashBookEntryWindow" Height="300" Width="300" x:Name="Uc" KeyUp="WindowKeyUp" >
+	<Grid DataContext="{Binding ElementName=Uc, Path=Item}" Margin="10">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
@@ -14,19 +14,23 @@
 		</Grid.RowDefinitions>
 
 		<GroupBox Grid.Row="0" Header="Belegdaten" Style="{StaticResource ParamGroup}">
-			<Grid>
+			<Grid IsSharedSizeScope="True" Width="170" HorizontalAlignment="Left" >
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<StringParam Grid.Row="0" Header="Belegnummer" Value="{Binding Path=ReferenceNumber}" IsReadOnly="True"/>
-				<DecimalParam Grid.Row="1" Header="Betrag" Value="{Binding Path=AmountGross}"/>
-				<DecimalParam Grid.Row="2" Header="Steuer" Value="{Binding Path=TaxPercent}"/>
+				<StringParam Grid.Row="0" Header="Belegnummer" Value="{Binding Path=ReferenceNumber}" IsReadOnly="True" HorizontalAlignment="Left"/>
+				<DecimalParam Grid.Row="1" Header="Betrag" Value="{Binding Path=AmountGross}" TextAlignment="Right" >
+					<TextBlock Text="€" Margin="5,0,0,0" Width="15"/>
+				</DecimalParam>
+				<DecimalParam Grid.Row="2" Header="Steuer" Value="{Binding Path=TaxPercent}" TextAlignment="Right">
+					<TextBlock Text="%" Margin="5,0,0,0" Width="15"/>
+				</DecimalParam>
 			</Grid>
 		</GroupBox>
 		<GroupBox Grid.Row="1" Header="Kundendetails" Style="{StaticResource ParamGroup}">
-			<Grid>
+			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>

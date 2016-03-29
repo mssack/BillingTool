@@ -22,6 +22,7 @@ namespace CsWpfBase.Themes.Controls.Editors.Base
 		#region DP Keys
 		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof (bool), typeof (EditorBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty AutoSelectProperty = DependencyProperty.Register("AutoSelect", typeof (bool), typeof (EditorBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty TextAlignmentProperty = DependencyProperty.Register("TextAlignment", typeof (TextAlignment), typeof (EditorBase), new FrameworkPropertyMetadata {DefaultValue = default(TextAlignment), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
@@ -35,6 +36,12 @@ namespace CsWpfBase.Themes.Controls.Editors.Base
 		{
 			get { return (bool) GetValue(AutoSelectProperty); }
 			set { SetValue(AutoSelectProperty, value); }
+		}
+
+		public TextAlignment TextAlignment
+		{
+			get { return (TextAlignment) GetValue(TextAlignmentProperty); }
+			set { SetValue(TextAlignmentProperty, value); }
 		}
 	}
 

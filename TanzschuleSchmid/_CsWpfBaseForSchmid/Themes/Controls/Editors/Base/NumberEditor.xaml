@@ -22,7 +22,7 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="14" />
 							</Grid.ColumnDefinitions>
-							<TextBox x:Name="PART_InputTextBox" Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Background="Transparent" Padding="{TemplateBinding Padding}" Margin="0" IsReadOnly="{Binding Path=IsReadOnly}" attachedProperties:ATextBox.AutoSelection="{Binding Path=AutoSelect}">
+							<TextBox x:Name="PART_InputTextBox" TextAlignment="Right" Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Background="Transparent" Padding="{TemplateBinding Padding}" Margin="0" IsReadOnly="{Binding Path=IsReadOnly}" attachedProperties:ATextBox.AutoSelection="{Binding Path=AutoSelect}">
 								<TextBox.Style>
 									<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
 										<Style.Triggers>
