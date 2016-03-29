@@ -40,13 +40,28 @@
 			</GroupBox>
 			<GroupBox Grid.Column="1" Header="Abwicklungsdaten" Style="{StaticResource ParamGroup}">
 				<Grid IsSharedSizeScope="True">
+					<Grid.Resources>
+						<Style TargetType="StringParam" BasedOn="{StaticResource {x:Type StringParam}}" >
+							<Setter Property="BorderThickness" Value="1" />
+							<Style.Triggers>
+								<Trigger Property="Value" Value="">
+									<Setter Property="BorderBrush" Value="Red"/>
+									<Setter Property="BorderThickness" Value="1"/>
+								</Trigger>
+								<Trigger Property="Value" Value="{x:Null}">
+									<Setter Property="BorderBrush" Value="Red"/>
+									<Setter Property="BorderThickness" Value="1"/>
+								</Trigger>
+							</Style.Triggers>
+						</Style>
+					</Grid.Resources>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
-					<StringParam Grid.Row="0" Header="Rechnungsaussteller" Value="{Binding Path=Issuer}"  AcceptsReturn="True" HeaderAlignment="Top" VerticalContentAlignment="Top"/>
-					<StringParam Grid.Row="1" Header="Empfänger" Value="{Binding Path=Recipient}" MinHeight="60" AcceptsReturn="True" HeaderAlignment="Top" VerticalContentAlignment="Top"/>
+					<StringParam Grid.Row="0" Header="Rechnungsaussteller"  Value="{Binding Path=Issuer}" MinHeightTextBox="60" AcceptsReturn="True" HeaderAlignment="Top"  VerticalContentAlignmentTextBox="Top"/>
+					<StringParam Grid.Row="1" Header="Empfänger" Value="{Binding Path=Recipient}" MinHeightTextBox="60" AcceptsReturn="True" HeaderAlignment="Top" VerticalContentAlignmentTextBox="Top"/>
 				</Grid>
 			</GroupBox>
 		</Grid>
@@ -58,7 +73,7 @@
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<StringParam Grid.Row="0" Header="Id" Value="{Binding Path=InternRecipientId}" AcceptsReturn="True"/>
+				<StringParam Grid.Row="0" Header="Id" Value="{Binding Path=InternRecipientId}"/>
 				<StringParam Grid.Row="1" Header="Notizen" Value="{Binding Path=InternDescription}" AcceptsReturn="True"/>
 			</Grid>
 		</GroupBox>
