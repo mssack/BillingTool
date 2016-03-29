@@ -16,7 +16,7 @@ using CsWpfBase.Global;
 
 
 
-namespace BillingDataAccessGenerator.DatabaseCreation
+namespace BillingDataAccess.DatabaseCreation
 {
 	/// <summary>
 	///     The database installer is used for the first installation of the database. This should only be useful for setting up a new billing line, or when
@@ -115,7 +115,7 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 		/// </summary>
 		private string GetScript(string scriptName)
 		{
-			return CsGlobal.Storage.Resource.File.Read("BillingDataAccessGenerator", $@"DatabaseCreation\SQL Scripts\{scriptName}.txt");
+			return CsGlobal.Storage.Resource.File.Read("BillingDataAccess", $@"DatabaseCreation\SQL Scripts\{scriptName}.txt");
 		}
 
 		/// <summary>Executes a SQL command on the connection.</summary>
