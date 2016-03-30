@@ -40,7 +40,10 @@ namespace BillingTool.Windows
 			Item = item;
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "NewCashBookEntryWindow");
+			Topmost = true;
+
 			Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+
 		}
 		
 

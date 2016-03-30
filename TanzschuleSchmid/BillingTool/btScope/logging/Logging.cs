@@ -78,8 +78,7 @@ namespace BillingTool.btScope.logging
 		/// <param name="method">!!!DO NOT PASS PARAMETER!!!</param>
 		public void New(LogTitels titel, string content, LogTypes logType = LogTypes.Information, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
 		{
-
-			New(titel.ToString(), content, logType, filePath, method);
+			New(titel.GetDescription(), content, logType, filePath, method);
 		}
 	}
 }

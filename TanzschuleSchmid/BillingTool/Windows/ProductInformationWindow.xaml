@@ -5,5 +5,19 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
 		Title="ProductInformationWindow" Height="300" Width="300" WindowStartupLocation="CenterScreen">
-	<Grid />
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<Button Grid.Column="1" Click="OpenConfigurationClicked" Content="Open Configuration"/>
+		</Grid>
+	</Grid>
 </CsWindow>

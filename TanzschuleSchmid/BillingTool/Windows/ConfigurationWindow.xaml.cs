@@ -5,6 +5,10 @@
 // <date>2016-03-30</date>
 
 using System;
+using System.Windows;
+using BillingTool.btScope;
+using CsWpfBase.Global;
+using CsWpfBase.Global.message;
 using CsWpfBase.Themes.Controls.Containers;
 
 
@@ -21,6 +25,20 @@ namespace BillingTool.Windows
 		public ConfigurationWindow()
 		{
 			InitializeComponent();
+			CsGlobal.Wpf.Storage.Window.Handle(this, "ConfigurationWindow");
+		}
+
+		private void CreateDatabaseClicked(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				Bt.Db.CreateDatabase();
+				CsGlobal.Message.Push("Die Datenbank wurde erfolgreich erstellt.");
+			}
+			catch (Exception excp)
+			{
+				CsGlobal.Message.Push(excp, CsMessage.Types.Error);
+			}
 		}
 	}
 }

@@ -29,8 +29,10 @@
 		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
 	</Style>
 
-	<Style x:Key="ParamSteuer" TargetType="{x:Type DecimalParam}" >
+	<Style x:Key="ParamSteuer" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Steuer"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="ExtensionMinWidth" Value="80"/>
 		<Setter Property="Content">
 			<Setter.Value>
 				<TextBlock Text="%" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
@@ -39,8 +41,10 @@
 		<Setter Property="TextAlignment" Value="Right"/>
 	</Style>
 
-	<Style x:Key="ParamAmountGross" TargetType="{x:Type DecimalParam}" >
+	<Style x:Key="ParamAmountGross" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Betrag Brutto"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="ExtensionMinWidth" Value="80"/>
 		<Setter Property="Content">
 			<Setter.Value>
 				<TextBlock Text="€" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
@@ -48,8 +52,10 @@
 		</Setter>
 		<Setter Property="TextAlignment" Value="Right"/>
 	</Style>
-	<Style x:Key="ParamAmountNetto" TargetType="{x:Type DecimalParam}" >
+	<Style x:Key="ParamAmountNetto" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Betrag Netto"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="ExtensionMinWidth" Value="80"/>
 		<Setter Property="Content">
 			<Setter.Value>
 				<TextBlock Text="€" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>

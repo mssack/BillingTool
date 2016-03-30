@@ -15,7 +15,7 @@
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 						<TextBlock FontSize="15" FontFamily="Segoe UI" Text="{TemplateBinding Header}" />
 						<ContentControl Margin="{TemplateBinding Padding}" Grid.Row="1" Content="{TemplateBinding Content}" IsTabStop="False" Focusable="False" />

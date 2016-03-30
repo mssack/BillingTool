@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows;
+using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingTool.btScope;
 using BillingTool.btScope.configuration._enums;
 using CsWpfBase.Global;
@@ -22,7 +23,24 @@ namespace BillingTool
 	{
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
-			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage); //Provides some needed functionality. DO NOT REMOVE.
+
+			Current.DispatcherUnhandledException += (s, args) =>
+			{
+				try
+				{
+					Bt.Logging.New(LogTitels.UnhandledException, args.Exception.ToString(), LogTypes.Fatal);
+				}
+				catch (Exception)
+				{
+					
+				}
+			};
+
+
+		CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
+			
+
+
 			Bt.Config.CommandLine.Interpret(e.Args);
 			Bt.UiFunctions.ExecuteConfiguration();
 		}

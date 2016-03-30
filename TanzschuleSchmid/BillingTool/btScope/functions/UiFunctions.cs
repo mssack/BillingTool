@@ -54,16 +54,28 @@ namespace BillingTool.btScope.functions
 
 			var window = new NewCashBookEntryWindow(entry);
 
+			if (showdialog)
+				window.ShowDialog();
+			else
+				window.Show();
+		}
+		/// <summary>Opens a window for the configuration of this software.</summary>
+		public void OpenConfiguration(bool showdialog = false)
+		{
+			var window = new ConfigurationWindow();
 
 			if (showdialog)
 				window.ShowDialog();
 			else
 				window.Show();
 		}
-		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="CashBookEntry" />.</summary>
-		public void OpenConfiguration(bool showdialog = false)
+		/// <summary>
+		/// Opens a window with the product informations.
+		/// </summary>
+		/// <param name="showdialog"></param>
+		public void OpenProductInformation(bool showdialog = false)
 		{
-			var window = new ConfigurationWindow();
+			var window = new ProductInformationWindow();
 
 			if (showdialog)
 				window.ShowDialog();
@@ -88,6 +100,10 @@ namespace BillingTool.btScope.functions
 			else if (mode == StartupModes.Configuration)
 			{
 				OpenConfiguration();
+			}
+			else if (mode == StartupModes.ProductInformation)
+			{
+				OpenProductInformation();
 			}
 
 			if (Application.Current.MainWindow == null)

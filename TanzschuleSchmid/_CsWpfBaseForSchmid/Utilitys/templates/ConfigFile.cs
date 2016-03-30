@@ -85,7 +85,10 @@ namespace CsWpfBase.Utilitys.templates
 
 				try
 				{
-					keyMember.SetValue(this, Convert.ChangeType(value, keyMember.Type));
+					if (keyMember.Type.IsEnum)
+						keyMember.SetValue(this, Enum.Parse(keyMember.Type, value));
+					else
+						keyMember.SetValue(this, Convert.ChangeType(value, keyMember.Type));
 				}
 				catch (Exception)
 				{
@@ -184,7 +187,7 @@ namespace CsWpfBase.Utilitys.templates
 
 			public static void SkipWhiteSpaces(ref int pos, string value)
 			{
-				while (pos < value.Length && value[pos] == ' ' || value[pos] == '\t')
+				while (pos < value.Length && (value[pos] == ' ' || value[pos] == '\t'))
 				{
 					pos++;
 				}
