@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-Arrow-Left" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Arrow/LeftArrow.png" />
+	<BitmapImage x:Key="GIco-Arrow-Up" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Arrow/UpArrow.png" />
+	<BitmapImage x:Key="GIco-Arrow-Right" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Arrow/RightArrow.png" />
+	<BitmapImage x:Key="GIco-Arrow-Down" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Arrow/DownArrow.png" />
+
+	<BitmapImage x:Key="GIco-Arrow-Back" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Arrow/Back.png" />
+</ResourceDictionary>

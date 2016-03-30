@@ -1,0 +1,22 @@
+﻿///<summary>#DefaultDescription#</summary>
+[Serializable]
+#DebuggerDisplayAttribute#
+#CsDbDataViewRowAttribute#
+public partial class #Name# : CsDbViewRow
+{
+	public #Name#(DataRowBuilder builder) : base(builder){}
+
+
+
+	///	<summary> gets the owning table of type <see cref="#TableType#"/>. </summary>
+	public new #TableType# Table => (#TableType#) base.Table;
+
+
+
+
+	#region COLUMNS
+	#Columns#
+	
+	#UnsignedColumns#
+	#endregion
+}

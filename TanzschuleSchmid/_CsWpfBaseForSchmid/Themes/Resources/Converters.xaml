@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:logic="clr-namespace:CsWpfBase.Themes.Resources.Converters.logic"
+					xmlns:visibility="clr-namespace:CsWpfBase.Themes.Resources.Converters.visibility"
+					xmlns:format="clr-namespace:CsWpfBase.Themes.Resources.Converters.format"
+					xmlns:converters="clr-namespace:CsWpfBase.Themes.Resources.Converters"
+					xmlns:image="clr-namespace:CsWpfBase.Themes.Resources.Converters.image">
+
+	<logic:Conv_InvIsNullOrEmpty x:Key="GConv-IsNotNullOrEmpty" />
+	<logic:Conv_IsNullOrEmpty x:Key="GConv-IsNullOrEmpty" />
+	<logic:Conv_IsOfType x:Key="GConv-IsOfType" />
+	<logic:Conv_IsOfTypeToVisibility x:Key="GConv-IsOfTypeToVisibility" />
+	<logic:Conv_IsNotOfTypeToVisibility x:Key="GConv-IsNotOfTypeToVisibility" />
+	<logic:Conv_BoolInverter x:Key="GConv-BoolInverter" />
+	<logic:Conv_GreaterThen x:Key="GConv-GreaterThen" />
+	<logic:Conv_LessThen x:Key="GConv-LessThen" />
+
+
+	<visibility:Conv_BoolVisibility x:Key="GConv-BoolVisibility" />
+	<visibility:Conv_InvBoolVisibility x:Key="GConv-InvBoolVisibility" />
+	<visibility:Conv_NullToVisibility x:Key="GConv-NullToVisibility" />
+	<visibility:Conv_InvNullToVisibility x:Key="GConv-InvNullToVisibility" />
+
+	<format:Conv_BoolToJaNein x:Key="GConv-BoolToYesNo" />
+	<format:Conv_BytesToFormattedText x:Key="GConv-BytesToFormattedText" />
+	<format:Conv_BitSpeedToFormattedBitSpeed x:Key="GConv-BitSpeedToFormattedBitSpeed" />
+	<format:Conv_BitSpeedToFormattedByteSpeed x:Key="GConv-BitSpeedToFormattedByteSpeed" />
+	<format:Conv_ArrayToFormattedText x:Key="GConv-ArrayToFormattedText" />
+	<converters:Conv_MultiBindingStringFormat x:Key="GConv-MultiBindingStringFormat" />
+	<converters:Conv_BindingStringFormat x:Key="GConv-BindingStringFormat" />
+
+	<converters:Conv_ThicknessInverter x:Key="GConv-ThicknessInverter" />
+	<converters:Conv_ThicknessZeroSetter x:Key="GConv-ThicknessZeroSetter" />
+	<converters:Conv_MultiBindingLevelToMargin x:Key="GConv-MultiBindingLevelToMargin" />
+	<format:Conv_EnumToDescription x:Key="GConv-GetEnumDescription" />
+
+	<converters:Conv_UntilDateTimeConverter x:Key="GConv-TimeUntilDateTime" />
+	<logic:Conv_DateTimeIsInFuture x:Key="GConv-DateTimeIsInFuture" />
+	<converters:Conv_TimeDiffference x:Key="GConv-TimeDiffference" />
+
+	<format:Conv_Ipv6AddressToString x:Key="GConv-Ipv6AddressToString" />
+	<converters:Conv_ToStaticList x:Key="GConv-ToStaticList" />
+	<converters:Conv_PercentToColor x:Key="GConv-PercentToColor" />
+	<image:Conv_PercentToQualityImage x:Key="GConv-PercentToQualityImage" />
+</ResourceDictionary>

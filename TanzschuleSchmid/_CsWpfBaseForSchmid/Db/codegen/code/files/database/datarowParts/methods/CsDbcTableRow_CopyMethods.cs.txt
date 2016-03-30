@@ -1,0 +1,18 @@
+﻿///	<summary> This method copy's each database field into the <paramref name="target"/> interface. </summary>
+public void #CopyToName#(#InterfaceName# target, bool includePrimaryKey = false)
+{
+	#CopyToMethodBody#
+}
+///	<summary> This method copy's each database field from the <paramref name="source"/> interface to this data row.</summary>
+public void #CopyFromName#(#InterfaceName# source, bool includePrimaryKey = false)
+{
+	#CopyFromMethodBody#
+}
+///	<summary> 
+///		This method copy's each database field which is not in the <paramref name="excludedColumns"/> 
+///		from the <paramref name="source"/> interface to this data row.
+/// </summary>
+public void #CopyFromName#(#InterfaceName# source, params string[] excludedColumns)
+{
+	#CopyFromWithExclusionMethodBody#
+}

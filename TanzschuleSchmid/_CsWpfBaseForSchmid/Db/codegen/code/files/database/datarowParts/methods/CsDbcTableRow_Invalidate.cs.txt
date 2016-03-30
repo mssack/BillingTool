@@ -1,0 +1,7 @@
+﻿protected void #Name#()
+{
+	if (!IsPropertyChangedHandled)
+		return;
+
+	#Columns#
+}

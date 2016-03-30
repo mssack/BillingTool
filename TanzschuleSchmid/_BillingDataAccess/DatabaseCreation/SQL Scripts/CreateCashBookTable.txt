@@ -1,0 +1,34 @@
+﻿CREATE TABLE [CashBook]
+(
+
+
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+
+	[BelegNummer]		integer		NOT NULL UNIQUE,
+	[KassenId]			integer		NOT NULL,
+	[BelegAussteller]	ntext		NOT NULL,
+	[Datum]				datetime	NOT NULL DEFAULT getdate(),
+
+
+	[BetragBrutto]			money NOT NULL DEFAULT(0),
+	[UmsatzZähler]			money NOT NULL,
+
+
+	[Steuersatz]			money NOT NULL DEFAULT(0),
+	[SteuersatzArt]			ntext NOT NULL,
+	[LeistungsBeschreibung]	ntext NOT NULL,
+
+	
+	[BelegText]				ntext,
+
+
+	[InternEmpfänger]		ntext,
+	[InterneEmpfängerId]	ntext,
+	[InterneBeschreibung]	ntext,
+
+
+	[ZuletztGeändert]		datetime NOT NULL DEFAULT getdate()
+
+
+
+)

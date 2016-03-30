@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:CsWpfBase.Themes.Controls.Containers">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="{x:Type local:NavigationContainer}">
+		<Setter Property="Focusable" Value="False" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderBrush" Value="LightGray" />
+		<Setter Property="Padding" Value="5,0,0,0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:NavigationContainer}">
+					<Border DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}">
+						<Border.Resources>
+						</Border.Resources>
+						<Grid>
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+
+							<Border Grid.Column="0" Margin="0,0,0,0" Width="30" BorderThickness="{Binding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+								<Border Background="#F5F6F7" BorderThickness="1" BorderBrush="#F9F9FA">
+									<Grid>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="*" />
+										</Grid.RowDefinitions>
+										<Button Padding="3,0,3,0" Style="{StaticResource ImageButton}" Command="{Binding Path=NavigateBackCommand}"
+												Visibility="{Binding Path=Stack.IsPopAvailable, Converter={StaticResource GConv-BoolVisibility}}">
+											<Image Source="{StaticResource GIco-Arrow-Back}" />
+										</Button>
+										<ContentControl Grid.Row="1" Focusable="False" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" />
+									</Grid>
+								</Border>
+							</Border>
+							<Border Grid.Column="1" Padding="{TemplateBinding Padding}">
+								<ContentControl Focusable="False" Name="PART_Content" Content="{TemplateBinding DisplayItem}" ContentTemplate="{TemplateBinding ItemTemplate}" />
+							</Border>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>

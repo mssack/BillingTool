@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-Media-Play" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Media/Play.png" />
+	<BitmapImage x:Key="GIco-Media-Pause" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Media/Pause.png" />
+	<BitmapImage x:Key="GIco-Media-Stop" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Media/Stop.png" />
+</ResourceDictionary>

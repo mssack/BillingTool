@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\BillingTool.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +37,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlServerCe_unofficial.4.0.8482.1\lib\net20\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -53,18 +58,69 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="btScope\Bt.cs" />
+    <Compile Include="btScope\configuration\commandLine\CommandLine_GeneralSetting.cs" />
+    <Compile Include="btScope\configuration\commandLine\CommandLine_NewCashBookEntrySetting.cs" />
+    <Compile Include="btScope\configuration\commandLine\_CommandLines.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_GeneralSettings.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_MailSettings.cs" />
+    <Compile Include="btScope\configuration\configFiles\_ConfigFiles.cs" />
+    <Compile Include="btScope\configuration\Configuration.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_NewCashBookEntry.cs" />
+    <Compile Include="btScope\configuration\merged\Merged_GeneralSettings.cs" />
+    <Compile Include="btScope\configuration\merged\Merged_NewCashBookEntry.cs" />
+    <Compile Include="btScope\configuration\merged\_Merged.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfigMailSettings.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfigGeneralSettings.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfigNewCashBookEntrySettings.cs" />
+    <Compile Include="btScope\functions\UiFunctions.cs" />
+    <Compile Include="Windows\ConfigurationWindow.xaml.cs">
+      <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\DatabaseWindow.xaml.cs">
+      <DependentUpon>DatabaseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\NewCashBookEntryWindow.xaml.cs">
+      <DependentUpon>NewCashBookEntryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="btScope\db\Db.cs" />
+    <Compile Include="btScope\logging\Logging.cs" />
+    <Compile Include="CompilerServices.cs" />
+    <Compile Include="btScope\configuration\_enums\StartupModes.cs" />
+    <Compile Include="Windows\DeveloperWindow.xaml.cs">
+      <DependentUpon>DeveloperWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProductInformationWindow.xaml.cs">
+      <DependentUpon>ProductInformationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Windows\ConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DeveloperWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DatabaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProductInformationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\NewCashBookEntryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NewCashBookEntryStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -84,12 +140,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\_BillingDataAccess\_BillingDataAccess.csproj">
+      <Project>{672DE474-CC73-45F5-819A-FDCDD687570F}</Project>
+      <Name>_BillingDataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\_CsWpfBaseForSchmid\_CsWpfBaseForSchmid.csproj">
+      <Project>{63CB4E91-9D9C-4C97-8097-FC3964593796}</Project>
+      <Name>_CsWpfBaseForSchmid</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

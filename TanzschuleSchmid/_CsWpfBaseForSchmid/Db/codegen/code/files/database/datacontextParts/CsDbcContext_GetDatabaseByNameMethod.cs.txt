@@ -1,0 +1,10 @@
+﻿///<summary>Get a database/dataset by its native name</summary>
+public override CsDbDataSet GetDatabaseByName(string name)
+{
+	switch (name)
+	{
+		#Items#
+		default:
+			throw new Exception("unknown data set");
+	}
+}

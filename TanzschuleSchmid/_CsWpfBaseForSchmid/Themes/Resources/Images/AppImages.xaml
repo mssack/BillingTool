@@ -1,0 +1,5 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-App-Standard" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/AppImages/SackIcon.png" />
+	<BitmapImage x:Key="GIco-App-ChristianSack" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/AppImages/ChristianSack.jpg" />
+</ResourceDictionary>

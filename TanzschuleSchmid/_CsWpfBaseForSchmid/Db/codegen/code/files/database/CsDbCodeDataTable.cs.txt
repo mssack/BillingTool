@@ -1,0 +1,50 @@
+﻿#pragma warning disable 657
+
+///	<summary>
+///		#DefaultDescription#<para/>
+///		#RelationsDescription#
+///	</summary>
+[Serializable]
+#DebuggerDisplayAttribute#
+#CsDbDataTableAttribute#
+#RelationAttributes#
+public partial class #Name# : CsDbTable<#DataRowType#>
+{
+	#region CONSTANTS
+	///<summary>The native table name (#NativeName#).</summary>
+	public const string #NativeNameConstant# = "#NativeName#";
+	#Constants#
+
+	/// <summary> Contains attribute values for the columns</summary>
+	public static class ColAttributes
+	{
+		#ColAttributes#
+	}
+	#endregion
+
+
+
+
+
+
+
+	///<summary>Default constructor for save <see cref="DataTable"/> operations</summary>
+	public #Name#()
+	{
+		TableName = #NativeNameConstant#;
+	}
+
+	///<summary>References the owning data context, this is equal to the database server. Use this to address databases on the same server.</summary>
+	public new #DataContextType# #DataContextPropertyName# => #DataSetPropertyName#.#DataContextPropertyName#;
+
+	///<summary>References the owning dataset. Use this to address tables in the same database</summary>
+	public new #DataSetType# #DataSetPropertyName# => (#DataSetType#) base.DataSet;
+
+
+
+
+
+
+
+	#Methods#
+}

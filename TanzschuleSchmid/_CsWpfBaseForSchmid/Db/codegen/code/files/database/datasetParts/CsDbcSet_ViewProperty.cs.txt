@@ -1,0 +1,2 @@
+﻿///<summary>Get or create view of type DataTable([<c>#DatabaseName#</c>].[<c>#NativeViewName#</c>]) => If view does not exist in <see cref="Tables"/> collection, it will be created and inserted automatically.</summary>
+public #Type# #Name# => GetTable<#Type#>("#NativeViewName#");

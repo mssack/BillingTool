@@ -1,0 +1,241 @@
+﻿<CsWindow x:Class="BillingTool.Windows.DatabaseWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:BillingDatabaseDb="SqlCeDatabases.BillingDatabase"
+		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;assembly=BillingDataAccess"
+		mc:Ignorable="d"
+		Title="Datenbank" Height="500" Width="900" x:Name="Uc" FooterVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
+		AWindowDragMove.IsActive="True">
+	<Grid DataContext="{Binding ElementName=Uc}" Margin="15,15,15,15">
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Grid Margin="0,-10,0,-20" Panel.ZIndex="99999">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="1" VerticalAlignment="Bottom">
+				<Grid.Resources>
+					<Style TargetType="{x:Type DatePickerTextBox}">
+						<Setter Property="IsReadOnly" Value="True" />
+					</Style>
+				</Grid.Resources>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Param Grid.Column="0" Header="Von" Width="140" Margin="0">
+					<DatePicker SelectedDate="{Binding Path=From}" BorderThickness="0" />
+				</Param>
+				<Param Grid.Column="1" Header="Bis" Width="140" Margin="30,0,0,0">
+					<DatePicker SelectedDate="{Binding Path=To}" BorderThickness="0" />
+				</Param>
+				<Button Grid.Column="2" Content="Exportieren" Width="100" Margin="10,0,0,0" />
+
+			</Grid>
+		</Grid>
+
+		<TabControl Grid.Row="1" SelectionChanged="TabItemChanged">
+			<TabItem Header="Registrierkassen Einträge" x:Name="CashBookEntryTab">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=FilteredCashBookEntries}">
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="Belegnummer" Sort.PropertyName="BelegNummer">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=BelegNummer}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="KassenId" Sort.PropertyName="KassenId">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=KassenId}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Aussteller" Sort.PropertyName="BelegAusteller">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=BelegAussteller}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Datum" Sort.PropertyName="Datum">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=Datum}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Brutto" Sort.PropertyName="BetragBrutto">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00} €}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Steuer [%]" Sort.PropertyName="Steuersatz">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=Steuersatz, StringFormat={}{0:0.00} %}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Netto [€]" Sort.PropertyName="BetragNetto">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=BetragNetto, StringFormat={}{0:0.00} €}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Umsatzzähler" Sort.PropertyName="UmsatzZähler">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=UmsatzZähler, StringFormat={}{0:0.00} €}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Leistungsbeschreibung" Sort.PropertyName="LeistungsBeschreibung">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=LeistungsBeschreibung}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Beleg Text" Sort.PropertyName="Text">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=BelegText}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Empfänger (intern)" Sort.PropertyName="InternEmpfänger">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=InternEmpfänger}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Empfänger Id (intern)" Sort.PropertyName="InterneInternEmpfängerId">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBox Text="{Binding Path=InterneEmpfängerId}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Beschreibung (intern)" Sort.PropertyName="InterneBeschreibung">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBox Text="{Binding Path=InterneBeschreibung}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Zuletzt geändert" Sort.PropertyName="ZuletztGeändert">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=ZuletztGeändert}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+			<TabItem Header="Logs" x:Name="LogsTab">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=FilteredLogs}">
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="Type" Sort.PropertyName="TypeName">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+											</Grid.ColumnDefinitions>
+											<Image Width="13" Height="13" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,5,0">
+												<Image.Style>
+													<Style TargetType="Image">
+														<Style.Triggers>
+
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Information}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-Info}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Warning}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-Warning}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Error}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-Error}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Fatal}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-FatalError}" />
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</Image.Style>
+											</Image>
+											<TextBlock Grid.Column="1" Text="{Binding Path=TypeName}" />
+										</Grid>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Date" Sort.PropertyName="Date">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=Date}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Title" Sort.PropertyName="Title">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=Title}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Content" Sort.PropertyName="Content">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=Content}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Comment" Sort.PropertyName="Comment">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<TextBox Text="{Binding Path=Comment}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+
+							<GridViewColumn Header="Code position" Sort.PropertyName="CodePosition">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=CodePosition}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="Commandline" Sort.PropertyName="CommandLine">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=CommandLine}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+		</TabControl>
+
+	</Grid>
+</CsWindow>

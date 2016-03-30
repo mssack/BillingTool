@@ -1,0 +1,5 @@
+﻿/// <summary>Sets all db proxy's inside this context.</summary>
+public override void Set_DbProxy<T>()
+{
+	#Items#
+}

@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-Switch-BulbOff" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Switches/BulbOff.png" />
+	<BitmapImage x:Key="GIco-Switch-BulbOn" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Switches/BulbOn.png" />
+	<BitmapImage x:Key="GIco-Switch-VolumeOn" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Switches/VolumeOn.png" />
+	<BitmapImage x:Key="GIco-Switch-VolumeOff" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Switches/VolumeOff.png" />
+</ResourceDictionary>

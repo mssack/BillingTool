@@ -1,0 +1,2 @@
+﻿///<summary>#DefaultDescription# <para/> => Converts signed to unsigned version. Use this to get the unsigned value from property <see cref="#SignedName#"/>.</summary>
+#Attributes#public #Type# #Name# => (#Type#) #SignedName#; 

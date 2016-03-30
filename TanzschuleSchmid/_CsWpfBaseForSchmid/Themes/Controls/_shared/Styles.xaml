@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Brushes.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Converters.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Arrow.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Hardware.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/IO.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Item.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Media.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Message.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Property.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/State.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Switches.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Time.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Images/Uncatagorized.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Styles-Named.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Resources/Styles-Default.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

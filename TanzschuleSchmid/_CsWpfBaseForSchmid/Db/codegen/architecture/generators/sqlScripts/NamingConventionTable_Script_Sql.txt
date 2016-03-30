@@ -1,0 +1,8 @@
+﻿CREATE TABLE [__CsDb.NamingConventions](
+	[Id] [uniqueidentifier] NOT NULL default newid(),
+	[Type] [nvarchar](20) NOT NULL default (N'Table')
+	CHECK ([Type] IN ('Table', 'Relation')),
+	[NativeName] [nvarchar](255) NOT NULL,
+	[Singular] [nvarchar](255) NOT NULL,
+	[Plural] [nvarchar](255) NOT NULL
+) ON [PRIMARY]

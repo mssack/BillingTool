@@ -1,0 +1,4 @@
+﻿If the program is running it sends usage statistics including "Computer name, username, usage time and the startup count" and searches for updates every week.
+The transmitted data is encrypted via an asymmetric encryption mechanism.
+
+The server does not log any informations about the client including "Http header or ip address".

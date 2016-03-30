@@ -1,0 +1,33 @@
+﻿///	<summary> #DefaultDescription# </summary>
+[Serializable]
+#DebuggerDisplayAttribute#
+#CsDbDataViewAttribute#
+public partial class #Name# : CsDbView<#DataRowType#>
+{
+
+	///<summary>References the owning data context, this is equal to the database server. Use this to address databases on the same server.</summary>
+	public new #DataContextType# #DataContextPropertyName# => #DataSetPropertyName#.#DataContextPropertyName#;
+
+	///<summary>References the owning dataset. Use this to address tables in the same database</summary>
+	public new #DataSetType# #DataSetPropertyName# => (#DataSetType#) base.DataSet;
+
+
+	///<summary>Default constructor for save <see cref="DataTable"/> operations</summary>
+	public #Name#()
+	{
+		TableName = #NativeNameConstant#;
+	}
+
+
+	#region Column - Constants
+	// Column constants are used to help write select statements
+	// This can help to prevent runtime exceptions if database have changed
+	/// <summary>Gets the native data base view name '<c>#NativeName#</c>'</summary>
+	public const string NativeName = "#NativeName#";
+	#Constants#
+	#endregion
+
+
+
+	#Overrides#
+}

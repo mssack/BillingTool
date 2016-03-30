@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<BitmapImage x:Key="GIco-Message-Info" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Message/Info.png" />
+	<BitmapImage x:Key="GIco-Message-Warning" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Message/Warning.png" />
+	<BitmapImage x:Key="GIco-Message-Error" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Message/Error.png" />
+	<BitmapImage x:Key="GIco-Message-FatalError" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Message/FatalError.png" />
+	<BitmapImage x:Key="GIco-Message-Box" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Message/Message.png" />
+
+</ResourceDictionary>

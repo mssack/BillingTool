@@ -1,0 +1,110 @@
+﻿<CsWindow x:Class="BillingTool.Windows.ConfigurationWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:enums="clr-namespace:BillingTool.btScope.configuration._enums"
+		mc:Ignorable="d"
+		Title="Registrierkassen Konfiguration" Padding="20" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
+		HeaderVisibility="Collapsed" Width="720" Height="750" FooterVisibility="Collapsed" AWindowDragMove.IsActive="True" ResizeMode="NoResize">
+	<Window.Resources>
+		<ResourceDictionary Source="/BillingTool;component/Themes/NewCashBookEntryStyles.xaml" />
+	</Window.Resources>
+	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File}"> 
+		<Grid.LayoutTransform>
+			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.3" ScaleY="1.3" />
+		</Grid.LayoutTransform>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="0" Header="Datenbank" DataContext="{Binding Path=General}" >
+			<Param Grid.Row="0" Header="Pfad">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<FPathEditor AllowNonExistingPath="True" Value="{Binding Path=BillingDatabaseFilePath}" x:Name="FilePathPicker" />
+					<Button Grid.Column="1" Click="CreateDatabaseClicked" Content="Erstelle Datenbank"
+							IsEnabled="{Binding ElementName=FilePathPicker, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
+				</Grid>
+			</Param>
+		</GroupBox>
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="0" Header="Generel" DataContext="{Binding Path=General}">
+					<Grid IsSharedSizeScope="True">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Param Grid.Row="1" Header="Startup Mode">
+							<ComboBox SelectedValue="{Binding Path=StartupMode}" Width="150" HorizontalAlignment="Left" SelectedValuePath="Value"
+									DisplayMemberPath="Description" ItemsSource="{Binding Source={EnumerationExtension {x:Type enums:StartupModes}}}" />
+						</Param>
+					</Grid>
+				</GroupBox>
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="1" Header="E-Mail Sender" DataContext="{Binding Path=Mail}" Width="250">
+					<Grid IsSharedSizeScope="True">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<StringParam Grid.Row="0" Header="Absender mail" Value="{Binding Path=SenderMailAddress}" />
+						<StringParam Grid.Row="1" Header="SMTP Server" Value="{Binding Path=SenderSmtpServer}" />
+						<UInt16Param Grid.Row="2" Header="SMTP Server Port" Value="{Binding Path=SenderSmtpPort}" />
+						<BoolParam Grid.Row="3" Header="SMTP Enable SSL" Value="{Binding Path=SenderSmtpEnableSsl}" />
+						<StringParam Grid.Row="4" Header="SMTP User" Value="{Binding Path=SenderSmtpUsername}" />
+						<StringParam Grid.Row="5" Header="SMTP Pwd" Value="{Binding Path=SenderSmtpPassword}" />
+					</Grid>
+				</GroupBox>
+			</Grid>
+
+			<GroupBox Grid.Row="1" Style="{StaticResource ParamGroup}" Header="Neuer Eintrag - Standardwerte" DataContext="{Binding Path=NewCashBookEntry}">
+				<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+					<Grid IsSharedSizeScope="True">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<StringParam Grid.Row="0" Style="{StaticResource ParamBelegAussteller}" Value="{Binding Path=BelegAussteller}" />
+
+						<StringParam Grid.Row="1" Style="{StaticResource ParamBetragBrutto}" Value="{Binding Path=BetragBrutto}" />
+						<StringParam Grid.Row="2" Style="{StaticResource ParamSteuersatz}" Value="{Binding Path=Steuersatz}" />
+
+						<StringParam Grid.Row="3" Style="{StaticResource ParamLeistungsBeschreibung}" Value="{Binding Path=LeistungsBeschreibung}" />
+						<StringParam Grid.Row="4" Style="{StaticResource ParamBelegText}" Value="{Binding Path=BelegText}" />
+
+						<StringParam Grid.Row="5" Style="{StaticResource ParamInternEmpfänger}" Value="{Binding Path=InternEmpfänger}" />
+						<StringParam Grid.Row="6" Style="{StaticResource ParamInterneEmpfängerId}" Value="{Binding Path=InterneEmpfängerId}" />
+						<StringParam Grid.Row="7" Style="{StaticResource ParamInterneBeschreibung}" Value="{Binding Path=InterneBeschreibung}" />
+					</Grid>
+				</ScrollViewer>
+			</GroupBox>
+
+		</Grid>
+
+
+	</Grid>
+</CsWindow>

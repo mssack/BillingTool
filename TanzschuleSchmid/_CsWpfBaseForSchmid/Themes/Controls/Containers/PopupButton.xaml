@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:CsWpfBase.Themes.Controls.Containers">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="{x:Type local:PopupButton}">
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-Normal}" />
+		<Setter Property="Background" Value="{StaticResource GBrush-Background-Button}" />
+		<Setter Property="Margin" Value="1" />
+		<Setter Property="Padding" Value="1,0,1,0" />
+		<Setter Property="Cursor" Value="{x:Static Cursors.Hand}" />
+		<Setter Property="PlacementTarget" Value="{Binding RelativeSource={RelativeSource Self}}" />
+		<Setter Property="Placement" Value="Left" />
+		<Setter Property="PopupPadding" Value="8,5,8,5" />
+		<Setter Property="PopupBorderBrush" Value="DimGray" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:PopupButton}">
+					<Grid>
+						<Border Name="PART_ClickableBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+								Padding="{TemplateBinding Padding}">
+							<ContentControl Focusable="False" IsTabStop="False" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+						</Border>
+						<Popup Name="PART_Popup" PopupAnimation="Fade" StaysOpen="False" PlacementTarget="{TemplateBinding PlacementTarget}" SnapsToDevicePixels="True" Placement="{TemplateBinding Placement}"
+								IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsOpen}" RenderOptions.BitmapScalingMode="HighQuality" TextElement.FontSize="12" Focusable="False">
+							<Border Background="White" Padding="{TemplateBinding PopupPadding}" BorderThickness="1" BorderBrush="{TemplateBinding PopupBorderBrush}">
+								<ContentControl Focusable="False" IsTabStop="False" Content="{TemplateBinding PopupContent}" ContentTemplate="{TemplateBinding PopupContentTemplate}" />
+							</Border>
+						</Popup>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-MouseOver}" />
+				<Setter Property="Background" Value="{StaticResource GBrush-Background-MouseOver}" />
+			</Trigger>
+			<Trigger Property="IsKeyboardFocusWithin" Value="True">
+				<Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-KeyboardFocusWithin}" />
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>

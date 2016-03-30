@@ -1,0 +1,11 @@
+﻿#FileComment##Usings#
+
+
+
+
+
+
+namespace #Namespace#
+{
+	#Content#
+}

@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<BitmapImage x:Key="GIco-Item-Ok" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Item/Ok.png" />
+	<BitmapImage x:Key="GIco-Item-Edit" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Item/Editable.png" />
+	<BitmapImage x:Key="GIco-Item-Add" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Item/Add.png" />
+	<BitmapImage x:Key="GIco-Item-Remove" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Item/Remove.png" />
+
+
+	<!--TODO 
+	download https://www.iconfinder.com/iconsets/weboo-2-->
+
+</ResourceDictionary>

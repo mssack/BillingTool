@@ -1,0 +1,50 @@
+﻿END USER LICENSE AGREEMENT ENGLISH
+
+Please read the license agreement carefully.
+
+By using this software you accept the terms and conditions of this license agreement. 
+Don’t use the software if you don’t accept the terms and conditions.
+
+1. DEFINITIONS
+
+“Creator” and “Licensor” of {PRODUCTTITLE} is {COMPANY}
+“End user”, “user” or “licensee” refers to you.
+“Use” means installation and execution of the software
+“Distribute” means to make the software available to third parties or to the public
+
+2. GENERAL USE
+
+The creator grants the user the non-exclusive right to use and distribute for an unlimited period of time. The software under this license is provided free of charge. Even though the use of this software is bound to the following conditions.
+
+2.1 The software may be installed and used by the licensee for any legal purpose.
+2.2 The software may be installed and used by the licensee on any number of systems.
+2.3 The software can be copied and distributed under the condition that original copyright notice, terms of warranty and disclaimer remain intact and the licensee will not charge money or fees except to cover distribution cost.
+2.4 The licensee agrees, that the licensor retains all exclusive copyrights. The licensee will not have any proprietary rights in and to the software.
+
+2.5 Use within the scope of this software is free of charge
+
+ 
+3. TERMS OF WARRANTY
+
+The licensor warrants the following conditions.
+
+3.1 Christian Sack is the creator of the software and owns all exclusive rights
+3.2 To the best of the licensor’s knowledge, the software does not infringe upon or violate any intellectual property right of any third party.
+3.3 The software doesn’t contain any routine, which deactivates, deletes, manipulates or damages other files, processes or programs.
+3.4 The software doesn’t contain or install any spyware or malware.
+3.5 Except those warranties specified in sections 3.1 to 3.2 the software being delivered to the licensee “AS IS” and the licensor makes no warranty as to its use or performance and is not liable to offer any support.
+
+4. DISCLAIMER
+
+In no event will the licensor be liable for any damages, claims or costs, which may occur by using the software.
+
+5.NON-WAIVER
+
+If a portion of this agreement is held unenforceable, the remainder shall be valid.
+
+ {COPYRIGHTS}
+
+Anton Baumgartner Straße 44
+B2/08/04
+1230 Wien
+Christian Sack

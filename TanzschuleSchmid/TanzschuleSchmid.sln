@@ -5,6 +5,24 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingTool", "BillingTool\BillingTool.csproj", "{0AEB901A-FCD7-4723-8156-EE4F6C94DD6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingDataAccess", "_BillingDataAccess\_BillingDataAccess.csproj", "{672DE474-CC73-45F5-819A-FDCDD687570F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingDataAccess.Generator", "_BillingDataAccess.Generator\_BillingDataAccess.Generator.csproj", "{7451FE44-83E3-49E1-B54B-3A037CC25E94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_CsWpfBaseForSchmid", "_CsWpfBaseForSchmid\_CsWpfBaseForSchmid.csproj", "{63CB4E91-9D9C-4C97-8097-FC3964593796}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Billing", "Billing", "{E33A372F-43ED-4730-B822-4697914950B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Rechtliches", "_Rechtliches", "{309E8A27-C7F8-434F-8063-A3F579F2ADED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registrierkasse", "Registrierkasse", "{239C47CE-9436-451E-888D-F226CE9F3CFC}"
+	ProjectSection(SolutionItems) = preProject
+		_Rechtliches\Registrierkasse\Notizen.docx = _Rechtliches\Registrierkasse\Notizen.docx
+		_Rechtliches\Registrierkasse\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf = _Rechtliches\Registrierkasse\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Anleitung", "Anleitung", "{441AB3AA-D45B-405D-87F3-BF44D30F971E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +33,27 @@ Global
 		{0AEB901A-FCD7-4723-8156-EE4F6C94DD6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AEB901A-FCD7-4723-8156-EE4F6C94DD6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AEB901A-FCD7-4723-8156-EE4F6C94DD6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{672DE474-CC73-45F5-819A-FDCDD687570F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{672DE474-CC73-45F5-819A-FDCDD687570F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{672DE474-CC73-45F5-819A-FDCDD687570F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{672DE474-CC73-45F5-819A-FDCDD687570F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7451FE44-83E3-49E1-B54B-3A037CC25E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63CB4E91-9D9C-4C97-8097-FC3964593796}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0AEB901A-FCD7-4723-8156-EE4F6C94DD6E} = {E33A372F-43ED-4730-B822-4697914950B8}
+		{672DE474-CC73-45F5-819A-FDCDD687570F} = {E33A372F-43ED-4730-B822-4697914950B8}
+		{7451FE44-83E3-49E1-B54B-3A037CC25E94} = {E33A372F-43ED-4730-B822-4697914950B8}
+		{239C47CE-9436-451E-888D-F226CE9F3CFC} = {309E8A27-C7F8-434F-8063-A3F579F2ADED}
+		{441AB3AA-D45B-405D-87F3-BF44D30F971E} = {309E8A27-C7F8-434F-8063-A3F579F2ADED}
 	EndGlobalSection
 EndGlobal

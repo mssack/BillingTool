@@ -1,0 +1,5 @@
+﻿/// <summary>
+///		Get the attribute from the column [<c>#DatabaseName#</c>].[<c>#NativeTableName#</c>].[<c>#NativeColumnName#</c>]<para/>
+///		#Mode# = #Value#;
+/// </summary>
+public static #Type# #Name# = #Value#;

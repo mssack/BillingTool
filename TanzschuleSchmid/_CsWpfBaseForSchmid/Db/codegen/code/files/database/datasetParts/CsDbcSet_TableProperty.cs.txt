@@ -1,0 +1,2 @@
+﻿///<summary>Get or Create DataTable([<c>#DatabaseName#</c>].[<c>#NativeTableName#</c>]) => If table does not exist in <see cref="Tables"/> collection, it will be created and inserted automatically.</summary>
+public #Type# #Name# => GetTable<#Type#>("#NativeTableName#");

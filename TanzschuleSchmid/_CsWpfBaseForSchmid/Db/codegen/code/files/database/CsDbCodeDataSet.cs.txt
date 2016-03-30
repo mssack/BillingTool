@@ -1,0 +1,192 @@
+﻿/// <summary>'[<c>#DataContextNativeName#</c>].[<c>#DatabaseName#</c>]': a dataset/database inside context [<c>#DataContextNativeName#</c>] providing the tables and views inside database [<c>#DatabaseName#</c>].</summary>
+[Serializable] [DebuggerStepThrough]
+#DebuggerDisplayAttribute#
+#CsDbDataSetAttribute#
+public partial class #Name# : CsDbDataSet
+{
+
+
+#region StaticDefinitions: Table names, Relations, schema description,...
+
+	private static DataSet _schemaSet;
+	private static CsDbRelation[] _csDbRelations;
+	private static Dictionary<Type, CsDbRelation[]> _csDbRelationsPerTableType;
+
+
+	/// <summary>The database name for the the database '#DatabaseName#' </summary>
+	public const string #DatabaseNameProperty# = "#DatabaseName#";
+
+
+	///	<summary>Gets a list of the native names of all tables inside the database.</summary>
+	public static string[] StaticTableNames = new string[]{#TableNames#};
+
+
+	///	<summary>Gets a list of the native relations of all tables inside the data set. With this set of relations you can use reflection to dynamically get linked rows.</summary>
+	public static CsDbRelation[] StaticCsDbRelations
+	{
+		get
+		{
+			if (_csDbRelations != null)
+				return _csDbRelations;
+			#RelationsForReflection#
+			return _csDbRelations;
+		}
+	}
+	
+	///	<summary>Gets a list of the native relations of all tables inside the data set. With this set of relations you can use reflection to dynamically get linked rows. Use table type as key.</summary>
+	public static Dictionary<Type, CsDbRelation[]> StaticCsDbRelationsPerTableType
+	{
+		get
+		{
+			if (_csDbRelationsPerTableType != null)
+				return _csDbRelationsPerTableType;
+
+				
+			var dict = new Dictionary<Type, List<CsDbRelation>>();
+			foreach (var relation in StaticCsDbRelations)
+			{
+				List<CsDbRelation> pkrelations;
+				if (!dict.TryGetValue(relation.PkTableType, out pkrelations))
+				{
+					pkrelations = new List<CsDbRelation>();
+					dict.Add(relation.PkTableType, pkrelations);
+				}
+				if (!pkrelations.Contains(relation))
+					pkrelations.Add(relation);
+
+
+				List<CsDbRelation> fkrelations;
+				if (!dict.TryGetValue(relation.FkTableType, out fkrelations))
+				{
+					fkrelations = new List<CsDbRelation>();
+					dict.Add(relation.FkTableType, fkrelations);
+				}
+				if (!fkrelations.Contains(relation))
+					fkrelations.Add(relation);
+			}
+			return _csDbRelationsPerTableType = dict.ToDictionary(x => x.Key, x => x.Value.ToArray());
+		}
+	}
+
+
+
+
+	///	<summary>Gets a list of the native relations of all tables inside the data set. With this set of relations you can use reflection to dynamically get linked rows.</summary>
+	public override CsDbRelation[] CsDbRelations => StaticCsDbRelations;
+
+	///	<summary>Gets a list of the native relations of all tables inside the data set. With this set of relations you can use reflection to dynamically get linked rows.</summary>
+	public override Dictionary<Type, CsDbRelation[]> CsDbRelationsPerTableType => StaticCsDbRelationsPerTableType;
+	
+	///	<summary>Gets a list of the native names of all tables inside the database.</summary>
+	public override string[] TableNames => StaticTableNames;
+
+
+
+	/// <summary> Used as a database template for the schema.</summary>
+	public override DataSet SchemaSet
+	{
+		get
+		{
+			if (_schemaSet != null)
+				return _schemaSet;
+
+			_schemaSet = DbProxy.ExecuteDataSetCommand(TableNames.Select(tableName => $"SELECT TOP(0) * FROM [{tableName}]").Join(";"));
+			for (int i = 0; i < TableNames.Length; i++)
+			{
+				string tableName = TableNames[i];
+				_schemaSet.Tables[i].TableName = tableName;
+			}
+			return _schemaSet;
+		}
+	}
+#endregion
+
+
+#region WPF Extension
+	///<summary>Use this to propagate an instance of the data set trough the logical tree of an WPF control.</summary>
+	public static readonly DependencyProperty InstanceProperty = DependencyProperty.RegisterAttached("Instance", typeof (#Name#), typeof (#Name#), new FrameworkPropertyMetadata(default(#Name#), FrameworkPropertyMetadataOptions.Inherits));
+	///<summary>Use this to propagate an instance of the data set trough the logical tree of an WPF control.</summary>
+	public static void SetInstance(DependencyObject element, #Name# value)
+	{
+		element.SetValue(InstanceProperty, value);
+	}
+	///<summary>Use this to get the propagated instance from a control inside the logical tree. You have to set the property anywhere in upstream to get it with this method.</summary>
+	public static #Name# GetInstance(DependencyObject element)
+	{
+		return (#Name#) element.GetValue(InstanceProperty);
+	}
+#endregion
+
+
+	public #Name#()
+	{
+		DataSetName = "#DatabaseName#";
+	}
+
+	///<summary>Gets the owning data context for this data set. The owning context is the relative addressing method for other databases on the same server.</summary>
+	public new #DataContextType# #DataContextPropertyName#
+	{
+		get { return (#DataContextType#) base.DataContext; }
+		internal set { base.DataContext = value; }
+	}
+
+	///<summary>Gets the native name of the owning data context or the native name of the database server associated with this.</summary>
+	public override string DataContextName => #DataContextPropertyName#?.#DataContextNativeNameProperty# ?? "#DataContextNativeName#";
+
+
+#region Tables
+	#TableProperties#
+#endregion
+
+
+
+
+#region Views
+	#ViewProperties#
+#endregion
+
+	private bool _constraintsLoaded = false;
+
+	///<summary>First it loads the schema then the relations and after that it enforces the constraint's.</summary>
+	public override void LoadConstraints()
+	{
+		if (_constraintsLoaded)
+			return;
+
+		LoadSchema();
+
+		#LoadRelations#
+		
+		_constraintsLoaded = true;
+	}
+	///<summary>Saves the tables in an order which is good for creating new items.</summary>
+	public override void SaveAnabolic(object tag = null)
+	{
+		#Name# targetSet = new #Name#();
+
+		#SaveAnabolicBody#
+		
+		if (targetSet.Tables.Count != 0)
+			DbProxy.SaveChanges(targetSet.CloneTo_Native(), tag);
+	}
+	///<summary>Saves the tables in an order which is good for deleting items.</summary>
+	public override void SaveKatabolic(object tag = null)
+	{
+		#Name# targetSet = new #Name#();
+
+		#SaveKatabolicBody#
+		
+		if (targetSet.Tables.Count != 0)
+			DbProxy.SaveChanges(targetSet.CloneTo_Native(), tag);
+	}
+	///<summary>Get the right table by its table name</summary>
+	public override CsDbTableBase GetTableByName(string nativeName)
+	{
+		switch (nativeName)
+		{
+			#GetTableByNameSwitch#
+			default:
+				throw new Exception($"Table with native name [{nativeName}] not found.");
+		}
+	}
+}

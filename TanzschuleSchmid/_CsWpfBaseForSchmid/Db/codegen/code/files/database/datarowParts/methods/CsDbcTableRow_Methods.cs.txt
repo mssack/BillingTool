@@ -1,0 +1,32 @@
+﻿#ReloadMethod#
+
+
+
+
+#region PROPERTIES<Many to One>
+#DataFields#
+#LoadedPropertys#
+
+#AssociatedProperties#
+#endregion
+
+
+
+
+
+#region PROPERTIES<One to Many>
+#ReferencingProperties#
+#endregion
+
+
+
+
+
+#region FUNC<Overrides>
+#InvalidateMethod#
+#SetDefaultValuesMethod#
+#BundledDataMethods#
+#endregion
+
+
+#CopyMethods#

@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-Property-Std" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropStd.png" />
+	<BitmapImage x:Key="GIco-Property-Boolean" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropBoolean.png" />
+	<BitmapImage x:Key="GIco-Property-Id" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropID.png" />
+	<BitmapImage x:Key="GIco-Property-Edit" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropEdit.png" />
+	<BitmapImage x:Key="GIco-Property-Text" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropText.png" />
+	<BitmapImage x:Key="GIco-Property-File" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropFile.png" />
+	<BitmapImage x:Key="GIco-Property-Directory" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropDirectory.png" />
+	<BitmapImage x:Key="GIco-Property-Time" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropTime.png" />
+	<BitmapImage x:Key="GIco-Property-Toggle" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropToggle.png" />
+	<BitmapImage x:Key="GIco-Property-Number" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropNumber.png" />
+	<BitmapImage x:Key="GIco-Property-Image" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropImage.png" />
+	<BitmapImage x:Key="GIco-Property-Phone" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropPhone.png" />
+	<BitmapImage x:Key="GIco-Property-Mail" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropMail.png" />
+	<BitmapImage x:Key="GIco-Property-Ip" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Property/PropIp.png" />
+</ResourceDictionary>

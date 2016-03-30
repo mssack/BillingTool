@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-State-Automatic" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/Automatic.png" />
+	<BitmapImage x:Key="GIco-State-AutomaticStop" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/AutomaticStop.png" />
+	<BitmapImage x:Key="GIco-State-AutomaticStart" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/AutomaticStart.png" />
+	<BitmapImage x:Key="GIco-State-NotStarted" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/NotStarted.png" />
+	<BitmapImage x:Key="GIco-State-Loading" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/Loading.png" />
+	<BitmapImage x:Key="GIco-State-Success" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/Success.png" />
+	<BitmapImage x:Key="GIco-State-Faulted" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/Error.png" />
+	<BitmapImage x:Key="GIco-State-Canceled" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/Canceled.png" />
+	<BitmapImage x:Key="GIco-State-Reload" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/State/Reload.png" />
+</ResourceDictionary>

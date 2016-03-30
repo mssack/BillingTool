@@ -1,0 +1,12 @@
+﻿#region OVERRIDES
+///<summary>Downloads all rows from the #NativeName# table. See: <c>SELECT * FROM [#NativeName#]</c></summary>
+public override void DownloadRows()
+{
+	DownloadRows($"SELECT * FROM [{#NativeNameConstant#}]", false);
+}
+///	<summary><c>SELECT <paramref name="top"/> * FROM [#NativeName#]</c></summary>
+public override void DownloadRows(int top)
+{
+	DownloadRows($"SELECT TOP {top} * FROM [{#NativeNameConstant#}]", false);
+}
+#endregion

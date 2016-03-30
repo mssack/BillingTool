@@ -1,0 +1,22 @@
+﻿#OverridesMethods#
+
+
+
+
+#PrimaryKeyMethods#
+
+
+
+
+
+#ForeignKeyMethods#
+
+
+/// <summary>Creates a row then copy's the data from the <paramref name="item"/> and adds it to the row collection.</summary>
+public #RowType# AddAsNewRow(#InterfaceName# item)
+{
+	var row = NewRow();
+	row.#CopyFromMethodName#(item, true);
+	Add(row);
+	return row;
+}

@@ -1,0 +1,6 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="GIco-Time-Calendar" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Time/Calendar.png" />
+	<BitmapImage x:Key="GIco-Time-Stopwatch" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Time/Stopwatch.png" />
+	<BitmapImage x:Key="GIco-Time-Clock" UriSource="pack://application:,,,/CsWpfBase;component/Themes/Resources/Images/files/Time/Clock.png" />
+</ResourceDictionary>

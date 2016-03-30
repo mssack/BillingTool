@@ -1,0 +1,6 @@
+﻿///	<summary>#DefaultDescription#</summary>
+#Attribute#
+public interface #Name#
+{
+	#Members#
+}

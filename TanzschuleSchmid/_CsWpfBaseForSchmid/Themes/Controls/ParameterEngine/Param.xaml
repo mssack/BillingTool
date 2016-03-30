@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+					xmlns:local="clr-namespace:CsWpfBase.Themes.Controls.ParameterEngine"
+					xmlns:base="clr-namespace:CsWpfBase.Themes.Controls.ParameterEngine.Base"
+					mc:Ignorable="d">
+
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Base/ParameterEngineBase.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+	<Style TargetType="{x:Type local:Param}" BasedOn="{StaticResource {x:Type base:ParameterEngineBase}}" d:DataContext="{d:DesignInstance local:Param}" />
+</ResourceDictionary>

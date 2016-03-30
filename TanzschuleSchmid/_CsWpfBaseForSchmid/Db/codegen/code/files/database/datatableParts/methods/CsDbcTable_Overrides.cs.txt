@@ -1,0 +1,29 @@
+﻿
+///	<summary><c>SELECT (DefaultSqlSelector) FROM [#TableNativeName#]</c><para>The default selector is the * operator</para></summary>
+public override void #LoadDataMethodName#()
+{
+	DownloadRows($"SELECT {DefaultSqlSelector} FROM [{#TableNativeNameConstant#}]", false);
+	HasBeenLoaded = true;
+}
+///	<summary><c>SELECT <paramref name="top"/> (DefaultSqlSelector) FROM [#TableNativeName#]</c><para>The default selector is the * operator</para></summary>
+public override void #LoadDataMethodName#(int top)
+{
+	DownloadRows($"SELECT TOP {top} {DefaultSqlSelector} FROM [{#TableNativeNameConstant#}]", false);
+}
+
+
+///<summary>#FindOrLoadMethodSummary#</summary>
+public override CsDbRowBase #GenericFindOrLoadMethodName#(object #ParamName#)
+{
+	#FindOrLoadMethodBody#
+}
+///<summary>#LoadThenFindMethodSummary#</summary>
+public override CsDbRowBase #GenericLoadThenFindMethodName#(object #ParamName#)
+{
+	#LoadThenFindMethodBody#
+}
+///<summary>#FindMethodSummary#</summary>
+public override CsDbRowBase #GenericFindMethodName#(object #ParamName#)
+{
+	#FindMethodBody#
+}

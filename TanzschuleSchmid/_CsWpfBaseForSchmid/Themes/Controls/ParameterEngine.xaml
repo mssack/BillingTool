@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Base/ParameterEngineBase.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/ParamView.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/BoolParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/DateParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/ImageParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/StringParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/TimeParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/DateTimeParam.xaml" />
+
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/ByteParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/Int16Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/Int32Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/Int64Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/UInt16Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/UInt32Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/UInt64Param.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/DecimalParam.xaml" />
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/ParameterEngine/Editors/Number/DoubleParam.xaml" />
+
+	</ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

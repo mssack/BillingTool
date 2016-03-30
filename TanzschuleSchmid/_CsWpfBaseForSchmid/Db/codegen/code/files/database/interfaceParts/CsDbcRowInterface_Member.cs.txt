@@ -1,0 +1,2 @@
+﻿///	<summary>#Description#</summary>
+#Type# #Name# { get; set; }
