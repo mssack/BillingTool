@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-03-30</date>
 
 using System;
 using System.Data;
@@ -11,9 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.btScope.db;
-using BillingTool.btScope.logging;
-using BillingTool.Runtime;
+using BillingTool.btScope;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 
@@ -52,7 +50,7 @@ namespace BillingTool.Modes.newCashBookEntry
 		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
 		public void Abort()
 		{
-			Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Table = '{Item.Table.TableName}'] wurde abgebrochen.", LogTypes.Information);
+			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Table = '{Item.Table.TableName}'] wurde abgebrochen.");
 			Item.Delete();
 			Exit();
 		}
@@ -62,22 +60,20 @@ namespace BillingTool.Modes.newCashBookEntry
 		{
 			if (Item.RowState != DataRowState.Detached)
 				throw new InvalidOperationException($"The {Item} is already added to an table. " +
-                                                    $"This is illegal might be an programming failure. " +
+													$"This is illegal might be an programming failure. " +
 													$"The {nameof(NewCashBookEntryWindow)} is for validating an item not for editing an existing item");
 			if (!Item.IsValid)
 				throw new InvalidOperationException($"The {Item} is invalid and can not be saved.");
 
 
-			Db.EnsureConnectivity();
 
 			Item.LastEdited = Item.Date = DateTime.Now;
-
 			Item.Table.Add(Item);
 			Item.Table.SaveChanges();
 			Item.Table.AcceptChanges();
 
-			Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag [RefNr = '{Item.ReferenceNumber}', Table = '{Item.Table.TableName}'] wurde erstellt.", LogTypes.Information);
-            Exit();
+			Bt.Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag [RefNr = '{Item.ReferenceNumber}', Table = '{Item.Table.TableName}'] wurde erstellt.");
+			Exit();
 		}
 
 
@@ -97,7 +93,7 @@ namespace BillingTool.Modes.newCashBookEntry
 
 		private void BonierenClick(object sender, RoutedEventArgs e)
 		{
-			if (CsMessage.MessageResults.No==CsGlobal.Message.Push($"Sind Sie sicher, dass Sie den Beleg [RefNr={Item.ReferenceNumber}] bonieren wollen", CsMessage.Types.Information, "Beleg eintragen?", CsMessage.MessageButtons.YesNo))
+			if (CsMessage.MessageResults.No == CsGlobal.Message.Push($"Sind Sie sicher, dass Sie den Beleg [RefNr={Item.ReferenceNumber}] bonieren wollen", CsMessage.Types.Information, "Beleg eintragen?", CsMessage.MessageButtons.YesNo))
 				return;
 			Accept();
 		}
@@ -108,7 +104,7 @@ namespace BillingTool.Modes.newCashBookEntry
 				return;
 			Abort();
 		}
-		
+
 
 		private void WindowKeyUp(object sender, KeyEventArgs e)
 		{
