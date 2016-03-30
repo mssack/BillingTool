@@ -1,0 +1,91 @@
+﻿<CsWindow x:Class="BillingTool.Windows.ConfigurationWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		mc:Ignorable="d"
+		Title="Registrierkassen Tool" Padding="0" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed">
+	<Window.Resources>
+		<ResourceDictionary Source="/BillingTool;component/Themes/NewCashBookEntryStyles.xaml" />
+	</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Border Background="#F9F9F9" Padding="5">
+			<TextBlock Text="Billing Tool" FontSize="22" FontFamily="Segoe UI" />
+		</Border>
+		<Grid Grid.Row="1">
+			<GroupBox Header="Konfiguration" DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File}">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<GroupBox Grid.Column="0" Header="Generel" DataContext="{Binding Path=General}">
+							<Grid IsSharedSizeScope="True">
+								<Param Grid.Column="0" Header="Registrierkassen Datenbank">
+									<FPathEditor Value="{Binding Path=BillingDatabaseFilePath}" />
+								</Param>
+							</Grid>
+						</GroupBox>
+						<GroupBox Grid.Column="1" Header="E-Mail Sender" DataContext="{Binding Path=Mail}" Width="250">
+							<Grid IsSharedSizeScope="True">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<StringParam Grid.Row="0" Header="Absender mail" Value="{Binding Path=SenderMailAddress}" />
+								<StringParam Grid.Row="1" Header="SMTP Server" Value="{Binding Path=SenderSmtpServer}" />
+								<UInt16Param Grid.Row="2" Header="SMTP Server Port" Value="{Binding Path=SenderSmtpPort}" />
+								<BoolParam Grid.Row="3" Header="SMTP Enable SSL" Value="{Binding Path=SenderSmtpEnableSsl}" />
+								<StringParam Grid.Row="4" Header="SMTP User" Value="{Binding Path=SenderSmtpUsername}" />
+								<StringParam Grid.Row="5" Header="SMTP Pwd" Value="{Binding Path=SenderSmtpPassword}" />
+							</Grid>
+						</GroupBox>
+					</Grid>
+
+					<GroupBox Grid.Row="1" Header="Neuer Eintrag - Standardwerte" DataContext="{Binding Path=NewCashBookEntry}">
+						<Grid IsSharedSizeScope="True">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<StringParam Grid.Row="0" Style="{StaticResource ParamIssuer}" Value="{Binding Path=Issuer}" />
+							<StringParam Grid.Row="1" Style="{StaticResource ParamRecipient}" Value="{Binding Path=Recipient}" />
+
+							<DecimalParam Grid.Row="2" Style="{StaticResource ParamSteuer}" Value="{Binding Path=TaxPercent}" />
+							<DecimalParam Grid.Row="3" Style="{StaticResource ParamAmountGross}" Value="{Binding Path=AmountGross}" />
+
+							<StringParam Grid.Row="4" Style="{StaticResource ParamText}" Value="{Binding Path=Text}" />
+
+							<StringParam Grid.Row="5" Style="{StaticResource ParamInternRecipientId}" Value="{Binding Path=InternRecipientId}" />
+							<StringParam Grid.Row="6" Style="{StaticResource ParamInternDescription}" Value="{Binding Path=InternDescription}" />
+						</Grid>
+					</GroupBox>
+
+				</Grid>
+			</GroupBox>
+		</Grid>
+
+	</Grid>
+</CsWindow>

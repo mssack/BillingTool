@@ -8,9 +8,7 @@ using System;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
 using BillingTool.btScope;
-using BillingTool.btScope.configuration.types;
-using BillingTool.Modes.newCashBookEntry;
-using BillingTool.Runtime.types;
+using BillingTool.btScope.configuration._enums;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 
@@ -19,11 +17,11 @@ using CsWpfBase.Global.message;
 
 
 
-namespace BillingTool.Modes.developer
+namespace BillingTool.Windows
 {
 	/// <summary>
 	///     The Developer window provides administrative functionality. TAKE CARE whenever it will be used. This window should be opened in
-	///     <see cref="RuntimeModes.Developer" /> Mode.
+	///     <see cref="StartupModes.Developer" /> Mode.
 	/// </summary>
 	public partial class DeveloperWindow
 	{
@@ -42,7 +40,7 @@ namespace BillingTool.Modes.developer
 
 			try
 			{
-				using (var installer = new DatabaseInstaller(CommandLineConfiguration.I.DatabaseFilePath))
+				using (var installer = new DatabaseInstaller(Bt.Config.Merged.General.BillingDatabaseFilePath))
 				{
 					installer.Install(true);
 				}
@@ -60,6 +58,12 @@ namespace BillingTool.Modes.developer
 		{
 			Bt.UiFunctions.NewCashBookEntry();
 			e.Handled = true;
+		}
+
+		private void ConfigurationWindow_Click(object sender, RoutedEventArgs e)
+		{
+			var w = new ConfigurationWindow();
+			w.Show();
 		}
 	}
 }

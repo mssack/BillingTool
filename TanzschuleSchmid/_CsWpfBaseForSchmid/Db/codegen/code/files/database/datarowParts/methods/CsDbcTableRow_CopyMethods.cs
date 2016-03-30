@@ -57,5 +57,11 @@ namespace CsWpfBase.Db.codegen.code.files.database.datarowParts.methods
 			else
 				return $"if (includePrimaryKey) this.{name} = source.{name};";
 		}).Join("\r\n\t");
+		[Key]
+		private string CopyFromWithExclusionMethodBody => Row.Columns.Select(x =>
+		{
+			var name = x.UnsignedVersion == null ? x.Name : x.UnsignedVersion.Name;
+			return $"if (!excludedColumns.Contains({Row.Table.Name}.{x.NativeNameConstant})) this.{name} = source.{name};";
+		}).Join("\r\n\t");
 	}
 }

@@ -5,7 +5,9 @@
 // <date>2016-03-30</date>
 
 using System;
-using BillingTool.btScope.configuration.types;
+using BillingTool.btScope.configuration.commandLine;
+using BillingTool.btScope.configuration.configFiles;
+using BillingTool.btScope.configuration.merged;
 using CsWpfBase.Ev.Objects;
 
 
@@ -15,7 +17,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.configuration
 {
-	/// <summary>The <see cref="Bt.Config"/> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Config" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class Configuration : Base
 	{
 		private static Configuration _instance;
@@ -35,11 +37,6 @@ namespace BillingTool.btScope.configuration
 			}
 		}
 
-
-		private CommandLineConfiguration _commandLine;
-		private ConfigFileConfiguration _file;
-		private MergedConfiguration _merged;
-
 		private Configuration()
 		{
 		}
@@ -51,22 +48,10 @@ namespace BillingTool.btScope.configuration
 		///     The <see cref="Merged" /> configuration merges the <see cref="File" /> and the <see cref="CommandLine" /> configuration into one valid
 		///     configuration set
 		/// </summary>
-		public MergedConfiguration Merged
-		{
-			get { return _merged; }
-			set { SetProperty(ref _merged, value); }
-		}
-		/// <summary>The config file configuration is the weakest configuration. This configuration will be used if no other configuration is supplied.</summary>
-		public ConfigFileConfiguration File
-		{
-			get { return _file; }
-			set { SetProperty(ref _file, value); }
-		}
+		public MergedConfiguration Merged => MergedConfiguration.I;
+		/// <summary>The configuration file configuration is the weakest. This configuration will be used if no other configuration is supplied.</summary>
+		public ConfigFiles File => ConfigFiles.I;
 		/// <summary>The command line parameters overrides all configurations done in the <see cref="File" /> configuration.</summary>
-		public CommandLineConfiguration CommandLine
-		{
-			get { return _commandLine; }
-			set { SetProperty(ref _commandLine, value); }
-		}
+		public CommandLines CommandLine => CommandLines.I;
 	}
 }

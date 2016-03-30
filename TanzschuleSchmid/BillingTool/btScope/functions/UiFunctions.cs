@@ -5,8 +5,11 @@
 // <date>2016-03-30</date>
 
 using System;
+using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.Modes.newCashBookEntry;
+using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
+using BillingTool.btScope.configuration._enums;
+using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
 
 
@@ -42,12 +45,53 @@ namespace BillingTool.btScope.functions
 
 
 		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="CashBookEntry" />.</summary>
-		public NewCashBookEntryWindow NewCashBookEntry()
+		public void NewCashBookEntry(bool showdialog = false)
 		{
 			Bt.Db.EnsureConnectivity();
-			var window = new NewCashBookEntryWindow(Bt.Db.Billing.CashBook.NewRow());
-			window.Show();
-			return window;
+			var entry = Bt.Db.Billing.CashBook.NewRow();
+
+			entry.Copy_From(Bt.Config.Merged.NewCashBookEntry, CashBookTable.IdCol, CashBookTable.ReferenceNumberCol, CashBookTable.DateCol, CashBookTable.LastEditedCol);
+
+			var window = new NewCashBookEntryWindow(entry);
+
+
+			if (showdialog)
+				window.ShowDialog();
+			else
+				window.Show();
+		}
+		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="CashBookEntry" />.</summary>
+		public void OpenConfiguration(bool showdialog = false)
+		{
+			var window = new ConfigurationWindow();
+
+			if (showdialog)
+				window.ShowDialog();
+			else
+				window.Show();
+		}
+		
+
+		/// <summary>Executes the current configured mode.</summary>
+		public void ExecuteConfiguration()
+		{
+			var mode = Bt.Config.Merged.General.StartupMode;
+			if (mode == StartupModes.Developer)
+			{
+				var w = new DeveloperWindow();
+				w.Show();
+			}
+			else if (mode == StartupModes.NewCashBookEntry)
+			{
+				NewCashBookEntry();
+			}
+			else if (mode == StartupModes.Configuration)
+			{
+				OpenConfiguration();
+			}
+
+			if (Application.Current.MainWindow == null)
+				Application.Current.MainWindow = Application.Current.Windows[0];
 		}
 	}
 }

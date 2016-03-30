@@ -1,10 +1,10 @@
-﻿<CsWindow x:Class="BillingTool.Modes.newCashBookEntry.NewCashBookEntryWindow"
+﻿<CsWindow x:Class="BillingTool.Windows.NewCashBookEntryWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-		Title="Neuer Eintrag" Height="450" Width="750" x:Name="Uc" KeyUp="WindowKeyUp" HeaderVisibility="Collapsed" AWindowDragMove.IsActive="True"
+		Title="Neuer Eintrag" Height="480" Width="750" x:Name="Uc" KeyUp="WindowKeyUp" HeaderVisibility="Collapsed" AWindowDragMove.IsActive="True"
 		MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" CloseButtonVisibility="Collapsed" FooterVisibility="Collapsed"
 		Focusable="False" IsTabStop="False" >
 	<Window.Resources>
@@ -37,6 +37,7 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 					<ParamView Grid.Row="0" Style="{StaticResource ParamBelegnummer}" Value="{Binding Path=ReferenceNumber}" />
 					<DecimalParam Grid.Row="1" Style="{StaticResource ParamSteuer}" Value="{Binding Path=TaxPercent}" Name="FirstFocusedElement" />
@@ -55,6 +56,7 @@
 								IsValid="{Binding Path=Issuer, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
 					<StringParam Grid.Row="1" Style="{StaticResource ParamRecipient}" Value="{Binding Path=Recipient}"
 								IsValid="{Binding Path=Recipient, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
+					<StringParam Grid.Row="2" Style="{StaticResource ParamText}" Value="{Binding Path=Text}" />
 				</Grid>
 			</GroupBox>
 		</Grid>

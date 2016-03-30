@@ -59,45 +59,54 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="btScope\Bt.cs" />
+    <Compile Include="btScope\configuration\commandLine\CommandLine_GeneralSetting.cs" />
+    <Compile Include="btScope\configuration\commandLine\CommandLine_NewCashBookEntrySetting.cs" />
+    <Compile Include="btScope\configuration\commandLine\_CommandLines.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_GeneralSettings.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_MailSettings.cs" />
+    <Compile Include="btScope\configuration\configFiles\_ConfigFiles.cs" />
     <Compile Include="btScope\configuration\Configuration.cs" />
-    <Compile Include="btScope\configuration\types\ConfigFileConfiguration.cs" />
-    <Compile Include="btScope\configuration\types\MergedConfiguration.cs" />
-    <Compile Include="btScope\configuration\types\parts\CashBookEntryDefaultValues.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_NewCashBookEntry.cs" />
+    <Compile Include="btScope\configuration\merged\Merged_GeneralSettings.cs" />
+    <Compile Include="btScope\configuration\merged\Merged_NewCashBookEntry.cs" />
+    <Compile Include="btScope\configuration\merged\_Merged.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfigMailSettings.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfigGeneralSettings.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfigNewCashBookEntrySettings.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
-    <Compile Include="Modes\defaultStartup\DefaultStartupWindow.xaml.cs">
-      <DependentUpon>DefaultStartupWindow.xaml</DependentUpon>
+    <Compile Include="Windows\ConfigurationWindow.xaml.cs">
+      <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modes\newCashBookEntry\NewCashBookEntryWindow.xaml.cs">
+    <Compile Include="Windows\NewCashBookEntryWindow.xaml.cs">
       <DependentUpon>NewCashBookEntryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="btScope\db\Db.cs" />
     <Compile Include="btScope\logging\Logging.cs" />
-    <Compile Include="btScope\configuration\types\CommandLineConfiguration.cs" />
     <Compile Include="CompilerServices.cs" />
-    <Compile Include="Runtime\types\RuntimeModes.cs" />
-    <Compile Include="Modes\developer\DeveloperWindow.xaml.cs">
+    <Compile Include="btScope\configuration\_enums\StartupModes.cs" />
+    <Compile Include="Windows\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modes\commandInfo\CommandInfoWindow.xaml.cs">
-      <DependentUpon>CommandInfoWindow.xaml</DependentUpon>
+    <Compile Include="Windows\ProductInformationWindow.xaml.cs">
+      <DependentUpon>ProductInformationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Modes\defaultStartup\DefaultStartupWindow.xaml">
+    <Page Include="Windows\ConfigurationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modes\developer\DeveloperWindow.xaml">
+    <Page Include="Windows\DeveloperWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modes\commandInfo\CommandInfoWindow.xaml">
+    <Page Include="Windows\ProductInformationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modes\newCashBookEntry\NewCashBookEntryWindow.xaml">
+    <Page Include="Windows\NewCashBookEntryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -10,7 +10,7 @@ using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingDataAccess.sqlcedatabases.Router;
-using BillingTool.btScope.configuration.types;
+using BillingTool.btScope.configuration.merged;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Ev.Objects;
 
@@ -51,8 +51,8 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     The billing database loaded from <see cref="CommandLineConfiguration.DatabaseFilePath" />. You have to call <see cref="Connect" /> before
-		///     accessing this property. On application exit don't forget to save (<see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
+		///     The billing database loaded from <see cref="MergedConfiguration" />. You have to call <see cref="Connect" /> before accessing this property. On
+		///     application exit don't forget to save (<see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
 		/// </summary>
 		public BillingDatabase Billing
 		{
@@ -71,7 +71,7 @@ namespace BillingTool.btScope.db
 		/// <summary>Creates the database if it does not exist.</summary>
 		public void Init()
 		{
-			var fileInfo = new FileInfo(CommandLineConfiguration.I.DatabaseFilePath);
+			var fileInfo = new FileInfo(Bt.Config.Merged.General.BillingDatabaseFilePath);
 			if (fileInfo.Exists)
 				return;
 
@@ -79,7 +79,7 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     Used to connect to database file specified in <see cref="CommandLineConfiguration" />. Take care a second call will result in an
+		///     Used to connect to database file specified in <see cref="MergedConfiguration" />. Take care a second call will result in an
 		///     <see cref="InvalidOperationException" />. To ensure connectivity use <see cref="EnsureConnectivity" />.
 		/// </summary>
 		public void Connect()
@@ -88,7 +88,7 @@ namespace BillingTool.btScope.db
 				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
 
 
-			Router = new SqlCeRouter(CommandLineConfiguration.I.DatabaseFilePath);
+			Router = new SqlCeRouter(Bt.Config.Merged.General.BillingDatabaseFilePath);
 			Router.Open();
 
 			Billing = new BillingDatabase();
@@ -117,8 +117,8 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     Used to disconnect from database file specified in <see cref="CommandLineConfiguration" />. DANGER all unsaved files will be lost. Ensure that
-		///     you call at least <see cref="CsDbDataSetBase.SaveUnspecific" /> before call <see cref="Disconnect" />.
+		///     Used to disconnect from database file specified in <see cref="MergedConfiguration" />. DANGER all unsaved files will be lost. Ensure that you
+		///     call at least <see cref="CsDbDataSetBase.SaveUnspecific" /> before call <see cref="Disconnect" />.
 		/// </summary>
 		public void Disconnect()
 		{
@@ -134,7 +134,7 @@ namespace BillingTool.btScope.db
 		/// <summary>Creates the database. Throws an Exception if it already exists.</summary>
 		public void CreateDatabase()
 		{
-			var fileInfo = new FileInfo(CommandLineConfiguration.I.DatabaseFilePath);
+			var fileInfo = new FileInfo(Bt.Config.Merged.General.BillingDatabaseFilePath);
 			CreateDatabase(fileInfo);
 		}
 

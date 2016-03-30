@@ -21,7 +21,7 @@ using CsWpfBase.Themes.Controls.Containers;
 
 
 
-namespace BillingTool.Modes.newCashBookEntry
+namespace BillingTool.Windows
 {
 	/// <summary>This window is used to create a new cash book entry inside a generic table. This is the typical use case for this program.</summary>
 	public partial class NewCashBookEntryWindow : CsWindow
