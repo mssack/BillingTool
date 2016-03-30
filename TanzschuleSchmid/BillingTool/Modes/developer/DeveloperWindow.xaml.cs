@@ -58,8 +58,8 @@ namespace BillingTool.Modes.developer
 
 		private void NewCashBookEntry_Click(object sender, RoutedEventArgs e)
 		{
-			Bt.Db.EnsureConnectivity();
-			new NewCashBookEntryWindow(Bt.Db.Billing.CashBook.NewRow()).Show();
+			Bt.UiFunctions.NewCashBookEntry();
+			e.Handled = true;
 		}
 	}
 }

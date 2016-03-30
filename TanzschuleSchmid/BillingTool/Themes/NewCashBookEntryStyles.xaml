@@ -1,0 +1,72 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+
+	<Style x:Key="ParamBelegnummer" TargetType="{x:Type ParamView}" >
+		<Setter Property="Header" Value="Belegnummer"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionHorizontalAlignment" Value="Left"/>
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	
+	<Style x:Key="ParamIssuer" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Rechnungsaussteller"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+	</Style>
+
+	<Style x:Key="ParamRecipient" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Empfänger"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+	</Style>
+
+	<Style x:Key="ParamSteuer" TargetType="{x:Type DecimalParam}" >
+		<Setter Property="Header" Value="Steuer"/>
+		<Setter Property="Content">
+			<Setter.Value>
+				<TextBlock Text="%" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="TextAlignment" Value="Right"/>
+	</Style>
+
+	<Style x:Key="ParamAmountGross" TargetType="{x:Type DecimalParam}" >
+		<Setter Property="Header" Value="Betrag Brutto"/>
+		<Setter Property="Content">
+			<Setter.Value>
+				<TextBlock Text="€" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="TextAlignment" Value="Right"/>
+	</Style>
+	<Style x:Key="ParamAmountNetto" TargetType="{x:Type DecimalParam}" >
+		<Setter Property="Header" Value="Betrag Netto"/>
+		<Setter Property="Content">
+			<Setter.Value>
+				<TextBlock Text="€" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="TextAlignment" Value="Right"/>
+	</Style>
+
+	<Style x:Key="ParamInternDescription" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Beschreibung (intern)"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+	</Style>
+	
+	<Style x:Key="ParamInternRecipientId" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Id (intern)"/>
+	</Style>
+</ResourceDictionary>

@@ -27,8 +27,14 @@ namespace CsWpfBase.Global.message
 		public CsMessageWindow(CsMessage message)
 		{
 			Message = message;
-			if (Application.Current.MainWindow.IsInitialized && Application.Current.MainWindow.IsVisible)
-			Owner = Application.Current.MainWindow;
+
+			var activeWindow = Application.Current.Windows.OfType<Window>().FirstOrDefault(x=>x.IsActive);
+
+			if (activeWindow != null)
+				Owner = activeWindow;
+			else if (Application.Current.MainWindow.IsInitialized && Application.Current.MainWindow.IsVisible)
+				Owner = Application.Current.MainWindow;
+
 			Topmost = true;
 			InitializeComponent();
 		}

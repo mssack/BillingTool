@@ -32,9 +32,14 @@
 		<Setter Property="Focusable" Value="False" />
 	</Style>
 	<Style TargetType="Border" x:Key="ExtensionBorderStyle" d:DataContext="{d:DesignInstance base:ParameterEngineBase}">
+		<Setter Property="Margin" Value="-1" />
+		<Setter Property="BorderThickness" Value="1" />
 		<Style.Triggers>
 			<DataTrigger Binding="{Binding Path=ExtensionTemplate}" Value="{x:Null}">
 				<Setter Property="Visibility" Value="Collapsed" />
+			</DataTrigger>
+			<DataTrigger Binding="{Binding Path=IsValid}" Value="False">
+				<Setter Property="BorderBrush" Value="OrangeRed"/>
 			</DataTrigger>
 		</Style.Triggers>
 	</Style>
@@ -48,6 +53,7 @@
 		<Setter Property="HeaderStringFormat" Value="{}{0}: " />
 		<Setter Property="Margin" Value="1" />
 		<Setter Property="Padding" Value="1,1,1,1" />
+		<Setter Property="IsValid" Value="True"/>
 
 		<Setter Property="HeaderVisibility" Value="Visible" />
 		<Setter Property="HeaderAlignment" Value="Center" />
@@ -133,7 +139,7 @@
 								</Border.Style>
 							</Border>
 							<Border Grid.Column="1" Style="{StaticResource ExtensionBorderStyle}">
-								<ContentPresenter Style="{StaticResource ExtensionStyle}" MinWidth="{Binding Path=ExtensionMinWidth}" Content="{Binding}" ContentTemplate="{TemplateBinding ExtensionTemplate}" />
+								<ContentPresenter Style="{StaticResource ExtensionStyle}" Content="{Binding}" ContentTemplate="{TemplateBinding ExtensionTemplate}" />
 							</Border>
 							<Border Grid.Column="2" Style="{StaticResource ContentBorderStyle}">
 								<ContentPresenter Style="{StaticResource ContentStyle}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />

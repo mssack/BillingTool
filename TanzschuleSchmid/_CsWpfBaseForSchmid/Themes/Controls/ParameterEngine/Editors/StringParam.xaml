@@ -20,7 +20,8 @@
 					<TextBox Style="{StaticResource {x:Type TextBox}}" Text="{Binding Path=Value, UpdateSourceTrigger=PropertyChanged}"
 							TextWrapping="{Binding Path=TextWrapping}" AcceptsReturn="{Binding Path=AcceptsReturn}" Margin="0"
 							Padding="{Binding Path=Padding}" IsReadOnly="{Binding Path=IsReadOnly}" attachedProperties:ATextBox.AutoSelection="{Binding Path=AutoSelect}"
-							MinHeight="{Binding Path=MinHeightTextBox}" VerticalContentAlignment="{Binding Path=VerticalContentAlignmentTextBox}" />
+							MinHeight="{Binding Path=ExtensionMinHeight}" MinWidth="{Binding Path=ExtensionMinWidth}"
+							VerticalContentAlignment="{Binding Path=ExtensionVerticalAlignment}" />
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>

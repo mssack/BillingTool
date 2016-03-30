@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-03-30</date>
 
 using System;
 using System.Windows;
@@ -24,8 +24,6 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Editors
 		public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof (string), typeof (StringParam), new FrameworkPropertyMetadata {DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty AcceptsReturnProperty = DependencyProperty.Register("AcceptsReturn", typeof (bool), typeof (StringParam), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty TextWrappingProperty = DependencyProperty.Register("TextWrapping", typeof (TextWrapping), typeof (StringParam), new FrameworkPropertyMetadata {DefaultValue = default(TextWrapping), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty MinHeightTextBoxProperty = DependencyProperty.Register("MinHeightTextBox", typeof (double), typeof (StringParam), new FrameworkPropertyMetadata {DefaultValue = default(double), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty VerticalContentAlignmentTextBoxProperty = DependencyProperty.Register("VerticalContentAlignmentTextBox", typeof (VerticalAlignment), typeof (StringParam), new FrameworkPropertyMetadata {DefaultValue = default(VerticalAlignment), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
@@ -40,6 +38,8 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Editors
 			get { return (string) GetValue(ValueProperty); }
 			set { SetValue(ValueProperty, value); }
 		}
+
+
 		/// <summary>Specifies if returns are allowed.</summary>
 		public bool AcceptsReturn
 		{
@@ -51,19 +51,6 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Editors
 		{
 			get { return (TextWrapping) GetValue(TextWrappingProperty); }
 			set { SetValue(TextWrappingProperty, value); }
-		}
-
-		public double MinHeightTextBox
-		{
-			get { return (double) GetValue(MinHeightTextBoxProperty); }
-			set { SetValue(MinHeightTextBoxProperty, value); }
-		}
-
-
-		public VerticalAlignment VerticalContentAlignmentTextBox
-		{
-			get { return (VerticalAlignment) GetValue(VerticalContentAlignmentTextBoxProperty); }
-			set { SetValue(VerticalContentAlignmentTextBoxProperty, value); }
 		}
 	}
 }

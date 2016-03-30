@@ -62,6 +62,7 @@
     <Compile Include="btScope\configuration\Configuration.cs" />
     <Compile Include="btScope\configuration\types\ConfigFileConfiguration.cs" />
     <Compile Include="btScope\configuration\types\MergedConfiguration.cs" />
+    <Compile Include="btScope\configuration\types\parts\CashBookEntryDefaultValues.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
     <Compile Include="Modes\defaultStartup\DefaultStartupWindow.xaml.cs">
       <DependentUpon>DefaultStartupWindow.xaml</DependentUpon>
@@ -72,7 +73,7 @@
     <Compile Include="btScope\db\Db.cs" />
     <Compile Include="btScope\logging\Logging.cs" />
     <Compile Include="btScope\configuration\types\CommandLineConfiguration.cs" />
-    <Compile Include="Runtime\types\CompilerServices.cs" />
+    <Compile Include="CompilerServices.cs" />
     <Compile Include="Runtime\types\RuntimeModes.cs" />
     <Compile Include="Modes\developer\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
@@ -97,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Modes\newCashBookEntry\NewCashBookEntryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\NewCashBookEntryStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,7 +9,6 @@ using System.Windows;
 using BillingTool.btScope;
 using BillingTool.btScope.configuration.types;
 using BillingTool.Modes.developer;
-using BillingTool.Modes.newCashBookEntry;
 using BillingTool.Runtime.types;
 using CsWpfBase.Global;
 
@@ -25,6 +24,8 @@ namespace BillingTool
 	{
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
+			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage); //Provides some needed functionality. DO NOT REMOVE.
+
 			if (e.Args.Length == 0)
 			{
 				//TODO Open information window

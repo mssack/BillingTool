@@ -14,6 +14,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
+using CsWpfBase.Themes.Controls.Containers;
 
 
 
@@ -23,7 +24,7 @@ using CsWpfBase.Global.message;
 namespace BillingTool.Modes.newCashBookEntry
 {
 	/// <summary>This window is used to create a new cash book entry inside a generic table. This is the typical use case for this program.</summary>
-	public partial class NewCashBookEntryWindow : Window
+	public partial class NewCashBookEntryWindow : CsWindow
 	{
 		#region DP Keys
 #pragma warning disable 1591
@@ -38,7 +39,10 @@ namespace BillingTool.Modes.newCashBookEntry
 		{
 			Item = item;
 			InitializeComponent();
+			CsGlobal.Wpf.Storage.Window.Handle(this, "NewCashBookEntryWindow");
+			Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
 		}
+		
 
 		/// <summary>The cash book entry to add. This row may not be in data table already!!</summary>
 		public CashBookEntry Item

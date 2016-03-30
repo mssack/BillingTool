@@ -38,11 +38,15 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Base
 		public static readonly DependencyProperty HelpTemplateProperty = DependencyProperty.Register("HelpTemplate", typeof (DataTemplate), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty ExtensionTemplateProperty = DependencyProperty.Register("ExtensionTemplate", typeof (DataTemplate), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((ParameterEngineBase) o).ExtensionTemplateChanged(args.OldValue, args.NewValue)});
 		public static readonly DependencyProperty ContentAlignmentProperty = DependencyProperty.Register("ContentAlignment", typeof (HorizontalAlignment), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(HorizontalAlignment), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty ExtensionMinWidthProperty = DependencyProperty.Register("ExtensionMinWidth", typeof (double), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(double), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty HeaderVisibilityProperty = DependencyProperty.Register("HeaderVisibility", typeof (Visibility), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof (bool), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty AutoSelectProperty = DependencyProperty.Register("AutoSelect", typeof (bool), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty TextAlignmentProperty = DependencyProperty.Register("TextAlignment", typeof (TextAlignment), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(TextAlignment), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ExtensionMinWidthProperty = DependencyProperty.Register("ExtensionMinWidth", typeof (double), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(double), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ExtensionMinHeightProperty = DependencyProperty.Register("ExtensionMinHeight", typeof (double), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(double), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty IsValidProperty = DependencyProperty.Register("IsValid", typeof (bool), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ExtensionVerticalAlignmentProperty = DependencyProperty.Register("ExtensionVerticalAlignment", typeof (VerticalAlignment), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(VerticalAlignment), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ExtensionHorizontalAlignmentProperty = DependencyProperty.Register("ExtensionHorizontalAlignment", typeof (HorizontalAlignment), typeof (ParameterEngineBase), new FrameworkPropertyMetadata {DefaultValue = default(HorizontalAlignment), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
@@ -201,10 +205,34 @@ namespace CsWpfBase.Themes.Controls.ParameterEngine.Base
 			set { SetValue(ExtensionTemplateProperty, value); }
 		}
 
+
+
+		public bool IsValid
+		{
+			get { return (bool) GetValue(IsValidProperty); }
+			set { SetValue(IsValidProperty, value); }
+		}
 		public double ExtensionMinWidth
 		{
 			get { return (double) GetValue(ExtensionMinWidthProperty); }
 			set { SetValue(ExtensionMinWidthProperty, value); }
+		}
+		public double ExtensionMinHeight
+		{
+			get { return (double)GetValue(ExtensionMinHeightProperty); }
+			set { SetValue(ExtensionMinHeightProperty, value); }
+		}
+
+		public VerticalAlignment ExtensionVerticalAlignment
+		{
+			get { return (VerticalAlignment) GetValue(ExtensionVerticalAlignmentProperty); }
+			set { SetValue(ExtensionVerticalAlignmentProperty, value); }
+		}
+
+		public HorizontalAlignment ExtensionHorizontalAlignment
+		{
+			get { return (HorizontalAlignment) GetValue(ExtensionHorizontalAlignmentProperty); }
+			set { SetValue(ExtensionHorizontalAlignmentProperty, value); }
 		}
 
 		private void ContentChanged(object oldValue, object newValue)

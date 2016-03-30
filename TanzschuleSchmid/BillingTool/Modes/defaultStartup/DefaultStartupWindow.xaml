@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BillingTool.Modes.defaultStartup"
+        xmlns:btScope="clr-namespace:BillingTool.btScope"
         mc:Ignorable="d"
         Title="DefaultStartupWindow" Padding="0">
+	<Window.Resources>
+		<ResourceDictionary Source="/BillingTool;component/Themes/NewCashBookEntryStyles.xaml" />
+	</Window.Resources>
     <Grid>
 	    <Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -20,11 +23,39 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			
-			<GroupBox Header="Konfiguration">
-				<Param Header="Database Pfad">
-					<FPathEditor />
-				</Param>
+
+			<GroupBox Header="Konfiguration" DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File}">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<Param Grid.Row="0" Header="Database Pfad">
+						<FPathEditor Value="{Binding Path=DatabaseFilePath}" />
+					</Param>
+					
+					<GroupBox Grid.Row="1" Header="Neuer Eintrag defaults">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<StringParam Grid.Row="0" Header="Aussteller" Value="{Binding Path=Issuer}"/>
+							<StringParam Grid.Row="3" Style="{StaticResource ParamInternDescription}" Value="{Binding Path=Recipient}"/>
+							<DecimalParam Grid.Row="1" Style="{StaticResource ParamSteuer}" Value="{Binding Path=TaxPercent}" />
+							<DecimalParam Grid.Row="2" Style="{StaticResource ParamAmountGross}" Value="{Binding Path=AmountGross}"/>
+							<StringParam Grid.Row="3" Style="{StaticResource Param}" Value="{Binding Path=Text}"/>
+							<StringParam Grid.Row="3" Style="{StaticResource ParamInternDescription}" Value="{Binding Path=InternDescription}"/>
+						</Grid>
+					</GroupBox>
+				</Grid>
 			</GroupBox>
 		</Grid>
 		
