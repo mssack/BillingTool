@@ -29,6 +29,7 @@ namespace BillingTool.Windows
 		public DeveloperWindow()
 		{
 			InitializeComponent();
+			CsGlobal.Wpf.Storage.Window.Handle(this, "DeveloperWindow");
 		}
 
 		private void ReinstallDatabase_Click(object sender, RoutedEventArgs e)

@@ -2,16 +2,17 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-03-31</date>
 
 using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
 using CsWpfBase.Db.models.helper;
-using CsWpfBase.Ev.Public.Extensions;
+using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
 
 
@@ -30,13 +31,9 @@ namespace BillingTool.Windows
 		public DatabaseWindow()
 		{
 			InitializeComponent();
+			CsGlobal.Wpf.Storage.Window.Handle(this, "DatabaseWindow");
 			Loaded += LogsWindow_Loaded;
-			this.Closing += LogsWindow_Closing;
-		}
-
-		private void LogsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			Bt.Db.Billing.SaveUnspecific();
+			Closing += LogsWindow_Closing;
 		}
 
 		/// <summary>All logs from <see cref="From" /> to <see cref="To" /> date.</summary>
@@ -65,6 +62,11 @@ namespace BillingTool.Windows
 			set { SetValue(FilteredCashBookEntriesProperty, value); }
 		}
 
+		private void LogsWindow_Closing(object sender, CancelEventArgs e)
+		{
+			Bt.Db.Billing.SaveUnspecific();
+		}
+
 		private void LogsWindow_Loaded(object sender, RoutedEventArgs e)
 		{
 			Refilter();
@@ -78,9 +80,7 @@ namespace BillingTool.Windows
 				Refilter();
 		}
 
-		/// <summary>
-		/// Will be invoked whenever From or To date changes
-		/// </summary>
+		/// <summary>Will be invoked whenever From or To date changes</summary>
 		private void Refilter()
 		{
 			Bt.Db.EnsureConnectivity();

@@ -41,11 +41,10 @@ namespace BillingTool.Windows
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "NewCashBookEntryWindow");
 			Topmost = true;
-
 			Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
 
 		}
-		
+
 
 		/// <summary>The cash book entry to add. This row may not be in data table already!!</summary>
 		public CashBookEntry Item
@@ -57,7 +56,7 @@ namespace BillingTool.Windows
 		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
 		public void Abort()
 		{
-			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Table = '{Item.Table.TableName}'] wurde abgebrochen.");
+			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer {Item} wurde verworfen.");
 			Item.Delete();
 			Exit();
 		}
@@ -74,12 +73,13 @@ namespace BillingTool.Windows
 
 
 
-			Item.LastEdited = Item.Date = DateTime.Now;
+			Item.ZuletztGeändert = Item.Datum = DateTime.Now;
+			Item.UmsatzZähler = Item.UmsatzZähler + Item.BetragBrutto;
 			Item.Table.Add(Item);
 			Item.Table.SaveChanges();
 			Item.Table.AcceptChanges();
 
-			Bt.Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag [RefNr = '{Item.ReferenceNumber}', Table = '{Item.Table.TableName}'] wurde erstellt.");
+			Bt.Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer {Item} wurde erstellt.");
 			Exit();
 		}
 
@@ -100,14 +100,14 @@ namespace BillingTool.Windows
 
 		private void BonierenClick(object sender, RoutedEventArgs e)
 		{
-			if (CsMessage.MessageResults.No == CsGlobal.Message.Push($"Sind Sie sicher, dass Sie den Beleg [RefNr={Item.ReferenceNumber}] bonieren wollen", CsMessage.Types.Information, "Beleg eintragen?", CsMessage.MessageButtons.YesNo))
+			if (CsMessage.MessageResults.No == CsGlobal.Message.Push($"Sind Sie sicher, dass Sie den {Item} bonieren wollen", CsMessage.Types.Information, "Beleg eintragen?", CsMessage.MessageButtons.YesNo))
 				return;
 			Accept();
 		}
 
 		private void AbbrechenClick(object sender, RoutedEventArgs e)
 		{
-			if (CsMessage.MessageResults.No == CsGlobal.Message.Push($"Beleg mit der Nummer [{Item.ReferenceNumber}] verwerfen?", CsMessage.Types.Warning, "Beleg verwerfen?", CsMessage.MessageButtons.YesNo))
+			if (CsMessage.MessageResults.No == CsGlobal.Message.Push($"{Item} verwerfen?", CsMessage.Types.Warning, "Beleg verwerfen?", CsMessage.MessageButtons.YesNo))
 				return;
 			Abort();
 		}

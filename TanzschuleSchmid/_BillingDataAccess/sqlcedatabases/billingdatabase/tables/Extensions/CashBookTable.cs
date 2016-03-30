@@ -32,9 +32,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 
 
 
-			return CreateContractCollection(log => log.Date >= from && log.Date <= to, DownloadRows($"SELECT * FROM [{NativeName}] WHERE " +
-																									$"CONVERT(NVARCHAR(10), [{DateCol}], 121)>=CONVERT(NVARCHAR(10), '{from.ToString("yyyy-MM-dd")}', 121) AND " +
-																									$"CONVERT(NVARCHAR(10), [{DateCol}], 121)<=CONVERT(NVARCHAR(10), '{to.ToString("yyyy-MM-dd")}', 121) ORDER BY [{DateCol}] DESC"));
+			return CreateContractCollection(entry => entry.Datum >= from && entry.Datum <= to, DownloadRows($"SELECT * FROM [{NativeName}] WHERE " +
+																											$"CONVERT(NVARCHAR(10), [{DatumCol}], 121)>=CONVERT(NVARCHAR(10), '{from.ToString("yyyy-MM-dd")}', 121) AND " +
+																											$"CONVERT(NVARCHAR(10), [{DatumCol}], 121)<=CONVERT(NVARCHAR(10), '{to.ToString("yyyy-MM-dd")}', 121) ORDER BY [{DatumCol}] DESC"));
 		}
 	}
 }

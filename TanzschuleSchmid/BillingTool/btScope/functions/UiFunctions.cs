@@ -50,7 +50,15 @@ namespace BillingTool.btScope.functions
 			Bt.Db.EnsureConnectivity();
 			var entry = Bt.Db.Billing.CashBook.NewRow();
 
-			entry.Copy_From(Bt.Config.Merged.NewCashBookEntry, CashBookTable.IdCol, CashBookTable.ReferenceNumberCol, CashBookTable.DateCol, CashBookTable.LastEditedCol);
+			entry.Copy_From(Bt.Config.Merged.NewCashBookEntry,
+				CashBookTable.IdCol,
+				CashBookTable.KassenIdCol,
+				CashBookTable.BelegNummerCol,
+				CashBookTable.DatumCol,
+				CashBookTable.UmsatzZählerCol,
+				CashBookTable.ZuletztGeändertCol);
+
+			entry.SteuersatzArt = "Brutto";
 
 			var window = new NewCashBookEntryWindow(entry);
 

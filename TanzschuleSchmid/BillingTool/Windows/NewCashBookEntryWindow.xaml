@@ -6,7 +6,7 @@
 		mc:Ignorable="d"
 		Title="Neuer Eintrag" Height="480" Width="750" x:Name="Uc" KeyUp="WindowKeyUp" HeaderVisibility="Collapsed" AWindowDragMove.IsActive="True"
 		MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" CloseButtonVisibility="Collapsed" FooterVisibility="Collapsed"
-		Focusable="true" IsTabStop="False" ResizeMode="NoResize" >
+		Focusable="true" IsTabStop="False"  >
 	<Window.Resources>
 		<ResourceDictionary Source="/BillingTool;component/Themes/NewCashBookEntryStyles.xaml" />
 	</Window.Resources>
@@ -38,40 +38,41 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
-					<ParamView Grid.Row="0" Style="{StaticResource ParamBelegnummer}" Value="{Binding Path=ReferenceNumber}" />
-					<StringParam Grid.Row="1" Style="{StaticResource ParamSteuer}" Value="{Binding Path=TaxPercent, StringFormat={}{0:0.00}}" Name="FirstFocusedElement" />
-					<StringParam Grid.Row="2" Style="{StaticResource ParamAmountNetto}" Value="{Binding Path=AmountNetto, StringFormat={}{0:0.00}}" />
-					<StringParam Grid.Row="3" Style="{StaticResource ParamAmountGross}" Value="{Binding Path=AmountGross, StringFormat={}{0:0.00}}" />
+					<ParamView Grid.Row="0" Style="{StaticResource ParamBelegNummer}" Value="{Binding Path=BelegNummer}" />
+					<ParamView Grid.Row="1" Style="{StaticResource ParamKassenId}" Value="{Binding Path=KassenId}" />
+					<StringParam Grid.Row="2" Style="{StaticResource ParamBelegAussteller}" Value="{Binding Path=BelegAussteller}" IsValid="{Binding Path=BelegAussteller, Converter={StaticResource GConv-IsNotNullOrEmpty}}"/>
+					<StringParam Grid.Row="3" Style="{StaticResource ParamSteuersatz}" Value="{Binding Path=Steuersatz, StringFormat={}{0:0.00}}" Name="FirstFocusedElement" />
+					<StringParam Grid.Row="4" Style="{StaticResource ParamBetragBrutto}" Value="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" />
+					<StringParam Grid.Row="5" Style="{StaticResource ParamAmountNetto}" Value="{Binding Path=BetragNetto, StringFormat={}{0:0.00}}" />
 				</Grid>
 			</GroupBox>
-			<GroupBox Grid.Column="1" Header="Abwicklungsdaten" Style="{StaticResource ParamGroup}" Margin="10,0,0,0">
+			<GroupBox Grid.Column="1" Header="Interne Daten" Style="{StaticResource ParamGroup}">
 				<Grid IsSharedSizeScope="True">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
-					<StringParam Grid.Row="0" Style="{StaticResource ParamIssuer}" Value="{Binding Path=Issuer}"
-								IsValid="{Binding Path=Issuer, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
-					<StringParam Grid.Row="1" Style="{StaticResource ParamRecipient}" Value="{Binding Path=Recipient}"
-								IsValid="{Binding Path=Recipient, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
-					<StringParam Grid.Row="2" Style="{StaticResource ParamText}" Value="{Binding Path=Text}" />
+					<StringParam Grid.Row="0" Style="{StaticResource ParamInternEmpfänger}" Value="{Binding Path=InternEmpfänger}" />
+					<StringParam Grid.Row="1" Style="{StaticResource ParamInterneEmpfängerId}" Value="{Binding Path=InterneEmpfängerId}" />
+					<StringParam Grid.Row="2" Style="{StaticResource ParamInterneBeschreibung}" Value="{Binding Path=InterneBeschreibung}" />
 				</Grid>
 			</GroupBox>
 		</Grid>
-
-		<GroupBox Grid.Row="1" Header="Interne Daten" Style="{StaticResource ParamGroup}">
+		<GroupBox Grid.Row="1" Header="Details" Style="{StaticResource ParamGroup}" Margin="10,0,0,0">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<StringParam Grid.Row="0" Style="{StaticResource ParamInternRecipientId}" Value="{Binding Path=InternRecipientId}" />
-				<StringParam Grid.Row="1" Style="{StaticResource ParamInternDescription}" Value="{Binding Path=InternDescription}" />
+				<StringParam Grid.Row="0" Style="{StaticResource ParamLeistungsBeschreibung}" Value="{Binding Path=LeistungsBeschreibung}" IsValid="{Binding Path=LeistungsBeschreibung, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
+				<StringParam Grid.Row="1" Style="{StaticResource ParamBelegText}" Value="{Binding Path=BelegText}" />
 			</Grid>
 		</GroupBox>
+
 
 
 		<Border Grid.Row="4" Padding="0">

@@ -22,28 +22,31 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>On row creation this method will be executed. So a new row will always have the highest reference number</summary>
 		public override void ApplyExtendedDefaults()
 		{
-			var highestReferenceNumber = DbProxy.ExecuteCommand($"SELECT MAX({CashBookTable.ReferenceNumberCol}) FROM {CashBookTable.NativeName}").Rows[0][0];
-			ReferenceNumber = (highestReferenceNumber == DBNull.Value ? 0 : (int) highestReferenceNumber) + 1;
+			KassenId = 1;
+			var highestBelegNummer = DbProxy.ExecuteCommand($"SELECT MAX({CashBookTable.BelegNummerCol}) FROM {CashBookTable.NativeName}").Rows[0][0];
+			var letzterUmsatzZähler = DbProxy.ExecuteCommand($"SELECT [{CashBookTable.UmsatzZählerCol}] FROM {CashBookTable.NativeName} WHERE [{CashBookTable.BelegNummerCol}] = '{highestBelegNummer}'");
+            BelegNummer = (highestBelegNummer == DBNull.Value ? 0 : (int) highestBelegNummer) + 1;
+			UmsatzZähler = letzterUmsatzZähler == null || letzterUmsatzZähler.Rows.Count==0 || letzterUmsatzZähler.Columns.Count ==0 ||  letzterUmsatzZähler.Rows[0][0] == DBNull.Value ?0:(decimal)letzterUmsatzZähler.Rows[0][0];
 		}
 
 		/// <summary>Returns an identifier for the database row.</summary>
 		public override string ToString()
 		{
-			return $"[{nameof(CashBookEntry)}, RefNr={ReferenceNumber}]";
+			return $"[Finanzbucheintrag, Beleg Nr.={BelegNummer}]";
 		}
 		#endregion
 
 
-		[DependsOn(nameof(Recipient))]
-		[DependsOn(nameof(Issuer))]
-		public bool IsValid => !string.IsNullOrEmpty(Recipient) && !string.IsNullOrEmpty(Issuer);
+		[DependsOn(nameof(BelegAussteller))]
+		[DependsOn(nameof(LeistungsBeschreibung))]
+		public bool IsValid => !string.IsNullOrEmpty(BelegAussteller)  &&!string.IsNullOrEmpty(LeistungsBeschreibung);
 
-		[DependsOn(nameof(AmountGross))]
-		[DependsOn(nameof(TaxPercent))]
-		public decimal AmountNetto
+		[DependsOn(nameof(BetragBrutto))]
+		[DependsOn(nameof(Steuersatz))]
+		public decimal BetragNetto
 		{
-			get { return AmountGross/(1 + TaxPercent/100); }
-			set { AmountGross = value*(1 + TaxPercent/100); }
+			get { return BetragBrutto/(1 + Steuersatz/100); }
+			set { BetragBrutto = value*(1 + Steuersatz/100); }
 		}
 	}
 }

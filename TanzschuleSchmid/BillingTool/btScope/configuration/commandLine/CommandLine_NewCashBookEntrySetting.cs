@@ -16,7 +16,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.configuration.commandLine
 {
-	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt"/> Scope instead.</summary>
+	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
 	// ReSharper disable once InconsistentNaming
 	public sealed class CommandLine_NewCashBookEntrySetting : Base, IConfigNewCashBookEntrySettings
 	{
@@ -43,13 +43,15 @@ namespace BillingTool.btScope.configuration.commandLine
 				}
 			}
 		}
-		private decimal _amountGross;
-		private string _internDescription;
-		private string _internRecipientId;
-		private string _issuer;
-		private string _recipient;
-		private decimal _taxPercent;
-		private string _text;
+		private string _belegAussteller;
+		private string _belegText;
+		private decimal _betragBrutto;
+		private string _interneBeschreibung;
+		private string _interneEmpfängerId;
+		private string _internEmpfänger;
+		private string _leistungsBeschreibung;
+		private decimal _steuersatz;
+		private string _steuersatzArt;
 
 		private CommandLine_NewCashBookEntrySetting()
 		{
@@ -63,65 +65,91 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>ReferenceNumber</c>]</summary>
-		public int ReferenceNumber
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>KassenId</c>]</summary>
+		public int KassenId
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Date</c>]</summary>
-		public DateTime Date
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Datum</c>]</summary>
+		public DateTime Datum
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>AmountGross</c>]</summary>
-		public decimal AmountGross
-		{
-			get { return _amountGross; }
-			set { SetProperty(ref _amountGross, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>TaxPercent</c>]</summary>
-		public decimal TaxPercent
-		{
-			get { return _taxPercent; }
-			set { SetProperty(ref _taxPercent, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Issuer</c>]</summary>
-		public string Issuer
-		{
-			get { return _issuer; }
-			set { SetProperty(ref _issuer, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Recipient</c>]</summary>
-		public string Recipient
-		{
-			get { return _recipient; }
-			set { SetProperty(ref _recipient, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Text</c>]</summary>
-		public string Text
-		{
-			get { return _text; }
-			set { SetProperty(ref _text, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InternRecipientId</c>]</summary>
-		public string InternRecipientId
-		{
-			get { return _internRecipientId; }
-			set { SetProperty(ref _internRecipientId, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InternDescription</c>]</summary>
-		public string InternDescription
-		{
-			get { return _internDescription; }
-			set { SetProperty(ref _internDescription, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LastEdited</c>]</summary>
-		public DateTime LastEdited
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>UmsatzZähler</c>]</summary>
+		public decimal UmsatzZähler
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegNummer</c>]</summary>
+		public int BelegNummer
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>ZuletztGeändert</c>]</summary>
+		public DateTime ZuletztGeändert
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+
+
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegAusteller</c>]</summary>
+		public string BelegAussteller
+		{
+			get { return _belegAussteller; }
+			set { SetProperty(ref _belegAussteller, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BetragBrutto</c>]</summary>
+		public decimal BetragBrutto
+		{
+			get { return _betragBrutto; }
+			set { SetProperty(ref _betragBrutto, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Steuersatz</c>]</summary>
+		public decimal Steuersatz
+		{
+			get { return _steuersatz; }
+			set { SetProperty(ref _steuersatz, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>SteuersatzArt</c>]</summary>
+		public string SteuersatzArt
+		{
+			get { return _steuersatzArt; }
+			set { SetProperty(ref _steuersatzArt, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LeistungsBeschreibung</c>]</summary>
+		public string LeistungsBeschreibung
+		{
+			get { return _leistungsBeschreibung; }
+			set { SetProperty(ref _leistungsBeschreibung, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegText</c>]</summary>
+		public string BelegText
+		{
+			get { return _belegText; }
+			set { SetProperty(ref _belegText, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InternEmpfänger</c>]</summary>
+		public string InternEmpfänger
+		{
+			get { return _internEmpfänger; }
+			set { SetProperty(ref _internEmpfänger, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InterneEmpfängerId</c>]</summary>
+		public string InterneEmpfängerId
+		{
+			get { return _interneEmpfängerId; }
+			set { SetProperty(ref _interneEmpfängerId, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InterneBeschreibung</c>]</summary>
+		public string InterneBeschreibung
+		{
+			get { return _interneBeschreibung; }
+			set { SetProperty(ref _interneBeschreibung, value); }
 		}
 		#endregion
 
@@ -129,40 +157,51 @@ namespace BillingTool.btScope.configuration.commandLine
 		/// <summary>DO NOT USE THIS METHOD. This method is used to interpret the commands into the current properties.</summary>
 		public void Interpret(List<string> commands)
 		{
-			foreach (var item in commands.ToArray())
+			foreach (var value in commands.ToArray())
 			{
-				var found = true;
-
-
-				if (IsParameter(nameof(AmountGross), item))
-					AmountGross = Convert.ToDecimal(ParseValue(nameof(AmountGross), item));
-				else if (IsParameter(nameof(TaxPercent), item))
-					TaxPercent = Convert.ToDecimal(ParseValue(nameof(TaxPercent), item));
-				else if (IsParameter(nameof(Issuer), item))
-					Issuer = ParseValue(nameof(Issuer), item);
-				else if (IsParameter(nameof(Recipient), item))
-					Recipient = ParseValue(nameof(Recipient), item);
-				else if (IsParameter(nameof(Text), item))
-					Text = ParseValue(nameof(Text), item);
-				else if (IsParameter(nameof(InternRecipientId), item))
-					InternRecipientId = ParseValue(nameof(InternRecipientId), item);
-				else
-					found = false;
-
+				var found = false;
+				if (TryParse(value, nameof(BelegAussteller), cont => BelegAussteller = cont))
+					found = true;
+				else if (TryParse(value, nameof(BetragBrutto), cont => BetragBrutto = Convert.ToDecimal(cont)))
+					found = true;
+				else if (TryParse(value, nameof(Steuersatz), cont => Steuersatz = Convert.ToDecimal(cont)))
+					found = true;
+				else if (TryParse(value, nameof(SteuersatzArt), cont => SteuersatzArt = cont))
+					found = true;
+				else if (TryParse(value, nameof(LeistungsBeschreibung), cont => LeistungsBeschreibung = cont))
+					found = true;
+				else if (TryParse(value, nameof(BelegText), cont => BelegText = cont))
+					found = true;
+				else if (TryParse(value, nameof(InternEmpfänger), cont => InternEmpfänger = cont))
+					found = true;
+				else if (TryParse(value, nameof(InterneEmpfängerId), cont => InterneEmpfängerId = cont))
+					found = true;
+				else if (TryParse(value, nameof(InterneBeschreibung), cont => InterneBeschreibung = cont))
+					found = true;
+				else if (TryParse(value, nameof(InterneBeschreibung), cont => InterneBeschreibung = cont))
+					found = true;
 
 				if (found)
-					commands.Remove(item);
+					commands.Remove(value);
 			}
 		}
 
-		private bool IsParameter(string val, string item)
+		private bool TryParse(string value, string name, Action<string> set)
 		{
-			return item.StartsWith(ParamPrefix + val, StringComparison.OrdinalIgnoreCase);
+			if (!IsParameter(value, name))
+				return false;
+			set(ParseValue(value, name));
+			return true;
 		}
 
-		private string ParseValue(string val, string item)
+		private bool IsParameter(string value, string name)
 		{
-			return item.Substring((ParamPrefix + val).Length + 1);
+			return value.StartsWith(ParamPrefix + name, StringComparison.OrdinalIgnoreCase);
+		}
+
+		private string ParseValue(string value, string name)
+		{
+			return value.Substring((ParamPrefix + name).Length + 1);
 		}
 	}
 }

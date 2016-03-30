@@ -5,31 +5,25 @@
 	</ResourceDictionary.MergedDictionaries>
 
 
-	<Style x:Key="ParamBelegnummer" TargetType="{x:Type ParamView}" >
+	<Style x:Key="ParamBelegNummer" TargetType="{x:Type ParamView}" >
 		<Setter Property="Header" Value="Belegnummer"/>
-		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionHorizontalAlignment" Value="Left"/>
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	<Style x:Key="ParamKassenId" TargetType="{x:Type ParamView}" >
+		<Setter Property="Header" Value="Kassen ID"/>
 		<Setter Property="ExtensionHorizontalAlignment" Value="Left"/>
 		<Setter Property="IsTabStop" Value="False" />
 		<Setter Property="Focusable" Value="False" />
 	</Style>
 	
-	<Style x:Key="ParamIssuer" TargetType="{x:Type StringParam}" >
+	<Style x:Key="ParamBelegAussteller" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Rechnungsaussteller"/>
-		<Setter Property="ExtensionMinHeight" Value="60"/>
-		<Setter Property="AcceptsReturn" Value="True"/>
-		<Setter Property="HeaderAlignment" Value="Top"/>
-		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
 	</Style>
 
-	<Style x:Key="ParamRecipient" TargetType="{x:Type StringParam}" >
-		<Setter Property="Header" Value="Empfänger"/>
-		<Setter Property="ExtensionMinHeight" Value="60"/>
-		<Setter Property="AcceptsReturn" Value="True"/>
-		<Setter Property="HeaderAlignment" Value="Top"/>
-		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
-	</Style>
 
-	<Style x:Key="ParamSteuer" TargetType="{x:Type StringParam}" >
+	<Style x:Key="ParamSteuersatz" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Steuer"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="ExtensionMinWidth" Value="80"/>
@@ -41,7 +35,7 @@
 		<Setter Property="TextAlignment" Value="Right"/>
 	</Style>
 
-	<Style x:Key="ParamAmountGross" TargetType="{x:Type StringParam}" >
+	<Style x:Key="ParamBetragBrutto" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Betrag Brutto"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="ExtensionMinWidth" Value="80"/>
@@ -64,7 +58,7 @@
 		<Setter Property="TextAlignment" Value="Right"/>
 	</Style>
 
-	<Style x:Key="ParamText" TargetType="{x:Type StringParam}" >
+	<Style x:Key="ParamBelegText" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Rechnungstext"/>
 		<Setter Property="AcceptsReturn" Value="True"/>
 		<Setter Property="HeaderAlignment" Value="Top"/>
@@ -72,7 +66,21 @@
 		<Setter Property="ExtensionMinHeight" Value="60"/>
 	</Style>
 
-	<Style x:Key="ParamInternDescription" TargetType="{x:Type StringParam}" >
+	<Style x:Key="ParamLeistungsBeschreibung" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Leistungsbeschreibung"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+	</Style>
+
+	<Style x:Key="ParamInterneEmpfängerId" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Empfänger ID (intern)"/>
+	</Style>
+	<Style x:Key="ParamInternEmpfänger" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Empfänger (intern)"/>
+	</Style>
+	<Style x:Key="ParamInterneBeschreibung" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Beschreibung (intern)"/>
 		<Setter Property="AcceptsReturn" Value="True"/>
 		<Setter Property="HeaderAlignment" Value="Top"/>
@@ -80,7 +88,4 @@
 		<Setter Property="ExtensionMinHeight" Value="60"/>
 	</Style>
 	
-	<Style x:Key="ParamInternRecipientId" TargetType="{x:Type StringParam}" >
-		<Setter Property="Header" Value="Id (intern)"/>
-	</Style>
 </ResourceDictionary>

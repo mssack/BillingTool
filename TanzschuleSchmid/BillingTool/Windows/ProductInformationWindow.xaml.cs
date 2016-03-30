@@ -7,6 +7,7 @@
 using System;
 using System.Windows;
 using BillingTool.btScope;
+using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
 
 
@@ -23,6 +24,7 @@ namespace BillingTool.Windows
 		public ProductInformationWindow()
 		{
 			InitializeComponent();
+			CsGlobal.Wpf.Storage.Window.Handle(this, "ProductInformationWindow");
 		}
 
 		private void OpenConfigurationClicked(object sender, RoutedEventArgs e)
