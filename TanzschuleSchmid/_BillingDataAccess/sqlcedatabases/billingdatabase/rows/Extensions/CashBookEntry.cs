@@ -2,9 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-03-30</date>
 
 using System;
+using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 
 
@@ -24,6 +25,25 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			var highestReferenceNumber = DbProxy.ExecuteCommand($"SELECT MAX({CashBookTable.ReferenceNumberCol}) FROM {CashBookTable.NativeName}").Rows[0][0];
 			ReferenceNumber = (highestReferenceNumber == DBNull.Value ? 0 : (int) highestReferenceNumber) + 1;
 		}
+
+		/// <summary>Returns an identifier for the database row.</summary>
+		public override string ToString()
+		{
+			return $"[{nameof(CashBookEntry)}, RefNr={ReferenceNumber}]";
+		}
 		#endregion
+
+
+		[DependsOn(nameof(Recipient))]
+		[DependsOn(nameof(Issuer))]
+		public bool IsValid => !string.IsNullOrEmpty(Recipient) && !string.IsNullOrEmpty(Issuer);
+
+		[DependsOn(nameof(AmountGross))]
+		[DependsOn(nameof(TaxPercent))]
+		public decimal AmountNetto
+		{
+			get { return AmountGross/(1 + TaxPercent/100); }
+			set { AmountGross = value*(1 + TaxPercent/100); }
+		}
 	}
 }

@@ -4,8 +4,11 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		mc:Ignorable="d"
-		Title="Neuer Eintrag" Height="350" Width="550" x:Name="Uc" KeyUp="WindowKeyUp" >
+		Title="Neuer Eintrag" Height="350" Width="750" x:Name="Uc" KeyUp="WindowKeyUp" >
 	<Grid DataContext="{Binding ElementName=Uc, Path=Item}" Margin="10">
+		<Grid.LayoutTransform>
+			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.3" ScaleY="1.3"/>
+		</Grid.LayoutTransform>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
@@ -28,17 +31,21 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 					<StringParam Grid.Row="0" Header="Belegnummer" Value="{Binding Path=ReferenceNumber}" IsReadOnly="True" HorizontalAlignment="Left"/>
-					<DecimalParam Grid.Row="1" Header="Betrag" Value="{Binding Path=AmountGross}" TextAlignment="Right" >
+					<DecimalParam Grid.Row="1" Header="Steuer" Value="{Binding Path=TaxPercent}" TextAlignment="Right">
+						<TextBlock Text="%" Margin="5,0,0,0" Width="15"/>
+					</DecimalParam>
+					<DecimalParam Grid.Row="2" Header="Betrag Netto" Value="{Binding Path=AmountNetto}" TextAlignment="Right" >
 						<TextBlock Text="€" Margin="5,0,0,0" Width="15"/>
 					</DecimalParam>
-					<DecimalParam Grid.Row="2" Header="Steuer" Value="{Binding Path=TaxPercent}" TextAlignment="Right">
-						<TextBlock Text="%" Margin="5,0,0,0" Width="15"/>
+					<DecimalParam Grid.Row="3" Header="Betrag Brutto" Value="{Binding Path=AmountGross}" TextAlignment="Right" >
+						<TextBlock Text="€" Margin="5,0,0,0" Width="15"/>
 					</DecimalParam>
 				</Grid>
 			</GroupBox>
-			<GroupBox Grid.Column="1" Header="Abwicklungsdaten" Style="{StaticResource ParamGroup}">
+			<GroupBox Grid.Column="1" Header="Abwicklungsdaten" Style="{StaticResource ParamGroup}" Margin="10,0,0,0">
 				<Grid IsSharedSizeScope="True">
 					<Grid.Resources>
 						<Style TargetType="StringParam" BasedOn="{StaticResource {x:Type StringParam}}" >
@@ -92,7 +99,7 @@
 					<ColumnDefinition Width="Auto"/>
 				</Grid.ColumnDefinitions>
 				<Button Grid.Column="1" Click="AbbrechenClick" Content="Abbrechen (ESC)"/>
-				<Button Grid.Column="2" Click="BonierenClick" Content="Bonieren (F2)"/>
+				<Button Grid.Column="2" Click="BonierenClick" Content="Bonieren (F2)" IsEnabled="{Binding Path=IsValid}" />
 			</Grid>
 		</Border>
 	</Grid>

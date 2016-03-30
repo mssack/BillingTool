@@ -59,10 +59,11 @@ namespace BillingTool.Modes.newCashBookEntry
 		public void Accept()
 		{
 			if (Item.RowState != DataRowState.Detached)
-				throw new InvalidOperationException($"The specified {nameof(CashBookEntry)} [{Item.Id}] is already added to an table. " +
+				throw new InvalidOperationException($"The {Item} is already added to an table. " +
                                                     $"This is illegal might be an programming failure. " +
 													$"The {nameof(NewCashBookEntryWindow)} is for validating an item not for editing an existing item");
-
+			if (!Item.IsValid)
+				throw new InvalidOperationException($"The {Item} is invalid and can not be saved.");
 
 
 			Db.EnsureConnectivity();
@@ -94,7 +95,7 @@ namespace BillingTool.Modes.newCashBookEntry
 
 		private void BonierenClick(object sender, RoutedEventArgs e)
 		{
-			if (CsMessage.MessageResults.No==CsGlobal.Message.Push($"Sind Sie sicher, dass Sie den Beleg mit der Nummer [{Item.ReferenceNumber}] bonieren wollen", CsMessage.Types.Information, "Beleg eintragen?", CsMessage.MessageButtons.YesNo))
+			if (CsMessage.MessageResults.No==CsGlobal.Message.Push($"Sind Sie sicher, dass Sie den Beleg [RefNr={Item.ReferenceNumber}] bonieren wollen", CsMessage.Types.Information, "Beleg eintragen?", CsMessage.MessageButtons.YesNo))
 				return;
 			Accept();
 		}
@@ -112,9 +113,10 @@ namespace BillingTool.Modes.newCashBookEntry
 			if (e.Key != Key.F2 && e.Key != Key.Escape)
 				return;
 
+
 			e.Handled = true;
 
-			if (e.Key == Key.F2)
+			if (e.Key == Key.F2 && Item.IsValid)
 				Accept();
 			else if (e.Key == Key.Escape)
 				Abort();
