@@ -52,7 +52,7 @@ namespace BillingTool.Modes.newCashBookEntry
 		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
 		public void Abort()
 		{
-			BtLogging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Table = '{Item.Table.TableName}'] wurde abgebrochen.", LogTypes.Information);
+			Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer Finanzbucheintrag[RefNr. {Item.ReferenceNumber}, Table = '{Item.Table.TableName}'] wurde abgebrochen.", LogTypes.Information);
 			Item.Delete();
 			Exit();
 		}
@@ -68,7 +68,7 @@ namespace BillingTool.Modes.newCashBookEntry
 				throw new InvalidOperationException($"The {Item} is invalid and can not be saved.");
 
 
-			BtDb.EnsureConnectivity();
+			Db.EnsureConnectivity();
 
 			Item.LastEdited = Item.Date = DateTime.Now;
 
@@ -76,7 +76,7 @@ namespace BillingTool.Modes.newCashBookEntry
 			Item.Table.SaveChanges();
 			Item.Table.AcceptChanges();
 
-			BtLogging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag [RefNr = '{Item.ReferenceNumber}', Table = '{Item.Table.TableName}'] wurde erstellt.", LogTypes.Information);
+			Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer Finanzbucheintrag [RefNr = '{Item.ReferenceNumber}', Table = '{Item.Table.TableName}'] wurde erstellt.", LogTypes.Information);
             Exit();
 		}
 

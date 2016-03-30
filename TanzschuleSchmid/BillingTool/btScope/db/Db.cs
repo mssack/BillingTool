@@ -22,13 +22,13 @@ using CsWpfBase.Ev.Objects;
 namespace BillingTool.btScope.db
 {
 	/// <summary>THe <see cref="Bt.Db" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
-	public sealed class BtDb : Base
+	public sealed class Db : Base
 	{
-		private static BtDb _instance;
+		private static Db _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static BtDb I
+		internal static Db I
 		{
 			get
 			{
@@ -36,7 +36,7 @@ namespace BillingTool.btScope.db
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new BtDb());
+					return _instance ?? (_instance = new Db());
 				}
 			}
 		}
@@ -46,7 +46,7 @@ namespace BillingTool.btScope.db
 		private BillingDatabase _billing;
 		private SqlCeRouter _router;
 
-		private BtDb()
+		private Db()
 		{
 		}
 
@@ -85,7 +85,7 @@ namespace BillingTool.btScope.db
 		public void Connect()
 		{
 			if (Billing != null)
-				throw new InvalidOperationException($"The {nameof(BtDb)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
+				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
 
 
 			Router = new SqlCeRouter(CommandLineConfiguration.I.DatabaseFilePath);

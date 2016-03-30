@@ -21,13 +21,13 @@ using CsWpfBase.Ev.Public.Extensions;
 namespace BillingTool.btScope.logging
 {
 	/// <summary>This class is used for Logging purpose.</summary>
-	public class BtLogging
+	public class Logging
 	{
-		private static BtLogging _instance;
+		private static Logging _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static BtLogging I
+		internal static Logging I
 		{
 			get
 			{
@@ -35,12 +35,12 @@ namespace BillingTool.btScope.logging
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new BtLogging());
+					return _instance ?? (_instance = new Logging());
 				}
 			}
 		}
 
-		private BtLogging()
+		private Logging()
 		{
 		}
 

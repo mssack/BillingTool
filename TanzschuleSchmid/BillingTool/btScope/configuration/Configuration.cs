@@ -16,13 +16,13 @@ using CsWpfBase.Ev.Objects;
 namespace BillingTool.btScope.configuration
 {
 	/// <summary>The <see cref="Bt.Config"/> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
-	public sealed class BtConfiguration : Base
+	public sealed class Configuration : Base
 	{
-		private static BtConfiguration _instance;
+		private static Configuration _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static BtConfiguration I
+		internal static Configuration I
 		{
 			get
 			{
@@ -30,7 +30,7 @@ namespace BillingTool.btScope.configuration
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new BtConfiguration());
+					return _instance ?? (_instance = new Configuration());
 				}
 			}
 		}
@@ -40,7 +40,7 @@ namespace BillingTool.btScope.configuration
 		private ConfigFileConfiguration _file;
 		private MergedConfiguration _merged;
 
-		private BtConfiguration()
+		private Configuration()
 		{
 		}
 

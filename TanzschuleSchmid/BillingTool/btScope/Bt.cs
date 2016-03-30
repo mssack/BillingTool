@@ -27,12 +27,12 @@ namespace BillingTool.btScope
 		///     The configuration of the current application lifeline. This can be modified by simple modifying the configuration file or passing parameters to
 		///     the program.
 		/// </summary>
-		public static BtConfiguration Config => BtConfiguration.I;
+		public static Configuration Config => Configuration.I;
 		/// <summary>Used to log events. Use this whenever there is need for logging.</summary>
-		public static BtLogging Logging => BtLogging.I;
+		public static Logging Logging => Logging.I;
 		/// <summary>Used to interact with the underlaying database. Use <see cref="Config" /> to set the current database.</summary>
-		public static BtDb Db => BtDb.I;
+		public static Db Db => Db.I;
 		/// <summary>Default functions used to interact wit the user.</summary>
-		public static BtUiFunctions UiFunctions => BtUiFunctions.I;
+		public static UiFunctions UiFunctions => UiFunctions.I;
 	}
 }

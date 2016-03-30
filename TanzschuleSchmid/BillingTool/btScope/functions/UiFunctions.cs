@@ -17,13 +17,13 @@ using CsWpfBase.Ev.Objects;
 namespace BillingTool.btScope.functions
 {
 	/// <summary>The <see cref="Bt.UiFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
-	public sealed class BtUiFunctions : Base
+	public sealed class UiFunctions : Base
 	{
-		private static BtUiFunctions _instance;
+		private static UiFunctions _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static BtUiFunctions I
+		internal static UiFunctions I
 		{
 			get
 			{
@@ -31,12 +31,12 @@ namespace BillingTool.btScope.functions
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new BtUiFunctions());
+					return _instance ?? (_instance = new UiFunctions());
 				}
 			}
 		}
 
-		private BtUiFunctions()
+		private UiFunctions()
 		{
 		}
 
