@@ -94,6 +94,9 @@
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\CashBookTable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\LogsTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
   <ItemGroup />

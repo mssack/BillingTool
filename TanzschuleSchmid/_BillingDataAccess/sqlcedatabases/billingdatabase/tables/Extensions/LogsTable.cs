@@ -15,22 +15,21 @@ using CsWpfBase.Db.models.helper;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
-	partial class CashBookTable
+	partial class LogsTable
 	{
 		/// <summary>
-		///     Get all <see cref="CashBookEntry" />'s between <paramref name="from" /> to <paramref name="to" />. This <see cref="ContractCollection{TRow}" />
+		///     Get all <see cref="Log" />'s between <paramref name="from" /> to <paramref name="to" />. This <see cref="ContractCollection{TRow}" />
 		///     is always up to date.
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		public ContractCollection<CashBookEntry> Get_Between(DateTime from, DateTime to)
+		public ContractCollection<Log> Get_Between(DateTime from, DateTime to)
 		{
-			//yyyy-mm-dd hh:mi:ss (24h) =120
-			//see https://technet.microsoft.com/en-us/library/ms174450%28v=sql.110%29.aspx
 			from = from.Subtract(from.TimeOfDay);
 			to = to.Add(new TimeSpan(0, 23 - to.Hour, 59 - to.Minute, 59 - to.Second, 999 - to.Millisecond));
 
-
+			//yyyy-mm-dd hh:mi:ss (24h) =120
+			//see https://technet.microsoft.com/en-us/library/ms174450%28v=sql.110%29.aspx
 
 			return CreateContractCollection(log => log.Date >= from && log.Date <= to, DownloadRows($"SELECT * FROM [{NativeName}] WHERE " +
 																									$"CONVERT(NVARCHAR(10), [{DateCol}], 121)>=CONVERT(NVARCHAR(10), '{from.ToString("yyyy-MM-dd")}', 121) AND " +

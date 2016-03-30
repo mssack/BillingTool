@@ -69,12 +69,9 @@ namespace BillingTool.btScope.configuration.commandLine
 			foreach (var item in commands.ToArray())
 			{
 				var found = true;
-
-
-				if (string.Equals(item, StartupModes.Developer.ToString(), StringComparison.OrdinalIgnoreCase))
-					StartupMode = StartupModes.Developer;
-				else if (string.Equals(item, StartupModes.NewCashBookEntry.ToString(), StringComparison.OrdinalIgnoreCase))
-					StartupMode = StartupModes.NewCashBookEntry;
+				StartupModes mode;
+				if (Enum.TryParse(item, true, out mode))
+					StartupMode = mode;
 				else if (item.StartsWith(nameof(BillingDatabaseFilePath), StringComparison.OrdinalIgnoreCase))
 					BillingDatabaseFilePath = item.Substring(nameof(BillingDatabaseFilePath).Length + 1);
 				else

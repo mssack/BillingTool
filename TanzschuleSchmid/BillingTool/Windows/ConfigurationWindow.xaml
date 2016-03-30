@@ -20,7 +20,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="0" Header="Datenbank" DataContext="{Binding Path=General}">
+		<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="0" Header="Datenbank" DataContext="{Binding Path=General}" >
 			<Param Grid.Row="0" Header="Pfad">
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -90,8 +90,8 @@
 						<StringParam Grid.Row="0" Style="{StaticResource ParamIssuer}" Value="{Binding Path=Issuer}" />
 						<StringParam Grid.Row="1" Style="{StaticResource ParamRecipient}" Value="{Binding Path=Recipient}" />
 
-						<DecimalParam Grid.Row="2" Style="{StaticResource ParamSteuer}" Value="{Binding Path=TaxPercent}" />
-						<DecimalParam Grid.Row="3" Style="{StaticResource ParamAmountGross}" Value="{Binding Path=AmountGross}" />
+						<StringParam Grid.Row="2" Style="{StaticResource ParamSteuer}" Value="{Binding Path=TaxPercent}" />
+						<StringParam Grid.Row="3" Style="{StaticResource ParamAmountGross}" Value="{Binding Path=AmountGross}" />
 
 						<StringParam Grid.Row="4" Style="{StaticResource ParamText}" Value="{Binding Path=Text}" />
 

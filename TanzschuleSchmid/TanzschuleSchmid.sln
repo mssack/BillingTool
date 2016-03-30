@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registrierkasse", "Registri
 		_Rechtliches\Registrierkasse\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf = _Rechtliches\Registrierkasse\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Anleitung", "Anleitung", "{441AB3AA-D45B-405D-87F3-BF44D30F971E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,5 +54,6 @@ Global
 		{672DE474-CC73-45F5-819A-FDCDD687570F} = {E33A372F-43ED-4730-B822-4697914950B8}
 		{7451FE44-83E3-49E1-B54B-3A037CC25E94} = {E33A372F-43ED-4730-B822-4697914950B8}
 		{239C47CE-9436-451E-888D-F226CE9F3CFC} = {309E8A27-C7F8-434F-8063-A3F579F2ADED}
+		{441AB3AA-D45B-405D-87F3-BF44D30F971E} = {309E8A27-C7F8-434F-8063-A3F579F2ADED}
 	EndGlobalSection
 EndGlobal

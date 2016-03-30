@@ -27,7 +27,7 @@
 				</Grid.RowDefinitions>
 				<Button Grid.Row="0" Content="New Cashbook Entry" Click="NewCashBookEntry_Click"/>
 				<Button Grid.Row="1" Content="Configuration" Click="ConfigurationWindow_Click"/>
-				<Button Grid.Row="2" Content="Latest Logs" Click="NewCashBookEntry_Click"/>
+				<Button Grid.Row="2" Content="Database" Click="Logs_Click"/>
 				<Button Grid.Row="3" Content="Tagesbeleg" Click="NewCashBookEntry_Click"/>
 			</Grid>
 		</GroupBox>

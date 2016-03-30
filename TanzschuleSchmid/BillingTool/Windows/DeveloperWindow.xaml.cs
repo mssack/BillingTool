@@ -65,5 +65,11 @@ namespace BillingTool.Windows
 			var w = new ConfigurationWindow();
 			w.Show();
 		}
+
+		private void Logs_Click(object sender, RoutedEventArgs e)
+		{
+			var w = new DatabaseWindow();
+			w.Show();
+		}
 	}
 }

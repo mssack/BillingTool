@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-09-14</date>
+// <date>2016-03-30</date>
 
 using System;
 using System.Collections;
@@ -37,6 +37,9 @@ namespace CsWpfBase.Db.models.helper
 		private HashSet<TRow> _hashList;
 		private List<TRow> _list;
 		private SortHandler _sortHandler;
+
+
+		private object _tag;
 
 		/// <summary>
 		///     Creates a new collection which is based on a <paramref name="table" /> and a contract. The contract is used to validate a row inside the table.
@@ -73,8 +76,8 @@ namespace CsWpfBase.Db.models.helper
 		}
 #endif
 
-			/// <summary>Returns an enumerator that iterates through the collection.</summary>
-			/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
+		/// <summary>Returns an enumerator that iterates through the collection.</summary>
+		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
 		public IEnumerator<TRow> GetEnumerator()
 		{
 			return List.GetEnumerator();
@@ -90,6 +93,14 @@ namespace CsWpfBase.Db.models.helper
 		/// <summary>Occurs whenever the collection changes</summary>
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
 		#endregion
+
+
+		/// <summary>Gets or sets the Tag.</summary>
+		public object Tag
+		{
+			get { return _tag; }
+			set { SetProperty(ref _tag, value); }
+		}
 
 
 		/// <summary>The contract is a function which validates an item whether it belongs to the collection or not.</summary>
@@ -228,7 +239,7 @@ namespace CsWpfBase.Db.models.helper
 
 			var valid = Condition(row);
 
-			if ((valid && contained))
+			if (valid && contained)
 			{
 				if (needSort == true)
 					_sortHandler.Schedule();

@@ -13,4 +13,5 @@ using System;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.views
 {
+	internal class dummy { }
 }

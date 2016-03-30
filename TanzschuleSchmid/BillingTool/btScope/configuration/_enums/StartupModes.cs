@@ -34,5 +34,8 @@ namespace BillingTool.btScope.configuration._enums
 		/// <summary>The <see cref="ProductInformationWindow" /> will be opened.</summary>
 		[Description("Produkt Informationen")]
 		ProductInformation,
+		/// <summary>The <see cref="DatabaseWindow" /> will be opened.</summary>
+		[Description("Database")]
+		Database,
 	}
 }

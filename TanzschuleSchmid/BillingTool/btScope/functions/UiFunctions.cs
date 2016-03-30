@@ -59,6 +59,7 @@ namespace BillingTool.btScope.functions
 			else
 				window.Show();
 		}
+
 		/// <summary>Opens a window for the configuration of this software.</summary>
 		public void OpenConfiguration(bool showdialog = false)
 		{
@@ -69,10 +70,8 @@ namespace BillingTool.btScope.functions
 			else
 				window.Show();
 		}
-		/// <summary>
-		/// Opens a window with the product informations.
-		/// </summary>
-		/// <param name="showdialog"></param>
+
+		/// <summary>Opens a window with the product informations.</summary>
 		public void OpenProductInformation(bool showdialog = false)
 		{
 			var window = new ProductInformationWindow();
@@ -82,7 +81,18 @@ namespace BillingTool.btScope.functions
 			else
 				window.Show();
 		}
-		
+
+		/// <summary>Opens a window with the logs.</summary>
+		public void OpenLogs(bool showdialog = false)
+		{
+			var window = new DatabaseWindow();
+
+			if (showdialog)
+				window.ShowDialog();
+			else
+				window.Show();
+		}
+
 
 		/// <summary>Executes the current configured mode.</summary>
 		public void ExecuteConfiguration()
@@ -104,6 +114,10 @@ namespace BillingTool.btScope.functions
 			else if (mode == StartupModes.ProductInformation)
 			{
 				OpenProductInformation();
+			}
+			else if (mode == StartupModes.Database)
+			{
+				OpenLogs();
 			}
 
 			if (Application.Current.MainWindow == null)

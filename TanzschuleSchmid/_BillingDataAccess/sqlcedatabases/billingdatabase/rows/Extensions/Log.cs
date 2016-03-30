@@ -5,6 +5,7 @@
 // <date>2016-03-29</date>
 
 using System;
+using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 
 
@@ -16,6 +17,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
 	partial class Log
 	{
+		[DependsOn("TypeName")]
 		public LogTypes Type
 		{
 			get
