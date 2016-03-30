@@ -1,0 +1,32 @@
+﻿<Window x:Class="BillingTool.Modes.defaultStartup.DefaultStartupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BillingTool.Modes.defaultStartup"
+        mc:Ignorable="d"
+        Title="DefaultStartupWindow" Padding="0">
+    <Grid>
+	    <Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Border Background="#F9F9F9" Padding="5">
+			<TextBlock Text="Billing Tool" FontSize="22" FontFamily="Segoe UI"/>
+		</Border>
+		<Grid Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			
+			<GroupBox Header="Konfiguration">
+				<Param Header="Database Pfad">
+					<FPathEditor />
+				</Param>
+			</GroupBox>
+		</Grid>
+		
+    </Grid>
+</Window>

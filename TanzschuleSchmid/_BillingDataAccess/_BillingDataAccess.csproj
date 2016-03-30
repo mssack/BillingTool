@@ -96,10 +96,9 @@
     </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="sqlcedatabases\sampledb\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="sqlcedatabases\Router\SqlCeRouter.cs" />
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>

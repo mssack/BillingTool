@@ -13,16 +13,16 @@ using CsWpfBase.Ev.Objects;
 
 
 
-namespace BillingTool.Runtime
+namespace BillingTool.btScope.configuration.types
 {
 	/// <summary>The runtime configuration gives feedback about the current application mode and configuration.</summary>
-	public sealed class RuntimeConfiguration : Base
+	public sealed class CommandLineConfiguration : Base
 	{
-		private static RuntimeConfiguration _instance;
+		private static CommandLineConfiguration _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static RuntimeConfiguration I
+		internal static CommandLineConfiguration I
 		{
 			get
 			{
@@ -30,7 +30,7 @@ namespace BillingTool.Runtime
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new RuntimeConfiguration());
+					return _instance ?? (_instance = new CommandLineConfiguration());
 				}
 			}
 		}
@@ -40,7 +40,7 @@ namespace BillingTool.Runtime
 		private string _databaseFilePath;
 		private RuntimeModes _runtimeMode;
 
-		private RuntimeConfiguration()
+		private CommandLineConfiguration()
 		{
 		}
 
@@ -61,6 +61,11 @@ namespace BillingTool.Runtime
 		{
 			get { return _createDatabaseIfNotExist; }
 			set { SetProperty(ref _createDatabaseIfNotExist, value); }
+		}
+
+
+		private void ParseCommandLine(string[] param)
+		{
 		}
 	}
 }

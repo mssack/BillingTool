@@ -2,13 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-03-30</date>
 
 using System;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
+using BillingTool.btScope;
+using BillingTool.btScope.configuration.types;
 using BillingTool.Modes.newCashBookEntry;
-using BillingTool.Runtime;
 using BillingTool.Runtime.types;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
@@ -41,7 +42,7 @@ namespace BillingTool.Modes.developer
 
 			try
 			{
-				using (var installer = new DatabaseInstaller(RuntimeConfiguration.I.DatabaseFilePath))
+				using (var installer = new DatabaseInstaller(CommandLineConfiguration.I.DatabaseFilePath))
 				{
 					installer.Install(true);
 				}
@@ -57,8 +58,8 @@ namespace BillingTool.Modes.developer
 
 		private void NewCashBookEntry_Click(object sender, RoutedEventArgs e)
 		{
-			Db.EnsureConnectivity();
-			new NewCashBookEntryWindow(Db.Billing.CashBook.NewRow()).Show();
+			Bt.Db.EnsureConnectivity();
+			new NewCashBookEntryWindow(Bt.Db.Billing.CashBook.NewRow()).Show();
 		}
 	}
 }

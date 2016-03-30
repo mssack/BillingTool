@@ -58,12 +58,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="btScope\Bt.cs" />
+    <Compile Include="btScope\configuration\BtConfiguration.cs" />
+    <Compile Include="btScope\configuration\types\ConfigFileConfiguration.cs" />
+    <Compile Include="btScope\configuration\types\MergedConfiguration.cs" />
+    <Compile Include="btScope\functions\BtUiFunctions.cs" />
+    <Compile Include="Modes\defaultStartup\DefaultStartupWindow.xaml.cs">
+      <DependentUpon>DefaultStartupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modes\newCashBookEntry\NewCashBookEntryWindow.xaml.cs">
       <DependentUpon>NewCashBookEntryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Runtime\Db.cs" />
-    <Compile Include="Runtime\Logging.cs" />
-    <Compile Include="Runtime\RuntimeConfiguration.cs" />
+    <Compile Include="btScope\db\BtDb.cs" />
+    <Compile Include="btScope\logging\BtLogging.cs" />
+    <Compile Include="btScope\configuration\types\CommandLineConfiguration.cs" />
     <Compile Include="Runtime\types\CompilerServices.cs" />
     <Compile Include="Runtime\types\RuntimeModes.cs" />
     <Compile Include="Modes\developer\DeveloperWindow.xaml.cs">
@@ -76,6 +84,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Modes\defaultStartup\DefaultStartupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Modes\developer\DeveloperWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,7 +136,9 @@
       <Name>_CsWpfBaseForSchmid</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

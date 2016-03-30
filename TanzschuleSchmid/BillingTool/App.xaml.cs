@@ -2,14 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-03-30</date>
 
 using System;
 using System.Windows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingTool.btScope;
+using BillingTool.btScope.configuration.types;
 using BillingTool.Modes.developer;
 using BillingTool.Modes.newCashBookEntry;
-using BillingTool.Runtime;
 using BillingTool.Runtime.types;
 using CsWpfBase.Global;
 
@@ -44,17 +44,17 @@ namespace BillingTool
 					continue;
 
 				if (string.Equals(arg, "/developer", StringComparison.OrdinalIgnoreCase))
-					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.Developer;
+					CommandLineConfiguration.I.RuntimeMode = RuntimeModes.Developer;
 				else if (string.Equals(arg, "/newcashbookentry", StringComparison.OrdinalIgnoreCase))
-					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
+					CommandLineConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
 				else if (string.Equals(arg, "/createdatabase", StringComparison.OrdinalIgnoreCase))
-					RuntimeConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
+					CommandLineConfiguration.I.RuntimeMode = RuntimeModes.NewCashBookEntry;
 				else if (string.Equals(arg, "/database", StringComparison.OrdinalIgnoreCase))
 				{
 					if (i + 1 >= data.Length)
 						throw new Exception("You have to pass a database file if you use startup parameter '/database'");
 
-					RuntimeConfiguration.I.DatabaseFilePath = data[++i]; //Use the next argument as file path.
+					CommandLineConfiguration.I.DatabaseFilePath = data[++i]; //Use the next argument as file path.
 				}
 				else
 				{
@@ -65,25 +65,22 @@ namespace BillingTool
 
 		private void ExecuteMode()
 		{
-			if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.Developer)
+			if (CommandLineConfiguration.I.RuntimeMode == RuntimeModes.Developer)
 			{
 				Current.MainWindow = new DeveloperWindow();
 				Current.MainWindow.Show();
 			}
-			else if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.NewCashBookEntry)
+			else if (CommandLineConfiguration.I.RuntimeMode == RuntimeModes.NewCashBookEntry)
 			{
-				if (RuntimeConfiguration.I.CreateDatabaseIfNotExist)
-					Db.Init();
+				if (CommandLineConfiguration.I.CreateDatabaseIfNotExist)
+					Bt.Db.Init();
 
-				Db.EnsureConnectivity();
-
-				Current.MainWindow = new NewCashBookEntryWindow(Db.Billing.CashBook.NewRow());
-				Current.MainWindow.Show();
+				Current.MainWindow = Bt.UiFunctions.NewCashBookEntry();
 			}
-			else if (RuntimeConfiguration.I.RuntimeMode == RuntimeModes.CreateDatabase)
+			else if (CommandLineConfiguration.I.RuntimeMode == RuntimeModes.CreateDatabase)
 			{
-				Db.CreateDatabase();
-				
+				Bt.Db.CreateDatabase();
+
 				CsGlobal.App.Exit();
 			}
 		}
