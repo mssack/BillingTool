@@ -6,6 +6,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Ev.Objects;
 
@@ -157,51 +160,33 @@ namespace BillingTool.btScope.configuration.commandLine
 		/// <summary>DO NOT USE THIS METHOD. This method is used to interpret the commands into the current properties.</summary>
 		public void Interpret(List<string> commands)
 		{
-			foreach (var value in commands.ToArray())
+			var compareableDictionary = CashBookEntry.NativeColumnName_To_Property.ToDictionary(x => ParamPrefix.ToLower() + x.Key.Replace(" ", "").ToLower(), x => x.Value);
+			
+			foreach (var command in commands.ToArray())
 			{
+				if (string.IsNullOrEmpty(command))
+					continue;
+
 				var found = false;
-				if (TryParse(value, nameof(BelegAussteller), cont => BelegAussteller = cont))
+				PropertyInfo foundProperty;
+
+				var indexOfFirtsLeerzeichen = command.IndexOf(" ", StringComparison.Ordinal);
+				if (indexOfFirtsLeerzeichen == -1)
+					continue;
+
+				if (compareableDictionary.TryGetValue(command.Substring(0, indexOfFirtsLeerzeichen).ToLower(), out foundProperty))
+				{
+					var value = command.Substring(indexOfFirtsLeerzeichen+1);
+					if (foundProperty.PropertyType == typeof(string))
+						foundProperty.SetValue(this, value, null);
+					else
+						foundProperty.SetValue(this, Convert.ChangeType(value, foundProperty.PropertyType), null);
 					found = true;
-				else if (TryParse(value, nameof(BetragBrutto), cont => BetragBrutto = Convert.ToDecimal(cont)))
-					found = true;
-				else if (TryParse(value, nameof(Steuersatz), cont => Steuersatz = Convert.ToDecimal(cont)))
-					found = true;
-				else if (TryParse(value, nameof(SteuersatzArt), cont => SteuersatzArt = cont))
-					found = true;
-				else if (TryParse(value, nameof(LeistungsBeschreibung), cont => LeistungsBeschreibung = cont))
-					found = true;
-				else if (TryParse(value, nameof(BelegText), cont => BelegText = cont))
-					found = true;
-				else if (TryParse(value, nameof(InternEmpfänger), cont => InternEmpfänger = cont))
-					found = true;
-				else if (TryParse(value, nameof(InterneEmpfängerId), cont => InterneEmpfängerId = cont))
-					found = true;
-				else if (TryParse(value, nameof(InterneBeschreibung), cont => InterneBeschreibung = cont))
-					found = true;
-				else if (TryParse(value, nameof(InterneBeschreibung), cont => InterneBeschreibung = cont))
-					found = true;
+				}
 
 				if (found)
-					commands.Remove(value);
+					commands.Remove(command);
 			}
-		}
-
-		private bool TryParse(string value, string name, Action<string> set)
-		{
-			if (!IsParameter(value, name))
-				return false;
-			set(ParseValue(value, name));
-			return true;
-		}
-
-		private bool IsParameter(string value, string name)
-		{
-			return value.StartsWith(ParamPrefix + name, StringComparison.OrdinalIgnoreCase);
-		}
-
-		private string ParseValue(string value, string name)
-		{
-			return value.Substring((ParamPrefix + name).Length + 1);
 		}
 	}
 }

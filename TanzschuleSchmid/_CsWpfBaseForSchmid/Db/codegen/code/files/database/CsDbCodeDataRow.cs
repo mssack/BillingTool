@@ -9,10 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using CsWpfBase.Db.attributes;
 using CsWpfBase.Db.codegen.architecture.parts;
+using CsWpfBase.Db.codegen.code.files.database.datarowParts;
 using CsWpfBase.Db.codegen.code.files.database.datarowParts.associated;
 using CsWpfBase.Db.codegen.code.files.database.datarowParts.columns;
 using CsWpfBase.Db.codegen.code.files.database.datarowParts.methods;
 using CsWpfBase.Db.codegen.code.files.database.datarowParts.referencing;
+using CsWpfBase.Db.codegen.code.files.database.interfaceParts;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Utilitys.templates;
 
@@ -31,6 +33,7 @@ namespace CsWpfBase.Db.codegen.code.files.database
 		private CsDbcTableRow_Methods _methods;
 
 		private string _name;
+		private CsDbcTableRow_NativeColumnName_To_PropertyMapping _nativeColumnNameToProperty;
 
 		/// <summary>Creates a new code set.</summary>
 		public CsDbCodeDataRow(CsDbCodeDataTable table)
@@ -60,6 +63,8 @@ namespace CsWpfBase.Db.codegen.code.files.database
 		public CsDbcTableRow_Column PkColumn { get; set; }
 		/// <summary>Gets the row reload method.</summary>
 		public CsDbcTableRow_Methods Methods => _methods ?? (_methods = new CsDbcTableRow_Methods(this));
+		/// <summary>Gets the row reload method.</summary>
+		public CsDbcTableRow_NativeColumnName_To_PropertyMapping NativeColumnNameToProperty => _nativeColumnNameToProperty ?? (_nativeColumnNameToProperty = new CsDbcTableRow_NativeColumnName_To_PropertyMapping(this));
 
 		/// <summary>Gets or sets the Name.</summary>
 		[Key]
@@ -110,5 +115,8 @@ namespace CsWpfBase.Db.codegen.code.files.database
 
 		[Key(Name = "Methods")]
 		private string TmpMethods => Methods.GetString(1);
+
+		[Key(Name = "NativeColumnNameToProperty")]
+		private string TmpNativeColumnNameToProperty => NativeColumnNameToProperty.GetString(1);
 	}
 }

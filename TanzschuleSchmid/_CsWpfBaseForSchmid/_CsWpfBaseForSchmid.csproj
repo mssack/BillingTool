@@ -90,6 +90,7 @@
     <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs" />
     <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_CopyMethods.cs" />
     <Compile Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_ViewProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\CsDbcTableRow_NativeColumnName_To_PropertyMapping.cs" />
     <Compile Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyFindOrLoadMethod.cs" />
     <Compile Include="Db\codegen\code\files\database\CsDbCodeDataView.cs" />
     <Compile Include="Db\codegen\code\files\database\datarowParts\associated\CsDbcTableRow_AssociatedProperty.cs" />
@@ -575,6 +576,12 @@
     <AppDesigner Include="Properties\" />
     <Resource Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_SetDbProxyMethod.cs.txt">
       <DependentUpon>CsDbcContext_SetDbProxyMethod.cs</DependentUpon>
+    </Resource>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\CsDbcTableRow_NativeColumnName_To_PropertyMapping.cs.txt">
+      <DependentUpon>CsDbcTableRow_NativeColumnName_To_PropertyMapping.cs</DependentUpon>
+    </Resource>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs.txt">
+      <DependentUpon>CsDbcTableRow_BundledDataMethods.cs</DependentUpon>
     </Resource>
     <Resource Include="Themes\Resources\ShaderEffects\BrightContrastEffect\bricon.ps" />
     <Resource Include="Themes\Resources\ShaderEffects\GrayScale\GrayscaleEffect.ps" />
@@ -1375,9 +1382,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Db\codegen\architecture\generators\sqlScripts\NamingConventionTable_Script_SqlCe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

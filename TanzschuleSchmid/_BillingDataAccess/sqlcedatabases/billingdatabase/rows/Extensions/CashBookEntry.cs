@@ -5,6 +5,8 @@
 // <date>2016-03-30</date>
 
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 
@@ -18,6 +20,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
 	partial class CashBookEntry
 	{
+
+
+
 		#region Overrides/Interfaces
 		/// <summary>On row creation this method will be executed. So a new row will always have the highest reference number</summary>
 		public override void ApplyExtendedDefaults()
