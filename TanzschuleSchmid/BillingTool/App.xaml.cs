@@ -8,7 +8,6 @@ using System;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingTool.btScope;
-using BillingTool.btScope.configuration._enums;
 using CsWpfBase.Global;
 
 
