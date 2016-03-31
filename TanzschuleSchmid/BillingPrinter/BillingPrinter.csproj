@@ -74,8 +74,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Monatsumsatz.xaml.cs">
+      <DependentUpon>Monatsumsatz.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Tagesumsatz.xaml.cs">
       <DependentUpon>Tagesumsatz.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ZahlungsBeleg.xaml.cs">
+      <DependentUpon>ZahlungsBeleg.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -113,7 +119,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Controls\Monatsumsatz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Tagesumsatz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ZahlungsBeleg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
