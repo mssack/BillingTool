@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-03-31</date>
 
 using System;
 using System.Windows;
@@ -22,7 +22,6 @@ namespace BillingTool
 	{
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
-
 			Current.DispatcherUnhandledException += (s, args) =>
 			{
 				try
@@ -31,13 +30,12 @@ namespace BillingTool
 				}
 				catch (Exception)
 				{
-					
+
 				}
 			};
 
+			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
 
-		CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
-			
 
 
 			Bt.Config.CommandLine.Interpret(e.Args);

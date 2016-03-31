@@ -52,8 +52,6 @@ namespace CsWpfBase.Global.storage.resource
 		/// <summary>opens a stream to an embedded resource.</summary>
 		public Stream OpenStream(Uri source)
 		{
-
-
 			var streamResourceInfo = Application.GetResourceStream(source);
 			return streamResourceInfo != null ? streamResourceInfo.Stream : null;
 		}
@@ -70,6 +68,16 @@ namespace CsWpfBase.Global.storage.resource
 			}
 		}
 		/// <summary>Reading the text of a file by a 'pack <see cref="Uri" />'.</summary>
+		public byte[] Read_AsBinary(Uri source)
+		{
+			using (var stream = OpenStream(source))
+			{
+				Byte[] assemblyData = new Byte[stream.Length];
+				stream.Read(assemblyData, 0, assemblyData.Length);
+				return assemblyData;
+			}
+		}
+		/// <summary>Reading the text of a file by a 'pack <see cref="Uri" />'.</summary>
 		public string Read(string source, Encoding encoding = null)
 		{
 			return Read(new Uri(source, UriKind.RelativeOrAbsolute), encoding);
@@ -80,10 +88,25 @@ namespace CsWpfBase.Global.storage.resource
 			if (Application.Current == null)
 			{
 				StreamResourceInfo sr1 = Application.GetResourceStream(new Uri(assemblyName + ";component/" + path, UriKind.Relative));
-				var file = new StreamReader(sr1.Stream);
-				return file.ReadToEnd();
+				using (var file = new StreamReader(sr1.Stream))
+					return file.ReadToEnd();
 			}
 			return Read(new Uri(CsGlobal.Storage.Resource.Path.Get(assemblyName, path), UriKind.RelativeOrAbsolute), encoding);
+		}
+		/// <summary>Reading the text of a file by a 'pack <see cref="Uri" />'.</summary>
+		public byte[] Read_AsBinary(string assemblyName, string path)
+		{
+			if (Application.Current == null)
+			{
+				StreamResourceInfo sr1 = Application.GetResourceStream(new Uri(assemblyName + ";component/" + path, UriKind.Relative));
+				using (sr1.Stream)
+				{
+					var assemblyData = new byte[sr1.Stream.Length];
+					sr1.Stream.Read(assemblyData, 0, assemblyData.Length);
+					return assemblyData;
+				}
+			}
+			return Read_AsBinary(new Uri(CsGlobal.Storage.Resource.Path.Get(assemblyName, path), UriKind.RelativeOrAbsolute));
 		}
 	}
 }

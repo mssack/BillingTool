@@ -35,6 +35,26 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\CsWpfBase.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DbTrace</DefineConstants>
+    <DocumentationFile>bin\Debug\CsWpfBase.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\CsWpfBase.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -181,6 +201,7 @@
     <Compile Include="Ev\Public\Extensions\ByteArrayConversions.cs" />
     <Compile Include="Ev\Public\CMD.cs" />
     <Compile Include="Ev\Public\Extensions\ColorExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Ev\Public\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Ev\Public\Extensions\EnumerationHandlingExtensions.cs" />
     <Compile Include="Ev\Public\Extensions\EnumExtensions.cs" />
