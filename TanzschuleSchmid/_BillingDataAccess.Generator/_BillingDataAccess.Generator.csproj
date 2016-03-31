@@ -71,9 +71,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BillingTool\SqlCeAssemblys\System.Data.SqlServerCe.dll</HintPath>
+      <HintPath>..\_BillingDataAccess\SqlCeAssemblys\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -145,52 +145,52 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlceca35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceca35.dll">
       <TargetPath>sqlceca35.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlceca35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlcecompact35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlcecompact35.dll">
       <TargetPath>sqlcecompact35.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlcecompact35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlceer35DE.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceer35DE.dll">
       <TargetPath>sqlceer35DE.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlceer35DE.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlceer35EN.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceer35EN.dll">
       <TargetPath>sqlceer35EN.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlceer35EN.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlceme35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceme35.dll">
       <TargetPath>sqlceme35.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlceme35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlceoledb35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceoledb35.dll">
       <TargetPath>sqlceoledb35.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlceoledb35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlceqp35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceqp35.dll">
       <TargetPath>sqlceqp35.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlceqp35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\sqlcese35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlcese35.dll">
       <TargetPath>sqlcese35.dll</TargetPath>
       <Link>SqlCeAssemblys\sqlcese35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\ssleay32.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\ssleay32.dll">
       <TargetPath>ssleay32.dll</TargetPath>
       <Link>SqlCeAssemblys\ssleay32.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\BillingTool\SqlCeAssemblys\System.Data.SqlServerCe.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\System.Data.SqlServerCe.dll">
       <TargetPath>System.Data.SqlServerCe.dll</TargetPath>
       <Link>SqlCeAssemblys\System.Data.SqlServerCe.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
