@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-01</date>
 
 using System;
 using System.IO;
@@ -46,6 +46,9 @@ namespace BillingTool.btScope.configuration.configFiles
 		private string _belegAussteller;
 		private string _belegText;
 		private decimal _betragBrutto;
+
+
+		private decimal _betragNetto;
 		private string _interneBeschreibung;
 		private string _interneEmpfängerId;
 		private string _internEmpfänger;
@@ -106,70 +109,84 @@ namespace BillingTool.btScope.configuration.configFiles
 
 
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegAusteller</c>]</summary>
-		[Key] 
+		[Key]
 		public string BelegAussteller
 		{
 			get { return _belegAussteller; }
 			set { SetProperty(ref _belegAussteller, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BetragBrutto</c>]</summary>
-		[Key] 
+		[Key]
 		public decimal BetragBrutto
 		{
 			get { return _betragBrutto; }
-			set { SetProperty(ref _betragBrutto, value); }
+			set
+			{
+				if (SetProperty(ref _betragBrutto, value))
+					RaisePropertyChange(this, nameof(BetragNetto));
+			}
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Steuersatz</c>]</summary>
-		[Key] 
+		[Key]
 		public decimal Steuersatz
 		{
 			get { return _steuersatz; }
-			set { SetProperty(ref _steuersatz, value); }
+			set
+			{
+				if (SetProperty(ref _steuersatz, value))
+					RaisePropertyChange(this, nameof(BetragNetto));
+			}
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>SteuersatzArt</c>]</summary>
-		[Key] 
+		[Key]
 		public string SteuersatzArt
 		{
 			get { return _steuersatzArt; }
 			set { SetProperty(ref _steuersatzArt, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LeistungsBeschreibung</c>]</summary>
-		[Key] 
+		[Key]
 		public string LeistungsBeschreibung
 		{
 			get { return _leistungsBeschreibung; }
 			set { SetProperty(ref _leistungsBeschreibung, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegText</c>]</summary>
-		[Key] 
+		[Key]
 		public string BelegText
 		{
 			get { return _belegText; }
 			set { SetProperty(ref _belegText, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InternEmpfänger</c>]</summary>
-		[Key] 
+		[Key]
 		public string InternEmpfänger
 		{
 			get { return _internEmpfänger; }
 			set { SetProperty(ref _internEmpfänger, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InterneEmpfängerId</c>]</summary>
-		[Key] 
+		[Key]
 		public string InterneEmpfängerId
 		{
 			get { return _interneEmpfängerId; }
 			set { SetProperty(ref _interneEmpfängerId, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InterneBeschreibung</c>]</summary>
-		[Key] 
+		[Key]
 		public string InterneBeschreibung
 		{
 			get { return _interneBeschreibung; }
 			set { SetProperty(ref _interneBeschreibung, value); }
 		}
-
-
 		#endregion
+
+
+		/// <summary>Gets or sets the BetragNetto.</summary>
+		public decimal BetragNetto
+		{
+			get { return BetragBrutto/(1 + Steuersatz/100); }
+			set { BetragBrutto = value*(1 + Steuersatz/100); }
+		}
 	}
 }

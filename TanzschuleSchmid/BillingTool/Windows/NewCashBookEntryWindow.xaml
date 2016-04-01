@@ -45,7 +45,7 @@
 					<StringParam Grid.Row="2" Style="{StaticResource ParamBelegAussteller}" Value="{Binding Path=BelegAussteller}" IsValid="{Binding Path=BelegAussteller, Converter={StaticResource GConv-IsNotNullOrEmpty}}"/>
 					<StringParam Grid.Row="3" Style="{StaticResource ParamSteuersatz}" Value="{Binding Path=Steuersatz, StringFormat={}{0:0.00}}" Name="FirstFocusedElement" />
 					<StringParam Grid.Row="4" Style="{StaticResource ParamBetragBrutto}" Value="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" />
-					<StringParam Grid.Row="5" Style="{StaticResource ParamAmountNetto}" Value="{Binding Path=BetragNetto, StringFormat={}{0:0.00}}" />
+					<StringParam Grid.Row="5" Style="{StaticResource ParamBetragNetto}" Value="{Binding Path=BetragNetto, StringFormat={}{0:0.00}}" />
 				</Grid>
 			</GroupBox>
 			<GroupBox Grid.Column="1" Header="Interne Daten" Style="{StaticResource ParamGroup}">

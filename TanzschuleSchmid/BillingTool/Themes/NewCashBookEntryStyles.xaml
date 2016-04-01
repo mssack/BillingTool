@@ -46,7 +46,7 @@
 		</Setter>
 		<Setter Property="TextAlignment" Value="Right"/>
 	</Style>
-	<Style x:Key="ParamAmountNetto" TargetType="{x:Type StringParam}" >
+	<Style x:Key="ParamBetragNetto" TargetType="{x:Type StringParam}" >
 		<Setter Property="Header" Value="Betrag Netto"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="ExtensionMinWidth" Value="80"/>

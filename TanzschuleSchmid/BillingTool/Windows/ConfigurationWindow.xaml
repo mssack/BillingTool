@@ -87,18 +87,20 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 						<StringParam Grid.Row="0" Style="{StaticResource ParamBelegAussteller}" Value="{Binding Path=BelegAussteller}" />
 
-						<StringParam Grid.Row="1" Style="{StaticResource ParamBetragBrutto}" Value="{Binding Path=BetragBrutto}" />
-						<StringParam Grid.Row="2" Style="{StaticResource ParamSteuersatz}" Value="{Binding Path=Steuersatz}" />
+						<StringParam Grid.Row="1" Style="{StaticResource ParamSteuersatz}" Value="{Binding Path=Steuersatz, StringFormat={}{0:0.00}}" />
+						<StringParam Grid.Row="2" Style="{StaticResource ParamBetragBrutto}" Value="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" />
+						<StringParam Grid.Row="3" Style="{StaticResource ParamBetragNetto}" Value="{Binding Path=BetragNetto, StringFormat={}{0:0.00}}" />
 
-						<StringParam Grid.Row="3" Style="{StaticResource ParamLeistungsBeschreibung}" Value="{Binding Path=LeistungsBeschreibung}" />
-						<StringParam Grid.Row="4" Style="{StaticResource ParamBelegText}" Value="{Binding Path=BelegText}" />
+						<StringParam Grid.Row="4" Style="{StaticResource ParamLeistungsBeschreibung}" Value="{Binding Path=LeistungsBeschreibung}" />
+						<StringParam Grid.Row="5" Style="{StaticResource ParamBelegText}" Value="{Binding Path=BelegText}" />
 
-						<StringParam Grid.Row="5" Style="{StaticResource ParamInternEmpfänger}" Value="{Binding Path=InternEmpfänger}" />
-						<StringParam Grid.Row="6" Style="{StaticResource ParamInterneEmpfängerId}" Value="{Binding Path=InterneEmpfängerId}" />
-						<StringParam Grid.Row="7" Style="{StaticResource ParamInterneBeschreibung}" Value="{Binding Path=InterneBeschreibung}" />
+						<StringParam Grid.Row="6" Style="{StaticResource ParamInternEmpfänger}" Value="{Binding Path=InternEmpfänger}" />
+						<StringParam Grid.Row="7" Style="{StaticResource ParamInterneEmpfängerId}" Value="{Binding Path=InterneEmpfängerId}" />
+						<StringParam Grid.Row="8" Style="{StaticResource ParamInterneBeschreibung}" Value="{Binding Path=InterneBeschreibung}" />
 					</Grid>
 				</ScrollViewer>
 			</GroupBox>
