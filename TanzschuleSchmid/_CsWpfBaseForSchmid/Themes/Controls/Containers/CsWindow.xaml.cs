@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-06-30</date>
+// <date>2016-04-01</date>
 
 using System;
 using System.Globalization;
@@ -11,8 +11,6 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
 using CsWpfBase.Ev.Objects;
-using CsWpfBase.Ev.Public.Extensions;
-using CsWpfBase.Global;
 using CsWpfBase.Themes.AttachedProperties;
 using CsWpfBase.Utilitys.feedback;
 
@@ -27,7 +25,7 @@ namespace CsWpfBase.Themes.Controls.Containers
 	[ContentProperty("Content")]
 	public class CsWindow : Window
 	{
-		#region DependencyProperty Static Keys
+		#region DP Keys
 		public static readonly DependencyProperty ResizeThicknessProperty = DependencyProperty.Register("ResizeThickness", typeof (Thickness), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Thickness), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof (object), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty HeaderTemplateProperty = DependencyProperty.Register("HeaderTemplate", typeof (DataTemplate), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
@@ -42,6 +40,7 @@ namespace CsWpfBase.Themes.Controls.Containers
 		public static readonly DependencyProperty FooterVisibilityProperty = DependencyProperty.Register("FooterVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty ScaleProperty = DependencyProperty.Register("Scale", typeof (double), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(double), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty ScaleActivatedProperty = DependencyProperty.Register("ScaleActivated", typeof (bool), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty GausianBorderBrushProperty = DependencyProperty.Register("GausianBorderBrush", typeof (Brush), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Brush), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
@@ -49,13 +48,14 @@ namespace CsWpfBase.Themes.Controls.Containers
 		private RelayCommand _maximizeCommand;
 		private RelayCommand _minimizeCommand;
 		private RelayCommand _openWebPageCommand;
+
 		static CsWindow()
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof (CsWindow), new FrameworkPropertyMetadata(typeof (CsWindow)));
 		}
 
 
-		#region Overrides
+		#region Overrides/Interfaces
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
@@ -122,6 +122,12 @@ namespace CsWpfBase.Themes.Controls.Containers
 			set { SetValue(FooterVisibilityProperty, value); }
 		}
 
+		public Brush GausianBorderBrush
+		{
+			get { return (Brush) GetValue(GausianBorderBrushProperty); }
+			set { SetValue(GausianBorderBrushProperty, value); }
+		}
+
 
 		public double Scale
 		{
@@ -154,23 +160,26 @@ namespace CsWpfBase.Themes.Controls.Containers
 		}
 		public RelayCommand OpenFeedbackCommand
 		{
-			get { return _openWebPageCommand ?? (_openWebPageCommand = new RelayCommand(() =>
+			get
 			{
-				CsWindow window = new CsWindow();
-				AWindowDragMove.SetIsActive(window,true);
-				window.FooterVisibility = Visibility.Collapsed;
-				window.HeaderVisibility = Visibility.Collapsed;
-				window.Width = 600;
-				window.Height = 350;
-				window.Owner = this;
-				window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-				window.Topmost = true;
-				window.Content = new FeedbackControl();
-				window.MaximizeButtonVisibility = Visibility.Collapsed;
-				window.MinimizeButtonVisibility = Visibility.Collapsed;
-				window.Padding = new Thickness(8,5,8,5);
-				window.ShowDialog();
-			})); }
+				return _openWebPageCommand ?? (_openWebPageCommand = new RelayCommand(() =>
+				{
+					var window = new CsWindow();
+					AWindowDragMove.SetIsActive(window, true);
+					window.FooterVisibility = Visibility.Collapsed;
+					window.HeaderVisibility = Visibility.Collapsed;
+					window.Width = 600;
+					window.Height = 350;
+					window.Owner = this;
+					window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+					window.Topmost = true;
+					window.Content = new FeedbackControl();
+					window.MaximizeButtonVisibility = Visibility.Collapsed;
+					window.MinimizeButtonVisibility = Visibility.Collapsed;
+					window.Padding = new Thickness(8, 5, 8, 5);
+					window.ShowDialog();
+				}));
+			}
 		}
 	}
 
@@ -180,6 +189,7 @@ namespace CsWpfBase.Themes.Controls.Containers
 
 	public class WindowRzMarginCalculator : IValueConverter
 	{
+		#region Overrides/Interfaces
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var borderThickness = (Thickness) value;
@@ -210,9 +220,11 @@ namespace CsWpfBase.Themes.Controls.Containers
 
 			return new Thickness(0);
 		}
+
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			throw new NotImplementedException();
 		}
+		#endregion
 	}
 }

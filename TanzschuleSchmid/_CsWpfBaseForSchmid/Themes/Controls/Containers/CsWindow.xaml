@@ -58,7 +58,7 @@
 
 	<Style TargetType="Border" x:Key="GausianBorderStyle" d:DataContext="{d:DesignInstance containers:CsWindow}">
 		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="BorderBrush" Value="RoyalBlue" />
+		<Setter Property="BorderBrush" Value="{Binding Path=GausianBorderBrush}" />
 		<Setter Property="Margin" Value="{Binding BorderThickness, Converter={StaticResource GConv-ThicknessInverter}}" />
 		<Setter Property="Grid.Column" Value="1" />
 		<Setter Property="Grid.Row" Value="1" />
@@ -331,6 +331,7 @@
 
 
 	<Style TargetType="{x:Type containers:CsWindow}" BasedOn="{StaticResource {x:Type Window}}">
+		<Setter Property="GausianBorderBrush" Value="RoyalBlue"/>
 		<Setter Property="Scale" Value="1" />
 		<Setter Property="ScaleActivated" Value="True" />
 		<Setter Property="ResizeThickness" Value="8" />

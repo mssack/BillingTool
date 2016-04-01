@@ -91,6 +91,12 @@
     <Compile Include="btScope\functions\Functions.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
     <Compile Include="ExitCodes.cs" />
+    <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
+      <DependentUpon>HeaderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CheckTrustAbilityWindow.xaml.cs">
+      <DependentUpon>CheckTrustAbilityWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
@@ -114,6 +120,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Controls\HeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\GenerelStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CheckTrustAbilityWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ConfigurationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-01</date>
 
 using System;
 using System.Windows;
@@ -130,6 +130,17 @@ namespace BillingTool.btScope.functions
 
 			if (Application.Current.MainWindow == null)
 				Application.Current.MainWindow = Application.Current.Windows[0];
+		}
+
+		/// <summary>
+		///     Opens a window with an <paramref name="title" /> and a specific <paramref name="text" />. This window ensures that the user knows what he does.
+		///     The method returns true if the user passed all verification mechanism.
+		/// </summary>
+		public bool CheckOperatorsTrustAbility(string title, string text)
+		{
+			var wind = new CheckTrustAbilityWindow(title, text);
+			wind.ShowDialog();
+			return wind.HasBeenValidated;
 		}
 	}
 }

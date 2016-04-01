@@ -5,6 +5,7 @@
 // <date>2016-04-01</date>
 
 using System;
+using System.IO;
 using CsWpfBase.Ev.Objects;
 
 
@@ -44,5 +45,6 @@ namespace BillingTool.btScope.functions
 		{
 			Environment.ExitCode = (int) code;
 		}
+
 	}
 }
