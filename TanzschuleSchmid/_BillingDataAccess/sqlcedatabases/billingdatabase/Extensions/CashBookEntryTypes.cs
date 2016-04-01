@@ -15,11 +15,11 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.Extensions
 {
-	/// <summary>Describes the <see cref="CashBookEntry" /> type.</summary>
+	/// <summary>Describes the <see cref="CashBookEntry" /> types.</summary>
 	[Serializable]
 	public enum CashBookEntryTypes : byte
 	{
-		/// <summary>The type is not known by this enumeration.</summary>
+		/// <summary>The type is not known by this enumeration. This is not a valid typ.</summary>
 		[Description("Unbekannt")] Unknown = 0,
 		/// <summary>Money exchanged cash.</summary>
 		[Description("Bar")] BarUmsatz = 11,

@@ -94,6 +94,7 @@
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\ParamBelegTyp.cs" />
     <Compile Include="Windows\CheckTrustAbilityWindow.xaml.cs">
       <DependentUpon>CheckTrustAbilityWindow.xaml</DependentUpon>
     </Compile>
@@ -124,9 +125,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\ParamBelegTyp.cs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>ParamBelegTyp.cs</DependentUpon>
+    </Page>
     <Page Include="Themes\GenerelStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\CheckTrustAbilityWindow.xaml">
       <SubType>Designer</SubType>

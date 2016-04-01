@@ -3,20 +3,20 @@
 
 
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
-
+	
+	[TypName]			ntext		NOT NULL,
 	[BelegNummer]		integer		NOT NULL UNIQUE,
 	[KassenId]			integer		NOT NULL,
-	[BelegAussteller]	ntext		NOT NULL,
+	[KassenOperator]	ntext		NOT NULL,
 	[Datum]				datetime	NOT NULL DEFAULT getdate(),
 
 
-	[BetragBrutto]			money NOT NULL DEFAULT(0),
-	[UmsatzZähler]			money NOT NULL,
+	[BetragBrutto]			money	NOT NULL DEFAULT(0),
+	[UmsatzZähler]			money	NOT NULL,
 
 
-	[Steuersatz]			money NOT NULL DEFAULT(0),
-	[SteuersatzArt]			ntext NOT NULL,
-	[LeistungsBeschreibung]	ntext NOT NULL,
+	[Steuersatz]			money	NOT NULL DEFAULT(0),
+	[LeistungsBeschreibung]	ntext	NOT NULL,
 
 	
 	[BelegText]				ntext,

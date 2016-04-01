@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-01</date>
 
 using System;
 using BillingTool.btScope.configuration._interfaces;
@@ -82,10 +82,16 @@ namespace BillingTool.btScope.configuration.merged
 		}
 
 
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegAusteller</c>]</summary>
-		public string BelegAussteller
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Typ</c>]</summary>
+		public string TypName
 		{
-			get { return GetMergedValue(setting => setting.BelegAussteller); }
+			get { return GetMergedValue(setting => setting.TypName); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>KassenOperator</c>]</summary>
+		public string KassenOperator
+		{
+			get { return GetMergedValue(setting => setting.KassenOperator); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BetragBrutto</c>]</summary>
@@ -98,12 +104,6 @@ namespace BillingTool.btScope.configuration.merged
 		public decimal Steuersatz
 		{
 			get { return GetMergedValue(setting => setting.Steuersatz); }
-			set { throw new InvalidOperationException(SetErrorMessage); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>SteuersatzArt</c>]</summary>
-		public string SteuersatzArt
-		{
-			get { return GetMergedValue(setting => setting.SteuersatzArt); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LeistungsBeschreibung</c>]</summary>

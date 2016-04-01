@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-01</date>
 
 using System;
 using System.Collections.Generic;
@@ -46,15 +46,15 @@ namespace BillingTool.btScope.configuration.commandLine
 				}
 			}
 		}
-		private string _belegAussteller;
 		private string _belegText;
 		private decimal _betragBrutto;
 		private string _interneBeschreibung;
 		private string _interneEmpfängerId;
 		private string _internEmpfänger;
+		private string _kassenOperator;
 		private string _leistungsBeschreibung;
 		private decimal _steuersatz;
-		private string _steuersatzArt;
+		private string _typName;
 
 		private CommandLine_NewCashBookEntrySetting()
 		{
@@ -100,11 +100,17 @@ namespace BillingTool.btScope.configuration.commandLine
 		}
 
 
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegAusteller</c>]</summary>
-		public string BelegAussteller
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>TypName</c>]</summary>
+		public string TypName
 		{
-			get { return _belegAussteller; }
-			set { SetProperty(ref _belegAussteller, value); }
+			get { return _typName; }
+			set { SetProperty(ref _typName, value); }
+		}
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>KassenOperator</c>]</summary>
+		public string KassenOperator
+		{
+			get { return _kassenOperator; }
+			set { SetProperty(ref _kassenOperator, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BetragBrutto</c>]</summary>
 		public decimal BetragBrutto
@@ -117,12 +123,6 @@ namespace BillingTool.btScope.configuration.commandLine
 		{
 			get { return _steuersatz; }
 			set { SetProperty(ref _steuersatz, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>SteuersatzArt</c>]</summary>
-		public string SteuersatzArt
-		{
-			get { return _steuersatzArt; }
-			set { SetProperty(ref _steuersatzArt, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LeistungsBeschreibung</c>]</summary>
 		public string LeistungsBeschreibung
@@ -161,7 +161,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		public void Interpret(List<string> commands)
 		{
 			var compareableDictionary = CashBookEntry.NativeColumnName_To_Property.ToDictionary(x => ParamPrefix.ToLower() + x.Key.Replace(" ", "").ToLower(), x => x.Value);
-			
+
 			foreach (var command in commands.ToArray())
 			{
 				if (string.IsNullOrEmpty(command))
@@ -176,8 +176,8 @@ namespace BillingTool.btScope.configuration.commandLine
 
 				if (compareableDictionary.TryGetValue(command.Substring(0, indexOfFirtsLeerzeichen).ToLower(), out foundProperty))
 				{
-					var value = command.Substring(indexOfFirtsLeerzeichen+1);
-					if (foundProperty.PropertyType == typeof(string))
+					var value = command.Substring(indexOfFirtsLeerzeichen + 1);
+					if (foundProperty.PropertyType == typeof (string))
 						foundProperty.SetValue(this, value, null);
 					else
 						foundProperty.SetValue(this, Convert.ChangeType(value, foundProperty.PropertyType), null);

@@ -58,8 +58,6 @@ namespace BillingTool.btScope.functions
 				CashBookTable.UmsatzZählerCol,
 				CashBookTable.ZuletztGeändertCol);
 
-			entry.SteuersatzArt = "Brutto";
-
 			var window = new NewCashBookEntryWindow(entry);
 
 			if (showdialog)

@@ -6,6 +6,7 @@
 
 using System;
 using System.IO;
+using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
 using CsWpfBase.Utilitys.templates;
@@ -42,19 +43,16 @@ namespace BillingTool.btScope.configuration.configFiles
 				}
 			}
 		}
-
-		private string _belegAussteller;
 		private string _belegText;
 		private decimal _betragBrutto;
-
-
-		private decimal _betragNetto;
 		private string _interneBeschreibung;
 		private string _interneEmpfängerId;
 		private string _internEmpfänger;
+		private string _kassenOperator;
 		private string _leistungsBeschreibung;
 		private decimal _steuersatz;
-		private string _steuersatzArt;
+		private string _typName;
+
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
 		private ConfigFile_NewCashBookEntry(FileInfo path) : base(path)
@@ -108,12 +106,19 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 
 
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegAusteller</c>]</summary>
+
+
+
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>TypName</c>]</summary>
 		[Key]
-		public string BelegAussteller
+		public string TypName
 		{
-			get { return _belegAussteller; }
-			set { SetProperty(ref _belegAussteller, value); }
+			get { return _typName; }
+			set
+			{
+				if (SetProperty(ref _typName, value))
+					RaisePropertyChange(this, nameof(Typ));
+			}
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BetragBrutto</c>]</summary>
 		[Key]
@@ -137,15 +142,7 @@ namespace BillingTool.btScope.configuration.configFiles
 					RaisePropertyChange(this, nameof(BetragNetto));
 			}
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>SteuersatzArt</c>]</summary>
-		[Key]
-		public string SteuersatzArt
-		{
-			get { return _steuersatzArt; }
-			set { SetProperty(ref _steuersatzArt, value); }
-		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LeistungsBeschreibung</c>]</summary>
-		[Key]
 		public string LeistungsBeschreibung
 		{
 			get { return _leistungsBeschreibung; }
@@ -179,6 +176,15 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _interneBeschreibung; }
 			set { SetProperty(ref _interneBeschreibung, value); }
 		}
+
+
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>KassenOperator</c>]</summary>
+		[Key]
+		public string KassenOperator
+		{
+			get { return _kassenOperator; }
+			set { SetProperty(ref _kassenOperator, value); }
+		}
 		#endregion
 
 
@@ -187,6 +193,18 @@ namespace BillingTool.btScope.configuration.configFiles
 		{
 			get { return BetragBrutto/(1 + Steuersatz/100); }
 			set { BetragBrutto = value*(1 + Steuersatz/100); }
+		}
+		/// <summary>The wrapper property for column property <see cref="TypName" />.</summary>
+		public CashBookEntryTypes Typ
+		{
+			get
+			{
+				CashBookEntryTypes val;
+				if (Enum.TryParse(TypName, true, out val))
+					return val;
+				return CashBookEntryTypes.Unknown;
+			}
+			set { TypName = value.ToString(); }
 		}
 	}
 }

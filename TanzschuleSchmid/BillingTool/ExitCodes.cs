@@ -5,6 +5,7 @@
 // <date>2016-04-01</date>
 
 using System;
+// ReSharper disable InconsistentNaming
 
 
 
@@ -18,12 +19,12 @@ namespace BillingTool
 	public enum ExitCodes : int
 	{
 		/// <summary>the application exited with fatal error.</summary>
-		Failure = -1,
-		/// <summary>the application closed successfully.</summary>
+		FatalError = -1,
+		/// <summary>the application closed successfully. No answer.</summary>
 		Success = 0,
 		/// <summary>a new cash book entry was created and saved to the database.</summary>
-		NewBonCreated = 100,
+		NewCashBookEntry_Created = 100,
 		/// <summary>the cash book entry which should be created was aborted by the user.</summary>
-		NewBonAborted = 101,
+		NewCashBookEntry_Aborted = 101,
 	}
 }

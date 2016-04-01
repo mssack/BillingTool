@@ -54,6 +54,13 @@
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
+							<GridViewColumn Header="Typ" Sort.PropertyName="Typ">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
+										<TextBlock Text="{Binding Path=Typ}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
 							<GridViewColumn Header="KassenId" Sort.PropertyName="KassenId">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
@@ -61,10 +68,10 @@
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
-							<GridViewColumn Header="Aussteller" Sort.PropertyName="BelegAusteller">
+							<GridViewColumn Header="Kassen Operator" Sort.PropertyName="KassenOperator">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
-										<TextBlock Text="{Binding Path=BelegAussteller}" />
+										<TextBlock Text="{Binding Path=KassenOperator}" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
@@ -103,7 +110,7 @@
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
-							<GridViewColumn Header="Leistungsbeschreibung" Sort.PropertyName="LeistungsBeschreibung">
+							<GridViewColumn Header="LeistungsBeschreibung" Sort.PropertyName="LeistungsBeschreibung">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
 										<TextBlock Text="{Binding Path=LeistungsBeschreibung}" />
