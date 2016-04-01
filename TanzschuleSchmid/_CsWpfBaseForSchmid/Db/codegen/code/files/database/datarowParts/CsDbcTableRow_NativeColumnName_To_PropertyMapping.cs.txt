@@ -1,0 +1,17 @@
+﻿private static Dictionary<string, System.Reflection.PropertyInfo> _nativeColumnName_To_Property;
+public static Dictionary<string, System.Reflection.PropertyInfo> NativeColumnName_To_Property
+{
+	get
+	{
+		if (_nativeColumnName_To_Property != null)
+			return _nativeColumnName_To_Property;
+
+		var type = typeof(#RowType#);
+		_nativeColumnName_To_Property = new Dictionary<string, System.Reflection.PropertyInfo>
+		{
+			#Entries#
+		};
+
+		return _nativeColumnName_To_Property;
+	}
+}

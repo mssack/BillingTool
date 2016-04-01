@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-31</date>
+// <date>2016-04-01</date>
 
 using System;
 using System.ComponentModel;
@@ -25,6 +25,9 @@ namespace BillingTool.Windows
 	/// <summary>Interaction logic for DatabaseWindow.xaml</summary>
 	public partial class DatabaseWindow : CsWindow
 	{
+
+
+		private bool _ignoreChanges = false;
 
 
 		/// <summary>ctor</summary>
@@ -94,6 +97,26 @@ namespace BillingTool.Windows
 				FilteredLogs = Bt.Db.Billing.Logs.Get_Between(From, To);
 				FilteredLogs.Tag = $"{From}{To}";
 			}
+		}
+
+		private void CashBookEntryChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+		{
+			if (_ignoreChanges) // prevent change of date when simply rejecting
+				return;
+
+			((CashBookEntry) ((FrameworkElement) sender).DataContext).ZuletztGeändert = DateTime.Now;
+		}
+
+		private void ÄnderungenVerwerfenClicked(object sender, RoutedEventArgs e)
+		{
+			if (CashBookEntryTab.IsSelected)
+			{
+				_ignoreChanges = true;
+				Bt.Db.Billing.CashBook.RejectChanges();
+				_ignoreChanges = false;
+			}
+			else if (LogsTab.IsSelected)
+				Bt.Db.Billing.Logs.RejectChanges();
 		}
 
 

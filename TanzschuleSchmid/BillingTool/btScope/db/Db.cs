@@ -67,22 +67,51 @@ namespace BillingTool.btScope.db
 		}
 
 
+		
 
-		/// <summary>Creates the database if it does not exist.</summary>
-		public void Init()
+
+		/// <summary>
+		///     Ensures that the database is connected to the program and accessible. This method can be called multiple times while application is running. It
+		///     is advisable to call this method before each database call to ensure connectivity.
+		/// </summary>
+		public void EnsureConnectivity()
 		{
-			var fileInfo = new FileInfo(Bt.Config.Merged.General.BillingDatabaseFilePath);
-			if (fileInfo.Exists)
+			if (Billing != null)
+			{
+				if (Router.State.IsConnected)
+					return;
+				Router.Open();
+				if (!Router.State.IsConnected)
+					throw Router.State.LastException;
 				return;
+			}
 
-			CreateDatabase();
+			if (string.IsNullOrEmpty(Bt.Config.Merged.General.BillingDatabaseFilePath))
+				throw new InvalidOperationException("Es wurde keine datenbank angegeben.");
+
+			var fi = new FileInfo(Bt.Config.Merged.General.BillingDatabaseFilePath);
+			if (!fi.Exists)
+			{
+				var continueWithCreation = Bt.UiFunctions.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
+				if (continueWithCreation == false)
+					throw new Exception("Die Datenbank Erstellung wurde vom User abgebrochen.");
+				CreateDatabase();
+			}
+			else
+				Connect();
+
+			if (Router.State.IsConnected)
+				return;
+			Router.Open();
+			if (!Router.State.IsConnected)
+				throw Router.State.LastException;
 		}
 
 		/// <summary>
 		///     Used to connect to database file specified in <see cref="MergedConfiguration" />. Take care a second call will result in an
 		///     <see cref="InvalidOperationException" />. To ensure connectivity use <see cref="EnsureConnectivity" />.
 		/// </summary>
-		public void Connect()
+		private void Connect()
 		{
 			if (Billing != null)
 				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
@@ -97,30 +126,10 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     Ensures that the database is connected to the program and accessible. This method can be called multiple times while application is running. It
-		///     is advisable to call this method before each database call to ensure connectivity.
-		/// </summary>
-		public void EnsureConnectivity()
-		{
-			if (Billing == null)
-			{
-				Connect();
-				return;
-			}
-
-			if (Router.State.IsConnected)
-				return;
-			Router.Open();
-
-			if (!Router.State.IsConnected)
-				throw Router.State.LastException;
-		}
-
-		/// <summary>
 		///     Used to disconnect from database file specified in <see cref="MergedConfiguration" />. DANGER all unsaved files will be lost. Ensure that you
 		///     call at least <see cref="CsDbDataSetBase.SaveUnspecific" /> before call <see cref="Disconnect" />.
 		/// </summary>
-		public void Disconnect()
+		private void Disconnect()
 		{
 			if (Billing == null)
 				return;

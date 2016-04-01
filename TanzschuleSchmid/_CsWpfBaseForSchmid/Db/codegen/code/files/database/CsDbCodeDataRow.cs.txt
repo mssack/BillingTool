@@ -4,6 +4,11 @@
 #CsDbDataRowAttribute#
 public partial class #Name# : CsDbTableRow, #InterfaceName#
 {
+	#region statics
+	#NativeColumnNameToProperty#
+	#endregion
+
+
 	public #Name#(DataRowBuilder builder) : base(builder){}
 
 	

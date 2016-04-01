@@ -12,6 +12,7 @@ using System.IO;
 using System.Windows;
 using CsWpfBase.Db;
 using CsWpfBase.Db.router;
+using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 
 
@@ -27,9 +28,9 @@ namespace BillingDataAccessGenerator
 	public partial class App : Application
 	{
 		/// <summary>the relative path to the sample db inside project.</summary>
-		public string SampleDatabaseFile => Path.Combine(new FileInfo("a").Directory.Parent.Parent.FullName, "BillingDatabase.sdf");
+		public string SampleDatabaseFile => Path.Combine(new FileInfo("a").Directory.GoUpward_Until("_BillingDataAccess.Generator").FullName, "BillingDatabase.sdf");
 		/// <summary>the relative path to the target project folder.</summary>
-		public string TargetProjectFolder => Path.Combine(new FileInfo("a").Directory.Parent.Parent.Parent.FullName, "_BillingDataAccess");
+		public string TargetProjectFolder => Path.Combine(new FileInfo("a").Directory.GoUpward_Until("TanzschuleSchmid").FullName, "_BillingDataAccess");
 
 
 		private void App_OnStartup(object sender, StartupEventArgs e)

@@ -35,6 +35,26 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\CsWpfBase.XML</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DbTrace</DefineConstants>
+    <DocumentationFile>bin\Debug\CsWpfBase.XML</DocumentationFile>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>bin\Release\CsWpfBase.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -90,6 +110,7 @@
     <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs" />
     <Compile Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_CopyMethods.cs" />
     <Compile Include="Db\codegen\code\files\database\datasetParts\CsDbcSet_ViewProperty.cs" />
+    <Compile Include="Db\codegen\code\files\database\datarowParts\CsDbcTableRow_NativeColumnName_To_PropertyMapping.cs" />
     <Compile Include="Db\codegen\code\files\database\datatableParts\methods\foreignkeybundle\CsDbcTable_ForeignKeyFindOrLoadMethod.cs" />
     <Compile Include="Db\codegen\code\files\database\CsDbCodeDataView.cs" />
     <Compile Include="Db\codegen\code\files\database\datarowParts\associated\CsDbcTableRow_AssociatedProperty.cs" />
@@ -180,6 +201,7 @@
     <Compile Include="Ev\Public\Extensions\ByteArrayConversions.cs" />
     <Compile Include="Ev\Public\CMD.cs" />
     <Compile Include="Ev\Public\Extensions\ColorExtensions.cs" />
+    <Compile Include="Ev\Public\Extensions\DirectoryInfoExtensions.cs" />
     <Compile Include="Ev\Public\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Ev\Public\Extensions\EnumerationHandlingExtensions.cs" />
     <Compile Include="Ev\Public\Extensions\EnumExtensions.cs" />
@@ -575,6 +597,12 @@
     <AppDesigner Include="Properties\" />
     <Resource Include="Db\codegen\code\files\database\datacontextParts\CsDbcContext_SetDbProxyMethod.cs.txt">
       <DependentUpon>CsDbcContext_SetDbProxyMethod.cs</DependentUpon>
+    </Resource>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\CsDbcTableRow_NativeColumnName_To_PropertyMapping.cs.txt">
+      <DependentUpon>CsDbcTableRow_NativeColumnName_To_PropertyMapping.cs</DependentUpon>
+    </Resource>
+    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs.txt">
+      <DependentUpon>CsDbcTableRow_BundledDataMethods.cs</DependentUpon>
     </Resource>
     <Resource Include="Themes\Resources\ShaderEffects\BrightContrastEffect\bricon.ps" />
     <Resource Include="Themes\Resources\ShaderEffects\GrayScale\GrayscaleEffect.ps" />
@@ -1375,9 +1403,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Db\codegen\architecture\generators\sqlScripts\NamingConventionTable_Script_SqlCe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Db\codegen\code\files\database\datarowParts\methods\CsDbcTableRow_BundledDataMethods.cs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

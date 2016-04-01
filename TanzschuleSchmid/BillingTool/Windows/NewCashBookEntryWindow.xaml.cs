@@ -2,9 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-01</date>
 
 using System;
+using System.ComponentModel;
 using System.Data;
 using System.Windows;
 using System.Windows.Data;
@@ -34,6 +35,8 @@ namespace BillingTool.Windows
 		#endregion
 
 
+		private bool _managedClosing;
+
 		/// <summary>ctor</summary>
 		public NewCashBookEntryWindow(CashBookEntry item)
 		{
@@ -42,8 +45,9 @@ namespace BillingTool.Windows
 			CsGlobal.Wpf.Storage.Window.Handle(this, "NewCashBookEntryWindow");
 			Topmost = true;
 			Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
-
+			Closing += NewCashBookEntryWindow_Closing;
 		}
+
 
 
 		/// <summary>The cash book entry to add. This row may not be in data table already!!</summary>
@@ -53,13 +57,6 @@ namespace BillingTool.Windows
 			set { SetValue(ItemProperty, value); }
 		}
 
-		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
-		public void Abort()
-		{
-			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer {Item} wurde verworfen.");
-			Item.Delete();
-			Exit();
-		}
 
 		/// <summary>Accepts the <see cref="CashBookEntry" /> item and save it to the database. This method does not open an message box!!!</summary>
 		public void Accept()
@@ -80,23 +77,23 @@ namespace BillingTool.Windows
 			Item.Table.AcceptChanges();
 
 			Bt.Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer {Item} wurde erstellt.");
-			Exit();
+			Bt.Functions.SetExitCode(ExitCodes.NewCashBookEntry_Created);
+			ManagedClose();
 		}
 
-
-		private void Exit()
+		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
+		public void Abort()
 		{
-			Close();
+			Item.Delete();
+			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer {Item} wurde verworfen.");
+
+			Bt.Functions.SetExitCode(ExitCodes.NewCashBookEntry_Aborted);
+
+			ManagedClose();
 		}
 
-		/// <summary>Occurs whenever the item is changed.</summary>
-		private void ItemChanged(CashBookEntry oldEntry, CashBookEntry newEntry)
-		{
-			if (newEntry.RowState != DataRowState.Detached)
-				throw new InvalidOperationException($"The specified {nameof(CashBookEntry)} [{Item.Id}] is already added to an table. " +
-													$"This is illegal might be an programming failure. " +
-													$"The {nameof(NewCashBookEntryWindow)} is for validating an item not for editing an existing item");
-		}
+
+
 
 		private void BonierenClick(object sender, RoutedEventArgs e)
 		{
@@ -112,7 +109,6 @@ namespace BillingTool.Windows
 			Abort();
 		}
 
-
 		private void WindowKeyUp(object sender, KeyEventArgs e)
 		{
 			if (e.Key != Key.F2 && e.Key != Key.Escape)
@@ -125,6 +121,29 @@ namespace BillingTool.Windows
 				Accept();
 			else if (e.Key == Key.Escape)
 				Abort();
+		}
+
+		private void NewCashBookEntryWindow_Closing(object sender, CancelEventArgs e)
+		{
+			if (_managedClosing)
+				return;
+
+			Bt.Functions.SetExitCode(ExitCodes.NewCashBookEntry_Aborted);
+		}
+
+		/// <summary>Occurs whenever the item is changed.</summary>
+		private void ItemChanged(CashBookEntry oldEntry, CashBookEntry newEntry)
+		{
+			if (newEntry.RowState != DataRowState.Detached)
+				throw new InvalidOperationException($"The specified {nameof(CashBookEntry)} [{Item.Id}] is already added to an table. " +
+													$"This is illegal might be an programming failure. " +
+													$"The {nameof(NewCashBookEntryWindow)} is for validating an item not for editing an existing item");
+		}
+
+		private void ManagedClose()
+		{
+			_managedClosing = true;
+			Close();
 		}
 	}
 }

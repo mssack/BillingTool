@@ -1,0 +1,50 @@
+﻿<CsWindow x:Class="BillingTool.Windows.CheckTrustAbilityWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d"
+		Width="500" x:Name="Win" WindowStartupLocation="CenterScreen" Topmost="True" CloseButtonVisibility="Collapsed" 
+		MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed" 
+		SizeToContent="Height" Background="White" AWindowDragMove.IsActive="True" HeaderVisibility="Collapsed" GausianBorderBrush="#DF3E3E" BorderBrush="#DF3E3E">
+	<Grid DataContext="{Binding ElementName=Win}" >
+		<Grid.LayoutTransform>
+			<ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.2" ScaleY="1.2" />
+		</Grid.LayoutTransform>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBlock Text="Wichtige Nachricht!" />
+		<Border Grid.Row="0" Background="#DF3E3E" Padding="10" BorderThickness="0,0,0,1" BorderBrush="#DDDDDD">
+			<TextBlock Foreground="White" FontSize="14" Text="Wichtige Nachricht!" />
+		</Border>
+		<Border Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="#DDDDDD" Padding="10" Background="White">
+			<TextBlock Text="{Binding Path=Text}" TextWrapping="Wrap" />
+		</Border>
+		<Border Grid.Row="2" BorderThickness="0,0,0,1" BorderBrush="#DDDDDD" Padding="10" Background="#EEEEF2">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<TextBlock Text="{Binding Path=VerificationQuestion}" Margin="0,0,0,5" />
+				<TextBox Grid.Row="1" Text="{Binding Path=VerificationAnswer, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" />
+			</Grid>
+		</Border>
+		<Border Grid.Row="3" Margin="5,10,5,5">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Button Grid.Column="1" Padding="5" Content="Abbrechen" Click="AbbrechenClicked" IsCancel="True" />
+				<Button Grid.Column="2" Padding="5" Content="Fortfahren" Click="FortfahrenClicked" IsEnabled="{Binding Path=IsValid}" IsDefault="True" />
+			</Grid>
+		</Border>
+	</Grid>
+</CsWindow>

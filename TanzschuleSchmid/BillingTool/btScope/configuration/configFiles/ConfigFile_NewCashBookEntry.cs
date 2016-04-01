@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-01</date>
 
 using System;
 using System.IO;
+using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
 using CsWpfBase.Utilitys.templates;
@@ -42,16 +43,16 @@ namespace BillingTool.btScope.configuration.configFiles
 				}
 			}
 		}
-
-		private string _belegAussteller;
 		private string _belegText;
 		private decimal _betragBrutto;
 		private string _interneBeschreibung;
 		private string _interneEmpfängerId;
 		private string _internEmpfänger;
+		private string _kassenOperator;
 		private string _leistungsBeschreibung;
 		private decimal _steuersatz;
-		private string _steuersatzArt;
+		private string _typName;
+
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
 		private ConfigFile_NewCashBookEntry(FileInfo path) : base(path)
@@ -105,64 +106,71 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 
 
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegAusteller</c>]</summary>
-		[Key] 
-		public string BelegAussteller
+
+
+
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>TypName</c>]</summary>
+		[Key]
+		public string TypName
 		{
-			get { return _belegAussteller; }
-			set { SetProperty(ref _belegAussteller, value); }
+			get { return _typName; }
+			set
+			{
+				if (SetProperty(ref _typName, value))
+					RaisePropertyChange(this, nameof(Typ));
+			}
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BetragBrutto</c>]</summary>
-		[Key] 
+		[Key]
 		public decimal BetragBrutto
 		{
 			get { return _betragBrutto; }
-			set { SetProperty(ref _betragBrutto, value); }
+			set
+			{
+				if (SetProperty(ref _betragBrutto, value))
+					RaisePropertyChange(this, nameof(BetragNetto));
+			}
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>Steuersatz</c>]</summary>
-		[Key] 
+		[Key]
 		public decimal Steuersatz
 		{
 			get { return _steuersatz; }
-			set { SetProperty(ref _steuersatz, value); }
-		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>SteuersatzArt</c>]</summary>
-		[Key] 
-		public string SteuersatzArt
-		{
-			get { return _steuersatzArt; }
-			set { SetProperty(ref _steuersatzArt, value); }
+			set
+			{
+				if (SetProperty(ref _steuersatz, value))
+					RaisePropertyChange(this, nameof(BetragNetto));
+			}
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>LeistungsBeschreibung</c>]</summary>
-		[Key] 
 		public string LeistungsBeschreibung
 		{
 			get { return _leistungsBeschreibung; }
 			set { SetProperty(ref _leistungsBeschreibung, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>BelegText</c>]</summary>
-		[Key] 
+		[Key]
 		public string BelegText
 		{
 			get { return _belegText; }
 			set { SetProperty(ref _belegText, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InternEmpfänger</c>]</summary>
-		[Key] 
+		[Key]
 		public string InternEmpfänger
 		{
 			get { return _internEmpfänger; }
 			set { SetProperty(ref _internEmpfänger, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InterneEmpfängerId</c>]</summary>
-		[Key] 
+		[Key]
 		public string InterneEmpfängerId
 		{
 			get { return _interneEmpfängerId; }
 			set { SetProperty(ref _interneEmpfängerId, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>InterneBeschreibung</c>]</summary>
-		[Key] 
+		[Key]
 		public string InterneBeschreibung
 		{
 			get { return _interneBeschreibung; }
@@ -170,6 +178,33 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 
 
+		/// <summary>[<c>BillingDatabase</c>].[<c>CashBook</c>].[<c>KassenOperator</c>]</summary>
+		[Key]
+		public string KassenOperator
+		{
+			get { return _kassenOperator; }
+			set { SetProperty(ref _kassenOperator, value); }
+		}
 		#endregion
+
+
+		/// <summary>Gets or sets the BetragNetto.</summary>
+		public decimal BetragNetto
+		{
+			get { return BetragBrutto/(1 + Steuersatz/100); }
+			set { BetragBrutto = value*(1 + Steuersatz/100); }
+		}
+		/// <summary>The wrapper property for column property <see cref="TypName" />.</summary>
+		public CashBookEntryTypes Typ
+		{
+			get
+			{
+				CashBookEntryTypes val;
+				if (Enum.TryParse(TypName, true, out val))
+					return val;
+				return CashBookEntryTypes.Unknown;
+			}
+			set { TypName = value.ToString(); }
+		}
 	}
 }
