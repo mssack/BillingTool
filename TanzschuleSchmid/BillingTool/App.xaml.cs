@@ -24,6 +24,7 @@ namespace BillingTool
 		{
 			Current.DispatcherUnhandledException += (s, args) =>
 			{
+				Bt.Functions.SetExitCode(ExitCodes.FatalError);
 				try
 				{
 					Bt.Logging.New(LogTitels.UnhandledException, args.Exception.ToString(), LogTypes.Fatal);
