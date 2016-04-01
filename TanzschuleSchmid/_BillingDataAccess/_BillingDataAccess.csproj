@@ -106,6 +106,7 @@
     <Resource Include="DatabaseCreation\SQL Scripts\CreateCashBookTable.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\Extensions\LogTitels.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\Extensions\LogTypes.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\Extensions\CashBookEntryTypes.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\CashBookEntry.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Log.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\CashBookTable.cs">
@@ -160,7 +161,7 @@
       <TargetPath>System.Data.SqlServerCe.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-  </ItemGroup>  
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
