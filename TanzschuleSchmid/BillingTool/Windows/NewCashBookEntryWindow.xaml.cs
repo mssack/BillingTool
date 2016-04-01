@@ -34,6 +34,8 @@ namespace BillingTool.Windows
 		#endregion
 
 
+		private bool _managedClosing = false;
+
 		/// <summary>ctor</summary>
 		public NewCashBookEntryWindow(CashBookEntry item)
 		{
@@ -42,7 +44,15 @@ namespace BillingTool.Windows
 			CsGlobal.Wpf.Storage.Window.Handle(this, "NewCashBookEntryWindow");
 			Topmost = true;
 			Loaded += (sender, e) => MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+			this.Closing += NewCashBookEntryWindow_Closing;
+		}
 
+		private void NewCashBookEntryWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (_managedClosing)
+				return;
+
+			Bt.Functions.SetExitCode(ExitCodes.NewBonAborted);
 		}
 
 
@@ -53,13 +63,6 @@ namespace BillingTool.Windows
 			set { SetValue(ItemProperty, value); }
 		}
 
-		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
-		public void Abort()
-		{
-			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer {Item} wurde verworfen.");
-			Item.Delete();
-			Exit();
-		}
 
 		/// <summary>Accepts the <see cref="CashBookEntry" /> item and save it to the database. This method does not open an message box!!!</summary>
 		public void Accept()
@@ -80,12 +83,24 @@ namespace BillingTool.Windows
 			Item.Table.AcceptChanges();
 
 			Bt.Logging.New(LogTitels.FinanzbucheintragErstellt, $"Ein neuer {Item} wurde erstellt.");
-			Exit();
+			Bt.Functions.SetExitCode(ExitCodes.NewBonCreated);
+			ManagedClose();
+		}
+		/// <summary>Aborts the <see cref="CashBookEntry" /> and does not store it to the database. This method does not open an message box!!!</summary>
+		public void Abort()
+		{
+			Item.Delete();
+			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer {Item} wurde verworfen.");
+
+			Bt.Functions.SetExitCode(ExitCodes.NewBonAborted);
+
+			ManagedClose();
 		}
 
 
-		private void Exit()
+		private void ManagedClose()
 		{
+			_managedClosing = true;
 			Close();
 		}
 

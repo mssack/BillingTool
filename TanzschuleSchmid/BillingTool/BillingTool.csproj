@@ -88,7 +88,9 @@
     <Compile Include="btScope\configuration\_interfaces\IConfigMailSettings.cs" />
     <Compile Include="btScope\configuration\_interfaces\IConfigGeneralSettings.cs" />
     <Compile Include="btScope\configuration\_interfaces\IConfigNewCashBookEntrySettings.cs" />
+    <Compile Include="btScope\functions\Functions.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
+    <Compile Include="ExitCodes.cs" />
     <Compile Include="Windows\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>

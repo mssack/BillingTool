@@ -34,5 +34,7 @@ namespace BillingTool.btScope
 		public static Db Db => Db.I;
 		/// <summary>Default functions used to interact wit the user.</summary>
 		public static UiFunctions UiFunctions => UiFunctions.I;
+		/// <summary>Functions needed for the application.</summary>
+		public static Functions Functions => Functions.I;
 	}
 }
