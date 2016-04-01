@@ -30,6 +30,7 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<Param Grid.Column="0" Header="Von" Width="140" Margin="0">
 					<DatePicker SelectedDate="{Binding Path=From}" BorderThickness="0" />
@@ -37,7 +38,8 @@
 				<Param Grid.Column="1" Header="Bis" Width="140" Margin="30,0,0,0">
 					<DatePicker SelectedDate="{Binding Path=To}" BorderThickness="0" />
 				</Param>
-				<Button Grid.Column="2" Content="Exportieren" Width="100" Margin="10,0,0,0" />
+				<Button Grid.Column="2" Content="Änderungen verwerfen" Click="ÄnderungenVerwerfenClicked" Margin="10,0,0,0" Padding="10,3,10,3" Foreground="#DF3E3E" />
+				<Button Grid.Column="3" Content="Exportieren" Margin="10,0,0,0" Padding="10,3,10,3" />
 
 			</Grid>
 		</Grid>
@@ -127,21 +129,21 @@
 							<GridViewColumn Header="Empfänger (intern)" Sort.PropertyName="InternEmpfänger">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
-										<TextBlock Text="{Binding Path=InternEmpfänger}" />
+										<TextBox Text="{Binding Path=InternEmpfänger}" TextChanged="CashBookEntryChanged" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
 							<GridViewColumn Header="Empfänger Id (intern)" Sort.PropertyName="InterneInternEmpfängerId">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
-										<TextBox Text="{Binding Path=InterneEmpfängerId}" />
+										<TextBox Text="{Binding Path=InterneEmpfängerId}" TextChanged="CashBookEntryChanged" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
 							<GridViewColumn Header="Beschreibung (intern)" Sort.PropertyName="InterneBeschreibung">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type BillingDatabaseDb:CashBookEntry}">
-										<TextBox Text="{Binding Path=InterneBeschreibung}" />
+										<TextBox Text="{Binding Path=InterneBeschreibung}" TextChanged="CashBookEntryChanged" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
