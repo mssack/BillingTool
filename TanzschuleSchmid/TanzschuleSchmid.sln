@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registrierkasse", "Registri
 	ProjectSection(SolutionItems) = preProject
 		_Rechtliches\Registrierkasse\Notizen.docx = _Rechtliches\Registrierkasse\Notizen.docx
 		_Rechtliches\Registrierkasse\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf = _Rechtliches\Registrierkasse\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf
+		_Rechtliches\Registrierkasse\Zusammenfassung 01.04.2016.docx = _Rechtliches\Registrierkasse\Zusammenfassung 01.04.2016.docx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Anleitung", "Anleitung", "{441AB3AA-D45B-405D-87F3-BF44D30F971E}"
