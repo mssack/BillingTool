@@ -61,7 +61,7 @@
 				</Grid>
 			</GroupBox>
 		</Grid>
-		<GroupBox Grid.Row="1" Header="Details" Style="{StaticResource ParamGroup}" Margin="10,0,0,0">
+		<GroupBox Grid.Row="1" Header="Details" Style="{StaticResource ParamGroup}" >
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
