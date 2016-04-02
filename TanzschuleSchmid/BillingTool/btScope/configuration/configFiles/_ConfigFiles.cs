@@ -55,9 +55,9 @@ namespace BillingTool.btScope.configuration.configFiles
 
 
 		/// <summary>
-		///     The <see cref="NewCashBookEntry" /> sub configuration holds all configurable properties for <see cref="CashBookEntry" />'s like default
+		///     The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default
 		///     values.
 		/// </summary>
-		public ConfigFile_NewCashBookEntry NewCashBookEntry => ConfigFile_NewCashBookEntry.I;
+		public ConfigFile_NewBelegData NewBelegData => ConfigFile_NewBelegData.I;
 	}
 }

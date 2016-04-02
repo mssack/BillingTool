@@ -1,0 +1,9 @@
+﻿CREATE TABLE [PrintedBelege]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+
+	[CreationDate]		datetime NOT NULL DEFAULT getdate(),
+	[BelegDataId]		uniqueidentifier	NOT NULL,
+
+	[PrinterDevice]		ntext
+)

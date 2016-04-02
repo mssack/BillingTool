@@ -49,9 +49,9 @@ namespace BillingTool.btScope.configuration.merged
 
 
 		/// <summary>
-		///     The <see cref="NewCashBookEntry" /> sub configuration holds all configurable properties for <see cref="CashBookEntry" />'s like default
+		///     The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default
 		///     values.
 		/// </summary>
-		public Merged_NewCashBookEntry NewCashBookEntry => Merged_NewCashBookEntry.I;
+		public Merged_NewBelegData NewBelegData => Merged_NewBelegData.I;
 	}
 }

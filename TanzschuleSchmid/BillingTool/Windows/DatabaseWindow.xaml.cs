@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-01</date>
+// <date>2016-04-02</date>
 
 using System;
 using System.ComponentModel;
@@ -25,9 +25,7 @@ namespace BillingTool.Windows
 	/// <summary>Interaction logic for DatabaseWindow.xaml</summary>
 	public partial class DatabaseWindow : CsWindow
 	{
-
-
-		private bool _ignoreChanges = false;
+		private bool _ignoreChanges;
 
 
 		/// <summary>ctor</summary>
@@ -58,11 +56,11 @@ namespace BillingTool.Windows
 			set { SetValue(FilteredLogsProperty, value); }
 		}
 
-		/// <summary>The filtered list with the <see cref="CashBookEntry" /> between <see cref="From" /> and <see cref="To" />.</summary>
-		public ContractCollection<CashBookEntry> FilteredCashBookEntries
+		/// <summary>The filtered list with the <see cref="BelegData" /> between <see cref="From" /> and <see cref="To" />.</summary>
+		public ContractCollection<BelegData> FilteredBelegDaten
 		{
-			get { return (ContractCollection<CashBookEntry>) GetValue(FilteredCashBookEntriesProperty); }
-			set { SetValue(FilteredCashBookEntriesProperty, value); }
+			get { return (ContractCollection<BelegData>) GetValue(FilteredBelegDatenProperty); }
+			set { SetValue(FilteredBelegDatenProperty, value); }
 		}
 
 		private void LogsWindow_Closing(object sender, CancelEventArgs e)
@@ -77,7 +75,7 @@ namespace BillingTool.Windows
 
 		private void TabItemChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (CashBookEntryTab.IsSelected && (FilteredCashBookEntries == null || !Equals(FilteredCashBookEntries.Tag, $"{From}{To}")))
+			if (BelegDataTab.IsSelected && (FilteredBelegDaten == null || !Equals(FilteredBelegDaten.Tag, $"{From}{To}")))
 				Refilter();
 			else if (LogsTab.IsSelected && (FilteredLogs == null || !Equals(FilteredLogs.Tag, $"{From}{To}")))
 				Refilter();
@@ -87,10 +85,10 @@ namespace BillingTool.Windows
 		private void Refilter()
 		{
 			Bt.Db.EnsureConnectivity();
-			if (CashBookEntryTab == null || CashBookEntryTab.IsSelected)
+			if (BelegDataTab == null || BelegDataTab.IsSelected)
 			{
-				FilteredCashBookEntries = Bt.Db.Billing.CashBook.Get_Between(From, To);
-				FilteredCashBookEntries.Tag = $"{From}{To}";
+				FilteredBelegDaten = Bt.Db.Billing.BelegDaten.Get_Between(From, To);
+				FilteredBelegDaten.Tag = $"{From}{To}";
 			}
 			else if (LogsTab.IsSelected)
 			{
@@ -99,20 +97,20 @@ namespace BillingTool.Windows
 			}
 		}
 
-		private void CashBookEntryChanged(object sender, TextChangedEventArgs textChangedEventArgs)
+		private void BelegDataChanged(object sender, TextChangedEventArgs textChangedEventArgs)
 		{
 			if (_ignoreChanges) // prevent change of date when simply rejecting
 				return;
 
-			((CashBookEntry) ((FrameworkElement) sender).DataContext).ZuletztGeändert = DateTime.Now;
+			((BelegData) ((FrameworkElement) sender).DataContext).ZuletztGeändert = DateTime.Now;
 		}
 
 		private void ÄnderungenVerwerfenClicked(object sender, RoutedEventArgs e)
 		{
-			if (CashBookEntryTab.IsSelected)
+			if (BelegDataTab.IsSelected)
 			{
 				_ignoreChanges = true;
-				Bt.Db.Billing.CashBook.RejectChanges();
+				Bt.Db.Billing.BelegDaten.RejectChanges();
 				_ignoreChanges = false;
 			}
 			else if (LogsTab.IsSelected)
@@ -124,7 +122,7 @@ namespace BillingTool.Windows
 
 
 		#region DP Keys
-		public static readonly DependencyProperty FilteredCashBookEntriesProperty = DependencyProperty.Register("FilteredCashBookEntries", typeof (ContractCollection<CashBookEntry>), typeof (DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<CashBookEntry>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty FilteredBelegDatenProperty = DependencyProperty.Register("FilteredBelegDaten", typeof (ContractCollection<BelegData>), typeof (DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<BelegData>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty FilteredLogsProperty = DependencyProperty.Register("FilteredLogs", typeof (ContractCollection<Log>), typeof (DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<Log>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty FromProperty = DependencyProperty.Register("From", typeof (DateTime), typeof (DatabaseWindow), new FrameworkPropertyMetadata
 		{

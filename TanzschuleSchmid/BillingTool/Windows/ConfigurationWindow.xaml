@@ -10,9 +10,9 @@
 		Title="Registrierkassen Konfiguration" Padding="20" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		HeaderVisibility="Collapsed" Width="720" Height="750" FooterVisibility="Collapsed" AWindowDragMove.IsActive="True" ResizeMode="NoResize">
 	<Window.Resources>
-		<ResourceDictionary Source="/BillingTool;component/Themes/NewCashBookEntryStyles.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/BelegDataEditorStyles.xaml" />
 	</Window.Resources>
-	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File}"> 
+	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File}">
 		<Grid.LayoutTransform>
 			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.3" ScaleY="1.3" />
 		</Grid.LayoutTransform>
@@ -21,7 +21,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="0" Header="Datenbank" DataContext="{Binding Path=General}" >
+		<GroupBox Style="{StaticResource ParamGroup}" Grid.Column="0" Header="Datenbank" DataContext="{Binding Path=General}">
 			<Param Grid.Row="0" Header="Pfad">
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -76,7 +76,7 @@
 				</GroupBox>
 			</Grid>
 
-			<GroupBox Grid.Row="1" Style="{StaticResource ParamGroup}" Header="Neuer Eintrag - Standardwerte" DataContext="{Binding Path=NewCashBookEntry}">
+			<GroupBox Grid.Row="1" Style="{StaticResource ParamGroup}" Header="Neuer Beleg - Standardwerte" DataContext="{Binding Path=NewBelegData}">
 				<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
 					<Grid IsSharedSizeScope="True">
 						<Grid.RowDefinitions>
@@ -92,19 +92,18 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<controls:ParamBelegTyp Grid.Row="0" Style="{StaticResource ParamBelegTyp}" Value="{Binding Path=Typ}" />
+						<controls:ParamBelegDataTyp Grid.Row="0" Style="{StaticResource ParamBelegTyp}" Value="{Binding Path=Typ}" />
 						<StringParam Grid.Row="1" Style="{StaticResource ParamKassenOperator}" Value="{Binding Path=KassenOperator}" />
+						<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
+						<StringParam Grid.Row="3" Style="{StaticResource ParamEmpfänger}" Value="{Binding Path=Empfänger}" />
+						<StringParam Grid.Row="4" Style="{StaticResource ParamEmpfängerId}" Value="{Binding Path=EmpfängerId}" />
+						<StringParam Grid.Row="5" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Kommentar}" />
 
-						<StringParam Grid.Row="2" Style="{StaticResource ParamSteuersatz}" Value="{Binding Path=Steuersatz, StringFormat={}{0:0.00}}" />
-						<StringParam Grid.Row="3" Style="{StaticResource ParamBetragBrutto}" Value="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" />
-						<StringParam Grid.Row="4" Style="{StaticResource ParamBetragNetto}" Value="{Binding Path=BetragNetto, StringFormat={}{0:0.00}}" />
-
-						<StringParam Grid.Row="5" Style="{StaticResource ParamLeistungsBeschreibung}" Value="{Binding Path=LeistungsBeschreibung}" />
-						<StringParam Grid.Row="7" Style="{StaticResource ParamBelegText}" Value="{Binding Path=BelegText}" />
-
-						<StringParam Grid.Row="8" Style="{StaticResource ParamInternEmpfänger}" Value="{Binding Path=InternEmpfänger}" />
-						<StringParam Grid.Row="9" Style="{StaticResource ParamInterneEmpfängerId}" Value="{Binding Path=InterneEmpfängerId}" />
-						<StringParam Grid.Row="10" Style="{StaticResource ParamInterneBeschreibung}" Value="{Binding Path=InterneBeschreibung}" />
+						<BoolParam Grid.Row="6" Style="{StaticResource ParamPrintBeleg}" Value="{Binding Path=PrintBeleg}" />
+						<BoolParam Grid.Row="7" Style="{StaticResource ParamSendBeleg}" Value="{Binding Path=SendBeleg}">
+							<AlternatingTextBox Visibility="{Binding Path=SendBeleg, Converter={StaticResource GConv-BoolVisibility}}"
+												Text="{Binding Path=SendBelegTarget}" AlternatingText="E-Mail" />
+						</BoolParam>
 					</Grid>
 				</ScrollViewer>
 			</GroupBox>

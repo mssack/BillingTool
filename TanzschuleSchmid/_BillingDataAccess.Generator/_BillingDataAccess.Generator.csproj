@@ -98,6 +98,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseCreation\DatabaseInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -195,6 +196,33 @@
       <Link>SqlCeAssemblys\System.Data.SqlServerCe.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateLogsTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateLogsTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreatePostensTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreatePostensTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateRelations.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateRelations.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt</Link>
+    </Resource>
+    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt">
+      <Link>DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt</Link>
+    </Resource>
     <Content Include="BillingDatabase.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

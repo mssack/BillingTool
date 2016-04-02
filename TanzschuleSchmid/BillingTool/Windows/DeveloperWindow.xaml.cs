@@ -57,7 +57,7 @@ namespace BillingTool.Windows
 
 		private void NewCashBookEntry_Click(object sender, RoutedEventArgs e)
 		{
-			Bt.UiFunctions.NewCashBookEntry();
+			Bt.UiFunctions.New_BelegData();
 			e.Handled = true;
 		}
 

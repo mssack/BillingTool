@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
-using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.Router;
 using BillingTool.btScope.configuration.merged;
 using CsWpfBase.Db.models.bases;

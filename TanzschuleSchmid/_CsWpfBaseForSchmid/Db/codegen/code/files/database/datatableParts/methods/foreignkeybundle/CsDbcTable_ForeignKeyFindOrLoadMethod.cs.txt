@@ -16,8 +16,10 @@ public ContractCollection<#RowType#> #Name#(#ParamType# #ParamName#)
 	if (#HasBeenLoadedPropertyName# == true || weak != null)
 		result = CreateContractCollection(#LowerRowType# => Equals(#LowerRowType#.#FkColumnName#, #ParamName#));
 	else 
-		result = CreateContractCollection(#LowerRowType# => Equals(#LowerRowType#.#FkColumnName#, #ParamName#), DownloadRows($"SELECT {DefaultSqlSelector} FROM [{#FkTableNativeNameConstant#}] WHERE [{#FkColumnNativeNameConstant#}] = '{#ParamName#}'"));
-
+	{
+		DownloadRows($"SELECT {DefaultSqlSelector} FROM [{#FkTableNativeNameConstant#}] WHERE [{#FkColumnNativeNameConstant#}] = '{#ParamName#}'", false);
+		result = CreateContractCollection(#LowerRowType# => Equals(#LowerRowType#.#FkColumnName#, #ParamName#));
+	}
 
 	if (weak == null)
 		#CacheFieldName#.Add(#ParamName#, weak = new CsWeakReference<ContractCollection<#RowType#>>(result));

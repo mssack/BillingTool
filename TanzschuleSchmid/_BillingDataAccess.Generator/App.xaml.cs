@@ -2,14 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-04-01</date>
 
 using System;
-using System.Data;
 using System.Data.Common;
 using System.Data.SqlServerCe;
 using System.IO;
 using System.Windows;
+using BillingDataAccessGenerator.DatabaseCreation;
 using CsWpfBase.Db;
 using CsWpfBase.Db.router;
 using CsWpfBase.Ev.Public.Extensions;
@@ -35,32 +35,40 @@ namespace BillingDataAccessGenerator
 
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
+			CreateDatabase();
 			GenerateDatabaseClasses();
-			CheckNamingConventions();
 			CsGlobal.App.Exit();
 		}
 
-		/// <summary>Inserts the right naming conventions. If the database file is newly generated you have to execute the db class generator two times.</summary>
-		private void CheckNamingConventions()
+		private void CreateDatabase()
 		{
-			var router = new SqlCeRouter(SampleDatabaseFile);
-			var table = new DataTable("__CsDb.NamingConventions");
-			router.LoadTable(table);
-
-			if (table.Rows.Count != 0)
-				return;
-
-			table.Rows.Add(Guid.NewGuid(), "Table", "CashBook", "CashBookEntry", "CashBook");
-			table.Rows.Add(Guid.NewGuid(), "Table", "Logs", "Log", "Logs");
-
-			router.SaveChanges(table);
+			var installer = new DatabaseInstaller(SampleDatabaseFile);
+			installer.Install(true);
 		}
+
 
 		private void GenerateDatabaseClasses()
 		{
 			var architecture = CsDb.CodeGen.Create.Architecture_From_SqlCe(new SqlCeRouter(SampleDatabaseFile));
+			architecture.Databases[0].ReadTableNameConventions(
+				"BelegDaten;BelegData;BelegDaten" + "\r\n" +
+				"MailedBelege;MailedBeleg;MailedBelege" + "\r\n" +
+				"PrintedBelege;PrintedBeleg;PrintedBelege" + "\r\n" +
+				"BelegPostens;BelegPosten;BelegPostens" + "\r\n" +
+				"Postens;Posten;Postens" + "\r\n" +
+				"Steuersätze;Steuersatz;Steuersätze" + "\r\n" +
+				"Logs;Log;Logs", ";"
+				);
+
+			architecture.Databases[0].ReadRelationNameConventions(
+				"FK_BelegPostens_SteuersatzId;Steuersatz;Steuersätze" + "\r\n" +
+				"FK_BelegData_StornoBelegId;StornoBeleg;StornierendeBelege" + "\r\n" +
+				"FK_BelegPostens_BelegDataId;Data;Postens" + 
+				"", ";");
+
 			architecture.Name = "SqlCeDatabases";
 			var codeBundle = architecture.GetCodeBundle();
+
 			codeBundle.SetPaths(Path.Combine(TargetProjectFolder, ""), "BillingDataAccess", Path.Combine(TargetProjectFolder, "_BillingDataAccess.csproj"));
 			codeBundle.Write();
 		}

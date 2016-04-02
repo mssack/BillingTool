@@ -39,6 +39,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\x86\Debug\BillingDataAccess.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -69,7 +70,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompilerServices.cs" />
     <Compile Include="DatabaseCreation\DatabaseInstaller.cs" />
+    <Resource Include="DatabaseCreation\SQL Scripts\CreateRelations.txt" />
+    <Resource Include="DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt" />
+    <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -103,16 +108,27 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateCashBookTable.txt" />
-    <Compile Include="sqlcedatabases\billingdatabase\Extensions\LogTitels.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\Extensions\LogTypes.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\Extensions\CashBookEntryTypes.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\CashBookEntry.cs" />
+    <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTitels.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTypes.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataTypes.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\BelegPosten.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\BelegData.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Log.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\CashBookTable.cs">
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Posten.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\BelegDatenTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\ConfigurationsTable.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\LogsTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\PostensTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\SteuersätzeTable.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
@@ -163,20 +179,60 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DatabaseCreation\SQL Scripts\CreatePostensTable.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt" />
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\billingdatabase\tables\CashBookTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+    <Compile Include="sqlcedatabases\billingdatabase\tables\BelegDatenTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\BelegPostensTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\ConfigurationsTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\tables\LogsTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ICashBookEntry.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\MailedBelegeTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\PostensTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\PrintedBelegeTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\SteuersätzeTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IBelegData.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IBelegPosten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IConfiguration.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ILog.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
-    <Compile Include="sqlcedatabases\billingdatabase\rows\CashBookEntry.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IMailedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IPosten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IPrintedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ISteuersatz.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\BelegData.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\BelegPosten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Configuration.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Log.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\MailedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Posten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\PrintedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Steuersatz.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

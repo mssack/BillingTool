@@ -2,12 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-01</date>
+// <date>2016-04-02</date>
 
 using System;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingTool.btScope.configuration._enums;
 using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
@@ -44,21 +43,13 @@ namespace BillingTool.btScope.functions
 		}
 
 
-		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="CashBookEntry" />.</summary>
-		public void NewCashBookEntry(bool showdialog = false)
+		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="BelegData" />.</summary>
+		public void New_BelegData(bool showdialog = false)
 		{
 			Bt.Db.EnsureConnectivity();
-			var entry = Bt.Db.Billing.CashBook.NewRow();
-
-			entry.Copy_From(Bt.Config.Merged.NewCashBookEntry,
-				CashBookTable.IdCol,
-				CashBookTable.KassenIdCol,
-				CashBookTable.BelegNummerCol,
-				CashBookTable.DatumCol,
-				CashBookTable.UmsatzZählerCol,
-				CashBookTable.ZuletztGeändertCol);
-
-			var window = new NewCashBookEntryWindow(entry);
+			var entry = Bt.Functions.New_BelegData_FromConfiguration();
+			
+			var window = new NewBelegDataWindow(entry);
 
 			if (showdialog)
 				window.ShowDialog();
@@ -109,9 +100,9 @@ namespace BillingTool.btScope.functions
 				var w = new DeveloperWindow();
 				w.Show();
 			}
-			else if (mode == StartupModes.NewCashBookEntry)
+			else if (mode == StartupModes.NewBelegData)
 			{
-				NewCashBookEntry();
+				New_BelegData();
 			}
 			else if (mode == StartupModes.Configuration)
 			{

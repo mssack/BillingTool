@@ -1,0 +1,26 @@
+﻿CREATE TABLE [BelegDaten]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+	
+	[TypName]			ntext			NOT NULL,
+	[Datum]				datetime		NOT NULL DEFAULT getdate(),
+	[KassenId]			nvarchar(255)	NOT NULL,
+	[KassenOperator]	ntext			NOT NULL,
+	[Nummer]			integer			NOT NULL UNIQUE,
+	[UmsatzZähler]		money			NOT NULL,
+
+	[StornoBelegId]		uniqueidentifier,
+
+	[BetragBrutto]		money	NOT NULL DEFAULT(0),
+	[BetragNetto]		money	NOT NULL DEFAULT(0),
+	[ZusatzText]		ntext,
+
+
+	[PrintCount]		integer			NOT NULL DEFAULT(0),
+	[MailCount]			integer			NOT NULL DEFAULT(0),
+
+	[Empfänger]		ntext,
+	[EmpfängerId]	ntext,
+	[Kommentar]		ntext,
+	[ZuletztGeändert]		datetime NOT NULL DEFAULT getdate()
+)
