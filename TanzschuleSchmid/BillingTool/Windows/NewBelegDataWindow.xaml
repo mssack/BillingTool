@@ -27,7 +27,7 @@
 		</Grid.ColumnDefinitions>
 
 
-		<controls:ZahlungsBeleg Width="250" Background="White" BorderThickness="1" BorderBrush="Black" Item="{Binding}" Grid.Row="3" Padding="5" />
+		<controls:KassenBonVisual Width="250" Background="White" BorderThickness="1" BorderBrush="Black" Item="{Binding}" Grid.Row="3" Padding="5" />
 
 		<Border Grid.Row="4" Padding="0">
 			<Grid>

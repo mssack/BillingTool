@@ -39,9 +39,6 @@ namespace BillingTool.Windows
 		/// <summary>ctor</summary>
 		public NewBelegDataWindow(BelegData item)
 		{
-
-
-
 			Item = item;
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "NewBelegDataWindow");
@@ -66,9 +63,9 @@ namespace BillingTool.Windows
 		/// </summary>
 		public void Accept()
 		{
-			Bt.Functions.FinalizeAndSave_NewBelegData(Item);
-			Bt.Logging.New(LogTitels.BelegDatenErstellt, $"Ein neuer {Item} wurde erstellt.");
-			Bt.Functions.SetExitCode(ExitCodes.BelegDataCreation_Succeeded);
+			Bt.Functions.Save_NewBelegData(Item);
+			Bt.Logging.New(LogTitels.NewBelegData_Saved, $"Ein neuer {Item} wurde erstellt.");
+			Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
 			ManagedClose();
 		}
 
@@ -77,7 +74,7 @@ namespace BillingTool.Windows
 		{
 			var item = Item.ToString();
 			Item.Delete();
-			Bt.Logging.New(LogTitels.FinanzbucheintragAbgebrochen, $"Ein neuer {item} wurde verworfen.");
+			Bt.Logging.New(LogTitels.NewBelegData_Canceled, $"Ein neuer {item} wurde verworfen.");
 			Bt.Functions.SetExitCode(ExitCodes.BelegDataCreation_Aborted);
 			ManagedClose();
 		}

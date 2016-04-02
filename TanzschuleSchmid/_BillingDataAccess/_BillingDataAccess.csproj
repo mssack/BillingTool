@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataStates.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTitels.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTypes.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataTypes.cs" />

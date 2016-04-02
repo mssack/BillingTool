@@ -1,0 +1,67 @@
+﻿<CsWindow x:Class="BillingTool.Windows.BelegDataApproveWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:controls="clr-namespace:BillingOutput.Controls;assembly=BillingOutput"
+		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
+		CloseButtonVisibility="Collapsed" HeaderVisibility="Collapsed" FooterVisibility="Collapsed" AWindowDragMove.IsActive="true"
+		Name="Uc" Padding="10">
+	<CsWindow.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
+				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/BelegDataEditorStyles.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</CsWindow.Resources>
+	<Grid DataContext="{Binding ElementName=Uc, Path=Item}">
+		<Grid.LayoutTransform>
+			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="1.4" ScaleY="1.4" />
+		</Grid.LayoutTransform>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Border>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Border>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<StringParam Grid.Row="0" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}"/>
+						<StringParam Grid.Row="1" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Kommentar}"/>
+					</Grid>
+				</Border>
+				<controls:KassenBonVisual Grid.Column="1" Item="{Binding}" BorderThickness="1" BorderBrush="Black" />
+			</Grid>
+		</Border>
+		<Border Grid.Row="1">
+			<Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="0" Click="CancleClick" Style="{StaticResource ButtonCancle}" />
+
+					<Button Grid.Column="2" Click="ApprovedClick" Style="{StaticResource ButtonBar}" />
+					<Button Grid.Column="3" Click="ApprovedClick" Style="{StaticResource ButtonBankomat}" />
+					<Button Grid.Column="4" Click="ApprovedClick" Style="{StaticResource ButtonKreditkarte}" />
+				</Grid>
+			</Grid>
+		</Border>
+	</Grid>
+</CsWindow>

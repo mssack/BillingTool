@@ -158,6 +158,10 @@ namespace CsWpfBase.Db.codegen.architecture.generators
 						return false;
 					if (defaultValue.ToLower() == "((1))")
 						return true;
+					if (defaultValue.ToLower() == "(0)")
+						return false;
+					if (defaultValue.ToLower() == "(1)")
+						return true;
 				}
 
 

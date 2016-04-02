@@ -19,19 +19,25 @@
 	<system:String x:Key="Bez-BelegData-ZuletztGeändert">Zuletzt geändert</system:String>
 
 
-	<system:String x:Key="Help-BelegData-Typ" />
-	<system:String x:Key="Help-BelegData-Datum" />
-	<system:String x:Key="Help-BelegData-KassenId" />
-	<system:String x:Key="Help-BelegData-KassenOperator" />
-	<system:String x:Key="Help-BelegData-Nummer" />
-	<system:String x:Key="Help-BelegData-UmsatzZähler" />
-	<system:String x:Key="Help-BelegData-BetragBrutto" />
-	<system:String x:Key="Help-BelegData-BetragNetto" />
-	<system:String x:Key="Help-BelegData-ZusatzText" />
-	<system:String x:Key="Help-BelegData-PrintCount" />
-	<system:String x:Key="Help-BelegData-MailCount" />
-	<system:String x:Key="Help-BelegData-Empfänger" />
-	<system:String x:Key="Help-BelegData-EmpfängerId" />
-	<system:String x:Key="Help-BelegData-Kommentar" />
-	<system:String x:Key="Help-BelegData-ZuletztGeändert" />
+	<system:String x:Key="Help-BelegData-Typ">Belegtyp z.b Bar, Bankomat..</system:String>
+	<system:String x:Key="Help-BelegData-Datum">Erstelldatum/Signaturdatum des Belegs</system:String>
+	<system:String x:Key="Help-BelegData-KassenId">Die eindeutige KassenID in diesem Unternehmen</system:String>
+	<system:String x:Key="Help-BelegData-KassenOperator">Der Mitarbeiter der diesen Beleg ausgestellt hat.</system:String>
+	<system:String x:Key="Help-BelegData-Nummer" >Die eindeutige Belegnummer.</system:String>
+	<system:String x:Key="Help-BelegData-UmsatzZähler">Der Stand des Umsatzzählers mit Erstellung dieses Beleges.</system:String>
+	<system:String x:Key="Help-BelegData-BetragBrutto">Der Betrag Brutto also ohne Steuer.</system:String>
+	<system:String x:Key="Help-BelegData-BetragNetto">Der Betrag Netto also mit Steuer.</system:String>
+	<system:String x:Key="Help-BelegData-ZusatzText">Der zusätzlich angehängte Text an jeden Beleg ausdruck oder Mail.</system:String>
+	<system:String x:Key="Help-BelegData-PrintCount">Die Anzahl an Ausdrücken dieses Beleges.</system:String>
+	<system:String x:Key="Help-BelegData-MailCount">Die Anzahl der versendeten Mails dieses Beleges.</system:String>
+	<system:String x:Key="Help-BelegData-Empfänger">Der Empfänger dieses Bons.</system:String>
+	<system:String x:Key="Help-BelegData-EmpfängerId">Die eindeutige Empfänger Id des Empfängers.</system:String>
+	<system:String x:Key="Help-BelegData-Kommentar">Ein Kommentar zu diesem Bon.</system:String>
+	<system:String x:Key="Help-BelegData-ZuletztGeändert">Das Datum der letzten Änderung dieses Bons.</system:String>
+
+
+	<system:String x:Key="Bez-BelegData-Button-Cancle">Abbrechen</system:String>
+	<system:String x:Key="Bez-BelegData-Button-Bar">Bar</system:String>
+	<system:String x:Key="Bez-BelegData-Button-Bankomat">Bankomat</system:String>
+	<system:String x:Key="Bez-BelegData-Button-Kreditkarte">Kreditkarte</system:String>
 </ResourceDictionary>

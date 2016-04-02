@@ -49,7 +49,9 @@ namespace BillingTool.btScope.functions
 			Bt.Db.EnsureConnectivity();
 			var entry = Bt.Functions.New_BelegData_FromConfiguration();
 			
-			var window = new NewBelegDataWindow(entry);
+
+
+			var window = new BelegDataApproveWindow(entry);
 
 			if (showdialog)
 				window.ShowDialog();

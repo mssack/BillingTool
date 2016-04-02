@@ -74,6 +74,12 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
+		public string StateName
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>KassenId</c>]</summary>
 		public string KassenId
 		{

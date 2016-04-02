@@ -25,7 +25,7 @@ namespace BillingTool
 		/// <summary>the application closed successfully. No answer.</summary>
 		Success = 0,
 		/// <summary>a <see cref="BelegData" /> was created and saved to the database.</summary>
-		BelegDataCreation_Succeeded = 100,
+		NewBelegData_Created = 100,
 		/// <summary>the <see cref="BelegData" /> which should be created was canceled.</summary>
 		BelegDataCreation_Aborted = 101,
 	}

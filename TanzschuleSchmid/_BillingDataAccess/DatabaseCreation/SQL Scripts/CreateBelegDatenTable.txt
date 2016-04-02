@@ -2,6 +2,7 @@
 (
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 	
+	[StateName]			nvarchar(255)	NOT NULL DEFAULT('Unknown'),
 	[TypName]			ntext			NOT NULL,
 	[Datum]				datetime		NOT NULL DEFAULT getdate(),
 	[KassenId]			nvarchar(255)	NOT NULL,

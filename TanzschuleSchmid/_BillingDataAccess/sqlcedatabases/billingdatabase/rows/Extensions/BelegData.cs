@@ -57,6 +57,20 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			set { TypName = value.ToString(); }
 		}
 
+		/// <summary>The wrapper property for column property <see cref="StateName" />.</summary>
+		[DependsOn(nameof(StateName))]
+		public BelegDataStates State
+		{
+			get
+			{
+				BelegDataStates val;
+				if (Enum.TryParse(StateName, true, out val))
+					return val;
+				return BelegDataStates.Unknown;
+			}
+			set { StateName = value.ToString(); }
+		}
+
 		/// <summary>Recalculates the <see cref="BetragBrutto" /> field.</summary>
 		public void Recalculate_BetragBrutto()
 		{

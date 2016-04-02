@@ -6,10 +6,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope.configuration.commandLine;
 using CsWpfBase.Ev.Objects;
 
@@ -65,6 +65,7 @@ namespace BillingTool.btScope.functions
 				BelegDatenTable.DatumCol,
 				BelegDatenTable.UmsatzZählerCol,
 				BelegDatenTable.StornoBelegIdCol,
+				BelegDatenTable.StateNameCol,
 				BelegDatenTable.NummerCol,
 				BelegDatenTable.BetragBruttoCol,
 				BelegDatenTable.BetragNettoCol,
@@ -98,29 +99,41 @@ namespace BillingTool.btScope.functions
 		}
 
 		/// <summary>Finalizes the <see cref="BelegData" /> and then saves it to the database.</summary>
-		public void FinalizeAndSave_NewBelegData(BelegData data)
+		public void Save_NewBelegData(BelegData item, bool approvedByUser = true)
 		{
-			if (!data.IsValid)
-				throw new InvalidOperationException($"The {data} is invalid and can not be saved.");
+			if (item.State != BelegDataStates.Unknown)
+				throw new InvalidOperationException($"The {item} is already fixed it actual state {item.State} is.");
+			if (!item.IsValid)
+				throw new InvalidOperationException($"The {item} is invalid and can not be saved.");
 
 
-			data.Recalculate_BetragBrutto();
-			data.Recalculate_BetragNetto();
+			item.Recalculate_BetragBrutto();
+			item.Recalculate_BetragNetto();
 
-			foreach (var posten in data.Postens)
+			foreach (var posten in item.Postens)
 			{
 				posten.Posten.AnzahlGekauft++;
 			}
 
-			data.ZuletztGeändert = data.Datum = DateTime.Now;
-			data.Nummer = data.DataSet.Configurations.LastBelegNummer+1;
-			data.UmsatzZähler = data.DataSet.Configurations.Umsatzzähler + data.BetragBrutto;
+			item.ZuletztGeändert = item.Datum = DateTime.Now;
+			item.Nummer = item.DataSet.Configurations.LastBelegNummer + 1;
+			item.UmsatzZähler = item.DataSet.Configurations.Umsatzzähler + item.BetragBrutto;
+			item.State = approvedByUser ? BelegDataStates.Approved_ByUser : BelegDataStates.Approved_ByApplication;
 
 
-			data.DataSet.Configurations.Umsatzzähler = data.UmsatzZähler;
-			data.DataSet.Configurations.LastBelegNummer = data.Nummer;
+			item.DataSet.Configurations.Umsatzzähler = item.UmsatzZähler;
+			item.DataSet.Configurations.LastBelegNummer = item.Nummer;
 
-			data.DataSet.SaveAnabolic();
+			item.DataSet.SaveAnabolic();
+			Bt.Logging.New(LogTitels.NewBelegData_Saved, $"The {item} has been created and stored to the {nameof(BillingDatabase)}.");
+		}
+
+		/// <summary>Cancels a new <see cref="BelegData" /> <paramref name="item" />.</summary>
+		public void Cancle_NewBelegData(BelegData item)
+		{
+			var canceledItem = item.ToString();
+			item.DataSet.RejectChanges();
+			Bt.Logging.New(LogTitels.NewBelegData_Canceled, $"The {canceledItem} is canceled and is not created.");
 		}
 
 		private Posten GetPostenFromTemplate(BillingDatabase db, CommandLine_BelegPostenTemplate template)

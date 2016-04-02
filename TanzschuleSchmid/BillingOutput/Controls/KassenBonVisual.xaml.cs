@@ -20,18 +20,24 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingOutput.Controls
 {
-	/// <summary>Interaction logic for ZahlungsBeleg.xaml</summary>
-	public partial class ZahlungsBeleg : UserControl
+	/// <summary>Interaction logic for KassenBonVisual.xaml</summary>
+	public partial class KassenBonVisual : UserControl
 	{
 
 
 		/// <summary>ctor</summary>
-		public ZahlungsBeleg()
+		public KassenBonVisual()
 		{
 			InitializeComponent();
 		}
 
-		/// <summary>The item for which the <see cref="ZahlungsBeleg" /> should be drawn.</summary>
+		/// <summary>Defines whether a banner should be displayed with Content 'Vorschau'.</summary>
+		public Visibility VorschauHeaderVisibility
+		{
+			get { return (Visibility) GetValue(VorschauHeaderVisibilityProperty); }
+			set { SetValue(VorschauHeaderVisibilityProperty, value); }
+		}
+		/// <summary>The item for which the <see cref="KassenBonVisual" /> should be drawn.</summary>
 		public BelegData Item
 		{
 			get { return (BelegData) GetValue(ItemProperty); }
@@ -85,6 +91,7 @@ namespace BillingOutput.Controls
 			{
 				Steuersatz = steuersatz;
 			}
+
 			/// <summary>Gets or sets the Steuersatz.</summary>
 			public Steuersatz Steuersatz
 			{
@@ -108,8 +115,9 @@ namespace BillingOutput.Controls
 			public decimal BetragDifferenz => BetragBrutto - BetragNetto;
 		}
 #pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof (BelegData), typeof (ZahlungsBeleg), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((ZahlungsBeleg) o).ItemChanged(args.NewValue as BelegData)});
-		public static readonly DependencyProperty SteuerAufschlüsselungProperty = DependencyProperty.Register("SteuerAufschlüsselung", typeof (SteuerSchlüssel[]), typeof (ZahlungsBeleg), new FrameworkPropertyMetadata {DefaultValue = default(SteuerSchlüssel[]), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty VorschauHeaderVisibilityProperty = DependencyProperty.Register("VorschauHeaderVisibility", typeof (Visibility), typeof (KassenBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof (BelegData), typeof (KassenBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((KassenBonVisual) o).ItemChanged(args.NewValue as BelegData)});
+		public static readonly DependencyProperty SteuerAufschlüsselungProperty = DependencyProperty.Register("SteuerAufschlüsselung", typeof (SteuerSchlüssel[]), typeof (KassenBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(SteuerSchlüssel[]), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
 	}
 }
