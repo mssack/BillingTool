@@ -32,6 +32,12 @@ namespace CsWpfBase.Db.codegen.code.files.database.datarowParts.methods
 		/// <summary>Copy to method name.</summary>
 		[Key]
 		public string CopyToName => "Copy_To";
+		/// <summary>Copy from method name.</summary>
+		[Key]
+		public string CopyFromButIgnoreName => "Copy_From_But_Ignore";
+		/// <summary>Copy from method name.</summary>
+		[Key]
+		public string CopyFromButOnlyName => "Copy_From_But_TakeOnly";
 
 		internal CsDbCodeDataRow Row { get; }
 
@@ -62,6 +68,12 @@ namespace CsWpfBase.Db.codegen.code.files.database.datarowParts.methods
 		{
 			var name = x.UnsignedVersion == null ? x.Name : x.UnsignedVersion.Name;
 			return $"if (!excludedColumns.Contains({Row.Table.Name}.{x.NativeNameConstant})) this.{name} = source.{name};";
+		}).Join("\r\n\t");
+		[Key]
+		private string CopyFromWithInclusionMethodBody => Row.Columns.Select(x =>
+		{
+			var name = x.UnsignedVersion == null ? x.Name : x.UnsignedVersion.Name;
+			return $"if (includedColumns.Contains({Row.Table.Name}.{x.NativeNameConstant})) this.{name} = source.{name};";
 		}).Join("\r\n\t");
 	}
 }

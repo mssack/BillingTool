@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-02</date>
 
 using System;
 using System.Linq;
@@ -50,11 +50,8 @@ namespace BillingTool.btScope.configuration.commandLine
 		public CommandLine_GeneralSetting General => CommandLine_GeneralSetting.I;
 
 
-		/// <summary>
-		///     The <see cref="NewCashBookEntry" /> sub configuration holds all configurable properties for <see cref="CashBookEntry" />'s like default
-		///     values.
-		/// </summary>
-		public CommandLine_NewCashBookEntrySetting NewCashBookEntry => CommandLine_NewCashBookEntrySetting.I;
+		/// <summary>The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default values.</summary>
+		public CommandLine_NewBelegData NewBelegData => CommandLine_NewBelegData.I;
 
 
 		/// <summary>
@@ -65,7 +62,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		{
 			var concanatedParams = startParams.Join(" ").Split("/").Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToList();
 			General.Interpret(concanatedParams);
-			NewCashBookEntry.Interpret(concanatedParams);
+			NewBelegData.Interpret(concanatedParams);
 		}
 	}
 

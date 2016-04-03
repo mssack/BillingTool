@@ -1,0 +1,151 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+
+
+	<Style x:Key="ParamBelegTyp" TargetType="{x:Type controls:ParamBelegDataTyp}" >
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Typ}"/>
+		<Setter Property="Help" Value="{StaticResource Help-BelegData-Typ}"/>
+	</Style>
+	<Style x:Key="ParamKassenOperator" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-KassenOperator}"/>
+		<Setter Property="Help" Value="{StaticResource Help-BelegData-KassenOperator}"/>
+	</Style>
+	<Style x:Key="ParamZusatzText" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-ZusatzText}"/>
+		<Setter Property="Help" Value="{Binding Source={StaticResource Help-BelegData-ZusatzText}}"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+	</Style>
+	<Style x:Key="ParamEmpfänger" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Empfänger}"/>
+		<Setter Property="Help" Value="{StaticResource Help-BelegData-Empfänger}"/>
+	</Style>
+	<Style x:Key="ParamEmpfängerId" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-EmpfängerId}"/>
+		<Setter Property="Help" Value="{StaticResource Help-BelegData-EmpfängerId}"/>
+	</Style>
+	<Style x:Key="ParamKommentar" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Kommentar}"/>
+		<Setter Property="Help" Value="{Binding Source={StaticResource Help-BelegData-Kommentar}}"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+	</Style>
+	<Style x:Key="ParamPrintBeleg" TargetType="{x:Type BoolParam}" >
+		<Setter Property="Header" Value="Ausdrucken"/>
+	</Style>
+	<Style x:Key="ParamSendBeleg" TargetType="{x:Type BoolParam}" >
+		<Setter Property="Header" Value="Per Mail senden."/>
+	</Style>
+
+
+	<Style x:Key="ButtonTemplate" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="Padding" Value="5,3,5,3"/>
+		<Setter Property="Width" Value="120" />
+	</Style>
+	<Style x:Key="ButtonCancle" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonTemplate}">
+		<Setter Property="Content" Value="{StaticResource Bez-BelegData-Button-Cancle}"/>
+		<Setter Property="Foreground" Value="#990000"/>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="Background">
+					<Setter.Value>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+							<GradientStop Color="#DC5F59" Offset="0"/>
+							<GradientStop Color="#B33630" Offset="1"/>
+						</LinearGradientBrush>
+					</Setter.Value>
+				</Setter>
+				<Setter Property="BorderBrush" Value="#CD504A"/>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+	<Style x:Key="ButtonBar" TargetType="{x:Type Button}"  BasedOn="{StaticResource ButtonTemplate}">
+		<Setter Property="Content" Value="{StaticResource Bez-BelegData-Button-Bar}"/>
+		<Setter Property="Tag" Value="{x:Static extensions:BelegDataTypes.Bar}"/>
+	</Style>
+	<Style x:Key="ButtonBankomat" TargetType="{x:Type Button}"  BasedOn="{StaticResource ButtonTemplate}">
+		<Setter Property="Content" Value="{StaticResource Bez-BelegData-Button-Bankomat}"/>
+		<Setter Property="Tag" Value="{x:Static extensions:BelegDataTypes.Bankomat}"/>
+	</Style>
+	<Style x:Key="ButtonKreditkarte" TargetType="{x:Type Button}"  BasedOn="{StaticResource ButtonTemplate}">
+		<Setter Property="Content" Value="{StaticResource Bez-BelegData-Button-Kreditkarte}"/>
+		<Setter Property="Tag" Value="{x:Static extensions:BelegDataTypes.Kreditkarte}"/>
+	</Style>
+	
+	
+	
+
+
+	<Style x:Key="ParamBelegNummer" TargetType="{x:Type ParamView}" >
+		<Setter Property="Header" Value="Belegnummer"/>
+		<Setter Property="ExtensionHorizontalAlignment" Value="Left"/>
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	<Style x:Key="ParamKassenId" TargetType="{x:Type ParamView}" >
+		<Setter Property="Header" Value="Kassen ID"/>
+		<Setter Property="ExtensionHorizontalAlignment" Value="Left"/>
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Focusable" Value="False" />
+	</Style>
+	<Style x:Key="ParamSteuersatz" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Steuer"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="ExtensionMinWidth" Value="80"/>
+		<Setter Property="Content">
+			<Setter.Value>
+				<TextBlock Text="%" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="TextAlignment" Value="Right"/>
+	</Style>
+
+	<Style x:Key="ParamBetragBrutto" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Betrag Brutto"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="ExtensionMinWidth" Value="80"/>
+		<Setter Property="Content">
+			<Setter.Value>
+				<TextBlock Text="€" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="TextAlignment" Value="Right"/>
+	</Style>
+	<Style x:Key="ParamBetragNetto" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Betrag Netto"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="ExtensionMinWidth" Value="80"/>
+		<Setter Property="Content">
+			<Setter.Value>
+				<TextBlock Text="€" Width="15" Margin="5,0,0,0" VerticalAlignment="Center"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="TextAlignment" Value="Right"/>
+	</Style>
+
+
+	<Style x:Key="ParamLeistungsBeschreibung" TargetType="{x:Type StringParam}" >
+		<Setter Property="Header" Value="Leistungs Beschreibung"/>
+		<Setter Property="AcceptsReturn" Value="True"/>
+		<Setter Property="HeaderAlignment" Value="Top"/>
+		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>
+		<Setter Property="ExtensionMinHeight" Value="60"/>
+		<Setter Property="Help" Value="Die Leistungsbeschreibung gibt an welcher Artikel in welcher Menge diesem Beleg zugeordnet ist."/>
+	</Style>
+
+
+</ResourceDictionary>

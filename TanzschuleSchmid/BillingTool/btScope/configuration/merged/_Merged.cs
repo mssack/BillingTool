@@ -2,11 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-03</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.btScope.configuration._enums;
 using CsWpfBase.Ev.Objects;
 
 
@@ -41,17 +40,7 @@ namespace BillingTool.btScope.configuration.merged
 		}
 
 
-		/// <summary>
-		///     The <see cref="General" /> sub configuration holds all uncategorize able configurations like <see cref="StartupModes" />, the database location
-		///     and other general configurations.
-		/// </summary>
-		public Merged_GeneralSettings General => Merged_GeneralSettings.I;
-
-
-		/// <summary>
-		///     The <see cref="NewCashBookEntry" /> sub configuration holds all configurable properties for <see cref="CashBookEntry" />'s like default
-		///     values.
-		/// </summary>
-		public Merged_NewCashBookEntry NewCashBookEntry => Merged_NewCashBookEntry.I;
+		/// <summary>The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default values.</summary>
+		public Merged_NewBelegData NewBelegData => Merged_NewBelegData.I;
 	}
 }

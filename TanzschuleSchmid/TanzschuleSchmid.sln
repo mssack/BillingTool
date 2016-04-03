@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registrierkasse", "Registri
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Anleitung", "Anleitung", "{441AB3AA-D45B-405D-87F3-BF44D30F971E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingPrinter", "BillingPrinter\BillingPrinter.csproj", "{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillingOutput", "BillingOutput\BillingOutput.csproj", "{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

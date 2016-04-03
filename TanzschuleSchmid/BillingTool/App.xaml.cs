@@ -6,7 +6,7 @@
 
 using System;
 using System.Windows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
 using CsWpfBase.Global;
 
@@ -36,11 +36,7 @@ namespace BillingTool
 			};
 
 			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
-
-
-
-			Bt.Config.CommandLine.Interpret(e.Args);
-			Bt.UiFunctions.ExecuteConfiguration();
+			Bt.Startup(e.Args);
 		}
 	}
 }

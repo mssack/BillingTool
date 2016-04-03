@@ -2,13 +2,9 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-01</date>
+// <date>2016-04-03</date>
 
 using System;
-using System.Windows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
-using BillingTool.btScope.configuration._enums;
 using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
 
@@ -43,92 +39,6 @@ namespace BillingTool.btScope.functions
 		{
 		}
 
-
-		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="CashBookEntry" />.</summary>
-		public void NewCashBookEntry(bool showdialog = false)
-		{
-			Bt.Db.EnsureConnectivity();
-			var entry = Bt.Db.Billing.CashBook.NewRow();
-
-			entry.Copy_From(Bt.Config.Merged.NewCashBookEntry,
-				CashBookTable.IdCol,
-				CashBookTable.KassenIdCol,
-				CashBookTable.BelegNummerCol,
-				CashBookTable.DatumCol,
-				CashBookTable.UmsatzZählerCol,
-				CashBookTable.ZuletztGeändertCol);
-
-			var window = new NewCashBookEntryWindow(entry);
-
-			if (showdialog)
-				window.ShowDialog();
-			else
-				window.Show();
-		}
-
-		/// <summary>Opens a window for the configuration of this software.</summary>
-		public void OpenConfiguration(bool showdialog = false)
-		{
-			var window = new ConfigurationWindow();
-
-			if (showdialog)
-				window.ShowDialog();
-			else
-				window.Show();
-		}
-
-		/// <summary>Opens a window with the product informations.</summary>
-		public void OpenProductInformation(bool showdialog = false)
-		{
-			var window = new ProductInformationWindow();
-
-			if (showdialog)
-				window.ShowDialog();
-			else
-				window.Show();
-		}
-
-		/// <summary>Opens a window with the logs.</summary>
-		public void OpenLogs(bool showdialog = false)
-		{
-			var window = new DatabaseWindow();
-
-			if (showdialog)
-				window.ShowDialog();
-			else
-				window.Show();
-		}
-
-
-		/// <summary>Executes the current configured mode.</summary>
-		public void ExecuteConfiguration()
-		{
-			var mode = Bt.Config.Merged.General.StartupMode;
-			if (mode == StartupModes.Developer)
-			{
-				var w = new DeveloperWindow();
-				w.Show();
-			}
-			else if (mode == StartupModes.NewCashBookEntry)
-			{
-				NewCashBookEntry();
-			}
-			else if (mode == StartupModes.Configuration)
-			{
-				OpenConfiguration();
-			}
-			else if (mode == StartupModes.ProductInformation)
-			{
-				OpenProductInformation();
-			}
-			else if (mode == StartupModes.Database)
-			{
-				OpenLogs();
-			}
-
-			if (Application.Current.MainWindow == null)
-				Application.Current.MainWindow = Application.Current.Windows[0];
-		}
 
 		/// <summary>
 		///     Opens a window with an <paramref name="title" /> and a specific <paramref name="text" />. This window ensures that the user knows what he does.

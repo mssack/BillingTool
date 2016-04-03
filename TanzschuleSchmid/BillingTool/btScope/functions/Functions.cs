@@ -2,11 +2,19 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-01</date>
+// <date>2016-04-03</date>
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingTool.btScope.configuration.commandLine;
+using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
+using CsWpfBase.Global;
 
 
 

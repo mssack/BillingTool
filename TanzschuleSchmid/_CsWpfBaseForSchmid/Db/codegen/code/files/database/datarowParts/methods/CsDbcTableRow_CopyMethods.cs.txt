@@ -12,7 +12,15 @@ public void #CopyFromName#(#InterfaceName# source, bool includePrimaryKey = fals
 ///		This method copy's each database field which is not in the <paramref name="excludedColumns"/> 
 ///		from the <paramref name="source"/> interface to this data row.
 /// </summary>
-public void #CopyFromName#(#InterfaceName# source, params string[] excludedColumns)
+public void #CopyFromButIgnoreName#(#InterfaceName# source, params string[] excludedColumns)
 {
 	#CopyFromWithExclusionMethodBody#
+}
+///	<summary> 
+///		This method copy's each database field which is in the <paramref name="includedColumns"/> 
+///		from the <paramref name="source"/> interface to this data row.
+/// </summary>
+public void #CopyFromButOnlyName#(#InterfaceName# source, params string[] includedColumns)
+{
+	#CopyFromWithInclusionMethodBody#
 }

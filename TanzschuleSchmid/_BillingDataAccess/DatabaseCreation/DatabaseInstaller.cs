@@ -6,7 +6,9 @@
 
 using System;
 using System.Data.SqlServerCe;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
@@ -86,8 +88,8 @@ namespace BillingDataAccess.DatabaseCreation
 
 			OpenDatabaseFile();
 
-			CreateLogsTable();
-			CreateCashBookTable();
+			CreateTables();
+			CreateRelations();
 
 			CloseDatabaseFile();
 		}
@@ -115,13 +117,20 @@ namespace BillingDataAccess.DatabaseCreation
 			Connection = null;
 		}
 
-		private void CreateLogsTable()
+		private void CreateTables()
 		{
-			Execute_SqlScript(Get_SqlScript("CreateLogsTable"));
+			string[] orderedScripts = { "CreateConfigurationsTable", "CreateBelegDatenTable", "CreatePrintedBelegeTable", "CreateMailedBelegeTable", "CreateBelegPostensTable", "CreateLogsTable", "CreatePostensTable", "CreateSteuersätzeTable" };
+
+			orderedScripts.ForEach(x=> Execute_SqlScript(Get_SqlScript(x)));
 		}
-		private void CreateCashBookTable()
+		private void CreateRelations()
 		{
-			Execute_SqlScript(Get_SqlScript("CreateCashBookTable"));
+			var relationScripts = Get_SqlScript("CreateRelations").Split("\r\n\r\n");
+			relationScripts.ForEach(x =>
+			{
+				Debug.WriteLine(x);
+				Execute_SqlScript(x);
+			});
 		}
 
 		/// <summary>

@@ -1,0 +1,5 @@
+﻿CREATE TABLE [Configurations]
+(
+	[Name]		nvarchar(100)	PRIMARY KEY,
+	[Value]		ntext			
+)

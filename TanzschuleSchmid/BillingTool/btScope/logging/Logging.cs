@@ -9,8 +9,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using CsWpfBase.Ev.Public.Extensions;
 
 
@@ -58,7 +58,7 @@ namespace BillingTool.btScope.logging
 
 			var fileInfo = new FileInfo(filePath);
 
-			Bt.Db.EnsureConnectivity();
+			Bt.EnsureInitialization();
 			var log = Bt.Db.Billing.Logs.NewRow();
 			log.Type = logType;
 			log.Title = titel;

@@ -1,0 +1,11 @@
+﻿CREATE TABLE [BelegPostens]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+
+	[BelegDataId]		uniqueidentifier	NOT NULL,
+	[SteuersatzId]		uniqueidentifier	NOT NULL,
+	[PostenId]			uniqueidentifier	NOT NULL,
+	
+	[Anzahl]			integer				NOT NULL DEFAULT(1),
+	[Reduziert]			money				NOT NULL DEFAULT(0)
+)

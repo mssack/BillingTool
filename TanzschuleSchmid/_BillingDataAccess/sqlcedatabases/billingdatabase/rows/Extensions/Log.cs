@@ -6,7 +6,7 @@
 
 using System;
 using System.Windows.Markup;
-using BillingDataAccess.sqlcedatabases.billingdatabase.Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
 
 

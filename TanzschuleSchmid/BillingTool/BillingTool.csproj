@@ -56,6 +56,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,38 +75,43 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="btScope\Bt.cs" />
+    <Compile Include="btScope\configuration\commandLine\CommandLine_BelegPostenTemplate.cs" />
     <Compile Include="btScope\configuration\commandLine\CommandLine_GeneralSetting.cs" />
-    <Compile Include="btScope\configuration\commandLine\CommandLine_NewCashBookEntrySetting.cs" />
+    <Compile Include="btScope\configuration\commandLine\CommandLine_NewBelegData.cs" />
     <Compile Include="btScope\configuration\commandLine\_CommandLines.cs" />
-    <Compile Include="btScope\configuration\configFiles\ConfigFile_GeneralSettings.cs" />
-    <Compile Include="btScope\configuration\configFiles\ConfigFile_MailSettings.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_BonLayout.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_KassenEinstellung.cs" />
     <Compile Include="btScope\configuration\configFiles\_ConfigFiles.cs" />
     <Compile Include="btScope\configuration\Configuration.cs" />
-    <Compile Include="btScope\configuration\configFiles\ConfigFile_NewCashBookEntry.cs" />
-    <Compile Include="btScope\configuration\merged\Merged_GeneralSettings.cs" />
-    <Compile Include="btScope\configuration\merged\Merged_NewCashBookEntry.cs" />
+    <Compile Include="btScope\configuration\configFiles\ConfigFile_NewBelegData.cs" />
+    <Compile Include="btScope\configuration\merged\Merged_NewBelegData.cs" />
     <Compile Include="btScope\configuration\merged\_Merged.cs" />
-    <Compile Include="btScope\configuration\_interfaces\IConfigMailSettings.cs" />
-    <Compile Include="btScope\configuration\_interfaces\IConfigGeneralSettings.cs" />
-    <Compile Include="btScope\configuration\_interfaces\IConfigNewCashBookEntrySettings.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IConfig_NewBelegData.cs" />
+    <Compile Include="btScope\configuration\_interfaces\IContainKassenEinstellungen.cs" />
+    <Compile Include="btScope\functions\DataFunctions.cs" />
     <Compile Include="btScope\functions\Functions.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\ParamBelegTyp.cs" />
+    <Compile Include="Themes\Controls\ParamBelegDataTyp.xaml.cs">
+      <DependentUpon>ParamBelegDataTyp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Window_BelegData_Approve.xaml.cs">
+      <DependentUpon>Window_BelegData_Approve.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Window_BelegData_ProcessOutput.xaml.cs">
+      <DependentUpon>Window_BelegData_ProcessOutput.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\CheckTrustAbilityWindow.xaml.cs">
       <DependentUpon>CheckTrustAbilityWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ConfigurationWindow.xaml.cs">
-      <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
+    <Compile Include="Windows\Window_KassenConfiguration.xaml.cs">
+      <DependentUpon>Window_KassenConfiguration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DatabaseWindow.xaml.cs">
       <DependentUpon>DatabaseWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\NewCashBookEntryWindow.xaml.cs">
-      <DependentUpon>NewCashBookEntryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="btScope\db\Db.cs" />
     <Compile Include="btScope\logging\Logging.cs" />
@@ -113,9 +119,6 @@
     <Compile Include="btScope\configuration\_enums\StartupModes.cs" />
     <Compile Include="Windows\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ProductInformationWindow.xaml.cs">
-      <DependentUpon>ProductInformationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -125,10 +128,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\ParamBelegTyp.cs.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Themes\Controls\ParamBelegDataTyp.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>ParamBelegTyp.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\GenerelStyles.xaml">
       <SubType>Designer</SubType>
@@ -138,11 +140,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Styles\uitext\BelegData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\uitext\Log.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Window_BelegData_Approve.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Window_BelegData_ProcessOutput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\CheckTrustAbilityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ConfigurationWindow.xaml">
+    <Page Include="Windows\Window_KassenConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,15 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\ProductInformationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\NewCashBookEntryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\NewCashBookEntryStyles.xaml">
+    <Page Include="Themes\Styles\BelegDataEditorStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,9 +202,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BillingPrinter\BillingPrinter.csproj">
+    <ProjectReference Include="..\BillingOutput\BillingOutput.csproj">
       <Project>{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}</Project>
-      <Name>BillingPrinter</Name>
+      <Name>BillingOutput</Name>
     </ProjectReference>
     <ProjectReference Include="..\_BillingDataAccess\_BillingDataAccess.csproj">
       <Project>{672DE474-CC73-45F5-819A-FDCDD687570F}</Project>

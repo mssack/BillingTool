@@ -1,0 +1,12 @@
+﻿CREATE TABLE [Postens]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+	
+	[Name]				ntext		NOT NULL,
+	[PreisBrutto]		money		NOT NULL,
+	[Dimension]			ntext,
+	[AnzahlGekauft]		integer		NOT NULL DEFAULT(0),
+	[AnzahlStorniert]	integer		NOT NULL DEFAULT(0),
+
+	[ZuletztGeändert]	datetime	NOT NULL DEFAULT getdate()
+)

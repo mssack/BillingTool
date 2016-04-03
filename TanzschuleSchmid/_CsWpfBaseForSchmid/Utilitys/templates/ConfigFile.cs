@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-07-24</date>
+// <date>2016-04-03</date>
 
 using System;
 using System.Collections.Generic;
@@ -66,10 +66,11 @@ namespace CsWpfBase.Utilitys.templates
 		{
 			if (Path != null && Path.Exists == false)
 				return;
-			
-			var members = ReflectionHelper.GetKeyMembers(this.GetType());
+			Path.Refresh();
 
-			var keyValuePair = LoadKeyValuePair(Path == null ? CsGlobal.Storage.Resource.File.Read(PackUri):Path.LoadAs_UTF8String());
+			var members = ReflectionHelper.GetKeyMembers(GetType());
+
+			var keyValuePair = LoadKeyValuePair(Path == null ? CsGlobal.Storage.Resource.File.Read(PackUri) : Path.LoadAs_UTF8String());
 
 			foreach (var keyMember in members)
 			{
@@ -77,7 +78,7 @@ namespace CsWpfBase.Utilitys.templates
 				if (!keyValuePair.TryGetValue(keyMember.Name.ToLower(), out value))
 					continue;
 
-				if (String.IsNullOrEmpty(value))
+				if (string.IsNullOrEmpty(value))
 				{
 					keyMember.SetValue(this, Helper.GetDefault(keyMember.Type));
 					continue;
@@ -103,17 +104,18 @@ namespace CsWpfBase.Utilitys.templates
 		{
 			if (Path == null)
 				return;
+			Path.Refresh();
 
-			var members = ReflectionHelper.GetKeyMembers(this.GetType());
+			var members = ReflectionHelper.GetKeyMembers(GetType());
 
 			var configString = members.Select(x =>
 			{
 				var value = x.GetValue(this);
 				if (value == null)
 					return x.Name + " = ";
-				if (String.IsNullOrEmpty(x.Attribute.StringFormat))
+				if (string.IsNullOrEmpty(x.Attribute.StringFormat))
 					return x.Name + " = " + value;
-				return x.Name + " = " + String.Format(x.Attribute.StringFormat, value);
+				return x.Name + " = " + string.Format(x.Attribute.StringFormat, value);
 			}).Join("\r\n");
 
 
@@ -123,6 +125,7 @@ namespace CsWpfBase.Utilitys.templates
 			{
 				writer.Write(configString);
 			}
+			Path.Refresh();
 		}
 
 		private Dictionary<string, string> LoadKeyValuePair(string filecontent)
@@ -299,7 +302,7 @@ namespace CsWpfBase.Utilitys.templates
 				_setMemberValue = (o1, o2) => _pi.SetValue(o1, o2, null);
 				Type = _pi.PropertyType;
 				Attribute = attr;
-				if (attr != null && !String.IsNullOrEmpty(attr.Name))
+				if (attr != null && !string.IsNullOrEmpty(attr.Name))
 					Name = attr.Name;
 				else
 					Name = pi.Name;
@@ -312,7 +315,7 @@ namespace CsWpfBase.Utilitys.templates
 				_setMemberValue = (o1, o2) => _fi.SetValue(o1, o2);
 				Type = _fi.FieldType;
 				Attribute = attr;
-				if (attr != null && !String.IsNullOrEmpty(attr.Name))
+				if (attr != null && !string.IsNullOrEmpty(attr.Name))
 					Name = attr.Name;
 				else
 					Name = fi.Name;
@@ -339,7 +342,7 @@ namespace CsWpfBase.Utilitys.templates
 				return memberValue == null ? null : memberValue.ToString();
 			}
 
-			public void SetValue(object target, Object value)
+			public void SetValue(object target, object value)
 			{
 				_setMemberValue(target, value);
 			}

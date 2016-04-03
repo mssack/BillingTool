@@ -41,23 +41,22 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 
 		/// <summary>
-		///     The <see cref="General" /> sub configuration holds all uncategorize able configurations like <see cref="StartupModes" />, the database location
+		///     The <see cref="KassenEinstellung" /> sub configuration holds all uncategorize able configurations like <see cref="StartupModes" />, the database location
 		///     and other general configurations.
 		/// </summary>
-		public ConfigFile_GeneralSettings General => ConfigFile_GeneralSettings.I;
-
-
+		public ConfigFile_KassenEinstellung KassenEinstellung => ConfigFile_KassenEinstellung.I;
 		/// <summary>
-		///     The <see cref="Mail" /> sub configuration holds all configurable properties for the internal mail client like the SMTP server, username, password
-		///     and so on.
+		///     The <see cref="KassenEinstellung" /> sub configuration holds all uncategorize able configurations like <see cref="StartupModes" />, the database location
+		///     and other general configurations.
 		/// </summary>
-		public ConfigFile_MailSettings Mail => ConfigFile_MailSettings.I;
+		public ConfigFile_BonLayout BonLayout => ConfigFile_BonLayout.I;
+
 
 
 		/// <summary>
-		///     The <see cref="NewCashBookEntry" /> sub configuration holds all configurable properties for <see cref="CashBookEntry" />'s like default
+		///     The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default
 		///     values.
 		/// </summary>
-		public ConfigFile_NewCashBookEntry NewCashBookEntry => ConfigFile_NewCashBookEntry.I;
+		public ConfigFile_NewBelegData NewBelegData => ConfigFile_NewBelegData.I;
 	}
 }

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-02</date>
 
 using System;
 using System.ComponentModel;
@@ -20,22 +20,14 @@ namespace BillingTool.btScope.configuration._enums
 	public enum StartupModes
 	{
 		/// <summary>No startup mode is defined. The application will exit.</summary>
-		[Description("Nicht-startbar")]
-		Undefined,
+		[Description("Nicht-startbar")] Undefined,
 		/// <summary>The <see cref="DeveloperWindow" /> will be opened. In this <see cref="StartupModes" /> real DAMAGE could be done.</summary>
-		[Description("Development")]
-		Developer,
-		/// <summary>The <see cref="NewCashBookEntryWindow" /> will be opened.</summary>
-		[Description("Neuer Eintrag")]
-		NewCashBookEntry,
-		/// <summary>The <see cref="ConfigurationWindow" /> will be opened.</summary>
-		[Description("Konfiguration")]
-		Configuration,
-		/// <summary>The <see cref="ProductInformationWindow" /> will be opened.</summary>
-		[Description("Produkt Informationen")]
-		ProductInformation,
+		[Description("Development")] Developer,
+		/// <summary>The <see cref="Window_BelegData_Approve" /> will be opened.</summary>
+		[Description("Beleg Bestätigung")] ApproveBelegData,
+		/// <summary>The <see cref="Window_KassenConfiguration" /> will be opened.</summary>
+		[Description("KassenConfiguration")] KassenConfiguration,
 		/// <summary>The <see cref="DatabaseWindow" /> will be opened.</summary>
-		[Description("Database")]
-		Database,
+		[Description("Database")] Database,
 	}
 }
