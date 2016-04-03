@@ -241,9 +241,9 @@ namespace BillingTool.btScope.configuration.commandLine
 						foundProperty.SetValue(this, Convert.ChangeType(value, foundProperty.PropertyType), null);
 					found = true;
 				}
-				else if (param == $"{ParamPrefix}{PrintBeleg}".ToLower())
+				else if (param == $"{ParamPrefix}{nameof(PrintBeleg)}".ToLower())
 					PrintBeleg = Convert.ToBoolean(value);
-				else if (param == $"{ParamPrefix}{SendBeleg}".ToLower())
+				else if (param == $"{ParamPrefix}{nameof(SendBeleg)}".ToLower())
 				{
 					SendBelegTarget = value;
 					SendBeleg = IsValidMailAddress(SendBelegTarget);

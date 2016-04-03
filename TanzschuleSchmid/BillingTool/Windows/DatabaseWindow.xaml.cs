@@ -84,7 +84,7 @@ namespace BillingTool.Windows
 		/// <summary>Will be invoked whenever From or To date changes</summary>
 		private void Refilter()
 		{
-			Bt.Db.EnsureConnectivity();
+			Bt.EnsureInitialization();
 			if (BelegDataTab == null || BelegDataTab.IsSelected)
 			{
 				FilteredBelegDaten = Bt.Db.Billing.BelegDaten.Get_Between(From, To);

@@ -36,11 +36,7 @@ namespace BillingTool
 			};
 
 			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
-
-
-
-			Bt.Config.CommandLine.Interpret(e.Args);
-			Bt.UiFunctions.ExecuteConfiguration();
+			Bt.Startup(e.Args);
 		}
 	}
 }

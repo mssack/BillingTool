@@ -23,12 +23,10 @@ namespace BillingTool.btScope.configuration._enums
 		[Description("Nicht-startbar")] Undefined,
 		/// <summary>The <see cref="DeveloperWindow" /> will be opened. In this <see cref="StartupModes" /> real DAMAGE could be done.</summary>
 		[Description("Development")] Developer,
-		/// <summary>The <see cref="NewBelegDataWindow" /> will be opened.</summary>
-		[Description("Neuer Beleg")] NewBelegData,
-		/// <summary>The <see cref="ConfigurationWindow" /> will be opened.</summary>
-		[Description("Konfiguration")] Configuration,
-		/// <summary>The <see cref="ProductInformationWindow" /> will be opened.</summary>
-		[Description("Produkt Informationen")] ProductInformation,
+		/// <summary>The <see cref="Window_BelegData_Approve" /> will be opened.</summary>
+		[Description("Beleg Bestätigung")] ApproveBelegData,
+		/// <summary>The <see cref="Window_KassenConfiguration" /> will be opened.</summary>
+		[Description("KassenConfiguration")] KassenConfiguration,
 		/// <summary>The <see cref="DatabaseWindow" /> will be opened.</summary>
 		[Description("Database")] Database,
 	}

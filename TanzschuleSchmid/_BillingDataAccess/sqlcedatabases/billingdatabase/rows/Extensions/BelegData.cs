@@ -23,7 +23,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>On row creation this method will be executed. So a new row will always have the highest reference number</summary>
 		public override void ApplyExtendedDefaults()
 		{
-			KassenId = DataSet.Configurations.KassenId;
 			Nummer = DataSet.Configurations.LastBelegNummer+1;
 		}
 
@@ -81,6 +80,17 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		public void Recalculate_BetragNetto()
 		{
 			BetragNetto = Postens.Sum(x => x.BetragNetto);
+		}
+
+		/// <summary>Recalculates the <see cref="MailCount" /> field.</summary>
+		public void Recalculate_MailCount()
+		{
+			MailCount = MailedBelege.Count;
+		}
+		/// <summary>Recalculates the <see cref="PrintCount" /> field.</summary>
+		public void Recalculate_PrintCount()
+		{
+			PrintCount = PrintedBelege.Count;
 		}
 	}
 }

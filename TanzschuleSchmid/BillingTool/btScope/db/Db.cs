@@ -2,17 +2,17 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-03</date>
 
 using System;
-using System.IO;
 using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.Router;
 using BillingTool.btScope.configuration.merged;
+using BillingTool.btScope.functions;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Ev.Objects;
+using CsWpfBase.Global;
 
 
 
@@ -66,42 +66,15 @@ namespace BillingTool.btScope.db
 			set { SetProperty(ref _router, value); }
 		}
 
-
-		
-
-
-		/// <summary>
-		///     Ensures that the database is connected to the program and accessible. This method can be called multiple times while application is running. It
-		///     is advisable to call this method before each database call to ensure connectivity.
-		/// </summary>
+		/// <summary>DO not call this.</summary>
 		public void EnsureConnectivity()
 		{
-			if (Billing != null)
-			{
-				if (Router.State.IsConnected)
-					return;
-				Router.Open();
-				if (!Router.State.IsConnected)
-					throw Router.State.LastException;
-				return;
-			}
-
-			if (string.IsNullOrEmpty(Bt.Config.Merged.General.BillingDatabaseFilePath))
-				throw new InvalidOperationException("Es wurde keine datenbank angegeben.");
-
-			var fi = new FileInfo(Bt.Config.Merged.General.BillingDatabaseFilePath);
-			if (!fi.Exists)
-			{
-				var continueWithCreation = Bt.UiFunctions.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
-				if (continueWithCreation == false)
-					throw new Exception("Die Datenbank Erstellung wurde vom User abgebrochen.");
-				CreateDatabase();
-			}
-			else
+			if (Billing == null)
 				Connect();
 
 			if (Router.State.IsConnected)
 				return;
+
 			Router.Open();
 			if (!Router.State.IsConnected)
 				throw Router.State.LastException;
@@ -114,10 +87,10 @@ namespace BillingTool.btScope.db
 		private void Connect()
 		{
 			if (Billing != null)
-				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(EnsureConnectivity)} instead.");
+				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.Functions)} instead.");
 
 
-			Router = new SqlCeRouter(Bt.Config.Merged.General.BillingDatabaseFilePath);
+			Router = new SqlCeRouter(Bt.Config.File.KassenEinstellung.BillingDatabaseFilePath);
 			Router.Open();
 
 			Billing = new BillingDatabase();
@@ -137,24 +110,6 @@ namespace BillingTool.btScope.db
 			Billing.Dispose();
 			Router.Dispose();
 			Billing = null;
-		}
-
-
-		/// <summary>Creates the database. Throws an Exception if it already exists.</summary>
-		public void CreateDatabase()
-		{
-			var fileInfo = new FileInfo(Bt.Config.Merged.General.BillingDatabaseFilePath);
-			CreateDatabase(fileInfo);
-		}
-
-
-		private void CreateDatabase(FileInfo fi)
-		{
-			using (var installer = new DatabaseInstaller(fi.FullName))
-			{
-				installer.Install();
-			}
-			Bt.Logging.New(LogTitels.DatenbankErstellt, "Eine neue Datenbank wurde erstellt");
 		}
 	}
 }

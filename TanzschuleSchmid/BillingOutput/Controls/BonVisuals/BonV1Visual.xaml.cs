@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-03</date>
 
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingOutput.Interfaces;
 using CsWpfBase.Ev.Objects;
 
 
@@ -18,20 +19,27 @@ using CsWpfBase.Ev.Objects;
 
 
 
-namespace BillingOutput.Controls
+namespace BillingOutput.Controls.BonVisuals
 {
-	/// <summary>Interaction logic for KassenBonVisual.xaml</summary>
-	public partial class KassenBonVisual : UserControl
+	/// <summary>Interaction logic for BonV1Visual.xaml</summary>
+	public partial class BonV1Visual : UserControl
 	{
 
 
 		/// <summary>ctor</summary>
-		public KassenBonVisual()
+		public BonV1Visual()
 		{
 			InitializeComponent();
 		}
-		
-		/// <summary>The item for which the <see cref="KassenBonVisual" /> should be drawn.</summary>
+
+		/// <summary>ctor</summary>
+		public BonV1Visual(BelegData item)
+		{
+			Item = item;
+			InitializeComponent();
+		}
+
+		/// <summary>The item for which the <see cref="BonV1Visual" /> should be drawn.</summary>
 		public BelegData Item
 		{
 			get { return (BelegData) GetValue(ItemProperty); }
@@ -42,6 +50,12 @@ namespace BillingOutput.Controls
 		{
 			get { return (SteuerSchlüssel[]) GetValue(SteuerAufschlüsselungProperty); }
 			set { SetValue(SteuerAufschlüsselungProperty, value); }
+		}
+		/// <summary>Layout informations for the Bon.</summary>
+		public IContainBonLayout BonLayout
+		{
+			get { return (IContainBonLayout) GetValue(BonLayoutProperty); }
+			set { SetValue(BonLayoutProperty, value); }
 		}
 
 		private void ItemChanged(BelegData newValue)
@@ -109,8 +123,9 @@ namespace BillingOutput.Controls
 			public decimal BetragDifferenz => BetragBrutto - BetragNetto;
 		}
 #pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof (BelegData), typeof (KassenBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((KassenBonVisual) o).ItemChanged(args.NewValue as BelegData)});
-		public static readonly DependencyProperty SteuerAufschlüsselungProperty = DependencyProperty.Register("SteuerAufschlüsselung", typeof (SteuerSchlüssel[]), typeof (KassenBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(SteuerSchlüssel[]), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty BonLayoutProperty = DependencyProperty.Register("BonLayout", typeof (IContainBonLayout), typeof (BonV1Visual), new FrameworkPropertyMetadata {DefaultValue = default(IContainBonLayout), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof (BelegData), typeof (BonV1Visual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((BonV1Visual) o).ItemChanged(args.NewValue as BelegData)});
+		public static readonly DependencyProperty SteuerAufschlüsselungProperty = DependencyProperty.Register("SteuerAufschlüsselung", typeof (SteuerSchlüssel[]), typeof (BonV1Visual), new FrameworkPropertyMetadata {DefaultValue = default(SteuerSchlüssel[]), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
 	}
 }

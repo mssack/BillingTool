@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-03</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -28,5 +28,13 @@ namespace BillingTool
 		NewBelegData_Created = 100,
 		/// <summary>the <see cref="BelegData" /> which should be created was canceled.</summary>
 		BelegDataCreation_Aborted = 101,
+
+
+		/// <summary>Occurs when no valid configuration is available. Typically all operations are aborted.</summary>
+		No_ValidConfiguration,
+		/// <summary>Occurs when no database is available. Typically all operations are aborted.</summary>
+		No_DatabaseAvailable,
+		/// <summary>Occurs when the database is used by another process, or is an incompatible type.</summary>
+		No_DatabaseConnectionPossible,
 	}
 }

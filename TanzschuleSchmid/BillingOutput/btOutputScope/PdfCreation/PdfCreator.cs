@@ -5,6 +5,7 @@
 // <date>2016-04-03</date>
 
 using System;
+using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
 
@@ -13,16 +14,15 @@ using CsWpfBase.Ev.Objects;
 
 
 
-namespace BillingTool.btScope.configuration.merged
+namespace BillingOutput.btOutputScope.PdfCreation
 {
-	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
-	public sealed class MergedConfiguration : Base
+	internal class PdfCreator : Base
 	{
-		private static MergedConfiguration _instance;
+		private static PdfCreator _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static MergedConfiguration I
+		internal static PdfCreator I
 		{
 			get
 			{
@@ -30,17 +30,19 @@ namespace BillingTool.btScope.configuration.merged
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new MergedConfiguration());
+					return _instance ?? (_instance = new PdfCreator());
 				}
 			}
 		}
 
-		private MergedConfiguration()
+		private PdfCreator()
 		{
 		}
 
 
-		/// <summary>The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default values.</summary>
-		public Merged_NewBelegData NewBelegData => Merged_NewBelegData.I;
+		public PdfLifeLine CreatePdf(BelegData data, BitmapSource image)
+		{
+			return new PdfLifeLine(data, image);
+		}
 	}
 }

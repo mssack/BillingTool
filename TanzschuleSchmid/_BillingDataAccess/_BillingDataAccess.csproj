@@ -109,6 +109,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\MailedBeleg.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\PrintedBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataStates.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTitels.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTypes.cs" />
@@ -135,6 +137,8 @@
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\OutputFormats.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\ProcessingStates.cs" />
     <Compile Include="sqlcedatabases\Router\SqlCeRouter.cs" />
   </ItemGroup>
   <ItemGroup>

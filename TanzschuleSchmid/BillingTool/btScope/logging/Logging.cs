@@ -58,7 +58,7 @@ namespace BillingTool.btScope.logging
 
 			var fileInfo = new FileInfo(filePath);
 
-			Bt.Db.EnsureConnectivity();
+			Bt.EnsureInitialization();
 			var log = Bt.Db.Billing.Logs.NewRow();
 			log.Type = logType;
 			log.Title = titel;

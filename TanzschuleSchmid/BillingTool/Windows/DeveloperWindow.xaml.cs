@@ -41,7 +41,7 @@ namespace BillingTool.Windows
 
 			try
 			{
-				using (var installer = new DatabaseInstaller(Bt.Config.Merged.General.BillingDatabaseFilePath))
+				using (var installer = new DatabaseInstaller(Bt.Config.File.KassenEinstellung.BillingDatabaseFilePath))
 				{
 					installer.Install(true);
 				}
@@ -51,19 +51,17 @@ namespace BillingTool.Windows
 			{
 				CsGlobal.Message.Push(exp, CsMessage.Types.Error, "Installation error");
 			}
-
-
 		}
 
 		private void NewCashBookEntry_Click(object sender, RoutedEventArgs e)
 		{
-			Bt.UiFunctions.New_BelegData();
+			//Bt.UiFunctions.New_BelegData();
 			e.Handled = true;
 		}
 
 		private void ConfigurationWindow_Click(object sender, RoutedEventArgs e)
 		{
-			var w = new ConfigurationWindow();
+			var w = new Window_KassenConfiguration();
 			w.Show();
 		}
 

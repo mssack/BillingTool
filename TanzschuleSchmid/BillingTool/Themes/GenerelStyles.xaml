@@ -5,5 +5,35 @@
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
+	<Style x:Key="DefaultGroup" TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ParamGroup}">
+		<Setter Property="Margin" Value="0,0,0,15"/>
+	</Style>
 
+	<Style x:Key="AcceptButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="BorderBrush" Value="#5CA941"/>
+		<Setter Property="Padding" Value="10,4,10,4"/>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+					<GradientStop Color="#8ADD6D" Offset="0"/>
+					<GradientStop Color="#60B044" Offset="1"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="BorderBrush" Value="#4A993E"/>
+				<Setter Property="Background">
+					<Setter.Value>
+						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+							<GradientStop Color="#79D858" Offset="0"/>
+							<GradientStop Color="#569E3D" Offset="1"/>
+						</LinearGradientBrush>
+					</Setter.Value>
+				</Setter>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
 </ResourceDictionary>

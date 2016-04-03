@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-03</date>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -27,12 +27,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			get { return GetValue(1); }
 			set { SetValue(value); }
 		}
-		/// <summary>The company's unique <see cref="KassenId" />.</summary>
-		public string KassenId
-		{
-			get { return GetValue("CS1"); }
-			set { SetValue(value); }
-		}
 		/// <summary>Each time a new <see cref="BelegData" /> is added the <see cref="BelegData.BetragBrutto" /> has to be added to the
 		///     <see cref="Umsatzzähler" />.</summary>
 		public decimal Umsatzzähler
@@ -40,35 +34,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			get { return GetValue(0); }
 			set { SetValue(value); }
 		}
-		/// <summary>The header of the Bon.</summary>
-		public BitmapSource KassenBonHeader
-		{
-			get { return GetValue<BitmapSource>(); }
-			set { SetValue(value); }
-		}
-		/// <summary>The Footer of the Bon.</summary>
-		public BitmapSource KassenBonFooter
-		{
-			get { return GetValue<BitmapSource>(); }
-			set { SetValue(value); }
-		}
-		/// <summary>The header of the Bon.</summary>
-		public string KassenBonHeaderText
-		{
-			get { return GetValue("Noch kein text vorhanden"); }
-			set { SetValue(value); }
-		}
-		/// <summary>The header of the Bon.</summary>
-		public string KassenBonFooterText
-		{
-			get { return GetValue("Noch kein text vorhanden"); }
-			set { SetValue(value); }
-		}
-
 		/// <summary>The last used <see cref="Steuersatz.Kürzel" />. Each time a new <see cref="Steuersatz" /> is added increment this value by one.</summary>
 		public char LastSteuersatzKürzel
 		{
-			get { return GetValue((char) ('A' - 1)); }
+			get { return GetValue((char)('A' - 1)); }
 			set { SetValue(value); }
 		}
 
