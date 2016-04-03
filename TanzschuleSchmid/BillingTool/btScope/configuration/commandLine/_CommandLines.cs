@@ -60,7 +60,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		/// </summary>
 		public void Interpret(string[] startParams)
 		{
-			var concanatedParams = startParams.Join(" ").Split("/").Select(x => x.Trim()).Where(x => !string.IsNullOrEmpty(x)).ToList();
+			var concanatedParams = startParams.Join(" ").Replace("//", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "//")).Where(x => !string.IsNullOrEmpty(x)).ToList();
 			General.Interpret(concanatedParams);
 			NewBelegData.Interpret(concanatedParams);
 		}

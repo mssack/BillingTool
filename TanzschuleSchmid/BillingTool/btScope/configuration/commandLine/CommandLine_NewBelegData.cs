@@ -53,8 +53,6 @@ namespace BillingTool.btScope.configuration.commandLine
 		private string _empfängerId;
 		private string _kassenOperator;
 		private string _kommentar;
-
-
 		private CommandLine_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
 		private bool _sendBeleg;
