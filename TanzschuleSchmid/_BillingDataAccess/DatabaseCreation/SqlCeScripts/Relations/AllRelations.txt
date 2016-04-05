@@ -2,25 +2,35 @@
 ADD CONSTRAINT FK_BelegData_StornoBelegId
 FOREIGN KEY ([StornoBelegId]) REFERENCES BelegDaten([Id])
 
+#Split#
+
 ALTER TABLE [PrintedBelege]
 ADD CONSTRAINT FK_PrintedBelege_BelegDataId
 FOREIGN KEY ([BelegDataId]) REFERENCES BelegDaten([Id])
 ON DELETE CASCADE
+
+#Split#
 
 ALTER TABLE [MailedBelege]
 ADD CONSTRAINT FK_MailedBelege_BelegDataId
 FOREIGN KEY ([BelegDataId]) REFERENCES BelegDaten([Id])
 ON DELETE CASCADE
 
+#Split#
+
 ALTER TABLE [BelegPostens]
 ADD CONSTRAINT FK_BelegPostens_BelegDataId
 FOREIGN KEY ([BelegDataId]) REFERENCES BelegDaten([Id])
 ON DELETE CASCADE
 
+#Split#
+
 ALTER TABLE [BelegPostens]
 ADD CONSTRAINT FK_BelegPostens_SteuersatzId
 FOREIGN KEY ([SteuersatzId]) REFERENCES Steuersätze([Id])
 ON DELETE CASCADE
+
+#Split#
 
 ALTER TABLE [BelegPostens]
 ADD CONSTRAINT FK_BelegPostens_PostenId

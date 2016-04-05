@@ -72,9 +72,9 @@
   <ItemGroup>
     <Compile Include="CompilerServices.cs" />
     <Compile Include="DatabaseCreation\DatabaseInstaller.cs" />
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateRelations.txt" />
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt" />
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,7 +99,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateLogsTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Logs.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\_CsWpfBaseForSchmid\_CsWpfBaseForSchmid.csproj">
@@ -108,7 +108,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegDaten.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\MailedBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\PrintedBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataStates.cs" />
@@ -184,16 +184,18 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Configurations.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreatePostensTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Postens.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Steuersätze.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\PrintedBelege.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
