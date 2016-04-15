@@ -2,17 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-04-15</date>
 
 using System;
-using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.Router;
 using BillingTool.btScope.configuration.merged;
-using BillingTool.btScope.functions;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Ev.Objects;
-using CsWpfBase.Global;
 
 
 
@@ -78,6 +75,13 @@ namespace BillingTool.btScope.db
 			Router.Open();
 			if (!Router.State.IsConnected)
 				throw Router.State.LastException;
+		}
+
+
+		/// <summary>Used to determine whether the connection to the database is opened.</summary>
+		public bool IsConnected()
+		{
+			return Router.State.IsConnected;
 		}
 
 		/// <summary>

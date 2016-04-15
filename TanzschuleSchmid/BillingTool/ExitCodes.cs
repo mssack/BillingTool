@@ -31,10 +31,14 @@ namespace BillingTool
 
 
 		/// <summary>Occurs when no valid configuration is available. Typically all operations are aborted.</summary>
-		No_ValidConfiguration,
+		No_ValidConfiguration = 1001,
 		/// <summary>Occurs when no database is available. Typically all operations are aborted.</summary>
-		No_DatabaseAvailable,
+		No_DatabaseAvailable = 1002,
 		/// <summary>Occurs when the database is used by another process, or is an incompatible type.</summary>
-		No_DatabaseConnectionPossible,
+		No_DatabaseConnectionPossible = 1003,
+
+
+		/// <summary>Occurs when the database is used by another process, or is an incompatible type.</summary>
+		Invalid_StartupParam = 1004,
 	}
 }

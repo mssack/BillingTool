@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-04-15</date>
 
 using System;
 using System.IO;
@@ -13,8 +13,8 @@ using BillingTool.btScope.configuration._enums;
 using BillingTool.btScope.db;
 using BillingTool.btScope.functions;
 using BillingTool.btScope.logging;
+using BillingTool.Exceptions;
 using BillingTool.Windows;
-using CsWpfBase.Global;
 
 
 
@@ -57,8 +57,7 @@ namespace BillingTool.btScope
 				window.ShowDialog();
 				if (!Config.File.KassenEinstellung.IsValid)
 				{
-					Functions.SetExitCode(ExitCodes.No_ValidConfiguration);
-					Environment.Exit(0);
+					throw new BillingToolException(BillingToolException.Types.No_ValidConfiguration, $"Es wurde keine gültige Datenbankkonfiguration erstellt.");
 				}
 			}
 
@@ -74,8 +73,7 @@ namespace BillingTool.btScope
 			var createDb = UiFunctions.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
 			if (createDb == false)
 			{
-				Functions.SetExitCode(ExitCodes.No_DatabaseAvailable);
-				Environment.Exit(0);
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbankinstallation wurde vom User abgebrochen.");
 			}
 			try
 			{
@@ -84,10 +82,9 @@ namespace BillingTool.btScope
 					installer.Install();
 				}
 			}
-			catch (Exception)
+			catch (Exception exc)
 			{
-				Functions.SetExitCode(ExitCodes.No_DatabaseAvailable);
-				Environment.Exit(0);
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbank konnte nicht installiert werden.", exc);
 			}
 
 
@@ -123,9 +120,29 @@ namespace BillingTool.btScope
 
 				window.Show();
 			}
+			else
+			{
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Fehlender {nameof(StartupModes)} siehe enumeration[{nameof(StartupModes)}].");
+			}
+
+
 
 			if (Application.Current.MainWindow == null)
 				Application.Current.MainWindow = Application.Current.Windows[0];
+		}
+
+
+		/// <summary>gets an indicator whether the database is accessible.</summary>
+		public static bool IsInitialized()
+		{
+			if (!Config.File.KassenEinstellung.Path.Exists || !Config.File.KassenEinstellung.IsValid)
+				return false;
+			var fi = new FileInfo(Config.File.KassenEinstellung.BillingDatabaseFilePath);
+			if (!fi.Exists)
+				return false;
+			if (!Db.IsConnected())
+				return false;
+			return true;
 		}
 	}
 }

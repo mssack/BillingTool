@@ -8,6 +8,7 @@ using System;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
+using BillingTool.Exceptions;
 using CsWpfBase.Global;
 
 
@@ -24,7 +25,16 @@ namespace BillingTool
 		{
 			Current.DispatcherUnhandledException += (s, args) =>
 			{
-				Bt.Functions.SetExitCode(ExitCodes.FatalError);
+				var billingToolException = args.Exception as BillingToolException;
+				if (billingToolException != null && billingToolException.Type != BillingToolException.Types.Undefined)
+				{
+					Bt.Functions.SetExitCode(billingToolException.Type);
+				}
+				else
+				{
+					Bt.Functions.SetExitCode(ExitCodes.FatalError);
+				}
+
 				try
 				{
 					Bt.Logging.New(LogTitels.UnhandledException, args.Exception.ToString(), LogTypes.Fatal);

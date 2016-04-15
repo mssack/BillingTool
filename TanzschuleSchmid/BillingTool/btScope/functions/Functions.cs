@@ -12,6 +12,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope.configuration.commandLine;
+using BillingTool.Exceptions;
 using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Global;
@@ -54,5 +55,9 @@ namespace BillingTool.btScope.functions
 			Environment.ExitCode = (int) code;
 		}
 
+		internal void SetExitCode(BillingToolException.Types type)
+		{
+			SetExitCode((ExitCodes)type);
+		}
 	}
 }

@@ -91,6 +91,7 @@
     <Compile Include="btScope\functions\DataFunctions.cs" />
     <Compile Include="btScope\functions\Functions.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
+    <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
