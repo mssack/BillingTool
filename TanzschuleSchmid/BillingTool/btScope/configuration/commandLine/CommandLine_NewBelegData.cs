@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope.configuration._interfaces;
+using BillingTool.Exceptions;
 using CsWpfBase.Ev.Objects;
 
 
@@ -248,7 +249,7 @@ namespace BillingTool.btScope.configuration.commandLine
 				}
 				else if (param == $"{ParamPrefix}{nameof(Postens)}".ToLower())
 				{
-					ParsePosten(value);
+					ParsePosten(nameof(Postens),value);
 				}
 
 				if (found)
@@ -256,11 +257,11 @@ namespace BillingTool.btScope.configuration.commandLine
 			}
 		}
 
-		private void ParsePosten(string value)
+		private void ParsePosten(string parameterName, string value)
 		{
 			// FOR TESTING see http://www.regextester.com/
 			if (value.Length < 2 || value[0] != '{' || value[value.Length - 1] != '}')
-				throw new InvalidDataException($"The parameter ist invalid. see '{value}'");
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Der parameter[{parameterName}] ist ungültig weil der Wert[{value}] falsch ist.");
 
 			value = value.Substring(1, value.Length - 2);
 			// find all {...} in {...}, {...}, {...} => if ... contains '}' escape it with '\}'
