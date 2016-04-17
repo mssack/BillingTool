@@ -82,6 +82,10 @@ namespace BillingTool.btScope
 					installer.Install();
 				}
 			}
+			catch (BadImageFormatException exc)
+			{
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die verwendete Architektur 64 Bit ist nicht erlaubt. Kompilieren Sie diese Applikation noch einmal als x86 (Environment.Is64BitProcess[{Environment.Is64BitProcess}])", exc);
+			}
 			catch (Exception exc)
 			{
 				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbank konnte nicht installiert werden.", exc);

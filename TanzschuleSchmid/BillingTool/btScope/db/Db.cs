@@ -8,6 +8,7 @@ using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.Router;
 using BillingTool.btScope.configuration.merged;
+using BillingTool.Exceptions;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Ev.Objects;
 
@@ -67,14 +68,23 @@ namespace BillingTool.btScope.db
 		public void EnsureConnectivity()
 		{
 			if (Billing == null)
-				Connect();
+			{
+				try
+				{
+					Connect();
+				}
+				catch (Exception exc)
+				{
+					throw new BillingToolException(BillingToolException.Types.No_DatabaseConnectionPossible, "Die Verbindung zur Datenbank konnte nicht aufgebaut werden. Siehe innere Exception", exc);
+				}
+			}
 
 			if (Router.State.IsConnected)
 				return;
 
 			Router.Open();
 			if (!Router.State.IsConnected)
-				throw Router.State.LastException;
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseConnectionPossible, "Die Verbindung zur Datenbank konnte nicht aufgebaut werden. Siehe innere Exception", Router.State.LastException); 
 		}
 
 

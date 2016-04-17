@@ -43,6 +43,7 @@ namespace BillingTool.Exceptions
 			Undefined,
 			No_DatabaseAvailable = ExitCodes.No_DatabaseAvailable,
 			No_ValidConfiguration = ExitCodes.No_ValidConfiguration,
+			No_DatabaseConnectionPossible = ExitCodes.No_DatabaseConnectionPossible,
 			Invalid_StartupParam = ExitCodes.Invalid_StartupParam,
 		}
 	}

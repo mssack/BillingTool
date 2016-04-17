@@ -232,13 +232,16 @@
 		</Style>
 	</Window.Style>
 	<ScrollViewer DataContext="{Binding ElementName=Self, Path=Message}" Focusable="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" MinWidth="400" MaxWidth="600" MinHeight="45" Padding="0" Margin="0">
+		<ScrollViewer.Resources>
+
+		</ScrollViewer.Resources>
 		<ContentControl Focusable="False" Content="{Binding Path=Content}" SnapsToDevicePixels="False" Margin="0" Padding="0">
 			<ContentControl.Resources>
 				<DataTemplate DataType="{x:Type system:String}">
-					<TextBox Focusable="False" IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" />
+					<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" />
 				</DataTemplate>
 				<DataTemplate DataType="{x:Type entries:CsopServerMessage}">
-					<TextBox Focusable="False" IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay, Path=Text}" TextWrapping="Wrap" VerticalAlignment="Top" />
+					<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay, Path=Text}" TextWrapping="Wrap" VerticalAlignment="Top" />
 				</DataTemplate>
 				<DataTemplate DataType="{x:Type entries:CsopServerUpdateAvailable}">
 					<Grid>
@@ -256,7 +259,7 @@
 						<parameterEngine:ParamView Grid.Row="4" Header="Size" Value="{Binding Path=FileSize}" />
 						<Expander Focusable="False" Grid.Row="5" Header="ChangeSet" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top"
 								Visibility="{Binding Path=Changeset, Converter={StaticResource GConv-NullToVisibility}}">
-							<TextBox Focusable="False" IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=Changeset, Mode=OneWay}" TextWrapping="Wrap" />
+							<TextBox IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=Changeset, Mode=OneWay}" TextWrapping="Wrap" />
 						</Expander>
 					</Grid>
 				</DataTemplate>
@@ -266,7 +269,7 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
-						<RichTextBox Focusable="False" IsReadOnly="True" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
+						<RichTextBox IsReadOnly="True" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
 							<FlowDocument FontSize="14">
 								<Paragraph Padding="0,0,0,0" Margin="0,0,0,9" BorderThickness="0,0,0,1" BorderBrush="LightGray">
 									<Run Text="Code" />
@@ -285,7 +288,34 @@
 							</FlowDocument>
 						</RichTextBox>
 						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top" Margin="10,10,0,0">
-							<TextBox Focusable="False" IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=StackTrace, Mode=OneWay}" TextWrapping="Wrap" />
+							<TextBox IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=StackTrace, Mode=OneWay}" TextWrapping="Wrap" />
+						</Expander>
+					</Grid>
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type system:Exception}" x:Key="ExceptionContent">
+
+					<Grid Margin="0,15,0,0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<RichTextBox IsReadOnly="True" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
+							<FlowDocument FontSize="14">
+								<Paragraph Padding="0,0,0,0" Margin="0,0,0,5">
+									<Run Text="{Binding Converter={StaticResource GConv-GetTypeName}, Mode=OneWay}" FontWeight="Bold" FontFamily="Consolas" />
+									<Run Text="in" />
+									<Run Text="{Binding Path=Source, Mode=OneWay}" FontWeight="Bold" FontFamily="Consolas" />
+									<Run Text="am" />
+									<Run Text="{Binding ElementName=Self, Path=Message.Time, Mode=OneWay, StringFormat='dd.MM u\\m HH:mm:ss'}" FontFamily="Consolas" />
+								</Paragraph>
+								<Paragraph Padding="15,1,0,0" Margin="0">
+									<Run Text="{Binding Path=Message, Mode=OneWay}" />
+								</Paragraph>
+							</FlowDocument>
+						</RichTextBox>
+						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top" Margin="15,1,0,0">
+							<TextBox IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=StackTrace, Mode=OneWay}" TextWrapping="Wrap" />
 						</Expander>
 					</Grid>
 				</DataTemplate>
@@ -295,25 +325,18 @@
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<RichTextBox Focusable="False" IsReadOnly="True" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
+						<RichTextBox IsReadOnly="True" Background="Transparent" BorderThickness="0" Padding="0" Margin="0">
 							<FlowDocument FontSize="14">
 								<Paragraph Padding="0,0,0,0" Margin="0,0,0,5">
 									<Run Text="Code" />
 									<Run Text="{Binding ElementName=Self, Path=Message.Id, Mode=OneWay}" FontWeight="Bold" FontFamily="Consolas" />
-									<Run Text="in" />
-									<Run Text="{Binding Path=Source, Mode=OneWay}" FontWeight="Bold" FontFamily="Consolas" />
-									<Run Text="am" />
-									<Run Text="{Binding ElementName=Self, Path=Message.Time, Mode=OneWay, StringFormat='dd.MM u\\m HH:mm:ss'}" FontFamily="Consolas" />
-								</Paragraph>
-								<Paragraph Padding="0,0,0,0" Margin="0">
-									<Run Text="{Binding Path=Message, Mode=OneWay}" />
 								</Paragraph>
 							</FlowDocument>
 						</RichTextBox>
-						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top">
-							<TextBox Focusable="False" IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=StackTrace, Mode=OneWay}" TextWrapping="Wrap" />
-						</Expander>
+						<ItemsControl Grid.Row="1" ItemsSource="{Binding Converter={StaticResource GConv-ExceptionToExceptionList}}" ItemTemplate="{StaticResource ExceptionContent}">
+						</ItemsControl>
 					</Grid>
 				</DataTemplate>
 			</ContentControl.Resources>

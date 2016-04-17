@@ -52,7 +52,7 @@ namespace BillingTool.btScope.configuration.configFiles
 		private bool _printBeleg;
 		private bool _sendBeleg;
 		private string _sendBelegTarget;
-		private string _typName;
+		private string _typName = BelegDataTypes.Undefined.ToString();
 
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>

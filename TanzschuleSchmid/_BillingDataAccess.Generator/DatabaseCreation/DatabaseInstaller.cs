@@ -8,6 +8,7 @@ using System;
 using System.Data.SqlServerCe;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Ev.Public.Extensions;
@@ -121,7 +122,7 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 		/// <summary>Executes all scripts inside table folder. Files have to have property 'embedded_Resource' set.</summary>
 		private void Execute_TableScripts()
 		{
-			var tableScripts = Application.ResourceAssembly.GetManifestResourceNames()
+			var tableScripts = Assembly.GetCallingAssembly().GetManifestResourceNames()
 										.Where(x => x.Contains("SqlCeScripts.Tables"))
 										.SelectMany(x => Get_SqlScript(x).Split("#Split#"))
 										.Select(x => x.Trim(' ', '\r', '\n'))
@@ -134,7 +135,7 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 		/// <summary>Executes all scripts inside relation folder. Files have to have property 'embedded_Resource' set.</summary>
 		private void Execute_RelationScripts()
 		{
-			var relationScripts = Application.ResourceAssembly.GetManifestResourceNames()
+			var relationScripts = Assembly.GetCallingAssembly().GetManifestResourceNames()
 											.Where(x => x.Contains("SqlCeScripts.Relations"))
 											.SelectMany(x => Get_SqlScript(x).Split("#Split#"))
 											.Select(x => x.Trim(' ', '\r', '\n'))
@@ -151,7 +152,7 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 		private string Get_SqlScript(string scriptName)
 		{
 			// ReSharper disable once AssignNullToNotNullAttribute
-			using (var file = new StreamReader(Application.ResourceAssembly.GetManifestResourceStream(scriptName)))
+			using (var file = new StreamReader(Assembly.GetCallingAssembly().GetManifestResourceStream(scriptName)))
 				return file.ReadToEnd();
 		}
 

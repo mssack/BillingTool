@@ -411,6 +411,9 @@
 										<ContentControl Style="{StaticResource FooterStyle}" />
 									</Border>
 
+									<Border Grid.Row="0" Grid.RowSpan="3" Background="#64000000" Visibility="{Binding Path=IsGrayedOut, Converter={StaticResource GConv-BoolVisibility}}" >
+										
+									</Border>
 								</Grid>
 							</Border>
 

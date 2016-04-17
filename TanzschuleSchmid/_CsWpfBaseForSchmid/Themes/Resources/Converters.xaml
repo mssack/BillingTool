@@ -40,5 +40,7 @@
 	<format:Conv_Ipv6AddressToString x:Key="GConv-Ipv6AddressToString" />
 	<converters:Conv_ToStaticList x:Key="GConv-ToStaticList" />
 	<converters:Conv_PercentToColor x:Key="GConv-PercentToColor" />
+	<converters:Conv_ExceptionToExceptionList x:Key="GConv-ExceptionToExceptionList" />
+	<converters:Conv_GetTypeName x:Key="GConv-GetTypeName" />
 	<image:Conv_PercentToQualityImage x:Key="GConv-PercentToQualityImage" />
 </ResourceDictionary>

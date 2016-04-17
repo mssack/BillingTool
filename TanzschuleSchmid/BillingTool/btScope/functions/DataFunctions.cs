@@ -2,10 +2,9 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-04-17</date>
 
 using System;
-using System.Collections.Generic;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
@@ -52,6 +51,7 @@ namespace BillingTool.btScope.functions
 			data.DataSet.MailedBelege.Add(mail);
 			return mail;
 		}
+
 		/// <summary>Appends a new <see cref="PrintedBeleg" /> to the <paramref name="data" />.</summary>
 		public PrintedBeleg CreateNewPrintBeleg(BelegData data)
 		{
@@ -88,7 +88,6 @@ namespace BillingTool.btScope.functions
 			db.BelegDaten.Add(belegData);
 
 
-			var linkedPosted = new List<BelegPosten>();
 			foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
 			{
 				var posten = GetPostenFromTemplate(db, template);
@@ -100,7 +99,6 @@ namespace BillingTool.btScope.functions
 				belegPosten.Data = belegData;
 				belegPosten.Posten = posten;
 				belegPosten.Anzahl = template.Anzahl;
-				linkedPosted.Add(belegPosten);
 				db.BelegPostens.Add(belegPosten);
 			}
 			belegData.Recalculate_BetragBrutto();

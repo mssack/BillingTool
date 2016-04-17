@@ -352,6 +352,8 @@
     <Compile Include="Themes\Controls\Db\DbConnectorAssignerControl.xaml.cs">
       <DependentUpon>DbConnectorAssignmentControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Resources\Converters\Conv_ExceptionToExceptionList.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_GetTypeName.cs" />
     <Compile Include="Themes\Resources\Converters\image\Conv_PercentToQualityImage.cs" />
     <Compile Include="Themes\Resources\Converters\logic\Conv_IsNotOfTypeToVisibility.cs" />
     <Compile Include="Themes\Resources\Converters\logic\Conv_IsOfTypeToVisibility.cs" />

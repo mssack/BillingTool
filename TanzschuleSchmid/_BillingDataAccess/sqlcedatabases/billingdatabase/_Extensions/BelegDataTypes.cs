@@ -19,8 +19,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 	[Serializable]
 	public enum BelegDataTypes : byte
 	{
-		/// <summary>The type is not known by this enumeration. This is not a valid typ.</summary>
+		/// <summary>The type is not known by this enumeration. This is not a valid type.</summary>
 		[Description("Unbekannt")] Unknown = 0,
+		/// <summary>The type is currently not defined. The type definition is pending.</summary>
+		[Description("Undefined")] Undefined = 10,
 		/// <summary>Money exchanged cash.</summary>
 		[Description("Bar")] Bar = 11,
 		/// <summary>Money exchanged with cash dispenser.</summary>

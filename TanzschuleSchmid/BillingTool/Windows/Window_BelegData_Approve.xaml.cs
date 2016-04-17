@@ -57,6 +57,7 @@ namespace BillingTool.Windows
 				Bt.DataFunctions.Save_NewBelegData(Item);
 				Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
 
+				IsGrayedOut = true;
 				var outputWindow = new Window_BelegData_ProcessOutput(Item) {Owner = this};
 				outputWindow.ShowDialog();
 
