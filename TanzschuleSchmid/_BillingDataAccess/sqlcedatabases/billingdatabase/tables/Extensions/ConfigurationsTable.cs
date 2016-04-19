@@ -24,7 +24,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		public int LastBelegNummer
 		{
-			get { return GetValue(1); }
+			get { return GetValue(0); }
 			set { SetValue(value); }
 		}
 		/// <summary>Each time a new <see cref="BelegData" /> is added the <see cref="BelegData.BetragBrutto" /> has to be added to the
