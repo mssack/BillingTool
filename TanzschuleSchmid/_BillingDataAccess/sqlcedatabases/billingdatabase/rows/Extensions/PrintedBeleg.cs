@@ -15,7 +15,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
-	partial class PrintedBeleg
+	partial class PrintedBeleg: IOutputBeleg
 	{
 		#region Overrides/Interfaces
 		/// <summary>$"[{nameof(PrintedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatName}']"</summary>

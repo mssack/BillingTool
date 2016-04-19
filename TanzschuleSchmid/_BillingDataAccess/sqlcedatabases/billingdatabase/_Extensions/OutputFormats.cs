@@ -13,7 +13,7 @@ using System;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 {
-	/// <summary>The available output PDF types.</summary>
+	/// <summary>The available output types.</summary>
 	[Serializable]
 	public enum OutputFormats
 	{
