@@ -8,9 +8,13 @@
 	[ProcessingException]	ntext,
 
 	[OutputFormatName]		nvarchar(100) NOT NULL DEFAULT('Default'),
+	
 	[MailTypeName]			nvarchar(100) NOT NULL DEFAULT('Default'),
-
 	[TargetMailAddress]		ntext NOT NULL,
 	[Betreff]				ntext NOT NULL DEFAULT(''),
-	[Text]					ntext NOT NULL DEFAULT('')
+	[Text]					ntext NOT NULL DEFAULT(''),
+
+
+	[Kommentar]		ntext,
+	[ZuletztGeändert]		datetime NOT NULL DEFAULT getdate()
 )

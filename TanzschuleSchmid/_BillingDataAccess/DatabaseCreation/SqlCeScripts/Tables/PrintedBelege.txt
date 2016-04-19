@@ -2,13 +2,17 @@
 (
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 
-	[BelegDataId]		uniqueidentifier	NOT NULL,
+	[BelegDataId]			uniqueidentifier	NOT NULL,
 	[ProcessingStateName]	nvarchar(100) NOT NULL DEFAULT('NotProcessed'),
 	[ProcessingDate]		datetime NOT NULL DEFAULT getdate(),
 	[ProcessingException]	ntext,
 
-	[OutputFormatName]	nvarchar(100) NOT NULL DEFAULT('Default'),
+	[OutputFormatName]		nvarchar(100) NOT NULL DEFAULT('Default'),
+	
+	[PrinterDevice]			ntext,
 
+	
 
-	[PrinterDevice]		ntext
+	[Kommentar]		ntext,
+	[ZuletztGeändert]		datetime NOT NULL DEFAULT getdate()
 )
