@@ -91,7 +91,6 @@ namespace BillingTool.btScope.functions
 			foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
 			{
 				var posten = GetPostenFromTemplate(db, template);
-
 				var steuersatz = GetSteuersatzFromTemplate(db, template);
 
 				var belegPosten = db.BelegPostens.NewRow();
@@ -127,7 +126,7 @@ namespace BillingTool.btScope.functions
 
 			foreach (var posten in item.Postens)
 			{
-				posten.Posten.AnzahlGekauft++;
+				posten.Posten.AnzahlGekauft = posten.Posten.AnzahlGekauft + posten.Anzahl;
 			}
 
 			item.Nummer = item.DataSet.Configurations.LastBelegNummer + 1;
@@ -159,6 +158,7 @@ namespace BillingTool.btScope.functions
 			if (posten == null)
 			{
 				posten = db.Postens.NewRow();
+				posten.CreationDate = DateTime.Now;
 				posten.Name = template.Name;
 				posten.PreisBrutto = template.BetragBrutto;
 				db.Postens.Add(posten);

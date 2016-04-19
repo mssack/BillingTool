@@ -5,6 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		mc:Ignorable="d"
 		Title="Datenbank" Height="500" Width="900" x:Name="Uc" FooterVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		AWindowDragMove.IsActive="True">
@@ -159,6 +160,63 @@
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
 										<TextBlock Text="{Binding Path=CommentLastChanged}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+			<TabItem Header="Posten" x:Name="PostenTab">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Postens}">
+					<ListView.Resources>
+						<ResourceDictionary>
+							<ResourceDictionary.MergedDictionaries>
+								<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/Posten.xaml" />
+							</ResourceDictionary.MergedDictionaries>
+						</ResourceDictionary>
+					</ListView.Resources>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="{StaticResource Bez-Posten-CreationDate}" Sort.PropertyName="CreationDate">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=CreationDate}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-Name}" Sort.PropertyName="Name">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=Name}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-PreisBrutto}" Sort.PropertyName="PreisBrutto">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=PreisBrutto, StringFormat={}{0:0.00} €}" TextAlignment="Right" FontFamily="Consolas" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-AnzahlGekauft}" Sort.PropertyName="AnzahlGekauft">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=AnzahlGekauft}" TextAlignment="Right" FontFamily="Consolas" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-AnzahlStorniert}" Sort.PropertyName="AnzahlStorniert">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=AnzahlStorniert}" TextAlignment="Right" FontFamily="Consolas" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-Comment}" Sort.PropertyName="Comment">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBox Text="{Binding Path=Comment}" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>

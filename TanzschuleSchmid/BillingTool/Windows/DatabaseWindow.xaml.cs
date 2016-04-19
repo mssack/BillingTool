@@ -77,6 +77,9 @@ namespace BillingTool.Windows
 				Refilter();
 			else if (LogsTab.IsSelected && (FilteredLogs == null || !Equals(FilteredLogs.Tag, $"{From}{To}")))
 				Refilter();
+			else if (PostenTab.IsSelected && !Bt.Db.Billing.Postens.HasBeenLoaded)
+				Bt.Db.Billing.Postens.DownloadRows();
+			
 		}
 
 		/// <summary>Will be invoked whenever From or To date changes</summary>

@@ -2,9 +2,15 @@
 (
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 	
+	[CreationDate]		datetime	NOT NULL,
 	[Name]				ntext		NOT NULL,
 	[PreisBrutto]		money		NOT NULL,
 	[Dimension]			ntext,
 	[AnzahlGekauft]		integer		NOT NULL DEFAULT(0),
-	[AnzahlStorniert]	integer		NOT NULL DEFAULT(0)
+	[AnzahlStorniert]	integer		NOT NULL DEFAULT(0),
+
+
+
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
 )

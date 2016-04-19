@@ -5,9 +5,7 @@
 // <date>2016-04-19</date>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows.Markup;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
 
 
@@ -16,24 +14,8 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
-	partial class BelegPosten : IStoreComment
+	partial class BelegPosten
 	{
-		#region Overrides/Interfaces
-		/// <summary>sets the value of a column and notify property changed.</summary>
-		public override bool SetDbValue<T>(T m, string columnName, [CallerMemberName] string propName = "")
-		{
-			if (!base.SetDbValue(m, columnName, propName))
-				return false;
-
-			if (propName == nameof(Comment))
-			{
-				//change last changed date on comment change.
-				CommentLastChanged = DateTime.Now;
-			}
-
-			return true;
-		}
-		#endregion
 
 
 		/// <summary>The calculated brutto amount. Calculation formula: (<see cref="Anzahl" />*<see cref="Posten" />)</summary>

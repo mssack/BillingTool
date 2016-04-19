@@ -8,10 +8,5 @@
 	
 	[CreationDate]		datetime NOT NULL DEFAULT getdate(),
 	[Anzahl]			integer				NOT NULL DEFAULT(1),
-	[Reduziert]			money				NOT NULL DEFAULT(0),
-
-
-
-	[Comment]				ntext,
-	[CommentLastChanged]	datetime
+	[Reduziert]			money				NOT NULL DEFAULT(0)
 )
