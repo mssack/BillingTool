@@ -98,6 +98,7 @@ namespace BillingOutput.btOutputScope
 			var continuationTask = t.ContinueWith(task =>
 			{
 				data.ProcessingDate = DateTime.Now;
+				data.BelegData.MailCount++;
 				if (task.Exception != null && task.IsFaulted)
 				{
 					data.ProcessingState = ProcessingStates.Failed;
@@ -133,6 +134,7 @@ namespace BillingOutput.btOutputScope
 			var continuationTask = t.ContinueWith(task =>
 			{
 				data.ProcessingDate = DateTime.Now;
+				data.BelegData.PrintCount++;
 				if (task.Exception != null && task.IsFaulted)
 				{
 					data.ProcessingState = ProcessingStates.Failed;

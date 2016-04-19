@@ -75,7 +75,7 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
-    <Compile Include="Exceptions\BillingDataException.cs" />
+    <Compile Include="_Exceptions\BillingDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -143,43 +143,43 @@
     <Compile Include="sqlcedatabases\Router\SqlCeRouter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceca35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll">
       <TargetPath>sqlceca35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlcecompact35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcecompact35.dll">
       <TargetPath>sqlcecompact35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceer35DE.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35DE.dll">
       <TargetPath>sqlceer35DE.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceer35EN.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35EN.dll">
       <TargetPath>sqlceer35EN.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceme35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceme35.dll">
       <TargetPath>sqlceme35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceoledb35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceoledb35.dll">
       <TargetPath>sqlceoledb35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceqp35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceqp35.dll">
       <TargetPath>sqlceqp35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlcese35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcese35.dll">
       <TargetPath>sqlcese35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\ssleay32.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\ssleay32.dll">
       <TargetPath>ssleay32.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\System.Data.SqlServerCe.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\System.Data.SqlServerCe.dll">
       <TargetPath>System.Data.SqlServerCe.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
