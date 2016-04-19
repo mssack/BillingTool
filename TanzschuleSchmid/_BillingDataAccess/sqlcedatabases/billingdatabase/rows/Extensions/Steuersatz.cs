@@ -6,7 +6,6 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
 
@@ -16,7 +15,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
-	partial class Log : IStoreComment
+	partial class Steuersatz : IStoreComment
 	{
 		#region Overrides/Interfaces
 		/// <summary>sets the value of a column and notify property changed.</summary>
@@ -34,19 +33,5 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			return true;
 		}
 		#endregion
-
-
-		/// <summary>[<c>BillingDatabase</c>].[<c>Logs</c>].[<c>TypeName</c>] (Type = <c>nvarchar</c>, Default = '<c>('Information')</c>', MaxLength = <c>100</c>
-		///     )</summary>
-		[DependsOn("TypeName")]
-		public LogTypes Type
-		{
-			get
-			{
-				LogTypes result;
-				return Enum.TryParse(TypeName, true, out result) ? result : LogTypes.Error;
-			}
-			set { TypeName = value.ToString(); }
-		}
 	}
 }

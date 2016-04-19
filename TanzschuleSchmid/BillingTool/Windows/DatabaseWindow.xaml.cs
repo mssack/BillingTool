@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-19</date>
 
 using System;
 using System.ComponentModel;
@@ -25,8 +25,6 @@ namespace BillingTool.Windows
 	/// <summary>Interaction logic for DatabaseWindow.xaml</summary>
 	public partial class DatabaseWindow : CsWindow
 	{
-		private bool _ignoreChanges;
-
 
 		/// <summary>ctor</summary>
 		public DatabaseWindow()
@@ -97,22 +95,11 @@ namespace BillingTool.Windows
 			}
 		}
 
-		private void BelegDataChanged(object sender, TextChangedEventArgs textChangedEventArgs)
-		{
-			if (_ignoreChanges) // prevent change of date when simply rejecting
-				return;
-
-			((BelegData) ((FrameworkElement) sender).DataContext).ZuletztGeändert = DateTime.Now;
-		}
 
 		private void ÄnderungenVerwerfenClicked(object sender, RoutedEventArgs e)
 		{
 			if (BelegDataTab.IsSelected)
-			{
-				_ignoreChanges = true;
 				Bt.Db.Billing.BelegDaten.RejectChanges();
-				_ignoreChanges = false;
-			}
 			else if (LogsTab.IsSelected)
 				Bt.Db.Billing.Logs.RejectChanges();
 		}
@@ -122,13 +109,13 @@ namespace BillingTool.Windows
 
 
 		#region DP Keys
-		public static readonly DependencyProperty FilteredBelegDatenProperty = DependencyProperty.Register("FilteredBelegDaten", typeof (ContractCollection<BelegData>), typeof (DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<BelegData>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty FilteredLogsProperty = DependencyProperty.Register("FilteredLogs", typeof (ContractCollection<Log>), typeof (DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<Log>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty FromProperty = DependencyProperty.Register("From", typeof (DateTime), typeof (DatabaseWindow), new FrameworkPropertyMetadata
+		public static readonly DependencyProperty FilteredBelegDatenProperty = DependencyProperty.Register("FilteredBelegDaten", typeof(ContractCollection<BelegData>), typeof(DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<BelegData>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty FilteredLogsProperty = DependencyProperty.Register("FilteredLogs", typeof(ContractCollection<Log>), typeof(DatabaseWindow), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<Log>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty FromProperty = DependencyProperty.Register("From", typeof(DateTime), typeof(DatabaseWindow), new FrameworkPropertyMetadata
 		{
 			DefaultValue = DateTime.Now - TimeSpan.FromDays(14), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((DatabaseWindow) o).Refilter()
 		});
-		public static readonly DependencyProperty ToProperty = DependencyProperty.Register("To", typeof (DateTime), typeof (DatabaseWindow), new FrameworkPropertyMetadata
+		public static readonly DependencyProperty ToProperty = DependencyProperty.Register("To", typeof(DateTime), typeof(DatabaseWindow), new FrameworkPropertyMetadata
 		{
 			DefaultValue = DateTime.Now,
 			BindsTwoWayByDefault = true,

@@ -6,6 +6,12 @@
 	[SteuersatzId]		uniqueidentifier	NOT NULL,
 	[PostenId]			uniqueidentifier	NOT NULL,
 	
+	[CreationDate]		datetime NOT NULL DEFAULT getdate(),
 	[Anzahl]			integer				NOT NULL DEFAULT(1),
-	[Reduziert]			money				NOT NULL DEFAULT(0)
+	[Reduziert]			money				NOT NULL DEFAULT(0),
+
+
+
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
 )

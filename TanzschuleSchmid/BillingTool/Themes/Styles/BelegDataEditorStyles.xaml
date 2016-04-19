@@ -37,8 +37,8 @@
 		<Setter Property="Help" Value="{StaticResource Help-BelegData-EmpfängerId}"/>
 	</Style>
 	<Style x:Key="ParamKommentar" TargetType="{x:Type StringParam}" >
-		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Kommentar}"/>
-		<Setter Property="Help" Value="{Binding Source={StaticResource Help-BelegData-Kommentar}}"/>
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Comment}"/>
+		<Setter Property="Help" Value="{Binding Source={StaticResource Help-BelegData-Comment}}"/>
 		<Setter Property="AcceptsReturn" Value="True"/>
 		<Setter Property="HeaderAlignment" Value="Top"/>
 		<Setter Property="ExtensionVerticalAlignment" Value="Top"/>

@@ -148,10 +148,17 @@
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>
-							<GridViewColumn Header="{StaticResource Bez-BelegData-Kommentar}" Sort.PropertyName="Kommentar">
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Comment}" Sort.PropertyName="Comment">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
-										<TextBox Text="{Binding Path=Kommentar}" TextChanged="BelegDataChanged" />
+										<TextBox Text="{Binding Path=Comment}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Comment}" Sort.PropertyName="CommentLastChanged">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=CommentLastChanged}" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>

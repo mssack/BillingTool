@@ -52,7 +52,7 @@
 							<controls1:ParamBelegDataInvalidReason Grid.Row="0" Value="{Binding}" />
 							<controls1:ParamBelegDataTyp Grid.Row="1" Style="{StaticResource ParamBelegDataTyp}" Value="{Binding Path=Typ}" />
 							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
-							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Kommentar}" />
+							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
 						</Grid>
 					</GroupBox>
 					<GroupBox Grid.Row="1" Style="{StaticResource DefaultGroup}" Header="Zu sendende Emails">

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-17</date>
+// <date>2016-04-19</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
@@ -79,7 +79,7 @@ namespace BillingTool.btScope.functions
 				BelegDatenTable.NummerCol,
 				BelegDatenTable.BetragBruttoCol,
 				BelegDatenTable.BetragNettoCol,
-				BelegDatenTable.ZuletztGeändertCol,
+				BelegDatenTable.CommentLastChangedCol,
 				BelegDatenTable.PrintCountCol,
 				BelegDatenTable.MailCountCol);
 
@@ -130,7 +130,6 @@ namespace BillingTool.btScope.functions
 				posten.Posten.AnzahlGekauft++;
 			}
 
-			item.ZuletztGeändert = item.Datum = DateTime.Now;
 			item.Nummer = item.DataSet.Configurations.LastBelegNummer + 1;
 			item.UmsatzZähler = item.DataSet.Configurations.Umsatzzähler + item.BetragBrutto;
 			item.State = approvedByUser ? BelegDataStates.Approved_ByUser : BelegDataStates.Approved_ByApplication;

@@ -2,8 +2,12 @@
 (
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 	
-
 	[Name]				ntext		,
 	[Kürzel]			nvarchar(10) NOT NULL DEFAULT('A'),
-	[Percent]			money		NOT NULL DEFAULT(0)
+	[Percent]			money		NOT NULL DEFAULT(0),
+
+	
+
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
 )

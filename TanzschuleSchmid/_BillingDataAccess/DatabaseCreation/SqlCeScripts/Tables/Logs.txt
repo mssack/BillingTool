@@ -7,5 +7,9 @@
 	[CommandLine] ntext NOT NULL,
 	[Title] nvarchar(255) NOT NULL,
 	[Content] ntext NOT NULL,
-	[Comment] ntext
+
+
+	
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
 )

@@ -15,6 +15,7 @@
 	[Text]					ntext NOT NULL DEFAULT(''),
 
 
-	[Kommentar]		ntext,
-	[ZuletztGeändert]		datetime NOT NULL DEFAULT getdate()
+	
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
 )

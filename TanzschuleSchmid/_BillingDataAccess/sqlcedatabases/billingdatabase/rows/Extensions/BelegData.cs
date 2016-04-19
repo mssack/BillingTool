@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-19</date>
 
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 
@@ -17,13 +18,28 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 {
-	partial class BelegData
+	partial class BelegData : IStoreComment
 	{
 		#region Overrides/Interfaces
+		/// <summary>sets the value of a column and notify property changed.</summary>
+		public override bool SetDbValue<T>(T m, string columnName, [CallerMemberName] string propName = "")
+		{
+			if (!base.SetDbValue(m, columnName, propName))
+				return false;
+
+			if (propName == nameof(Comment))
+			{
+				//change last changed date on comment change.
+				CommentLastChanged = DateTime.Now;
+			}
+
+			return true;
+		}
+
 		/// <summary>On row creation this method will be executed. So a new row will always have the highest reference number</summary>
 		public override void ApplyExtendedDefaults()
 		{
-			Nummer = DataSet.Configurations.LastBelegNummer+1;
+			Nummer = DataSet.Configurations.LastBelegNummer + 1;
 		}
 
 		/// <summary>Returns an identifier for the database row.</summary>
@@ -105,13 +121,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			MailCount = MailedBelege.Count;
 		}
+
 		/// <summary>Recalculates the <see cref="PrintCount" /> field.</summary>
 		public void Recalculate_PrintCount()
 		{
 			PrintCount = PrintedBelege.Count;
 		}
-
-
-
 	}
 }

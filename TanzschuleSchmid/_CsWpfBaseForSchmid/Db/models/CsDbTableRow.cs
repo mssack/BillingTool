@@ -33,7 +33,7 @@ namespace CsWpfBase.Db.models
 
 		/// <summary>sets the value of a column and notify property changed.</summary>
 		[DebuggerStepThrough]
-		public bool SetDbValue<T>(T m, string columnName, [CallerMemberName] string propName = "")
+		public virtual bool SetDbValue<T>(T m, string columnName, [CallerMemberName] string propName = "")
 		{
 			if (this[columnName].Equals(m))
 				return false;

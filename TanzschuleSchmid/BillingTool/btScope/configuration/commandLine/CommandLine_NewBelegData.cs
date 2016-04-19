@@ -53,7 +53,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		private string _empfänger;
 		private string _empfängerId;
 		private string _kassenOperator;
-		private string _kommentar;
+		private string _comment;
 		private CommandLine_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
 		private bool _sendBeleg;
@@ -110,7 +110,7 @@ namespace BillingTool.btScope.configuration.commandLine
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZuletztGeändert</c>]</summary>
-		public DateTime ZuletztGeändert
+		public DateTime? CommentLastChanged
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -172,11 +172,11 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Kommentar</c>]</summary>
-		public string Kommentar
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
+		public string Comment
 		{
-			get { return _kommentar; }
-			set { SetProperty(ref _kommentar, value); }
+			get { return _comment; }
+			set { SetProperty(ref _comment, value); }
 		}
 
 
