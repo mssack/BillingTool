@@ -75,6 +75,7 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataInvalidReasons.cs" />
     <Compile Include="_Exceptions\BillingDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

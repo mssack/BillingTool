@@ -28,7 +28,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 		/// <summary>Money exchanged with cash dispenser.</summary>
 		[Description("Bankomat")] Bankomat = 12,
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[Description("Kreditkarte")] Kreditkarte = 12,
+		[Description("Kreditkarte")] Kreditkarte = 13,
 		/// <summary>Beleg reversal.</summary>
 		[Description("Storno")] Storno = 100,
 	}

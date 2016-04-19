@@ -28,4 +28,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 		/// <summary>The <see cref="BelegData" /> was Storno.</summary>
 		Storno = 3
 	}
+
+
+
 }

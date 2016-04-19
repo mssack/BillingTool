@@ -57,11 +57,10 @@
 							<ColumnDefinition Width="Auto" SharedSizeGroup="b" />
 							<ColumnDefinition Width="Auto" SharedSizeGroup="c" />
 							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" SharedSizeGroup="d" />
-							<ColumnDefinition Width="Auto" SharedSizeGroup="e" />
+							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 						<TextBlock Grid.Column="0" Grid.ColumnSpan="3" Text="Artikel" />
-						<TextBlock Grid.Column="4" Grid.ColumnSpan="2"
+						<TextBlock Grid.Column="4" Grid.ColumnSpan="1"
 										Text="{Binding ElementName=Uc, Path=Item.Typ, Converter={StaticResource GConv-GetEnumDescription}}" HorizontalAlignment="Center" />
 					</Grid>
 				</Border>

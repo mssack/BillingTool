@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:BillingTool.Themes.Controls"
                     xmlns:base="clr-namespace:CsWpfBase.Themes.Controls.ParameterEngine.Base;assembly=CsWpfBase"
-                    xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess">
+                    xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
@@ -11,12 +12,19 @@
 
 
 	<Style TargetType="{x:Type local:ParamBelegDataTyp}" BasedOn="{StaticResource {x:Type base:ParameterEngineBase}}">
+		<Style.Resources>
+			<x:Array x:Key="IgnoreAllNotNewValue" Type="system:Enum">
+				<x:Static MemberType="extensions:BelegDataTypes" Member="Undefined" /> 
+				<x:Static MemberType="extensions:BelegDataTypes" Member="Unknown" /> 
+				<x:Static MemberType="extensions:BelegDataTypes" Member="Storno" /> 
+			</x:Array>
+		</Style.Resources>
 		<Setter Property="Value" Value="Bar" />
 		<Setter Property="Padding" Value="2" />
 		<Setter Property="ExtensionTemplate">
 			<Setter.Value>
 				<DataTemplate DataType="{x:Type local:ParamBelegDataTyp}">
-					<ComboBox SelectedValue="{Binding Path=Value}" SelectedValuePath="Value" DisplayMemberPath="Description" ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}}}" />
+					<ComboBox SelectedValue="{Binding Path=Value}" SelectedValuePath="Value" DisplayMemberPath="Description" ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}, IgnoredEnums={StaticResource IgnoreAllNotNewValue}}}" />
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>

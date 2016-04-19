@@ -96,6 +96,9 @@
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\ParamBelegDataInvalidReason.xaml.cs">
+      <DependentUpon>ParamBelegDataInvalidReason.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\ParamBelegDataTyp.xaml.cs">
       <DependentUpon>ParamBelegDataTyp.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Themes\Controls\HeaderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ParamBelegDataInvalidReason.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

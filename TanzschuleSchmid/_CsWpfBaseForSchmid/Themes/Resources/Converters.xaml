@@ -32,6 +32,7 @@
 	<converters:Conv_ThicknessZeroSetter x:Key="GConv-ThicknessZeroSetter" />
 	<converters:Conv_MultiBindingLevelToMargin x:Key="GConv-MultiBindingLevelToMargin" />
 	<format:Conv_EnumToDescription x:Key="GConv-GetEnumDescription" />
+	<format:Conv_EnumToName x:Key="GConv-GetEnumName" />
 
 	<converters:Conv_UntilDateTimeConverter x:Key="GConv-TimeUntilDateTime" />
 	<logic:Conv_DateTimeIsInFuture x:Key="GConv-DateTimeIsInFuture" />

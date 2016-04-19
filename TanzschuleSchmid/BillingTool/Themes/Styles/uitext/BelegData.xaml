@@ -17,6 +17,7 @@
 	<system:String x:Key="Bez-BelegData-EmpfängerId">Empfänger ID</system:String>
 	<system:String x:Key="Bez-BelegData-Kommentar">Kommentar</system:String>
 	<system:String x:Key="Bez-BelegData-ZuletztGeändert">Zuletzt geändert</system:String>
+	<system:String x:Key="Bez-BelegData-InvalidState">Status</system:String>
 
 
 	<system:String x:Key="Help-BelegData-Typ">Belegtyp z.b Bar, Bankomat..</system:String>
@@ -37,7 +38,5 @@
 
 
 	<system:String x:Key="Bez-BelegData-Button-Cancle">Abbrechen</system:String>
-	<system:String x:Key="Bez-BelegData-Button-Bar">Bar</system:String>
-	<system:String x:Key="Bez-BelegData-Button-Bankomat">Bankomat</system:String>
-	<system:String x:Key="Bez-BelegData-Button-Kreditkarte">Kreditkarte</system:String>
+	<system:String x:Key="Bez-BelegData-Button-Approve">Bestätigen</system:String>
 </ResourceDictionary>

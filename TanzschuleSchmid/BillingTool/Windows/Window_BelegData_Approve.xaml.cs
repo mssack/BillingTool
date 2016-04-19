@@ -8,6 +8,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingOutput.btOutputScope;
@@ -94,7 +95,6 @@ namespace BillingTool.Windows
 
 		private void ApprovedClick(object sender, RoutedEventArgs e)
 		{
-			Item.Typ = (BelegDataTypes) ((FrameworkElement) sender).Tag;
 			Approved();
 		}
 

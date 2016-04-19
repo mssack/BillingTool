@@ -38,8 +38,26 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		[DependsOn(nameof(TypName))]
 		[DependsOn(nameof(KassenOperator))]
 		[DependsOn(nameof(StornoBelegId))]
-		public bool IsValid => Typ != BelegDataTypes.Unknown && !string.IsNullOrEmpty(KassenOperator) && (Typ != BelegDataTypes.Storno || (Typ == BelegDataTypes.Storno && StornoBeleg != null));
+		public bool IsValid => InvalidReason == BelegDataInvalidReasons.Valid;
 
+
+		/// <summary>returns true if all needed informations are present in this row.</summary>
+		[DependsOn(nameof(TypName))]
+		[DependsOn(nameof(KassenOperator))]
+		[DependsOn(nameof(StornoBelegId))]
+		public BelegDataInvalidReasons InvalidReason
+		{
+			get
+			{
+				if (Typ == BelegDataTypes.Unknown || Typ == BelegDataTypes.Undefined)
+					return BelegDataInvalidReasons.Missing_BelegDataType;
+				if (string.IsNullOrEmpty(KassenOperator))
+					return BelegDataInvalidReasons.Missing_Kassenoperator;
+				if (Typ == BelegDataTypes.Storno && StornoBeleg == null)
+					return BelegDataInvalidReasons.Missing_StornoBeleg;
+				return BelegDataInvalidReasons.Valid;
+			}
+		}
 
 
 		/// <summary>The wrapper property for column property <see cref="TypName" />.</summary>
@@ -92,5 +110,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			PrintCount = PrintedBelege.Count;
 		}
+
+
+
 	}
 }

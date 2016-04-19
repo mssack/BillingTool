@@ -3,14 +3,13 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:controls="clr-namespace:BillingOutput.Controls;assembly=BillingOutput"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
-		xmlns:BillingDatabaseDb="SqlCeDatabases.BillingDatabase"
+		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals;assembly=BillingOutput"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		xmlns:controls1="clr-namespace:BillingTool.Themes.Controls"
 		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		CloseButtonVisibility="Collapsed" HeaderVisibility="Collapsed" FooterVisibility="Collapsed" AWindowDragMove.IsActive="true"
-		Name="Uc" Padding="20" Width="730" SizeToContent="Height" >
+		Name="Uc" Padding="20" Width="730" SizeToContent="Height">
 	<CsWindow.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -21,7 +20,8 @@
 	</CsWindow.Resources>
 	<Grid DataContext="{Binding ElementName=Uc, Path=Item}">
 		<Grid.LayoutTransform>
-			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" ScaleY="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" />
+			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"
+							ScaleY="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" />
 		</Grid.LayoutTransform>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
@@ -35,10 +35,10 @@
 				</Grid.ColumnDefinitions>
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="*"/>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 					<GroupBox Style="{StaticResource DefaultGroup}" Header="Belegdaten">
 						<Grid IsSharedSizeScope="True">
@@ -49,11 +49,13 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<StringParam Grid.Row="0" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
-							<StringParam Grid.Row="1" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Kommentar}" />
+							<controls1:ParamBelegDataInvalidReason Grid.Row="0" Value="{Binding}" />
+							<controls1:ParamBelegDataTyp Grid.Row="1" Style="{StaticResource ParamBelegDataTyp}" Value="{Binding Path=Typ}" />
+							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
+							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Kommentar}" />
 						</Grid>
 					</GroupBox>
-					<GroupBox Grid.Row="1" Style="{StaticResource DefaultGroup}" Header="Email">
+					<GroupBox Grid.Row="1" Style="{StaticResource DefaultGroup}" Header="Zu sendende Emails">
 						<Grid IsSharedSizeScope="True">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
@@ -61,15 +63,15 @@
 							</Grid.RowDefinitions>
 							<ItemsControl ItemsSource="{Binding Path=MailedBelege}">
 								<ItemsControl.ItemTemplate>
-									<DataTemplate DataType="{x:Type BillingDatabaseDb:MailedBeleg}">
+									<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
 										<Grid>
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="Auto"/>
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
-											<AlternatingTextBox Text="{Binding Path=TargetMailAddress}" AlternatingText="Empfängermail" Padding="1"/>
+											<AlternatingTextBox Text="{Binding Path=TargetMailAddress}" AlternatingText="Empfängermail" Padding="1" />
 											<Button Grid.Column="1" Click="DeleteMailClicked" Width="19" Height="19">
-												<Image Source="{StaticResource GIco-Io-Trash}" RenderOptions.BitmapScalingMode="HighQuality"/>
+												<Image Source="{StaticResource GIco-Io-Trash}" RenderOptions.BitmapScalingMode="HighQuality" />
 											</Button>
 										</Grid>
 									</DataTemplate>
@@ -77,11 +79,11 @@
 							</ItemsControl>
 							<Grid Grid.Row="1">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
 								<Button Grid.Column="1" Click="NewMailClicked" Width="19" Height="19">
-									<Image Source="{StaticResource GIco-Item-Add}" RenderOptions.BitmapScalingMode="HighQuality"/>
+									<Image Source="{StaticResource GIco-Item-Add}" RenderOptions.BitmapScalingMode="HighQuality" />
 								</Button>
 							</Grid>
 						</Grid>
@@ -94,15 +96,15 @@
 							</Grid.RowDefinitions>
 							<ItemsControl ItemsSource="{Binding Path=PrintedBelege}">
 								<ItemsControl.ItemTemplate>
-									<DataTemplate DataType="{x:Type BillingDatabaseDb:PrintedBeleg}">
+									<DataTemplate DataType="{x:Type billingDatabaseDb:PrintedBeleg}">
 										<Grid>
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="Auto"/>
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="Auto" />
 											</Grid.ColumnDefinitions>
-											<TextBlock Text="Ausdruck"/>
+											<TextBlock Text="Ausdruck" />
 											<Button Grid.Column="1" Click="DeletePrintClicked" Width="19" Height="19">
-												<Image Source="{StaticResource GIco-Io-Trash}" RenderOptions.BitmapScalingMode="HighQuality"/>
+												<Image Source="{StaticResource GIco-Io-Trash}" RenderOptions.BitmapScalingMode="HighQuality" />
 											</Button>
 										</Grid>
 									</DataTemplate>
@@ -110,11 +112,11 @@
 							</ItemsControl>
 							<Grid Grid.Row="1">
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
 								<Button Grid.Column="1" Click="NewPrintClicked" Width="19" Height="19">
-									<Image Source="{StaticResource GIco-Item-Add}" RenderOptions.BitmapScalingMode="HighQuality"/>
+									<Image Source="{StaticResource GIco-Item-Add}" RenderOptions.BitmapScalingMode="HighQuality" />
 								</Button>
 							</Grid>
 						</Grid>
@@ -127,7 +129,7 @@
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 						<Border Background="WhiteSmoke" Padding="5">
-							<TextBlock Text="Bon Vorschau" FontSize="20" TextAlignment="Center"/>
+							<TextBlock Text="Bon Vorschau" FontSize="20" TextAlignment="Center" />
 						</Border>
 						<bonVisuals:BonV1Visual Grid.Row="1" Item="{Binding}" />
 					</Grid>
@@ -137,50 +139,20 @@
 		<Border Grid.Row="1" Margin="0,10,0,0">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 				<Button Grid.Column="0" Click="CancleClick" Style="{StaticResource ButtonCancle}" />
-				
-				
-				<Grid Grid.Column="2" >
-					<Grid.Style>
-						<Style TargetType="{x:Type Grid}">
-							<Setter Property="Visibility" Value="Collapsed"/>
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Undefined}">
-									<Setter Property="Visibility" Value="Visible"/>
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</Grid.Style>
+
+
+				<Grid Grid.Column="2">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="Auto" />
-					</Grid.ColumnDefinitions>
-					
-					<Button Grid.Column="0" Click="ApprovedClick" Style="{StaticResource ButtonKreditkarte}" />
-					<Button Grid.Column="1" Click="ApprovedClick" Style="{StaticResource ButtonBankomat}" />
-					<Button Grid.Column="2" Click="ApprovedClick" Style="{StaticResource ButtonBar}" />
-				</Grid>
-				<Grid Grid.Column="2" >
-					<Grid.Style>
-						<Style TargetType="{x:Type Grid}">
-							<Setter Property="Visibility" Value="Visible"/>
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Undefined}">
-									<Setter Property="Visibility" Value="Collapsed"/>
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</Grid.Style>
-					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
-					<Button Grid.Column="0" Click="ApprovedClick" Style="{StaticResource ButtonKreditkarte}" Content="{Binding Path=TypName}" Tag="{Binding Path=Typ}" />
+					<Button Grid.Column="1" Click="ApprovedClick" Style="{StaticResource ButtonApprove}" IsEnabled="{Binding Path=IsValid}" />
 				</Grid>
 			</Grid>
 		</Border>
