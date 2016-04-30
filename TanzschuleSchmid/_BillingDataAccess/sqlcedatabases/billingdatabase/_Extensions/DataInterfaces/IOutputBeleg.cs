@@ -5,14 +5,17 @@
 // <date>2016-04-19</date>
 
 using System;
+using System.Collections.Generic;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using CsWpfBase.Db;
+using CsWpfBase.Db.models.helper;
 
 
 
 
 
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces
 {
 	/// <summary>Used to share common properties between output rows for the row of type <see cref="BelegData" />. An example would be
 	///     <see cref="MailedBeleg" />.</summary>
@@ -29,4 +32,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 		OutputFormats OutputFormat { get; }
 		#endregion
 	}
+
+
 }

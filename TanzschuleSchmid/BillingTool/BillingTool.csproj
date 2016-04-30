@@ -93,6 +93,12 @@
     <Compile Include="btScope\functions\UiFunctions.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="ExitCodes.cs" />
+    <Compile Include="Themes\Controls\BelegDataView.xaml.cs">
+      <DependentUpon>BelegDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\FromToSelectorControl.xaml.cs">
+      <DependentUpon>FromToSelectorControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
@@ -111,11 +117,14 @@
     <Compile Include="Windows\CheckTrustAbilityWindow.xaml.cs">
       <DependentUpon>CheckTrustAbilityWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\Window_BelegData_Storno.xaml.cs">
+      <DependentUpon>Window_BelegData_Storno.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Window_KassenConfiguration.xaml.cs">
       <DependentUpon>Window_KassenConfiguration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\DatabaseWindow.xaml.cs">
-      <DependentUpon>DatabaseWindow.xaml</DependentUpon>
+    <Compile Include="Windows\Window_DatabaseViewer.xaml.cs">
+      <DependentUpon>Window_DatabaseViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="btScope\db\Db.cs" />
     <Compile Include="btScope\logging\Logging.cs" />
@@ -128,6 +137,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\Controls\BelegDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\FromToSelectorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\HeaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +169,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Styles\uitext\Configuration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Styles\uitext\Posten.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\Window_BelegData_Storno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Window_KassenConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -180,7 +205,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\DatabaseWindow.xaml">
+    <Page Include="Windows\Window_DatabaseViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

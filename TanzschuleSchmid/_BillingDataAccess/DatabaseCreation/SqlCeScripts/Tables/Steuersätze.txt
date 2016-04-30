@@ -2,7 +2,10 @@
 (
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 	
+	[CreationDate]		datetime	NOT NULL,
+	[LastUsedDate]		datetime,
 	[Name]				ntext		,
+
 	[Kürzel]			nvarchar(10) NOT NULL DEFAULT('A'),
 	[Percent]			money		NOT NULL DEFAULT(0),
 

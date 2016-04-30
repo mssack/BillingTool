@@ -179,6 +179,8 @@
     <Compile Include="Db\models\helper\CsWeakReference.cs" />
     <Compile Include="Db\models\helper\CsDbRouter_SqlDirect.cs" />
     <Compile Include="Db\models\internalhelper\CsDbTraceProxy.cs" />
+    <Compile Include="Db\statements\CsDbStatements.cs" />
+    <Compile Include="Db\statements\sqlce\SqlCeStatements.cs" />
     <Compile Include="Db\tools\controls\CsDbDataSetEditor.xaml.cs">
       <DependentUpon>CsDbDataSetEditor.xaml</DependentUpon>
     </Compile>

@@ -127,6 +127,9 @@ namespace BillingTool.btScope.functions
 			foreach (var posten in item.Postens)
 			{
 				posten.Posten.AnzahlGekauft = posten.Posten.AnzahlGekauft + posten.Anzahl;
+
+				posten.Posten.LastUsedDate = DateTime.Now;
+				posten.Steuersatz.LastUsedDate = DateTime.Now;
 			}
 
 			item.Nummer = item.DataSet.Configurations.LastBelegNummer + 1;
@@ -172,6 +175,7 @@ namespace BillingTool.btScope.functions
 			if (steuersatz == null)
 			{
 				steuersatz = db.Steuersätze.NewRow();
+				steuersatz.CreationDate = DateTime.Now;
 				steuersatz.Percent = template.Steuer;
 				db.Configurations.LastSteuersatzKürzel = (char) (db.Configurations.LastSteuersatzKürzel + 1);
 				steuersatz.Kürzel = db.Configurations.LastSteuersatzKürzel.ToString();

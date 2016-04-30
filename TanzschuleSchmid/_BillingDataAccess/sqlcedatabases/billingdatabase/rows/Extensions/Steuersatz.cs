@@ -7,6 +7,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 
 
 

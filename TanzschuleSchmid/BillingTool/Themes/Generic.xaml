@@ -4,7 +4,11 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/ParamBelegDataTyp.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/ParamBelegDataInvalidReason.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/FromToSelectorControl.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/BelegDataView.xaml" />
 	</ResourceDictionary.MergedDictionaries>
+
+
 
 
 

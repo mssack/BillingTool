@@ -67,7 +67,7 @@ namespace BillingTool.Windows
 
 		private void Logs_Click(object sender, RoutedEventArgs e)
 		{
-			var w = new DatabaseWindow();
+			var w = new Window_DatabaseViewer();
 			w.Show();
 		}
 	}

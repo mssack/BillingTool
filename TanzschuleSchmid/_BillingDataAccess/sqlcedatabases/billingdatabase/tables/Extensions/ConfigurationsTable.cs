@@ -2,11 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-04-20</date>
 
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 
 
@@ -37,14 +36,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <summary>The last used <see cref="Steuersatz.Kürzel" />. Each time a new <see cref="Steuersatz" /> is added increment this value by one.</summary>
 		public char LastSteuersatzKürzel
 		{
-			get { return GetValue((char)('A' - 1)); }
+			get { return GetValue((char) ('A' - 1)); }
 			set { SetValue(value); }
-		}
-
-		private void LoadConfigurations()
-		{
-			DownloadRows();
-
 		}
 
 		private T GetValue<T>(T defaultValue = default(T), [CallerMemberName] string name = null)
@@ -57,13 +50,15 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				return defaultValue;
 			}
 
-			return (T) Convert.ChangeType(config.Value, typeof (T));
+			return (T) Convert.ChangeType(config.Value, typeof(T));
 		}
 
 		private void SetValue(object value, [CallerMemberName] string name = null)
 		{
 			var config = GetRow(name, value.ToString());
+			config.LastChanged = DateTime.Now;
 			config.Value = value.ToString();
+			OnPropertyChanged(name);
 		}
 
 		private Configuration GetRow(string name, string defaultVal)
@@ -79,6 +74,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			config = NewRow();
 			config.Name = name;
 			config.Value = defaultVal;
+			config.LastChanged = DateTime.Now;
 			Add(config);
 
 			return config;

@@ -8,6 +8,7 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 
 
 

@@ -77,8 +77,9 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Steuersatz.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataInvalidReasons.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\IOutputBeleg.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\IStoreZuletztGeändert.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\ICanBeFilteredByDate.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IOutputBeleg.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IStoreZuletztGeändert.cs" />
     <Compile Include="_Exceptions\BillingDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

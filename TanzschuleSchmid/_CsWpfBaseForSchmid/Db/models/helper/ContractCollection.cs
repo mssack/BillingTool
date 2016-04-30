@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-04-20</date>
 
 using System;
 using System.Collections;
@@ -26,10 +26,68 @@ using CsWpfBase.Utilitys;
 namespace CsWpfBase.Db.models.helper
 {
 	/// <summary>
-	///     A full bindable collection. This collection is bound to a table and a contract. The collection will be automatically filled with the items which
+	///     A full bind able collection. This collection is bound to a table and a contract. The collection will be automatically filled with the items which
 	///     meets the requirements of the contract.
 	/// </summary>
-	public class ContractCollection<TRow> : Base, IEnumerable<TRow>, INotifyCollectionChanged
+	public abstract class ContractCollection : Base, INotifyCollectionChanged, IEnumerable
+	{
+		private object _tag;
+
+
+		#region Abstract
+		/// <summary>The items count.</summary>
+		public abstract int Count { get; }
+
+		protected internal abstract IEnumerator AbstractGetEnumerator();
+
+		protected internal abstract object GetItemAtIndex(int index);
+		#endregion
+
+
+		#region Overrides/Interfaces
+		/// <summary>Occurs whenever the collection changes</summary>
+		public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+		/// <summary>Returns an enumerator that iterates through a collection.</summary>
+		/// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return AbstractGetEnumerator();
+		}
+		#endregion
+
+
+		/// <summary>Gets the item at the specific position.</summary>
+		[IndexerName("Item")]
+		public object this[int index] => GetItemAtIndex(index);
+
+
+		/// <summary>Gets or sets the Tag.</summary>
+		public object Tag
+		{
+			get { return _tag; }
+			set { SetProperty(ref _tag, value); }
+		}
+		/// <summary>The expression which is used to validate a row.</summary>
+		public Expression ConditionExpression { get; protected set; }
+
+		/// <summary>invokes the collection changed event</summary>
+		/// <param name="e"></param>
+		protected internal void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+		{
+			CollectionChanged?.Invoke(this, e);
+			OnPropertyChanged("Item[]");
+			OnPropertyChanged("Count");
+		}
+	}
+
+
+
+	/// <summary>
+	///     A full bind able collection. This collection is bound to a table and a contract. The collection will be automatically filled with the items which
+	///     meets the requirements of the contract.
+	/// </summary>
+	public sealed class ContractCollection<TRow> : ContractCollection, IEnumerable<TRow>
 		where TRow : CsDbRowBase
 	{
 		private readonly HashSet<string> _dependingProperties;
@@ -39,7 +97,6 @@ namespace CsWpfBase.Db.models.helper
 		private SortHandler _sortHandler;
 
 
-		private object _tag;
 
 		/// <summary>
 		///     Creates a new collection which is based on a <paramref name="table" /> and a contract. The contract is used to validate a row inside the table.
@@ -57,24 +114,41 @@ namespace CsWpfBase.Db.models.helper
 		internal ContractCollection(CsDbTable<TRow> table, Expression<Func<TRow, bool>> condition, IEnumerable<TRow> startingCollection = null)
 		{
 			_dependingProperties = new HashSet<string>(condition.GetReferencedProperties().Select(x => x.Name));
+			ConditionExpression = condition;
 			Condition = condition.Compile();
 			Table = table;
 			table.ContractReferences.Add(new CsWeakReference<ContractCollection<TRow>>(this));
 			_startingCollection = startingCollection;
-
 		}
 
 
 		#region Overrides/Interfaces
+		/// <summary>The items count.</summary>
+		public override int Count => List.Count;
+
+
+
 #if DEBUG && DbTrace
+
 		/// <summary>Destructor</summary>
 		~ContractCollection()
 		{
 #if DEBUG && DbTrace
-			Debug.WriteLine($"~ContractCollection<{typeof (TRow).Name}> ({Count}) --> garbage collected.");
+			Debug.WriteLine($"~ContractCollection<{typeof(TRow).Name}> ({Count}) --> garbage collected.");
 #endif
 		}
+
 #endif
+
+		protected internal override IEnumerator AbstractGetEnumerator()
+		{
+			return GetEnumerator();
+		}
+
+		protected internal override object GetItemAtIndex(int index)
+		{
+			return this[index];
+		}
 
 		/// <summary>Returns an enumerator that iterates through the collection.</summary>
 		/// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
@@ -82,38 +156,19 @@ namespace CsWpfBase.Db.models.helper
 		{
 			return List.GetEnumerator();
 		}
-
-		/// <summary>Returns an enumerator that iterates through a collection.</summary>
-		/// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-		/// <summary>Occurs whenever the collection changes</summary>
-		public event NotifyCollectionChangedEventHandler CollectionChanged;
 		#endregion
-
-
-		/// <summary>Gets or sets the Tag.</summary>
-		public object Tag
-		{
-			get { return _tag; }
-			set { SetProperty(ref _tag, value); }
-		}
 
 
 		/// <summary>The contract is a function which validates an item whether it belongs to the collection or not.</summary>
 		public Func<TRow, bool> Condition { get; }
+
 		/// <summary>The owning table of this collection.</summary>
 		public CsDbTable<TRow> Table { get; }
 
-		/// <summary>The items count.</summary>
-		public int Count => List.Count;
 
 		/// <summary>Gets the item at the specific position.</summary>
 		[IndexerName("Item")]
-		public TRow this[int index] => List[index];
+		public new TRow this[int index] => List[index];
 
 
 		private List<TRow> List
@@ -141,7 +196,8 @@ namespace CsWpfBase.Db.models.helper
 			}
 		}
 
-		/// <summary>Revalidates the contract on all items inside the owning table. This can be usefull if contract condition changes.</summary>
+
+		/// <summary>Revalidates the contract on all items inside the owning table. This can be useful if contract condition changes.</summary>
 		public void Evaluate()
 		{
 			foreach (var row in Table)
@@ -273,12 +329,6 @@ namespace CsWpfBase.Db.models.helper
 			OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 
-		private void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-		{
-			CollectionChanged?.Invoke(this, e);
-			OnPropertyChanged("Item[]");
-			OnPropertyChanged("Count");
-		}
 
 
 

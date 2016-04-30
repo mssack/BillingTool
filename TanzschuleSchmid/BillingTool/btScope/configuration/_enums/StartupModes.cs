@@ -25,9 +25,11 @@ namespace BillingTool.btScope.configuration._enums
 		[Description("Development")] Developer,
 		/// <summary>The <see cref="Window_BelegData_Approve" /> will be opened.</summary>
 		[Description("Beleg Bestätigung")] ApproveBelegData,
+		/// <summary>The <see cref="Window_BelegData_Storno" /> will be opened.</summary>
+		[Description("Beleg Storno")] StornoBelegData,
 		/// <summary>The <see cref="Window_KassenConfiguration" /> will be opened.</summary>
 		[Description("Kassen Configuration")] KassenConfiguration,
-		/// <summary>The <see cref="DatabaseWindow" /> will be opened.</summary>
+		/// <summary>The <see cref="Window_DatabaseViewer" /> will be opened.</summary>
 		[Description("Database")] Database,
 	}
 }

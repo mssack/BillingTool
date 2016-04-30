@@ -102,39 +102,23 @@ namespace BillingTool.btScope
 
 			var mode = Config.CommandLine.General.StartupMode;
 
+			Window window;
 			if (mode == StartupModes.Developer)
-			{
-				var w = new DeveloperWindow();
-				Application.Current.MainWindow = w;
-
-				w.Show();
-			}
+				window = new DeveloperWindow();
 			else if (mode == StartupModes.ApproveBelegData)
-			{
-				var window = new Window_BelegData_Approve();
-				Application.Current.MainWindow = window;
-
-				window.Item = DataFunctions.New_BelegData_FromConfiguration();
-				window.Show();
-			}
+				window = new Window_BelegData_Approve {Item = DataFunctions.New_BelegData_FromConfiguration()};
+			else if (mode == StartupModes.StornoBelegData)
+				window = new Window_BelegData_Storno();
 			else if (mode == StartupModes.Database)
-			{
-				var window = new DatabaseWindow();
-				Application.Current.MainWindow = window;
-
-				window.Show();
-			}
+				window = new Window_DatabaseViewer();
 			else
-			{
 				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Fehlender {nameof(StartupModes)} siehe enumeration[{nameof(StartupModes)}].");
-			}
 
 
 
-			if (Application.Current.MainWindow == null)
-				Application.Current.MainWindow = Application.Current.Windows[0];
+			Application.Current.MainWindow = window;
+			window.Show();
 		}
-
 
 		/// <summary>gets an indicator whether the database is accessible.</summary>
 		public static bool IsInitialized()

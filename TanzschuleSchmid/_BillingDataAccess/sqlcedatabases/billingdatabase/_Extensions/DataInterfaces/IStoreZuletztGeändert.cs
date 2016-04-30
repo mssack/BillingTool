@@ -11,7 +11,7 @@ using System;
 
 
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces
 {
 	/// <summary>Stores a property called <see cref="Comment" />.</summary>
 	public interface IStoreComment
