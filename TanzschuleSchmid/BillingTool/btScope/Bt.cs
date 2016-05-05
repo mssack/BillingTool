@@ -109,6 +109,8 @@ namespace BillingTool.btScope
 				window = new Window_BelegData_Approve {Item = DataFunctions.New_BelegData_FromConfiguration()};
 			else if (mode == StartupModes.StornoBelegData)
 				window = new Window_BelegData_Storno();
+			else if (mode == StartupModes.BelegDataViewer)
+				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Database)
 				window = new Window_DatabaseViewer();
 			else

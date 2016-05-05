@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-06-11</date>
+// <date>2016-05-05</date>
 
 using System;
 using System.Windows;
@@ -19,12 +19,8 @@ namespace CsWpfBase.Global.storage.resource
 	[Serializable]
 	public sealed class CsgResourceDictionary : Base
 	{
-		#region SINGLETON CLASS
 		private static CsgResourceDictionary _instance;
 		private static readonly object SingletonLock = new object();
-		private CsgResourceDictionary()
-		{
-		}
 		/// <summary>Returns the singleton instance</summary>
 		internal static CsgResourceDictionary I
 		{
@@ -38,17 +34,6 @@ namespace CsWpfBase.Global.storage.resource
 				}
 			}
 		}
-		#endregion
-
-
-		private ResourceDictionary _stylesStandard;
-
-
-		/// <summary>Gets the standard resource dictionary.</summary>
-		public ResourceDictionary Standard
-		{
-			get { return _stylesStandard ?? (_stylesStandard = Load(CsGlobal.Storage.Resource.Path.Get("CsWpfBase", "Themes/Standard.xaml"))); }
-		}
 
 
 		private static ResourceDictionary Load(string filepath)
@@ -59,5 +44,16 @@ namespace CsWpfBase.Global.storage.resource
 			dict.EndInit();
 			return dict;
 		}
+
+
+		private ResourceDictionary _stylesStandard;
+
+		private CsgResourceDictionary()
+		{
+		}
+
+
+		/// <summary>Gets the standard resource dictionary.</summary>
+		public ResourceDictionary Standard => _stylesStandard ?? (_stylesStandard = Load(CsGlobal.Storage.Resource.Path.Get("CsWpfBase", "Themes/Standard.xaml")));
 	}
 }

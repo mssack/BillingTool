@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-20</date>
+// <date>2016-05-05</date>
 
 using System;
 using System.Collections;
@@ -68,8 +68,6 @@ namespace CsWpfBase.Db.models.helper
 			get { return _tag; }
 			set { SetProperty(ref _tag, value); }
 		}
-		/// <summary>The expression which is used to validate a row.</summary>
-		public Expression ConditionExpression { get; protected set; }
 
 		/// <summary>invokes the collection changed event</summary>
 		/// <param name="e"></param>
@@ -114,7 +112,6 @@ namespace CsWpfBase.Db.models.helper
 		internal ContractCollection(CsDbTable<TRow> table, Expression<Func<TRow, bool>> condition, IEnumerable<TRow> startingCollection = null)
 		{
 			_dependingProperties = new HashSet<string>(condition.GetReferencedProperties().Select(x => x.Name));
-			ConditionExpression = condition;
 			Condition = condition.Compile();
 			Table = table;
 			table.ContractReferences.Add(new CsWeakReference<ContractCollection<TRow>>(this));
@@ -160,7 +157,7 @@ namespace CsWpfBase.Db.models.helper
 
 
 		/// <summary>The contract is a function which validates an item whether it belongs to the collection or not.</summary>
-		public Func<TRow, bool> Condition { get; }
+		public Func<TRow, bool> Condition { get; private set; }
 
 		/// <summary>The owning table of this collection.</summary>
 		public CsDbTable<TRow> Table { get; }
@@ -227,7 +224,6 @@ namespace CsWpfBase.Db.models.helper
 			_sortHandler.Schedule();
 		}
 
-
 		/// <summary>Sorts the list.</summary>
 		public void SortDesc(Expression<Func<TRow, object>> by)
 		{
@@ -239,6 +235,20 @@ namespace CsWpfBase.Db.models.helper
 
 			_sortHandler = new SortHandler(by, SortRequested, () => _list = _list.OrderByDescending(by.Compile()).ToList());
 			_sortHandler.Schedule();
+		}
+
+		/// <summary>Adds another condition 'which will be and combined' to the current condition set and evaluates the collection.</summary>
+		/// <param name="condition"></param>
+		public void AddCondition(Expression<Func<TRow, bool>> condition)
+		{
+			
+			_dependingProperties.UnionWith(condition.GetReferencedProperties().Select(x =>  x.Name));
+			var oldCondition = Condition;
+			Condition = row => oldCondition(row) && condition.Compile()(row);
+			foreach (var row in _startingCollection)
+			{
+				EvaluateRow(row, null, true);
+			}
 		}
 
 

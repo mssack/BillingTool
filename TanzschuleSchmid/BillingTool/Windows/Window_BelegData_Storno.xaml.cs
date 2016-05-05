@@ -5,6 +5,7 @@
 // <date>2016-04-30</date>
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -30,7 +31,9 @@ namespace BillingTool.Windows
 		public Window_BelegData_Storno()
 		{
 			InitializeComponent();
-			FromToSelector.From = DateTime.Now.AddDays(-1);
+
+			Bt.Db.EnsureConnectivity();
+			FromToSelector.From = Bt.Db.Billing.BelegDaten.Get_Latest(5).Min(x=>x.Datum);
 			FromToSelector.To = DateTime.Now;
 			FromToSelector.SelectionChanged += FromToSelector_SelectionChanged;
 			Loaded += Window_BelegData_Storno_Loaded;
@@ -53,14 +56,16 @@ namespace BillingTool.Windows
 		{
 			Refilter();
 		}
-
-
+		
 		private void Refilter()
 		{
 			if (FilteredBelegDataList != null && Equals(FilteredBelegDataList.Tag, $"{FromToSelector.From}{FromToSelector.To}"))
 				return;
 			Bt.Db.EnsureConnectivity();
-			FilteredBelegDataList = Bt.Db.Billing.BelegDaten.Get_Between(FromToSelector.From, FromToSelector.To, data => data.State != BelegDataStates.Storno);
+			var collection =  Bt.Db.Billing.BelegDaten.Get_Between(FromToSelector.From, FromToSelector.To);
+			collection.AddCondition(data => data.State != BelegDataStates.Storno && data.Typ != BelegDataTypes.Storno);
+			collection.SortDesc(x=>x.Nummer);
+			FilteredBelegDataList = collection;
 		}
 
 		private void FromToSelector_SelectionChanged()

@@ -55,7 +55,7 @@ namespace BillingTool.Windows
 		{
 			using (_managedClosing.Activate())
 			{
-				Bt.DataFunctions.Save_NewBelegData(Item);
+				Bt.DataFunctions.Save_New_BelegData(Item);
 				Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
 
 				IsGrayedOut = true;
@@ -72,7 +72,7 @@ namespace BillingTool.Windows
 			{
 				var i = Item;
 				Item = null;
-				Bt.DataFunctions.Cancle_NewBelegData(i);
+				Bt.DataFunctions.Cancle_New_BelegData(i);
 				Bt.Functions.SetExitCode(ExitCodes.BelegDataCreation_Aborted);
 				Close();
 			}

@@ -120,7 +120,11 @@ namespace CsWpfBase.Db.models.bases
 				_propertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
 				dependingPropertys?.ForEach(x => _propertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
 			}
-			_internalPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			if (_internalPropertyChanged != null)
+			{
+				_internalPropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+				dependingPropertys?.ForEach(x => _internalPropertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
+			}
 
 		}
 

@@ -356,6 +356,7 @@
     </Compile>
     <Compile Include="Themes\Resources\Converters\Conv_ExceptionToExceptionList.cs" />
     <Compile Include="Themes\Resources\Converters\Conv_GetTypeName.cs" />
+    <Compile Include="Themes\Resources\Converters\Conv_PercentOf.cs" />
     <Compile Include="Themes\Resources\Converters\format\Conv_EnumToName.cs" />
     <Compile Include="Themes\Resources\Converters\image\Conv_PercentToQualityImage.cs" />
     <Compile Include="Themes\Resources\Converters\logic\Conv_IsNotOfTypeToVisibility.cs" />
@@ -595,6 +596,7 @@
     <Compile Include="Global\app\install\CsgAppInstall.cs" />
     <Compile Include="Global\storage\resource\Resource.File.cs" />
     <Compile Include="Global\storage\resource\Resource.Path.cs" />
+    <Compile Include="Global\wpf\Wpf.Window.cs" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -29,6 +29,7 @@
 	<converters:Conv_BindingStringFormat x:Key="GConv-BindingStringFormat" />
 
 	<converters:Conv_ThicknessInverter x:Key="GConv-ThicknessInverter" />
+	<converters:Conv_PercentOf x:Key="GConv-PercentOf" />
 	<converters:Conv_ThicknessZeroSetter x:Key="GConv-ThicknessZeroSetter" />
 	<converters:Conv_MultiBindingLevelToMargin x:Key="GConv-MultiBindingLevelToMargin" />
 	<format:Conv_EnumToDescription x:Key="GConv-GetEnumDescription" />

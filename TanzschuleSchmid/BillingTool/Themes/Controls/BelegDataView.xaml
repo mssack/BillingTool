@@ -1,73 +1,374 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:local="clr-namespace:BillingTool.Themes.Controls">
+					xmlns:local="clr-namespace:BillingTool.Themes.Controls"
+					xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals;assembly=BillingOutput"
+					xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/GenerelStyles.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
+	<Style TargetType="{x:Type Expander}" x:Key="ExpanderStyle">
+		<Setter Property="BorderBrush" Value="#20000000" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Margin" Value="0,0,0,10" />
+		<Setter Property="Padding" Value="10,5,5,5" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Expander}">
+					<Border DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}"
+							BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<ToggleButton IsChecked="{Binding Path=IsExpanded}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5,3,5,3"
+										Cursor="{x:Static Cursors.Hand}" Background="#F5F5F7">
+								<ToggleButton.Style>
+									<Style TargetType="ToggleButton">
+										<Setter Property="BorderThickness" Value="0" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="{x:Type ToggleButton}">
+													<Border DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}"
+															BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+														<Grid>
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="Auto" />
+																<ColumnDefinition Width="*" />
+															</Grid.ColumnDefinitions>
+															<Border Grid.Column="0" Background="#15000000" Width="25">
+																<Image Source="{StaticResource GIco-Arrow-Right}" Height="15" Width="15">
+																	<Image.Style>
+																		<Style TargetType="{x:Type Image}">
+																			<Style.Triggers>
+																				<DataTrigger Binding="{Binding Path=IsChecked}" Value="True">
+																					<Setter Property="LayoutTransform">
+																						<Setter.Value>
+																							<RotateTransform Angle="90" CenterX="0.5" CenterY="0.5" />
+																						</Setter.Value>
+																					</Setter>
+																				</DataTrigger>
+																			</Style.Triggers>
+																		</Style>
+																	</Image.Style>
+																</Image>
+															</Border>
+															<ContentPresenter Grid.Column="1" Margin="{TemplateBinding Padding}" />
+
+														</Grid>
+													</Border>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+										<Style.Triggers>
+											<Trigger Property="IsChecked" Value="True">
+												<Setter Property="BorderThickness" Value="0,0,0,1" />
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</ToggleButton.Style>
+								<ContentPresenter Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" />
+							</ToggleButton>
+							<Border Grid.Row="1" Visibility="{TemplateBinding IsExpanded, Converter={StaticResource GConv-BoolVisibility}}"
+									Padding="{TemplateBinding Padding}">
+								<ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+							</Border>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
 	<Style TargetType="{x:Type local:BelegDataView}">
+		<Setter Property="Margin" Value="10" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:BelegDataView}">
-					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-						<Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-							</Grid.RowDefinitions>
-							<Border>
-								<Grid>
-									<Grid.Resources>
-										<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-											<Setter Property="Margin" Value="3,0,3,0"/>
-										</Style>
-									</Grid.Resources>
+					<Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}" DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Grid Grid.Row="0" Margin="0,0,0,10">
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
 									</Grid.ColumnDefinitions>
-									<TextBlock Grid.Column="0" Text="{Binding Path=Nummer}"/>
-									<TextBlock Grid.Column="1" Text="-"/>
-									<TextBlock Grid.Column="2" Text="{Binding Path=Datum}"/>
-								</Grid>
-							</Border>
-							<Border Grid.Row="1">
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
+									<Expander Grid.Column="0" Style="{StaticResource ExpanderStyle}" Header="Ausstellungs-Details" IsExpanded="True" Margin="0">
+										<Border>
+											<Grid>
+												<Grid.RowDefinitions>
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
+												</Grid.RowDefinitions>
+												<ParamView Grid.Row="0" Header="{StaticResource Bez-BelegData-Datum}" Value="{Binding Path=Datum}" />
+												<ParamView Grid.Row="1" Header="{StaticResource Bez-BelegData-Nummer}" Value="{Binding Path=Nummer}" />
+												<ParamView Grid.Row="2" Header="{StaticResource Bez-BelegData-Typ}"
+															Value="{Binding Path=Typ, Converter={StaticResource GConv-GetEnumName}}" />
+												<ParamView Grid.Row="3" Header="{StaticResource Bez-BelegData-KassenId}" Value="{Binding Path=KassenId}" />
+												<ParamView Grid.Row="4" Header="{StaticResource Bez-BelegData-KassenOperator}" Value="{Binding Path=KassenOperator}" />
+											</Grid>
+										</Border>
+									</Expander>
+									<Grid Grid.Column="1" Margin="10,0,0,0" >
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Expander Style="{StaticResource ExpanderStyle}" Header="Status" IsExpanded="True">
+											<Border>
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</Grid.RowDefinitions>
+													<ParamView Grid.Row="1" Header="{StaticResource Bez-BelegData-State}"
+																Value="{Binding Path=State, Converter={StaticResource GConv-GetEnumName}}" />
+													<ParamView Grid.Row="2" Header="{StaticResource Bez-BelegData-MailCount}" Value="{Binding Path=MailCount}" />
+													<ParamView Grid.Row="3" Header="{StaticResource Bez-BelegData-PrintCount}" Value="{Binding Path=PrintCount}" />
+												</Grid>
+											</Border>
+										</Expander>
+										<Expander Grid.Row="1" Style="{StaticResource ExpanderStyle}" Header="Empfänger" IsExpanded="True" Margin="0">
+											<Border>
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</Grid.RowDefinitions>
+													<ParamView Grid.Row="0" Header="{StaticResource Bez-BelegData-EmpfängerId}" Value="{Binding Path=EmpfängerId}" />
+													<ParamView Grid.Row="1" Header="{StaticResource Bez-BelegData-Empfänger}" Value="{Binding Path=Empfänger}" />
+												</Grid>
+											</Border>
+										</Expander>
 
-									<ParamView Grid.Row="0" Header="{StaticResource Bez-BelegData-Datum}" Value="{Binding Path=Datum}"/>
-									<ParamView Grid.Row="1" Header="{StaticResource Bez-BelegData-State}">
-										<ParamView.Value>
-											<MultiBinding Converter="{StaticResource GConv-MultiBindingStringFormat}" ConverterParameter="{}{0} - {1}">
-												<Binding Path="Typ" Converter="{StaticResource GConv-GetEnumName}"/>
-												<Binding Path="State" Converter="{StaticResource GConv-GetEnumName}"/>
-											</MultiBinding>
-										</ParamView.Value>
-									</ParamView>
-									<ParamView Grid.Row="2" Header="{StaticResource Bez-BelegData-State}">
-										<ParamView.Value>
-											<MultiBinding Converter="{StaticResource GConv-MultiBindingStringFormat}" ConverterParameter="{}{0} ({1})">
-												<Binding Path="KassenOperator"/>
-												<Binding Path="KassenId"/>
-											</MultiBinding>
-										</ParamView.Value>
-									</ParamView>
-									<ParamView Grid.Row="3" Header="{StaticResource Bez-BelegData-Empfänger}" Value="{Binding Path=Empfänger}"/>
-									<ParamView Grid.Row="4" Header="{StaticResource Bez-BelegData-EmpfängerId}" Value="{Binding Path=EmpfängerId}"/>
-									<ParamView Grid.Row="5" Header="{StaticResource Bez-BelegData-Comment}" Value="{Binding Path=Comment}"/>
+
+									</Grid>
 								</Grid>
-							</Border>
+								<Expander Grid.Row="1" Style="{StaticResource ExpanderStyle}" Header="Artikel" IsExpanded="True" Padding="0">
+									<ListView ItemsSource="{Binding Path=Postens}" Margin="0" Padding="0" Style="{StaticResource CondensedListViewStyle}">
+										<ListView.ItemContainerStyle>
+											<Style TargetType="ListViewItem" BasedOn="{StaticResource CondensedListViewItemStyle}">
+												<Setter Property="Focusable" Value="false" />
+											</Style>
+										</ListView.ItemContainerStyle>
+										<ListView.View>
+											<GridView>
+												<GridViewColumn Header="Name">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
+															<TextBlock>
+																<TextBlock.Text>
+																	<MultiBinding StringFormat="{}{0} ({1:0.00} €)">
+																		<Binding Path="Posten.Name" />
+																		<Binding Path="Posten.PreisBrutto" />
+																	</MultiBinding>
+																</TextBlock.Text>
+															</TextBlock>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Anzahl">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
+															<TextBlock TextAlignment="Right">
+																<TextBlock.Text>
+																	<MultiBinding StringFormat="{}{0} {1}">
+																		<Binding Path="Anzahl" />
+																		<Binding Path="Posten.Dimension" />
+																	</MultiBinding>
+																</TextBlock.Text>
+															</TextBlock>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Steuersatz">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
+															<TextBlock TextAlignment="Right">
+																<TextBlock.Text>
+																	<MultiBinding StringFormat="{}{0:0.00} % ({1})">
+																		<Binding Path="Steuersatz.Percent" />
+																		<Binding Path="Steuersatz.Kürzel" />
+																	</MultiBinding>
+																</TextBlock.Text>
+															</TextBlock>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Brutto">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
+															<TextBlock TextAlignment="Right" Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00} €}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Netto">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
+															<TextBlock TextAlignment="Right" Text="{Binding Path=BetragNetto, StringFormat={}{0:0.00} €}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+											</GridView>
+										</ListView.View>
+									</ListView>
+								</Expander>
+								<Expander Grid.Row="2" Style="{StaticResource ExpanderStyle}" Header="Mails" IsExpanded="False" Padding="0">
+									<ListView ItemsSource="{Binding Path=MailedBelege}" Margin="0" Padding="0"
+											Style="{StaticResource CondensedListViewStyle}">
+										<ListView.View>
+											<GridView>
+												<GridViewColumn Header="Status">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<Grid>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="Auto" />
+																	<ColumnDefinition Width="Auto" />
+																</Grid.ColumnDefinitions>
+																<Image DataContext="{Binding Path=ProcessingState}" Style="{StaticResource ProcessingStateIcon}" />
+																<TextBlock Grid.Column="1" Text="{Binding Path=ProcessingState, Converter={StaticResource GConv-GetEnumName}}" />
+															</Grid>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Datum">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<TextBlock Text="{Binding Path=ProcessingDate}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Format">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<TextBlock Text="{Binding Path=OutputFormat, Converter={StaticResource GConv-GetEnumName}}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Type">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<TextBlock Text="{Binding Path=MailTypeName}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="E-Mail Addresse">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<TextBlock Text="{Binding Path=TargetMailAddress}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Betreff">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<TextBlock Text="{Binding Path=Betreff}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Content">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+															<PopupButton>
+																<PopupButton.Content>
+																	<TextBlock Text="{Binding Path=Text}" TextTrimming="CharacterEllipsis" />
+																</PopupButton.Content>
+																<PopupButton.PopupContent>
+																	<TextBox IsReadOnly="True" Text="{Binding Path=Text}" />
+																</PopupButton.PopupContent>
+															</PopupButton>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+											</GridView>
+										</ListView.View>
+									</ListView>
+								</Expander>
+								<Expander Grid.Row="3" Style="{StaticResource ExpanderStyle}" Header="Ausdrücke" IsExpanded="False" Padding="0">
+									<ListView ItemsSource="{Binding Path=PrintedBelege}" Margin="0" Padding="0"
+											Style="{StaticResource CondensedListViewStyle}">
+										<ListView.View>
+											<GridView>
+												<GridViewColumn Header="Status">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:PrintedBeleg}">
+															<Grid>
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition Width="Auto" />
+																	<ColumnDefinition Width="Auto" />
+																</Grid.ColumnDefinitions>
+																<Image DataContext="{Binding Path=ProcessingState}" Style="{StaticResource ProcessingStateIcon}" />
+																<TextBlock Grid.Column="1" Text="{Binding Path=ProcessingState, Converter={StaticResource GConv-GetEnumName}}" />
+															</Grid>
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Datum">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:PrintedBeleg}">
+															<TextBlock Text="{Binding Path=ProcessingDate}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Format">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:PrintedBeleg}">
+															<TextBlock Text="{Binding Path=OutputFormat, Converter={StaticResource GConv-GetEnumName}}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+												<GridViewColumn Header="Device">
+													<GridViewColumn.CellTemplate>
+														<DataTemplate DataType="{x:Type billingDatabaseDb:PrintedBeleg}">
+															<TextBlock Text="{Binding Path=PrinterDevice}" />
+														</DataTemplate>
+													</GridViewColumn.CellTemplate>
+												</GridViewColumn>
+											</GridView>
+										</ListView.View>
+									</ListView>
+								</Expander>
+							</Grid>
+
+							<Grid Grid.Column="1" Margin="10,0,0,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<Expander Grid.Row="0" Style="{StaticResource ExpanderStyle}" Header="Rechnungs Ansicht" IsExpanded="True" Padding="0">
+									<bonVisuals:BonV1Visual Item="{Binding}" />
+								</Expander>
+								<UniformGrid Grid.Row="1">
+									<Button Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
+											Visibility="{Binding Path=CanBeStornod, Converter={StaticResource GConv-BoolVisibility}}" />
+									<Button Content="Erneut Senden" x:Name="PART_ErneutSendenButton" />
+									<Button Content="Erneut Drucken" x:Name="PART_ErneutDruckenButton" />
+								</UniformGrid>
+							</Grid>
 						</Grid>
 					</Border>
 				</ControlTemplate>

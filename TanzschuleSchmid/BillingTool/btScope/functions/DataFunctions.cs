@@ -52,6 +52,7 @@ namespace BillingTool.btScope.functions
 			return mail;
 		}
 
+
 		/// <summary>Appends a new <see cref="PrintedBeleg" /> to the <paramref name="data" />.</summary>
 		public PrintedBeleg CreateNewPrintBeleg(BelegData data)
 		{
@@ -61,7 +62,42 @@ namespace BillingTool.btScope.functions
 			return printedBeleg;
 		}
 
-		/// <summary>Opens a window for the user, using the <see cref="Bt.Config" />, to allow a creation of an new <see cref="BelegData" />.</summary>
+		/// <summary>Creates a new <see cref="BelegData" /> for storno the <paramref name="data" />.</summary>
+		public BelegData New_Storno_From_BelegData(BelegData data)
+		{
+			if (!data.CanBeStornod)
+				throw new InvalidOperationException($"The {data} cannot be stornod.");
+
+			var stornoBeleg = data.DataSet.BelegDaten.NewRow();
+
+			stornoBeleg.Typ = BelegDataTypes.Storno;
+			stornoBeleg.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
+			stornoBeleg.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
+			stornoBeleg.StornoBeleg = data;
+			stornoBeleg.UmsatzZähler = 0;
+
+			stornoBeleg.Table.Add(stornoBeleg);
+
+			foreach (var belegPosten in data.Postens)
+			{
+				var stornoPosten = belegPosten.Table.NewRow();
+
+				stornoPosten.SteuersatzId = belegPosten.SteuersatzId;
+				stornoPosten.Data = stornoBeleg;
+				stornoPosten.Anzahl = -belegPosten.Anzahl;
+				stornoPosten.Posten = belegPosten.Posten;
+
+				stornoPosten.Table.Add(stornoPosten);
+			}
+
+			stornoBeleg.Recalculate_BetragBrutto();
+			stornoBeleg.Recalculate_BetragNetto();
+
+			return stornoBeleg;
+		}
+		
+
+		/// <summary>Creates a new <see cref="BelegData"/>, using the <see cref="Bt.Config" />.</summary>
 		public BelegData New_BelegData_FromConfiguration()
 		{
 			Bt.EnsureInitialization();
@@ -113,12 +149,14 @@ namespace BillingTool.btScope.functions
 		}
 
 		/// <summary>Finalizes the <see cref="BelegData" /> and then saves it to the database.</summary>
-		public void Save_NewBelegData(BelegData item, bool approvedByUser = true)
+		public void Save_New_BelegData(BelegData item, bool approvedByUser = true)
 		{
 			if (item.State != BelegDataStates.Unknown)
 				throw new InvalidOperationException($"The {item} is already fixed it actual state {item.State} is.");
 			if (!item.IsValid)
 				throw new InvalidOperationException($"The {item} is invalid and can not be saved.");
+			if (item.Typ == BelegDataTypes.Storno && item.StornoBeleg.CanBeStornod)
+				throw new InvalidOperationException($"The {item.StornoBeleg} cannot be stornod.");
 
 
 			item.Recalculate_BetragBrutto();
@@ -127,6 +165,8 @@ namespace BillingTool.btScope.functions
 			foreach (var posten in item.Postens)
 			{
 				posten.Posten.AnzahlGekauft = posten.Posten.AnzahlGekauft + posten.Anzahl;
+				if (posten.Anzahl < 0)
+					posten.Posten.AnzahlStorniert = posten.Posten.AnzahlStorniert + -posten.Anzahl;
 
 				posten.Posten.LastUsedDate = DateTime.Now;
 				posten.Steuersatz.LastUsedDate = DateTime.Now;
@@ -136,10 +176,13 @@ namespace BillingTool.btScope.functions
 			item.UmsatzZähler = item.DataSet.Configurations.Umsatzzähler + item.BetragBrutto;
 			item.State = approvedByUser ? BelegDataStates.Approved_ByUser : BelegDataStates.Approved_ByApplication;
 
-
-
 			item.DataSet.Configurations.Umsatzzähler = item.UmsatzZähler;
 			item.DataSet.Configurations.LastBelegNummer = item.Nummer;
+
+			if (item.Typ == BelegDataTypes.Storno)
+			{
+				item.StornoBeleg.State = BelegDataStates.Storno;
+			}
 
 			item.DataSet.SaveAnabolic();
 			item.DataSet.AcceptChanges();
@@ -148,7 +191,7 @@ namespace BillingTool.btScope.functions
 		}
 
 		/// <summary>Cancels a new <see cref="BelegData" /> <paramref name="item" />.</summary>
-		public void Cancle_NewBelegData(BelegData item)
+		public void Cancle_New_BelegData(BelegData item)
 		{
 			var canceledItem = item.ToString();
 			item.DataSet.RejectChanges();

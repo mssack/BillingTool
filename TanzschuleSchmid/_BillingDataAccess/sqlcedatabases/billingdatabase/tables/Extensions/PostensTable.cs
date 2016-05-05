@@ -29,6 +29,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="to">The to date inclusive</param>
 		public ContractCollection<Posten> Get_Between(DateTime from, DateTime to)
 		{
+			from = from.Subtract(from.TimeOfDay);
+			to = to.Add(new TimeSpan(0, 23 - to.Hour, 59 - to.Minute, 59 - to.Second, 999 - to.Millisecond));
 			if (!HasBeenLoaded)
 			{
 				var timeBetweenSelector = CsDb.Statements.SqlCe.GetTimeBetweenSelector(LastUsedDateCol, from, to);

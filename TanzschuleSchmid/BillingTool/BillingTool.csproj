@@ -108,6 +108,7 @@
     <Compile Include="Themes\Controls\ParamBelegDataTyp.xaml.cs">
       <DependentUpon>ParamBelegDataTyp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
     <Compile Include="Windows\Window_BelegData_Approve.xaml.cs">
       <DependentUpon>Window_BelegData_Approve.xaml</DependentUpon>
     </Compile>
@@ -119,6 +120,9 @@
     </Compile>
     <Compile Include="Windows\Window_BelegData_Storno.xaml.cs">
       <DependentUpon>Window_BelegData_Storno.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Window_BelegData_Viewer.xaml.cs">
+      <DependentUpon>Window_BelegData_Viewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Window_KassenConfiguration.xaml.cs">
       <DependentUpon>Window_KassenConfiguration.xaml</DependentUpon>
@@ -194,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Window_BelegData_Storno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Window_BelegData_Viewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

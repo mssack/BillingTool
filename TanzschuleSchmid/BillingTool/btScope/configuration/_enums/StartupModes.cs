@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-05-05</date>
 
 using System;
 using System.ComponentModel;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Windows;
 
 
@@ -25,6 +26,11 @@ namespace BillingTool.btScope.configuration._enums
 		[Description("Development")] Developer,
 		/// <summary>The <see cref="Window_BelegData_Approve" /> will be opened.</summary>
 		[Description("Beleg Bestätigung")] ApproveBelegData,
+		/// <summary>
+		///     The <see cref="Window_BelegData_Viewer" /> will be opened. Can be used to reprint or remail <see cref="BelegData" /> or even to storno a
+		///     <see cref="BelegData" />.
+		/// </summary>
+		[Description("Belege View")] BelegDataViewer,
 		/// <summary>The <see cref="Window_BelegData_Storno" /> will be opened.</summary>
 		[Description("Beleg Storno")] StornoBelegData,
 		/// <summary>The <see cref="Window_KassenConfiguration" /> will be opened.</summary>

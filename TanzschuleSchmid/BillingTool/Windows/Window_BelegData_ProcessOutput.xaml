@@ -16,26 +16,6 @@
 							ScaleY="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" />
 		</Grid.LayoutTransform>
 		<Grid.Resources>
-			<Style x:Key="ProcessingStateIcon" TargetType="{x:Type Image}"
-					d:DataContext="{d:DesignInstance extensions:ProcessingStates}">
-				<Setter Property="Width" Value="14" />
-				<Setter Property="Height" Value="14" />
-				<Setter Property="Margin" Value="2" />
-				<Style.Triggers>
-					<DataTrigger Binding="{Binding}" Value="{x:Static extensions:ProcessingStates.NotProcessed}">
-						<Setter Property="Source" Value="{StaticResource GIco-State-NotStarted}" />
-					</DataTrigger>
-					<DataTrigger Binding="{Binding}" Value="{x:Static extensions:ProcessingStates.Processing}">
-						<Setter Property="Source" Value="{StaticResource GIco-State-Loading}" />
-					</DataTrigger>
-					<DataTrigger Binding="{Binding}" Value="{x:Static extensions:ProcessingStates.Processed}">
-						<Setter Property="Source" Value="{StaticResource GIco-State-Success}" />
-					</DataTrigger>
-					<DataTrigger Binding="{Binding}" Value="{x:Static extensions:ProcessingStates.Failed}">
-						<Setter Property="Source" Value="{StaticResource GIco-State-Faulted}" />
-					</DataTrigger>
-				</Style.Triggers>
-			</Style>
 			<Style x:Key="EntryStyle" TargetType="Border">
 				<Setter Property="Padding" Value="3" />
 				<Setter Property="BorderBrush" Value="DimGray" />

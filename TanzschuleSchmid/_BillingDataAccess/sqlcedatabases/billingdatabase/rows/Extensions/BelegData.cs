@@ -46,6 +46,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>Returns an identifier for the database row.</summary>
 		public override string ToString()
 		{
+			if (Typ == BelegDataTypes.Storno)
+			{
+				return $"[BelegData(STORNO), Nummer={Nummer}, Date={Datum}, Beleg={StornoBeleg?.Nummer}]";
+			}
+
 			return $"[BelegData, Nummer={Nummer}, Date={Datum}]";
 		}
 		#endregion
@@ -56,6 +61,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		[DependsOn(nameof(KassenOperator))]
 		[DependsOn(nameof(StornoBelegId))]
 		public bool IsValid => InvalidReason == BelegDataInvalidReasons.Valid;
+		/// <summary>returns true if all needed informations are present in this row.</summary>
+		[DependsOn(nameof(StateName))]
+		[DependsOn(nameof(TypName))]
+		public bool CanBeStornod => Typ != BelegDataTypes.Storno && State != BelegDataStates.Storno;
 
 
 		/// <summary>returns true if all needed informations are present in this row.</summary>

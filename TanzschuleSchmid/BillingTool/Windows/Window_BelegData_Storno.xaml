@@ -1,13 +1,13 @@
 ﻿<CsWindow x:Class="BillingTool.Windows.Window_BelegData_Storno"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+		
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals;assembly=BillingOutput"
-		mc:Ignorable="d" x:Name="Wc"
+		 x:Name="Wc"
 		Title="Window_BelegData_Storno" Height="300" Width="300">
 	<CsWindow.Resources>
 		<ResourceDictionary>
