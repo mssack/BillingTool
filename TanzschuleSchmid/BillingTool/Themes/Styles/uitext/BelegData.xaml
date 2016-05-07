@@ -8,6 +8,7 @@
 	<system:String x:Key="Bez-BelegData-KassenId">Kassen ID</system:String>
 	<system:String x:Key="Bez-BelegData-KassenOperator">Kassenoperator</system:String>
 	<system:String x:Key="Bez-BelegData-Nummer">Nummer</system:String>
+	<system:String x:Key="Bez-BelegData-StornoReason">Begründung</system:String>
 	<system:String x:Key="Bez-BelegData-UmsatzZähler">Umsatzzähler</system:String>
 	<system:String x:Key="Bez-BelegData-BetragBrutto">Betrag (Brutto)</system:String>
 	<system:String x:Key="Bez-BelegData-BetragNetto">Betrag (Netto)</system:String>

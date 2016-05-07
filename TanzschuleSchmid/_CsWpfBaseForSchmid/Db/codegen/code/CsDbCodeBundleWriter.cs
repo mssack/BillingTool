@@ -185,7 +185,7 @@ namespace CsWpfBase.Db.codegen.code
 			var newcontent = "//START csdb.dbserver3\r\n" + CodeBundle.Databases.Select(x =>
 			{
 				string prefix = $"{CodeBundle.Architecture.Name}.{x.DataSet.Name}";
-				string name = $"{x.DataSet.Name}Db";
+				string name = $"{x.DataSet.Name.ToLowerName()}Db";
 
 				string[] namespaces = {x.DataSetNameSpace, x.TablesNameSpace, x.RowsNameSpace, x.ViewsNameSpace, x.RowInterfacesNameSpace};
 

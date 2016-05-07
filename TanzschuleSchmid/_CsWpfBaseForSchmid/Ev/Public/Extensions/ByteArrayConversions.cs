@@ -22,18 +22,24 @@ namespace CsWpfBase.Ev.Public.Extensions
 		/// <summary>Converts an byte[] to an Base64 string</summary>
 		public static string ConvertTo_Base64(this byte[] input, Base64FormattingOptions options = Base64FormattingOptions.InsertLineBreaks)
 		{
+			if (input == null)
+				return null;
 			return Convert.ToBase64String(input, options);
 		}
 
 		/// <summary>Converts an byte[] to an hex string. For each byte there will be two characters in hex.</summary>
 		public static string ConvertTo_Hex(this byte[] input, string delimiter = "")
 		{
+			if (input == null)
+				return null;
 			return BitConverter.ToString(input).Replace("-", delimiter);
 		}
 
 		/// <summary>Converts an Base64 string to an byte[].</summary>
 		public static byte[] ConvertTo_Bytes(this string input)
 		{
+			if (input == null)
+				return null;
 			return Convert.FromBase64String(input);
 		}
 

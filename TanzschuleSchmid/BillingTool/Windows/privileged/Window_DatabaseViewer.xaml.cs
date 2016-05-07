@@ -21,7 +21,7 @@ using CsWpfBase.Themes.Controls.Containers;
 
 
 
-namespace BillingTool.Windows
+namespace BillingTool.Windows.privileged
 {
 	/// <summary>Interaction logic for Window_DatabaseViewer.xaml</summary>
 	// ReSharper disable once InconsistentNaming

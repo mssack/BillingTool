@@ -30,6 +30,7 @@ namespace BillingTool.Windows
 		/// <summary>ctor</summary>
 		public Window_BelegData_Viewer()
 		{
+			Bt.EnsureInitialization();
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Viewer");
 			Loaded += WindowLoaded;
@@ -52,8 +53,8 @@ namespace BillingTool.Windows
 
 		private void WindowLoaded(object sender, RoutedEventArgs e)
 		{
-			Bt.Db.EnsureConnectivity();
-			FromToSelector.From = Bt.Db.Billing.BelegDaten.Get_Latest(10).Min(x => x.Datum);
+			var latestTen = Bt.Db.Billing.BelegDaten.Get_Latest(10);
+			FromToSelector.From = latestTen.Any()?latestTen.Min(x => x.Datum):DateTime.Now;
 			FromToSelector.To = DateTime.Now;
 			Refilter();
 			FromToSelector.SelectionChanged += FromToSelector_SelectionChanged;
@@ -68,14 +69,14 @@ namespace BillingTool.Windows
 		{
 			if (FilteredItems != null && Equals(FilteredItems.Tag, $"{FromToSelector.From.Date}{FromToSelector.To.Date}"))
 				return;
-			Bt.Db.EnsureConnectivity();
+			Bt.EnsureInitialization();
 			var collection = Bt.Db.Billing.BelegDaten.Get_Between(FromToSelector.From, FromToSelector.To);
 			collection.Tag = $"{FromToSelector.From.Date}{FromToSelector.To.Date}";
 			collection.SortDesc(x => x.Nummer);
 			FilteredItems = collection;
 
 			if (Item == null)
-				Item = FilteredItems?[0];
+				Item = FilteredItems.Count == 0?null: FilteredItems[0];
 		}
 
 

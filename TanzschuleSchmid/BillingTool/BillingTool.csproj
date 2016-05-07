@@ -56,6 +56,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,7 +80,6 @@
     <Compile Include="btScope\configuration\commandLine\CommandLine_GeneralSetting.cs" />
     <Compile Include="btScope\configuration\commandLine\CommandLine_NewBelegData.cs" />
     <Compile Include="btScope\configuration\commandLine\_CommandLines.cs" />
-    <Compile Include="btScope\configuration\configFiles\ConfigFile_BonLayout.cs" />
     <Compile Include="btScope\configuration\configFiles\ConfigFile_KassenEinstellung.cs" />
     <Compile Include="btScope\configuration\configFiles\_ConfigFiles.cs" />
     <Compile Include="btScope\configuration\Configuration.cs" />
@@ -96,17 +96,38 @@
     <Compile Include="Themes\Controls\BelegDataView.xaml.cs">
       <DependentUpon>BelegDataView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\BonPreviewControl.xaml.cs">
+      <DependentUpon>BonPreviewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\configurationControls\DefaultLayoutConfigurationControl.xaml.cs">
+      <DependentUpon>DefaultLayoutConfigurationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\configurationControls\DeviceConfigurationControl.xaml.cs">
+      <DependentUpon>DeviceConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\FromToSelectorControl.xaml.cs">
       <DependentUpon>FromToSelectorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\configurationControls\ApperanceConfigurationControl.xaml.cs">
+      <DependentUpon>ApperanceConfigurationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\configurationControls\OutputFormatConfigurationControl.xaml.cs">
+      <DependentUpon>OutputFormatConfigurationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\configurationControls\MailConfigurationControl.xaml.cs">
+      <DependentUpon>MailConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\ParamBelegDataInvalidReason.xaml.cs">
       <DependentUpon>ParamBelegDataInvalidReason.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\ParamBelegDataTyp.xaml.cs">
       <DependentUpon>ParamBelegDataTyp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\storno\StornoApproval.xaml.cs">
+      <DependentUpon>StornoApproval.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
     <Compile Include="Windows\Window_BelegData_Approve.xaml.cs">
@@ -118,30 +139,42 @@
     <Compile Include="Windows\CheckTrustAbilityWindow.xaml.cs">
       <DependentUpon>CheckTrustAbilityWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Window_BelegData_Storno.xaml.cs">
-      <DependentUpon>Window_BelegData_Storno.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\Window_BelegData_Viewer.xaml.cs">
       <DependentUpon>Window_BelegData_Viewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Window_KassenConfiguration.xaml.cs">
+    <Compile Include="Windows\privileged\Window_KassenConfiguration.xaml.cs">
       <DependentUpon>Window_KassenConfiguration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Window_DatabaseViewer.xaml.cs">
+    <Compile Include="Windows\privileged\Window_DatabaseViewer.xaml.cs">
       <DependentUpon>Window_DatabaseViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="btScope\db\Db.cs" />
     <Compile Include="btScope\logging\Logging.cs" />
     <Compile Include="CompilerServices.cs" />
     <Compile Include="btScope\configuration\_enums\StartupModes.cs" />
-    <Compile Include="Windows\DeveloperWindow.xaml.cs">
+    <Compile Include="Windows\privileged\DeveloperWindow.xaml.cs">
       <DependentUpon>DeveloperWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Windows\Window_Options.xaml.cs">
+      <DependentUpon>Window_Options.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\Controls\BelegDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\BonPreviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\configurationControls\DefaultLayoutConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\configurationControls\DeviceConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -153,6 +186,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\configurationControls\ApperanceConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\configurationControls\OutputFormatConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\configurationControls\MailConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\ParamBelegDataInvalidReason.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,6 +205,10 @@
     <Page Include="Themes\Controls\ParamBelegDataTyp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\storno\StornoApproval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\GenerelStyles.xaml">
       <SubType>Designer</SubType>
@@ -169,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Styles\DataStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Styles\uitext\BelegData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,6 +229,18 @@
     <Page Include="Themes\Styles\uitext\Configuration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles\uitext\PrintedBeleg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles\uitext\MailedBeleg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\uitext\OutputFormat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Styles\uitext\Posten.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -197,27 +262,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Window_BelegData_Storno.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\Window_BelegData_Viewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Window_KassenConfiguration.xaml">
+    <Page Include="Windows\privileged\Window_KassenConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\DeveloperWindow.xaml">
+    <Page Include="Windows\privileged\DeveloperWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Window_DatabaseViewer.xaml">
+    <Page Include="Windows\privileged\Window_DatabaseViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Styles\BelegDataEditorStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Window_Options.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

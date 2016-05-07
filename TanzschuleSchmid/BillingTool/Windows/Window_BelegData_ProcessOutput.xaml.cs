@@ -38,7 +38,7 @@ namespace BillingTool.Windows
 			Item = item;
 			ProcessItems = new ObservableCollection<DataRow>(Item.MailedBelege.Where(x=>x.ProcessingState == ProcessingStates.NotProcessed).OfType<DataRow>().Union(Item.PrintedBelege.Where(x=>x.ProcessingState == ProcessingStates.NotProcessed)));
 
-			BtOutput.Process(Item, Bt.Config.File.KassenEinstellung, Bt.Config.File.KassenEinstellung).ContinueWith(TaskCompleted, TaskScheduler.FromCurrentSynchronizationContext());
+			BtOutput.Process(Item, Bt.Config.File.KassenEinstellung).ContinueWith(TaskCompleted, TaskScheduler.FromCurrentSynchronizationContext());
 		}
 
 		/// <summary>The item</summary>

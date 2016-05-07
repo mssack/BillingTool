@@ -145,8 +145,8 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>    
-  	<ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll">
+  <ItemGroup>
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll">
       <TargetPath>sqlceca35.dll</TargetPath>
       <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -222,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\Steuersätze.txt">
       <Link>DatabaseCreation\SqlCeScripts\Tables\Steuersätze.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\OutputFormats.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\OutputFormats.txt</Link>
     </EmbeddedResource>
     <Content Include="BillingDatabase.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -157,7 +157,6 @@ namespace CsWpfBase.Global.computer.parts
 			FullDuplex = mo.TryGet<bool>("FullDuplex");
 			OperationalStatus = (OperationalStates) mo.TryGet<uint>("InterfaceOperationalStatus");
 			WdmInterface = mo.TryGet<bool>("WdmInterface");
-
 		}
 
 

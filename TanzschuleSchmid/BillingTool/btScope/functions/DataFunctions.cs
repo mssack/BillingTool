@@ -42,63 +42,21 @@ namespace BillingTool.btScope.functions
 		{
 		}
 
-		/// <summary>Appends a new <see cref="MailedBeleg" /> to the <paramref name="data" />.</summary>
-		public MailedBeleg CreateNewMailBeleg(BelegData data, string targetMailAddress)
+
+		/// <summary>Creates a new <see cref="OutputFormat"/>.</summary>
+		public OutputFormat New_OutputFormat()
 		{
-			var mail = data.DataSet.MailedBelege.NewRow();
-			mail.BelegData = data;
-			mail.TargetMailAddress = targetMailAddress;
-			data.DataSet.MailedBelege.Add(mail);
-			return mail;
+			var row = Bt.Db.Billing.OutputFormats.NewRow();
+			row.Id = Guid.NewGuid();
+			row.CreationDate = DateTime.Now;
+			row.BonLayout = BonLayouts.V1MailBon;
+			row.Name = "Neues Layout";
+			row.Table.Add(row);
+			return row;
 		}
-
-
-		/// <summary>Appends a new <see cref="PrintedBeleg" /> to the <paramref name="data" />.</summary>
-		public PrintedBeleg CreateNewPrintBeleg(BelegData data)
-		{
-			var printedBeleg = data.DataSet.PrintedBelege.NewRow();
-			printedBeleg.BelegData = data;
-			data.DataSet.PrintedBelege.Add(printedBeleg);
-			return printedBeleg;
-		}
-
-		/// <summary>Creates a new <see cref="BelegData" /> for storno the <paramref name="data" />.</summary>
-		public BelegData New_Storno_From_BelegData(BelegData data)
-		{
-			if (!data.CanBeStornod)
-				throw new InvalidOperationException($"The {data} cannot be stornod.");
-
-			var stornoBeleg = data.DataSet.BelegDaten.NewRow();
-
-			stornoBeleg.Typ = BelegDataTypes.Storno;
-			stornoBeleg.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
-			stornoBeleg.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
-			stornoBeleg.StornoBeleg = data;
-			stornoBeleg.UmsatzZähler = 0;
-
-			stornoBeleg.Table.Add(stornoBeleg);
-
-			foreach (var belegPosten in data.Postens)
-			{
-				var stornoPosten = belegPosten.Table.NewRow();
-
-				stornoPosten.SteuersatzId = belegPosten.SteuersatzId;
-				stornoPosten.Data = stornoBeleg;
-				stornoPosten.Anzahl = -belegPosten.Anzahl;
-				stornoPosten.Posten = belegPosten.Posten;
-
-				stornoPosten.Table.Add(stornoPosten);
-			}
-
-			stornoBeleg.Recalculate_BetragBrutto();
-			stornoBeleg.Recalculate_BetragNetto();
-
-			return stornoBeleg;
-		}
-		
 
 		/// <summary>Creates a new <see cref="BelegData"/>, using the <see cref="Bt.Config" />.</summary>
-		public BelegData New_BelegData_FromConfiguration()
+		public BelegData New_BelegData_From_Configuration()
 		{
 			Bt.EnsureInitialization();
 			var db = Bt.Db.Billing;
@@ -141,11 +99,45 @@ namespace BillingTool.btScope.functions
 
 
 			if (Bt.Config.Merged.NewBelegData.PrintBeleg)
-				CreateNewPrintBeleg(belegData);
+				New_PrintBeleg_For_BelegData(belegData);
 			if (Bt.Config.Merged.NewBelegData.SendBeleg)
-				CreateNewMailBeleg(belegData, Bt.Config.CommandLine.NewBelegData.SendBelegTarget);
+				New_MailedBeleg_For_BelegData(belegData, Bt.Config.CommandLine.NewBelegData.SendBelegTarget);
 
 			return belegData;
+		}
+
+		/// <summary>Creates a new <see cref="BelegData" /> for storno the <paramref name="data" />.</summary>
+		public BelegData New_StornoBelegData_From_BelegData(BelegData data)
+		{
+			if (!data.CanBeStorniert)
+				throw new InvalidOperationException($"The {data} cannot be stornod.");
+
+			var stornoBeleg = data.DataSet.BelegDaten.NewRow();
+
+			stornoBeleg.Typ = BelegDataTypes.Storno;
+			stornoBeleg.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
+			stornoBeleg.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
+			stornoBeleg.StornoBeleg = data;
+			stornoBeleg.UmsatzZähler = 0;
+
+			stornoBeleg.Table.Add(stornoBeleg);
+
+			foreach (var belegPosten in data.Postens)
+			{
+				var stornoPosten = belegPosten.Table.NewRow();
+
+				stornoPosten.SteuersatzId = belegPosten.SteuersatzId;
+				stornoPosten.Data = stornoBeleg;
+				stornoPosten.Anzahl = -belegPosten.Anzahl;
+				stornoPosten.Posten = belegPosten.Posten;
+
+				stornoPosten.Table.Add(stornoPosten);
+			}
+
+			stornoBeleg.Recalculate_BetragBrutto();
+			stornoBeleg.Recalculate_BetragNetto();
+
+			return stornoBeleg;
 		}
 
 		/// <summary>Finalizes the <see cref="BelegData" /> and then saves it to the database.</summary>
@@ -155,7 +147,7 @@ namespace BillingTool.btScope.functions
 				throw new InvalidOperationException($"The {item} is already fixed it actual state {item.State} is.");
 			if (!item.IsValid)
 				throw new InvalidOperationException($"The {item} is invalid and can not be saved.");
-			if (item.Typ == BelegDataTypes.Storno && item.StornoBeleg.CanBeStornod)
+			if (item.Typ == BelegDataTypes.Storno && !item.StornoBeleg.CanBeStorniert)
 				throw new InvalidOperationException($"The {item.StornoBeleg} cannot be stornod.");
 
 
@@ -197,6 +189,34 @@ namespace BillingTool.btScope.functions
 			item.DataSet.RejectChanges();
 			Bt.Logging.New(LogTitels.NewBelegData_Canceled, $"The {canceledItem} is canceled and is not created.");
 		}
+
+
+
+
+		/// <summary>Appends a new <see cref="MailedBeleg" /> to the <paramref name="data" />.</summary>
+		public MailedBeleg New_MailedBeleg_For_BelegData(BelegData data, string targetMailAddress)
+		{
+			var mail = data.DataSet.MailedBelege.NewRow();
+			mail.BelegData = data;
+			mail.TargetMailAddress = targetMailAddress;
+			mail.OutputFormat = mail.DataSet.OutputFormats.DefaultMailFormat;
+			data.DataSet.MailedBelege.Add(mail);
+			return mail;
+		}
+
+
+		/// <summary>Appends a new <see cref="PrintedBeleg" /> to the <paramref name="data" />.</summary>
+		public PrintedBeleg New_PrintBeleg_For_BelegData(BelegData data)
+		{
+			var printedBeleg = data.DataSet.PrintedBelege.NewRow();
+			printedBeleg.BelegData = data;
+			printedBeleg.PrinterDevice = Bt.Config.File.KassenEinstellung.PrinterName;
+			printedBeleg.OutputFormat = printedBeleg.DataSet.OutputFormats.DefaultPrintFormat;
+			data.DataSet.PrintedBelege.Add(printedBeleg);
+			return printedBeleg;
+		}
+
+
 
 		private Posten GetPostenFromTemplate(BillingDatabase db, CommandLine_BelegPostenTemplate template)
 		{

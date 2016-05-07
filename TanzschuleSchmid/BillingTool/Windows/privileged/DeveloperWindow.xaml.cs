@@ -17,7 +17,7 @@ using CsWpfBase.Global.message;
 
 
 
-namespace BillingTool.Windows
+namespace BillingTool.Windows.privileged
 {
 	/// <summary>
 	///     The Developer window provides administrative functionality. TAKE CARE whenever it will be used. This window should be opened in

@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-07-24</date>
+// <date>2016-05-06</date>
 
 using System;
 using System.Management;
@@ -50,50 +50,25 @@ namespace CsWpfBase.Global.computer
 			private set { SetProperty(ref _id, value); }
 		}
 		/// <summary>Get computer system informations</summary>
-		public CsgComputerSystem System
-		{
-			get { return CsgComputerSystem.I; }
-		}
+		public CsgComputerSystem System => CsgComputerSystem.I;
 		/// <summary>Get processor informations</summary>
-		public CsgComputerProcessor Processor
-		{
-			get { return CsgComputerProcessor.I; }
-		}
+		public CsgComputerProcessor Processor => CsgComputerProcessor.I;
 		/// <summary>Get memory informations</summary>
-		public CsgComputerMemory Memory
-		{
-			get { return CsgComputerMemory.I; }
-		}
+		public CsgComputerMemory Memory => CsgComputerMemory.I;
 		/// <summary>Get screen informations</summary>
-		public CsgComputerScreen Screen
-		{
-			get { return CsgComputerScreen.I; }
-		}
+		public CsgComputerScreen Screen => CsgComputerScreen.I;
 		/// <summary>Get main board informations</summary>
-		public CsgComputerMainBoard Mainboard
-		{
-			get { return CsgComputerMainBoard.I; }
-		}
+		public CsgComputerMainBoard Mainboard => CsgComputerMainBoard.I;
 		/// <summary>Get graphic informations</summary>
-		public CsgComputerGraphic Graphic
-		{
-			get { return CsgComputerGraphic.I; }
-		}
+		public CsgComputerGraphic Graphic => CsgComputerGraphic.I;
 		/// <summary>Get drives informations</summary>
-		public CsgComputerDiskDrive DiskDrive
-		{
-			get { return CsgComputerDiskDrive.I; }
-		}
+		public CsgComputerDiskDrive DiskDrive => CsgComputerDiskDrive.I;
 		/// <summary>Get bios informations</summary>
-		public CsgComputerBios Bios
-		{
-			get { return CsgComputerBios.I; }
-		}
+		public CsgComputerBios Bios => CsgComputerBios.I;
 		/// <summary>Get network informations</summary>
-		public CsgComputerNetwork Network
-		{
-			get { return CsgComputerNetwork.I; }
-		}
+		public CsgComputerNetwork Network => CsgComputerNetwork.I;
+		/// <summary>Get device informations</summary>
+		public CsgComputerDevices Devices => CsgComputerDevices.I;
 
 
 
@@ -136,7 +111,7 @@ namespace CsWpfBase.Global.computer
 						s += ((char) (n1 - 10 + 'A')).ToString();
 					else
 						s += n1.ToString();
-					if ((i + 1) != bt.Length && (i + 1)%2 == 0)
+					if (i + 1 != bt.Length && (i + 1)%2 == 0)
 						s += "-";
 				}
 				return s;

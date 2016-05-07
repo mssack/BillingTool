@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="BillingTool.Themes.Controls.configurationControls.OutputFormatConfigurationControl"
+			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			xmlns:btScope="clr-namespace:BillingTool.btScope"
+			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
+			xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+			xmlns:system="clr-namespace:System;assembly=mscorlib"
+			mc:Ignorable="d"
+			d:DesignHeight="300" d:DesignWidth="300" x:Name="Control">
+	<Grid DataContext="{Binding ElementName=Control}" >
+		<Grid.Resources>
+			<DataTemplate DataType="{x:Type billingDatabaseDb:OutputFormat}">
+				<TextBlock Text="{Binding Path=Name}" />
+			</DataTemplate>
+		</Grid.Resources>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<ListView ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Collection}"
+					SelectedItem="{Binding Path=SelectedItem}" />
+			<Border Grid.Row="1">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Button Grid.Column="1" Style="{StaticResource CancleButton}" Click="LöschenClicked" Content="Löschen" IsEnabled="{Binding Path=SelectedItem.HasBeenUsed, Converter={StaticResource GConv-BoolInverter}}" />
+					<Button Grid.Column="2" Style="{StaticResource AcceptButton}" Click="HinzufügenClicked" Content="Neues Layout" />
+				</Grid>
+			</Border>
+		</Grid>
+
+		<Border Grid.Column="1" Margin="10,0,0,0" DataContext="{Binding Path=SelectedItem}"
+				Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}">
+			<Grid IsEnabled="{Binding Path=HasBeenUsed, Converter={StaticResource GConv-BoolInverter}}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+
+				<Border Style="{StaticResource RedBorder}" Visibility="{Binding Path=HasBeenUsed, Converter={StaticResource GConv-BoolVisibility}}">
+					<TextBlock Foreground="White" Margin="6,3,6,3" Text="Sie können dieses Layout nicht editieren, da es bereits verwendet wird."/>
+				</Border>
+				
+				
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Details">
+					<Grid IsSharedSizeScope="True">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<ParamView Grid.Row="0" Header="Erstelldatum" Value="{Binding Path=CreationDate}" />
+						<StringParam Grid.Row="1" Header="Name" Value="{Binding Path=Name}" />
+						<Param Grid.Row="2" Header="Layout" IsReadOnly="{Binding Path=HasBeenUsed}">
+							<Param.Resources>
+								<x:Array x:Key="IgnoredEnums" Type="system:Enum">
+									<x:Static MemberType="extensions:BonLayouts" Member="Unknown" />
+									<x:Static MemberType="extensions:BonLayouts" Member="V1StornoBon" />
+								</x:Array>
+							</Param.Resources>
+							<Param.Content>
+								<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
+										ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}" />
+							</Param.Content>
+						</Param>
+						<StringParam Grid.Row="3" Header="Comment" Value="{Binding Path=Comment}" AcceptsReturn="True" />
+					</Grid>
+				</GroupBox>
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Texte">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<StringParam Grid.Row="0" Header="Text 1" Value="{Binding Path=FirstText}" AcceptsReturn="True"/>
+						<StringParam Grid.Row="1" Header="Text 2" Value="{Binding Path=SecondText}" AcceptsReturn="True"/>
+						<StringParam Grid.Row="2" Header="Text 3" Value="{Binding Path=ThirdText}" AcceptsReturn="True"/>
+					</Grid>
+				</GroupBox>
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Bilder">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<ImageParam Grid.Row="0" Header="Bild 1" Value="{Binding Path=FirstImage}" />
+						<ImageParam Grid.Row="1" Header="Bild 2" Value="{Binding Path=SecondImage}" />
+						<ImageParam Grid.Row="2" Header="Bild 3" Value="{Binding Path=ThirdImage}" />
+					</Grid>
+				</GroupBox>
+
+
+
+			</Grid>
+		</Border>
+
+	</Grid>
+</UserControl>

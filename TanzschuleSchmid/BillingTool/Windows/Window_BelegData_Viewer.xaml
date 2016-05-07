@@ -5,12 +5,9 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-		xmlns:btScope="clr-namespace:BillingTool.btScope"
-		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Padding="10">
+		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Padding="10" Style="{StaticResource {x:Type CsWindow}}" >
 	<Grid DataContext="{Binding ElementName=Wc}">
-		<Grid.LayoutTransform>
-			<ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" ScaleY="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"/>
-		</Grid.LayoutTransform>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
@@ -19,7 +16,7 @@
 		<Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="0,0,0,10" Margin="0,0,0,10">
 			<controls:FromToSelectorControl x:Name="FromToSelector" HorizontalAlignment="Center" />
 		</Border>
-		<Grid Grid.Row="1">
+		<Grid Grid.Row="1" >
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
@@ -28,15 +25,54 @@
 				<ListView.ItemTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
 						<Grid>
-							<Border>
-								<TextBlock Text="{Binding Path=Datum}"/>
-							</Border>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<TextBlock Text="{Binding Path=Datum}" FontWeight="Bold"/>
+							<Grid Grid.Row="1" Margin="8,0,0,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock>
+									<TextBlock.Text>
+										<MultiBinding StringFormat="{}{0} ({1})">
+											<Binding Path="Nummer"/>
+											<Binding Path="KassenOperator"/>
+										</MultiBinding>
+									</TextBlock.Text>
+								</TextBlock>
+								<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Path=Typ, Converter={StaticResource GConv-GetEnumName}}" >
+									<TextBlock.Style>
+										<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Storno}">
+													<Setter Property="Foreground" Value="Red"/>
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</TextBlock.Style>
+								</TextBlock>
+								
+								<Border Grid.Row="0" Grid.Column="1" Style="{StaticResource RedBorder}" Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="1,0,1,1">
+									<TextBlock Text="{Binding Path=StornierenderBeleg.Nummer, StringFormat={}ST({0})}" Foreground="White" Padding="0" Margin="0" FontSize="10"/>
+								</Border>
+							</Grid>
 						</Grid>
 					</DataTemplate>
 				</ListView.ItemTemplate>
 			</ListView>
-			
-			<controls:BelegDataView Grid.Column="1" Item="{Binding Path=Item}"/>
+
+			<controls:BelegDataView Grid.Column="1" Item="{Binding Path=Item}" Visibility="{Binding Item, Converter={StaticResource GConv-NullToVisibility}}"/>
+			<Border Grid.Column="1" Visibility="{Binding Item, Converter={StaticResource GConv-InvNullToVisibility}}">
+				<TextBlock Text="kein Beleg ausgewählt" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+			</Border>
 		</Grid>
 
 	</Grid>

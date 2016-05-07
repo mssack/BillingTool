@@ -29,7 +29,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInter
 		/// <summary>Gets the exception of the process if ProcessingState is <see cref="ProcessingStates.Failed" />.</summary>
 		string ProcessingException { get; }
 		/// <summary>Gets the output format type for the output.</summary>
-		OutputFormats OutputFormat { get; }
+		OutputFormat OutputFormat { get; }
 		#endregion
 	}
 

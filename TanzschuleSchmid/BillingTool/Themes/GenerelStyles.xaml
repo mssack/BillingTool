@@ -3,13 +3,143 @@
 					xmlns:converters="clr-namespace:BillingTool.Themes.Converters" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+					xmlns:btScope="clr-namespace:BillingTool.btScope"
 					mc:Ignorable="d">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/DataStyles.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
 	<converters:BtConv_ProcessingStateToImage x:Key="BtConv-ProcessingStateToImage" />
 
+
+	<Style TargetType="{x:Type CsWindow}" x:Key="{x:Type CsWindow}">
+		<Setter Property="Padding" Value="10" />
+		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Mode=OneTime}" />
+		<Setter Property="Scale" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"/>
+		<Setter Property="HeaderTemplate">
+			<Setter.Value>
+				<DataTemplate DataType="{x:Type CsWindow}">
+					<Border Padding="3" AWindowDragMove.IsActive="True" Background="#10000000"
+							DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type CsWindow}}}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+							<Image Source="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo}" Margin="5,0,0,0"
+									Width="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize}"
+									Height="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize}" />
+							<Viewbox Grid.Column="1" Margin="10,0,0,0" HorizontalAlignment="Left"
+									Height="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize, Converter={StaticResource GConv-PercentOf}, ConverterParameter=0.9}">
+								<TextBlock FontFamily="Segoe UI Light" Foreground="DimGray" Text="{Binding Path=Title}" />
+
+							</Viewbox>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="FooterTemplate">
+			<Setter.Value>
+				<DataTemplate DataType="{x:Type CsWindow}">
+					<Grid Margin="3">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Text="{Binding Source={x:Static btScope:Bt.Config}, Path=CommandLine.NewBelegData.KassenOperator, StringFormat={}Operator: {0}}" Foreground="DarkGray" />
+						<TextBlock Grid.Column="2" Text="powered by Christian Sack" Foreground="DarkGray" />
+					</Grid>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style TargetType="{x:Type Expander}">
+		<Setter Property="BorderBrush" Value="#20000000" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Margin" Value="0,0,10,10" />
+		<Setter Property="Padding" Value="10,5,5,5" />
+		<Setter Property="VerticalAlignment" Value="Top" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Expander}">
+					<Border DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}"
+							BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<ToggleButton IsChecked="{Binding Path=IsExpanded}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5,3,5,3"
+										Cursor="{x:Static Cursors.Hand}" Background="#F5F5F7">
+								<ToggleButton.Style>
+									<Style TargetType="ToggleButton">
+										<Setter Property="BorderThickness" Value="0" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="{x:Type ToggleButton}">
+													<Border DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}" Background="{TemplateBinding Background}"
+															BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+														<Grid>
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="Auto" />
+																<ColumnDefinition Width="*" />
+															</Grid.ColumnDefinitions>
+															<Border Grid.Column="0" Background="#15000000" Width="25">
+																<Image Source="{StaticResource GIco-Arrow-Right}" Height="15" Width="15">
+																	<Image.Style>
+																		<Style TargetType="{x:Type Image}">
+																			<Style.Triggers>
+																				<DataTrigger Binding="{Binding Path=IsChecked}" Value="True">
+																					<Setter Property="LayoutTransform">
+																						<Setter.Value>
+																							<RotateTransform Angle="90" CenterX="0.5" CenterY="0.5" />
+																						</Setter.Value>
+																					</Setter>
+																				</DataTrigger>
+																			</Style.Triggers>
+																		</Style>
+																	</Image.Style>
+																</Image>
+															</Border>
+															<ContentPresenter Grid.Column="1" Margin="{TemplateBinding Padding}" />
+
+														</Grid>
+													</Border>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+										<Style.Triggers>
+											<Trigger Property="IsChecked" Value="True">
+												<Setter Property="BorderThickness" Value="0,0,0,1" />
+											</Trigger>
+										</Style.Triggers>
+									</Style>
+								</ToggleButton.Style>
+								<ContentPresenter Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" />
+							</ToggleButton>
+							<Border Grid.Row="1" Visibility="{Binding Path=IsExpanded, Converter={StaticResource GConv-BoolVisibility}}"
+									Padding="{TemplateBinding Padding}">
+								<ContentPresenter Content="{TemplateBinding Content}"
+												ContentTemplate="{TemplateBinding ContentTemplate}" />
+							</Border>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style x:Key="RedBorder" TargetType="{x:Type Border}">
+		<Setter Property="Background" Value="#DF3E3E" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="#AA0000" />
+	</Style>
 
 	<Style x:Key="ProcessingStateIcon" TargetType="{x:Type Image}" d:DataContext="{d:DesignInstance extensions:ProcessingStates}">
 		<Setter Property="Width" Value="14" />
@@ -23,36 +153,28 @@
 	</Style>
 
 	<Style x:Key="CancleButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+		<Setter Property="Padding" Value="6,1,6,1" />
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="Foreground" Value="White" />
+				<Setter Property="BorderBrush" Value="#CD504A" />
 				<Setter Property="Background">
 					<Setter.Value>
 						<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-							<GradientStop Color="#DC5F59" Offset="0"/>
-							<GradientStop Color="#B33630" Offset="1"/>
+							<GradientStop Color="#DC5F59" Offset="0" />
+							<GradientStop Color="#B33630" Offset="1" />
 						</LinearGradientBrush>
 					</Setter.Value>
 				</Setter>
-				<Setter Property="BorderBrush" Value="#CD504A"/>
 			</Trigger>
 		</Style.Triggers>
 	</Style>
+
 	<Style x:Key="AcceptButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-		<Setter Property="FontSize" Value="14" />
-		<Setter Property="Foreground" Value="White" />
-		<Setter Property="BorderBrush" Value="#5CA941" />
-		<Setter Property="Padding" Value="10,4,10,4" />
-		<Setter Property="Background">
-			<Setter.Value>
-				<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-					<GradientStop Color="#8ADD6D" Offset="0" />
-					<GradientStop Color="#60B044" Offset="1" />
-				</LinearGradientBrush>
-			</Setter.Value>
-		</Setter>
+		<Setter Property="Padding" Value="6,1,6,1" />
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="White" />
 				<Setter Property="BorderBrush" Value="#4A993E" />
 				<Setter Property="Background">
 					<Setter.Value>

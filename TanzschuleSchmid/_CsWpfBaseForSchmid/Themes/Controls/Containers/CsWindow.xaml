@@ -333,7 +333,6 @@
 	<Style TargetType="{x:Type containers:CsWindow}" BasedOn="{StaticResource {x:Type Window}}">
 		<Setter Property="GausianBorderBrush" Value="RoyalBlue"/>
 		<Setter Property="Scale" Value="1" />
-		<Setter Property="ScaleActivated" Value="True" />
 		<Setter Property="ResizeThickness" Value="8" />
 		<Setter Property="WindowStyle" Value="None" />
 		<Setter Property="WindowState" Value="Normal" />
@@ -389,23 +388,13 @@
 									</Grid>
 
 									<Border Grid.Row="1" Padding="{TemplateBinding Padding}" >
-										<ContentPresenter Content="{Binding Path=Content}" ContentTemplate="{Binding Path=ContentTemplate}" Focusable="False">
-
-											<ContentPresenter.Style>
-												<Style TargetType="{x:Type ContentPresenter}">
-													<Style.Triggers>
-														<DataTrigger Binding="{Binding Path=ScaleActivated}" Value="True">
-															<Setter Property="LayoutTransform">
-																<Setter.Value>
-																	<!--See following link, it explains the x:Name fiel http://stackoverflow.com/questions/3181890/binding-in-wpf-style-causes-inexplicable-cannot-find-governing-frameworkelement-->
-																	<ScaleTransform x:Name="implementedToSupressOutputError" ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}" />
-																</Setter.Value>
-															</Setter>
-														</DataTrigger>
-													</Style.Triggers>
-												</Style>
-											</ContentPresenter.Style>
-										</ContentPresenter>
+										<Border>
+											<Border.LayoutTransform>
+												<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Path=Scale}" ScaleY="{Binding Path=Scale}"/>
+											</Border.LayoutTransform>
+											<ContentPresenter Content="{Binding Path=Content}" ContentTemplate="{Binding Path=ContentTemplate}" Focusable="False">
+											</ContentPresenter>
+										</Border>
 									</Border>
 									<Border Grid.Row="2" Visibility="{TemplateBinding FooterVisibility}">
 										<ContentControl Style="{StaticResource FooterStyle}" />

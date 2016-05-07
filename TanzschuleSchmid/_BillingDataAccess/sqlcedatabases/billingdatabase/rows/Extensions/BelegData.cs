@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-06</date>
 
 using System;
 using System.Linq;
@@ -61,10 +61,15 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		[DependsOn(nameof(KassenOperator))]
 		[DependsOn(nameof(StornoBelegId))]
 		public bool IsValid => InvalidReason == BelegDataInvalidReasons.Valid;
+
 		/// <summary>returns true if all needed informations are present in this row.</summary>
 		[DependsOn(nameof(StateName))]
 		[DependsOn(nameof(TypName))]
-		public bool CanBeStornod => Typ != BelegDataTypes.Storno && State != BelegDataStates.Storno;
+		public bool CanBeStorniert => Typ != BelegDataTypes.Storno && !IsStorniert;
+
+		/// <summary>returns true if the <see cref="BelegData" /> has been storniert.</summary>
+		[DependsOn(nameof(StateName))]
+		public bool IsStorniert => State == BelegDataStates.Storno;
 
 
 		/// <summary>returns true if all needed informations are present in this row.</summary>
@@ -112,6 +117,20 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				return BelegDataStates.Unknown;
 			}
 			set { StateName = value.ToString(); }
+		}
+
+		/// <summary>Gets the <see cref="BelegData" /> which contains information about the reason why this <see cref="BelegData" /> had been storniert.</summary>
+		[DependsOn(nameof(StateName))]
+		public BelegData StornierenderBeleg
+		{
+			get
+			{
+				if (!IsStorniert)
+					return null;
+				if (StornierendeBelege.Count == 0)
+					return null;
+				return StornierendeBelege[0];
+			}
 		}
 
 		/// <summary>Recalculates the <see cref="BetragBrutto" /> field.</summary>

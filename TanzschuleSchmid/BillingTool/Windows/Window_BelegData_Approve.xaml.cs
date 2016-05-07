@@ -2,17 +2,18 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-05-07</date>
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
-using BillingOutput.btOutputScope;
 using BillingTool.btScope;
+using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
 using CsWpfBase.Utilitys;
 
@@ -24,13 +25,10 @@ using CsWpfBase.Utilitys;
 namespace BillingTool.Windows
 {
 	/// <summary>Interaction logic for Window_BelegData_Approve.xaml</summary>
+	// ReSharper disable once InconsistentNaming
 	public partial class Window_BelegData_Approve : CsWindow
 	{
 		#region DP Keys
-#pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof (BelegData), typeof (Window_BelegData_Approve), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Approve) o).ItemChanged(args.NewValue as BelegData)});
-
-#pragma warning restore 1591
 		#endregion
 
 
@@ -40,10 +38,9 @@ namespace BillingTool.Windows
 		public Window_BelegData_Approve()
 		{
 			InitializeComponent();
+			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Approve");
 			Closing += WindowClosing;
 		}
-
-
 		/// <summary>The item which needs to be approved.</summary>
 		public BelegData Item
 		{
@@ -78,6 +75,11 @@ namespace BillingTool.Windows
 			}
 		}
 
+		private void NewFormatsAvailable(object sender, SelectionChangedEventArgs e)
+		{
+			BonPreviewControl.ReloadSelectablePreviewFormats();
+		}
+
 		private void ItemChanged(BelegData belegData)
 		{
 			if (belegData == null)
@@ -105,23 +107,32 @@ namespace BillingTool.Windows
 
 		private void NewMailClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.CreateNewMailBeleg(Item, "");
+			Bt.DataFunctions.New_MailedBeleg_For_BelegData(Item, "");
+			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
+
 		private void NewPrintClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.CreateNewPrintBeleg(Item);
+			Bt.DataFunctions.New_PrintBeleg_For_BelegData(Item);
+			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void DeleteMailClicked(object sender, RoutedEventArgs e)
 		{
-			var beleg = (MailedBeleg)((FrameworkElement)sender).DataContext;
+			var beleg = (MailedBeleg) ((FrameworkElement) sender).DataContext;
 			beleg.Delete();
+			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void DeletePrintClicked(object sender, RoutedEventArgs e)
 		{
-			var beleg = (PrintedBeleg)((FrameworkElement)sender).DataContext;
+			var beleg = (PrintedBeleg) ((FrameworkElement) sender).DataContext;
 			beleg.Delete();
+			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
+#pragma warning disable 1591
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(Window_BelegData_Approve), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Approve) o).ItemChanged(args.NewValue as BelegData)});
+
+#pragma warning restore 1591
 	}
 }

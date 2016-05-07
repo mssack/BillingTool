@@ -11,9 +11,23 @@ ON DELETE CASCADE
 
 #Split#
 
+ALTER TABLE [PrintedBelege]
+ADD CONSTRAINT FK_PrintedBelege_OutputFormatId
+FOREIGN KEY ([OutputFormatId]) REFERENCES OutputFormats([Id])
+ON DELETE CASCADE
+
+#Split#
+
 ALTER TABLE [MailedBelege]
 ADD CONSTRAINT FK_MailedBelege_BelegDataId
 FOREIGN KEY ([BelegDataId]) REFERENCES BelegDaten([Id])
+ON DELETE CASCADE
+
+#Split#
+
+ALTER TABLE [MailedBelege]
+ADD CONSTRAINT FK_MailedBelege_OutputFormatId
+FOREIGN KEY ([OutputFormatId]) REFERENCES OutputFormats([Id])
 ON DELETE CASCADE
 
 #Split#

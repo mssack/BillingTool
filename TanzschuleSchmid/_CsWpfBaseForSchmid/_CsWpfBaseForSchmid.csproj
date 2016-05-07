@@ -234,6 +234,7 @@
     <Compile Include="Global\app\install\shortcut\CsgAppInstallShortcut.cs" />
     <Compile Include="Global\app\install\shortcut\CsgLnkShortcut.cs" />
     <Compile Include="Global\computer\Computer.cs" />
+    <Compile Include="Global\computer\CsgComputerDevices.cs" />
     <Compile Include="Global\computer\CsgComputerDiskDrive.cs" />
     <Compile Include="Global\computer\CsgComputerGraphic.cs" />
     <Compile Include="Global\computer\CsgComputerMainBoard.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Global\computer\parts\LogicalDisk.cs" />
     <Compile Include="Global\computer\parts\MemoryDevice.cs" />
     <Compile Include="Ev\CsWpfBaseConfig.cs" />
+    <Compile Include="Global\computer\parts\PrinterDevice.cs" />
     <Compile Include="Global\storage\cache\CsgCache.cs" />
     <Compile Include="Global\storage\compression\CsgCompression.cs" />
     <Compile Include="Global\storage\compression\CsgCompressionZip.cs" />
@@ -1410,6 +1412,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Db\codegen\architecture\generators\sqlScripts\NamingConventionTable_Script_SqlCe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\Images\files\Hardware\Printer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+	
+	
+	<system:String x:Key="Bez-MailedBeleg-ProcessingState">Status</system:String>
+	<system:String x:Key="Bez-MailedBeleg-ProcessingDate">Datum</system:String>
+	<system:String x:Key="Bez-MailedBeleg-ProcessingException">Fehlermeldung</system:String>
+	<system:String x:Key="Bez-MailedBeleg-OutputFormat">Format</system:String>
+	<system:String x:Key="Bez-MailedBeleg-MailTypeName">Mail Typ</system:String>
+	<system:String x:Key="Bez-MailedBeleg-TargetMailAddress">Mail - Adress</system:String>
+	<system:String x:Key="Bez-MailedBeleg-Betreff">Betreff</system:String>
+	<system:String x:Key="Bez-MailedBeleg-Text">Text</system:String>
+	<system:String x:Key="Bez-MailedBeleg-Comment">Kommentar</system:String>
+</ResourceDictionary>

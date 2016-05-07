@@ -75,7 +75,11 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\OutputFormats.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Steuersatz.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\OutputFormatsTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataInvalidReasons.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\ICanBeFilteredByDate.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IOutputBeleg.cs" />
@@ -143,7 +147,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\OutputFormats.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BonLayouts.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\ProcessingStates.cs" />
     <Compile Include="sqlcedatabases\Router\SqlCeRouter.cs" />
   </ItemGroup>
@@ -201,7 +205,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\PrintedBelege.txt" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\OutputFormats.txt" />
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
@@ -221,6 +227,9 @@
     <Compile Include="sqlcedatabases\billingdatabase\tables\MailedBelegeTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\OutputFormatsTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\tables\PostensTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
@@ -235,6 +244,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IConfiguration.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ILog.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IMailedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IOutputFormat.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IPosten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IPrintedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ISteuersatz.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
@@ -243,6 +253,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\rows\Configuration.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Log.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\MailedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\OutputFormat.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Posten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\PrintedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Steuersatz.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />

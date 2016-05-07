@@ -24,7 +24,7 @@
 		<Setter Property="ExtensionTemplate">
 			<Setter.Value>
 				<DataTemplate DataType="{x:Type local:ParamBelegDataTyp}">
-					<ComboBox SelectedValue="{Binding Path=Value}" SelectedValuePath="Value" DisplayMemberPath="Description" ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}, IgnoredEnums={StaticResource IgnoreAllNotNewValue}}}" />
+					<ComboBox SelectedValue="{Binding Path=Value}" SelectedValuePath="Value" DisplayMemberPath="Name" ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}, IgnoredEnums={StaticResource IgnoreAllNotNewValue}}}" />
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>

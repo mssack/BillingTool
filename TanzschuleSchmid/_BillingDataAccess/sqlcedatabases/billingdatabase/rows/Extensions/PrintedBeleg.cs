@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-06</date>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -40,14 +40,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			if (BelegData == null)
 				return $"{nameof(PrintedBeleg)} [Hash = {GetHashCode()}]";
-			return $"[{nameof(PrintedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatName}']";
+			return $"[{nameof(PrintedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatId}']";
 		}
 
 		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
 		public override void ApplyExtendedDefaults()
 		{
 			base.ApplyExtendedDefaults();
-			OutputFormat = OutputFormats.StandardBonV1;
 		}
 
 
@@ -61,20 +60,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				return Enum.TryParse(ProcessingStateName, true, out val) ? val : ProcessingStates.Unknown;
 			}
 			set { ProcessingStateName = value.ToString(); }
-		}
-
-
-
-		/// <summary>The wrapper property for column property <see cref="OutputFormatName" />.</summary>
-		[DependsOn(nameof(OutputFormatName))]
-		public OutputFormats OutputFormat
-		{
-			get
-			{
-				OutputFormats val;
-				return Enum.TryParse(OutputFormatName, true, out val) ? val : OutputFormats.Unknown;
-			}
-			set { OutputFormatName = value.ToString(); }
 		}
 		#endregion
 	}

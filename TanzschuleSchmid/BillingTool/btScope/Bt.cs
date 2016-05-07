@@ -15,6 +15,10 @@ using BillingTool.btScope.functions;
 using BillingTool.btScope.logging;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
+using CsWpfBase.Global;
+using DeveloperWindow = BillingTool.Windows.privileged.DeveloperWindow;
+using Window_DatabaseViewer = BillingTool.Windows.privileged.Window_DatabaseViewer;
+using Window_KassenConfiguration = BillingTool.Windows.privileged.Window_KassenConfiguration;
 
 
 
@@ -65,7 +69,7 @@ namespace BillingTool.btScope
 			var fi = new FileInfo(Config.File.KassenEinstellung.BillingDatabaseFilePath);
 			if (fi.Exists)
 			{
-				Db.EnsureConnectivity();
+				InitDb();
 				return;
 			}
 
@@ -91,8 +95,16 @@ namespace BillingTool.btScope
 				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbank konnte nicht installiert werden.", exc);
 			}
 
+			InitDb();
+		}
 
+		private static void InitDb()
+		{
 			Db.EnsureConnectivity();
+			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
+				Db.Billing.OutputFormats.DownloadRows();
+			if (Db.Billing.Configurations.HasBeenLoaded != true)
+				Db.Billing.Configurations.DownloadRows();
 		}
 
 		/// <summary>does the startup</summary>
@@ -105,12 +117,12 @@ namespace BillingTool.btScope
 			Window window;
 			if (mode == StartupModes.Developer)
 				window = new DeveloperWindow();
-			else if (mode == StartupModes.ApproveBelegData)
-				window = new Window_BelegData_Approve {Item = DataFunctions.New_BelegData_FromConfiguration()};
-			else if (mode == StartupModes.StornoBelegData)
-				window = new Window_BelegData_Storno();
+			else if (mode == StartupModes.BelegDataApprove)
+				window = new Window_BelegData_Approve {Item = DataFunctions.New_BelegData_From_Configuration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
+			else if (mode == StartupModes.Options)
+				window = new Window_Options();
 			else if (mode == StartupModes.Database)
 				window = new Window_DatabaseViewer();
 			else
@@ -119,7 +131,9 @@ namespace BillingTool.btScope
 
 
 			Application.Current.MainWindow = window;
+			CsGlobal.Message.SetDefaultScaling(Bt.Config.File.KassenEinstellung.Scaling);
 			window.Show();
+
 		}
 
 		/// <summary>gets an indicator whether the database is accessible.</summary>

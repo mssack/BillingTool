@@ -8,7 +8,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using BillingTool.btScope;
-using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
 using CsWpfBase.Utilitys;
 
@@ -17,7 +16,7 @@ using CsWpfBase.Utilitys;
 
 
 
-namespace BillingTool.Windows
+namespace BillingTool.Windows.privileged
 {
 	/// <summary>Interaction logic for Window_KassenConfiguration.xaml</summary>
 	public partial class Window_KassenConfiguration : CsWindow

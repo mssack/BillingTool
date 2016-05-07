@@ -1,0 +1,28 @@
+﻿CREATE TABLE [OutputFormats]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+
+	[CreationDate]		datetime		NOT NULL DEFAULT getdate(),
+	[LastUsed]			datetime		,
+	
+
+	[Name]				ntext			NOT NULL,
+	[BonLayoutName]		nvarchar(255)	NOT NULL DEFAULT('Unknown'),
+
+	[FirstImageBinary]		image			,
+	[FirstImageHash]		ntext			,
+	[FirstText]				ntext			,
+
+	[SecondImageBinary]		image			,
+	[SecondImageHash]		ntext			,
+	[SecondText]			ntext			,
+
+	[ThirdImageBinary]		image			,
+	[ThirdImageHash]		ntext			,
+	[ThirdText]				ntext			,
+
+
+
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
+)

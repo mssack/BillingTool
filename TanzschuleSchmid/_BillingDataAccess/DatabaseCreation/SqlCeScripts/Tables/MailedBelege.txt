@@ -6,10 +6,9 @@
 	[ProcessingStateName]	nvarchar(100) NOT NULL DEFAULT('NotProcessed'),
 	[ProcessingDate]		datetime NOT NULL DEFAULT getdate(),
 	[ProcessingException]	ntext,
-
-	[OutputFormatName]		nvarchar(100) NOT NULL DEFAULT('Default'),
 	
-	[MailTypeName]			nvarchar(100) NOT NULL DEFAULT('Default'),
+	[OutputFormatId]		uniqueidentifier NOT NULL,
+	
 	[TargetMailAddress]		ntext NOT NULL,
 	[Betreff]				ntext NOT NULL DEFAULT(''),
 	[Text]					ntext NOT NULL DEFAULT(''),

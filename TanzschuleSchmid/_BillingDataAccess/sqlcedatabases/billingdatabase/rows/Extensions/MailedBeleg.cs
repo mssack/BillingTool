@@ -40,14 +40,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			if (BelegData == null)
 				return $"{nameof(MailedBeleg)} [Hash = {GetHashCode()}]";
-			return $"[{nameof(MailedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatName}']";
+			return $"[{nameof(MailedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatId}']";
 		}
 
 		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
 		public override void ApplyExtendedDefaults()
 		{
 			base.ApplyExtendedDefaults();
-			OutputFormat = OutputFormats.StandardBonV1;
 		}
 
 
@@ -64,17 +63,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		}
 
 
-		/// <summary>The wrapper property for column property <see cref="OutputFormatName" />.</summary>
-		[DependsOn(nameof(OutputFormatName))]
-		public OutputFormats OutputFormat
-		{
-			get
-			{
-				OutputFormats val;
-				return Enum.TryParse(OutputFormatName, true, out val) ? val : OutputFormats.Unknown;
-			}
-			set { OutputFormatName = value.ToString(); }
-		}
 		#endregion
 	}
 }

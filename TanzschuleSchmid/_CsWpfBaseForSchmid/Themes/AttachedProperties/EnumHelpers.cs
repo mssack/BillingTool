@@ -39,8 +39,7 @@ namespace CsWpfBase.Themes.AttachedProperties
 		public override object ProvideValue(IServiceProvider serviceProvider)
 		{
 			var enumValues = Enum.GetValues(EnumType);
-
-			return enumValues.OfType<Enum>().Where(x => !IgnoredEnums.Contains(x)).Select(x => new EnumerationMember() {Value = x, Description = x.GetDescription()}).ToArray();
+			return enumValues.OfType<Enum>().Where(x => !IgnoredEnums.Contains(x)).Select(x => new EnumerationMember() {Value = x, Name = x.GetName(), Description = x.GetDescription()}).ToArray();
 		}
 		#endregion
 
@@ -69,6 +68,7 @@ namespace CsWpfBase.Themes.AttachedProperties
 		public class EnumerationMember
 		{
 			public string Description { get; set; }
+			public string Name { get; set; }
 			public object Value { get; set; }
 		}
 	}

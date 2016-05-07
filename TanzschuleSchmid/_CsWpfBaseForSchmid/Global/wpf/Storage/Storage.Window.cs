@@ -75,7 +75,7 @@ namespace CsWpfBase.Global.wpf.Storage
 		}
 
 		/// <summary>Adds a new handle</summary>
-		public void Handle(Window w, string name)
+		public void Handle(Window w, string name, bool includeScaling = false)
 		{
 			var handle = Handles.FirstOrDefault(x => x.Name == name);
 			if (handle != null)
@@ -91,7 +91,7 @@ namespace CsWpfBase.Global.wpf.Storage
 					w.Left = fittingRectangle.Left;
 					w.Top = fittingRectangle.Top;
 					w.Topmost = handle.Topmost;
-					if (w is CsWindow)
+					if (w is CsWindow && includeScaling)
 						((CsWindow) w).Scale = handle.Scale;
 				}
 			}

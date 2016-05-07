@@ -40,7 +40,6 @@ namespace CsWpfBase.Themes.Controls.Containers
 		public static readonly DependencyProperty FooterTemplateProperty = DependencyProperty.Register("FooterTemplate", typeof(DataTemplate), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty FooterVisibilityProperty = DependencyProperty.Register("FooterVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty ScaleProperty = DependencyProperty.Register("Scale", typeof(double), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(double), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty ScaleActivatedProperty = DependencyProperty.Register("ScaleActivated", typeof(bool), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty GausianBorderBrushProperty = DependencyProperty.Register("GausianBorderBrush", typeof(Brush), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Brush), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
@@ -134,11 +133,6 @@ namespace CsWpfBase.Themes.Controls.Containers
 		{
 			get { return (double) GetValue(ScaleProperty); }
 			set { SetValue(ScaleProperty, value); }
-		}
-		public bool ScaleActivated
-		{
-			get { return (bool) GetValue(ScaleActivatedProperty); }
-			set { SetValue(ScaleActivatedProperty, value); }
 		}
 
 

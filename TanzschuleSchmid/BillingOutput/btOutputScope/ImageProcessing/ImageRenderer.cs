@@ -9,9 +9,8 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingOutput.Controls;
+using BillingOutput.Controls.BonVisuals;
 using CsWpfBase.Ev.Public.Extensions;
-using BonV1Visual = BillingOutput.Controls.BonVisuals.BonV1Visual;
 
 
 
@@ -44,12 +43,14 @@ namespace BillingOutput.btOutputScope.ImageProcessing
 		}
 
 
-		public BitmapSource BonV1(BelegData data, double scalingFactor = 1.5)
+		public BitmapSource Render(BelegData data, OutputFormat format, double scalingFactor = 1.5)
 		{
-			var visual = new BonV1Visual(data);
+
+			var visual = new BonVisual {Item = data, OutputFormat = format};
 			ApplyScalingFactor(visual, scalingFactor);
 			return visual.ConvertTo_Image();
 		}
+
 
 		private void ApplyScalingFactor(FrameworkElement control, double scalingFactor = 1.5)
 		{
