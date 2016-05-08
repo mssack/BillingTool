@@ -10,9 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
-using BillingTool.Themes.Controls.mailedbeleg;
-using BillingTool.Themes.Controls.printedbeleg;
-using BillingTool.Themes.Controls.storno;
+using BillingTool.Themes.Controls.belegview;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 
@@ -65,7 +63,7 @@ namespace BillingTool.Themes.Controls
 			MailedBelegeListView = (MailedBelegeListView) Template.FindName("PART_MailedBelegeListView", this);
 			RemailBelegControl = (RemailBelegControl) Template.FindName("PART_RemailBelegControl", this);
 
-			BonPreviewControl = (BonPreviewControl) Template.FindName("PART_BonPreviewControl", this);
+			BonPreviewControl = (_shared.BonPreviewControl) Template.FindName("PART_BonPreviewControl", this);
 		}
 		#endregion
 
@@ -77,7 +75,7 @@ namespace BillingTool.Themes.Controls
 			set { SetValue(ItemProperty, value); }
 		}
 
-		private BonPreviewControl BonPreviewControl { get; set; }
+		private _shared.BonPreviewControl BonPreviewControl { get; set; }
 
 
 		private Button StornoButton

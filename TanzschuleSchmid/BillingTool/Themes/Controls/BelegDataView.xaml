@@ -3,8 +3,8 @@
 					xmlns:local="clr-namespace:BillingTool.Themes.Controls"
 					xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 					xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
-					xmlns:mailedbeleg="clr-namespace:BillingTool.Themes.Controls.mailedbeleg"
-					xmlns:printedbeleg="clr-namespace:BillingTool.Themes.Controls.printedbeleg">
+					xmlns:belegview="clr-namespace:BillingTool.Themes.Controls.belegview"
+					xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
@@ -204,28 +204,10 @@
 									</ListView>
 								</Expander>
 								<Expander Grid.Row="2" Header="Mails" IsExpanded="False" Padding="0">
-									<Expander.Style>
-										<Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
-											<Style.Triggers>
-												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Storno}">
-													<Setter Property="Visibility" Value="Collapsed" />
-												</DataTrigger>
-											</Style.Triggers>
-										</Style>
-									</Expander.Style>
-									<mailedbeleg:MailedBelegeListView Item="{Binding}" x:Name="PART_MailedBelegeListView" /> 
+									<belegview:MailedBelegeListView Item="{Binding}" x:Name="PART_MailedBelegeListView" /> 
 								</Expander>
 								<Expander Grid.Row="3" Header="Ausdrücke" IsExpanded="False" Padding="0">
-									<Expander.Style>
-										<Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
-											<Style.Triggers>
-												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Storno}">
-													<Setter Property="Visibility" Value="Collapsed" />
-												</DataTrigger>
-											</Style.Triggers>
-										</Style>
-									</Expander.Style>
-									<printedbeleg:PrintedBelegeListView Item="{Binding}" x:Name="PART_PrintedBelegeListView" />
+									<belegview:PrintedBelegeListView Item="{Binding}" x:Name="PART_PrintedBelegeListView" />
 								</Expander>
 							</Grid>
 
@@ -259,7 +241,7 @@
 									</Grid>
 								</Border>
 								<Expander Grid.Row="1" Header="Rechnungsansicht" IsExpanded="True" Padding="0" >
-									<local:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl"/>
+									<shared:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl"/>
 								</Expander>
 								<UniformGrid Grid.Row="2">
 									<Button Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
@@ -269,7 +251,7 @@
 											<TextBlock Text="Erneut Senden" TextAlignment="Center"/>
 										</PopupButton.Content>
 										<PopupButton.PopupContent>
-											<mailedbeleg:RemailBelegControl Item="{Binding}" x:Name="PART_RemailBelegControl"/>
+											<belegview:RemailBelegControl Item="{Binding}" x:Name="PART_RemailBelegControl"/>
 										</PopupButton.PopupContent>
 									</PopupButton>
 									<PopupButton>
@@ -277,7 +259,7 @@
 											<TextBlock Text="Erneut Drucken" TextAlignment="Center"/>
 										</PopupButton.Content>
 										<PopupButton.PopupContent>
-											<printedbeleg:ReprintBelegControl Item="{Binding}" x:Name="PART_ReprintBelegControl"/>
+											<belegview:ReprintBelegControl Item="{Binding}" x:Name="PART_ReprintBelegControl"/>
 										</PopupButton.PopupContent>
 									</PopupButton>
 								</UniformGrid>

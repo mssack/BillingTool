@@ -7,6 +7,7 @@
 		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
+		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		mc:Ignorable="d"
 		Title="Datenbank" Height="500" Width="900" x:Name="Uc" FooterVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		AWindowDragMove.IsActive="True">
@@ -33,7 +34,7 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<controls:FromToSelectorControl x:Name="FromToSelector" SelectionChanged="FromToSelectorControl_OnSelectionChanged"></controls:FromToSelectorControl>
+				<shared:FromToSelectorControl x:Name="FromToSelector" SelectionChanged="FromToSelectorControl_OnSelectionChanged"></shared:FromToSelectorControl>
 				<Button Grid.Column="1" Content="Änderungen verwerfen" Click="ÄnderungenVerwerfenClicked" Margin="10,0,0,0" Padding="10,3,10,3"
 						Foreground="#DF3E3E" />
 				<Button Grid.Column="2" Content="Exportieren" Margin="10,0,0,0" Padding="10,3,10,3" />

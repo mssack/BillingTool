@@ -7,6 +7,8 @@
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:controls1="clr-namespace:BillingTool.Themes.Controls"
 		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		xmlns:belegapproval="clr-namespace:BillingTool.Themes.Controls.belegapproval"
+		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		CloseButtonVisibility="Collapsed" Style="{StaticResource {x:Type CsWindow}}"
 		Name="Uc" Width="730" SizeToContent="Height">
@@ -47,7 +49,7 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<controls1:ParamBelegDataTyp Grid.Row="1" Style="{StaticResource ParamBelegDataTyp}" Value="{Binding Path=Typ}" Width="190" HorizontalAlignment="Left"/>
+							<belegapproval:BelegDataTypParam Grid.Row="1"  Header="{StaticResource Bez-BelegData-Typ}" Help="{StaticResource Help-BelegData-Typ}" Value="{Binding Path=Typ}" Width="190" HorizontalAlignment="Left"/>
 							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}"/>
 							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
 						</Grid>
@@ -59,34 +61,7 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=PrintedBelege}"   Padding="0,0,0,10" x:Name="PrintBelegeListView">
-								<ListView.View>
-									<GridView>
-										<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}" Width="220">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
-													<Grid>
-														<Grid.ColumnDefinitions>
-															<ColumnDefinition Width="Auto"/>
-															<ColumnDefinition Width="*"/>
-														</Grid.ColumnDefinitions>
-														<Image Source="{StaticResource GIco-Hardware-Printer}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Margin="0,0,5,0" />
-														<ComboBox Grid.Column="1" ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}" DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Path=PrinterDevice}"/>
-													</Grid>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Width="150">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
-													<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
-															SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable"/>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-									</GridView>
-								</ListView.View>
-							</ListView>
+							<belegapproval:PrintedBelegeListView Item="{Binding}" Padding="0,0,0,10" SomeOutputFormatChanged="SomeOutputFormatChanged" x:Name="PrintBelegeListView"/>
 							<Grid Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding ElementName=PrintBelegeListView, Path=SelectedItem}">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*" />
@@ -106,55 +81,7 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=MailedBelege}"   Padding="0,0,0,10"  x:Name="MailedBelegeListView">
-								<ListView.View>
-									<GridView>
-										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-TargetMailAddress}" Width="160">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
-													<Grid>
-														<Grid.ColumnDefinitions>
-															<ColumnDefinition Width="Auto"/>
-															<ColumnDefinition Width="*"/>
-														</Grid.ColumnDefinitions>
-														<Image Source="{StaticResource GIco-Property-Mail}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Margin="0,0,5,0" />
-														<TextBox Grid.Column="1" Text="{Binding Path=TargetMailAddress}" />
-													</Grid>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Betreff}" Width="120">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
-													<TextBox Text="{Binding Path=Betreff}" />
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Text}" Width="80">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
-													<PopupButton>
-														<PopupButton.Content>
-															<TextBlock Text="{Binding Path=Text, Converter={StaticResource GConv-ShortSingleLine}}" TextTrimming="CharacterEllipsis"/>
-														</PopupButton.Content>
-														<PopupButton.PopupContent>
-															<TextBox Text="{Binding Path=Text}" AcceptsReturn="True" MinWidth="300" MinHeight="60" VerticalContentAlignment="Top" MaxHeight="600" MaxWidth="600" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
-														</PopupButton.PopupContent>
-													</PopupButton>
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-OutputFormat}" Width="150">
-											<GridViewColumn.CellTemplate>
-												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
-													<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
-															SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />
-												</DataTemplate>
-											</GridViewColumn.CellTemplate>
-										</GridViewColumn>
-									</GridView>
-								</ListView.View>
-							</ListView>
+							<belegapproval:MailedBelegeListView Item="{Binding}" Padding="0,0,0,10" SomeOutputFormatChanged="SomeOutputFormatChanged" x:Name="MailedBelegeListView"/>
 							<Grid Grid.Row="1" Margin="0,10,0,0" DataContext="{Binding ElementName=MailedBelegeListView, Path=SelectedItem}">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*" />
@@ -186,7 +113,7 @@
 								<TextBlock Text="Bon Vorschau" FontSize="20" TextAlignment="Center" />
 							</Grid>
 						</Border>
-						<controls1:BonPreviewControl x:Name="BonPreviewControl" Grid.Row="1" Item="{Binding ElementName=Uc, Path=Item}" />
+						<shared:BonPreviewControl x:Name="BonPreviewControl" Grid.Row="1" Item="{Binding ElementName=Uc, Path=Item}" />
 					</Grid>
 				</Border>
 			</Grid>

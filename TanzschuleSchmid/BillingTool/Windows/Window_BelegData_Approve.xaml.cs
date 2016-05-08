@@ -74,11 +74,11 @@ namespace BillingTool.Windows
 				Close();
 			}
 		}
-
-		private void NewFormatsAvailable(object sender, SelectionChangedEventArgs e)
+		private void SomeOutputFormatChanged()
 		{
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
+		
 
 		private void ItemChanged(BelegData belegData)
 		{
