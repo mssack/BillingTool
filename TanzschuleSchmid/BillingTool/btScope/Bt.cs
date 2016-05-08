@@ -111,8 +111,11 @@ namespace BillingTool.btScope
 		public static void Startup(string[] startupArgs)
 		{
 			Config.CommandLine.Interpret(startupArgs);
-
 			var mode = Config.CommandLine.General.StartupMode;
+			CsGlobal.Message.SetDefaultScaling(Bt.Config.File.KassenEinstellung.Scaling);
+
+			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
+				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
 			Window window;
 			if (mode == StartupModes.Developer)
@@ -131,7 +134,8 @@ namespace BillingTool.btScope
 
 
 			Application.Current.MainWindow = window;
-			CsGlobal.Message.SetDefaultScaling(Bt.Config.File.KassenEinstellung.Scaling);
+
+
 			window.Show();
 
 		}

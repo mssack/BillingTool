@@ -83,6 +83,9 @@
     <Compile Include="Controls\BonVisuals\BonVisual.xaml.cs">
       <DependentUpon>BonVisual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BonVisuals\V1StornoBonVisual.xaml.cs">
+      <DependentUpon>V1StornoBonVisual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Monatsumsatz.xaml.cs">
       <DependentUpon>Monatsumsatz.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="Controls\BonVisuals\BonVisual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BonVisuals\V1StornoBonVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

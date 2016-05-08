@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Public.Extensions;
+// ReSharper disable InconsistentNaming
 
 
 
@@ -48,24 +49,40 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		}
 
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for printing.</summary>
-		public Guid DefaultPrintOutputFormat
+		public Guid Default_PrintOutputFormat
 		{
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
 
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
-		public Guid DefaultMailOutputFormat
+		public Guid Default_MailOutputFormat
 		{
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
-		public Guid DefaultStornoOutputFormat
+		public Guid Default_StornoOutputFormat
 		{
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
+
+		/// <summary>The default Betreff which should be used as default for mailing.</summary>
+		public string Default_MailBetreff
+		{
+			get { return GetValue("Rechnungsbeleg"); }
+			set { SetValue(value); }
+		}
+
+		/// <summary>The default text which should be used as default for mailing.</summary>
+		public string Default_MailText
+		{
+			get { return GetValue("Sie finden Ihre Rechnung im Anhang."); }
+			set { SetValue(value); }
+		}
+
+
 
 		/// <summary>The application logo for this database instance.</summary>
 		public BitmapSource HeaderLogo

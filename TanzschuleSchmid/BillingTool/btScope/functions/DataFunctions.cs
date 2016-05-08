@@ -199,7 +199,9 @@ namespace BillingTool.btScope.functions
 			var mail = data.DataSet.MailedBelege.NewRow();
 			mail.BelegData = data;
 			mail.TargetMailAddress = targetMailAddress;
-			mail.OutputFormat = mail.DataSet.OutputFormats.DefaultMailFormat;
+			mail.Betreff = data.DataSet.Configurations.Default_MailBetreff;
+			mail.Text = data.DataSet.Configurations.Default_MailText;
+			mail.OutputFormat = mail.DataSet.OutputFormats.Default_MailFormat;
 			data.DataSet.MailedBelege.Add(mail);
 			return mail;
 		}
@@ -211,7 +213,7 @@ namespace BillingTool.btScope.functions
 			var printedBeleg = data.DataSet.PrintedBelege.NewRow();
 			printedBeleg.BelegData = data;
 			printedBeleg.PrinterDevice = Bt.Config.File.KassenEinstellung.PrinterName;
-			printedBeleg.OutputFormat = printedBeleg.DataSet.OutputFormats.DefaultPrintFormat;
+			printedBeleg.OutputFormat = printedBeleg.DataSet.OutputFormats.Default_PrintFormat;
 			data.DataSet.PrintedBelege.Add(printedBeleg);
 			return printedBeleg;
 		}

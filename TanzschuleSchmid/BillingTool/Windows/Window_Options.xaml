@@ -14,29 +14,55 @@
 		</Grid.RowDefinitions>
 		<TabControl Style="{StaticResource OptionsTabControl}" Padding="10">
 			<TabItem Header="Allgemeines">
-				<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}}" Margin="0,0,-10,-10">
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="*"/>
-						<ColumnDefinition Width="*"/>
-					</Grid.ColumnDefinitions>
+				<Grid  Margin="0,0,-10,0">
+
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*"/>
 					</Grid.RowDefinitions>
-					<Expander Grid.Row="0" Grid.Column="0"  Header="Darstellung" IsExpanded="True">
-						<configurationControls:ApperanceConfigurationControl/>
-					</Expander>
-					<Expander Grid.Row="1" Grid.Column="0" Header="Geräte Konfiguration" IsExpanded="True">
-						<configurationControls:DeviceConfigurationControl/>
-					</Expander>
-					<Expander Grid.Row="2" Grid.Column="0" Header="Standard werte" IsExpanded="True">
-						<configurationControls:DefaultLayoutConfigurationControl Grid.IsSharedSizeScope="True"/>
-					</Expander>
-					<Expander Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" Header="Mail Konfiguration" IsExpanded="True">
-						<configurationControls:MailConfigurationControl Grid.IsSharedSizeScope="True"/>
-					</Expander>
+					<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}}" Grid.Row="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<Grid Grid.Column="0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Expander Grid.Row="0"  Header="Darstellung" IsExpanded="True">
+								<configurationControls:ApperanceConfigurationControl/>
+							</Expander>
+							<Expander Grid.Row="1" Header="Standard werte" IsExpanded="True">
+								<configurationControls:DefaultLayoutConfigurationControl Grid.IsSharedSizeScope="True"/>
+							</Expander>
+						</Grid>
+						<Grid Grid.Column="1">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Expander Grid.Row="0"  Header="E-Mail Konfiguration" IsExpanded="True">
+								<configurationControls:MailConfigurationControl Grid.IsSharedSizeScope="True"/>
+							</Expander>
+							<Expander Grid.Row="1" Header="Geräte Konfiguration" IsExpanded="True">
+								<configurationControls:DeviceConfigurationControl/>
+							</Expander>
+						</Grid>
+						
+					</Grid>
+					<Grid Grid.Row="1">
+						<Expander Header="E-Mail Inhalt" IsExpanded="True">
+							<configurationControls:MailContentConfigurationControl Grid.IsSharedSizeScope="True" />
+						</Expander>
+					</Grid>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Steuersätze"/>

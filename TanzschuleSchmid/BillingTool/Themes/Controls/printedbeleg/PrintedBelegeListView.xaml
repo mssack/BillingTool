@@ -1,0 +1,63 @@
+﻿<ListView x:Class="BillingTool.Themes.Controls.printedbeleg.PrintedBelegeListView"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:bdd="SqlCeDatabases.BillingDatabase" mc:Ignorable="d"
+		d:DesignHeight="300" d:DesignWidth="300" Style="{StaticResource CondensedListViewStyle}"
+		ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=Item.PrintedBelege}">
+	<ListView.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/PrintedBeleg.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</ListView.Resources>
+	<ListView.ItemContainerStyle>
+		<Style TargetType="ListViewItem" BasedOn="{StaticResource CondensedListViewItemStyle}">
+			<Setter Property="Focusable" Value="false" />
+			<Setter Property="Cursor" Value="{x:Static Cursors.Hand}" />
+			<EventSetter Event="MouseLeftButtonUp" Handler="ListViewItemClicked" />
+		</Style>
+	</ListView.ItemContainerStyle>
+	<ListView.View>
+		<GridView>
+			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-ProcessingStateName}">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate DataType="{x:Type bdd:PrintedBeleg}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<Image DataContext="{Binding Path=ProcessingState}" Style="{StaticResource ProcessingStateIcon}" />
+							<TextBlock Grid.Column="1" Text="{Binding Path=ProcessingState, Converter={StaticResource GConv-GetEnumName}}" />
+						</Grid>
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
+			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-ProcessingDate}">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate DataType="{x:Type bdd:PrintedBeleg}">
+						<TextBlock Text="{Binding Path=ProcessingDate}" />
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
+			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-OutputFormat}">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate DataType="{x:Type bdd:PrintedBeleg}">
+						<TextBlock Text="{Binding Path=OutputFormat.Name}" />
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
+			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate DataType="{x:Type bdd:PrintedBeleg}">
+						<TextBlock Text="{Binding Path=PrinterDevice}" />
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
+		</GridView>
+	</ListView.View>
+
+</ListView>

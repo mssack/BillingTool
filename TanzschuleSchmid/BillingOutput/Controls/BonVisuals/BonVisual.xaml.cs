@@ -56,9 +56,9 @@ namespace BillingOutput.Controls.BonVisuals
 			if (OutputFormat != null)
 				DisplayFormat = OutputFormat;
 			else if (Item?.Typ == BelegDataTypes.Storno)
-				DisplayFormat = Item.DataSet.OutputFormats.DefaultStornoFormat;
+				DisplayFormat = Item.DataSet.OutputFormats.Default_StornoFormat;
 			else
-				DisplayFormat = Item?.DataSet.OutputFormats.DefaultPrintFormat;
+				DisplayFormat = Item?.DataSet.OutputFormats.Default_PrintFormat;
 		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty DisplayFormatProperty = DependencyProperty.Register("DisplayFormat", typeof(OutputFormat), typeof(BonVisual), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});

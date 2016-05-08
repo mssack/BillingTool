@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-05-07</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using CsWpfBase.Ev.Attributes;
 
 
 
@@ -20,12 +21,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 		/// <summary>Unknown state.</summary>
 		Unknown,
 		/// <summary>The row is currently not processed similar to not mailed or not printed.</summary>
-		NotProcessed,
+		[EnumDescription("Nicht prozessiert")] NotProcessed,
 		/// <summary>The row is currently processing (mailing or printing).</summary>
-		Processing,
+		[EnumDescription("Laufend")] Processing,
 		/// <summary>The row is currently processed it is either sent or printed.</summary>
-		Processed,
+		[EnumDescription("OK")] Processed,
 		/// <summary>Something went wrong and the mail could not be sent or printed.</summary>
-		Failed,
+		[EnumDescription("Fehler")] Failed,
 	}
 }

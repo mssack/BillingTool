@@ -54,12 +54,12 @@ namespace BillingTool.Windows
 			{
 				Bt.DataFunctions.Save_New_BelegData(Item);
 				Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
-
-				IsGrayedOut = true;
-				var outputWindow = new Window_BelegData_ProcessOutput(Item) {Owner = this};
-				outputWindow.ShowDialog();
-
-				Close();
+				
+				using (CsGlobal.Wpf.Window.GrayOutAllWindows())
+				{
+					Bt.UiFunctions.ProcessAllUnprocessed(Item);
+					Close();
+				}
 			}
 		}
 

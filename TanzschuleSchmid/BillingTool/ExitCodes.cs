@@ -40,5 +40,7 @@ namespace BillingTool
 
 		/// <summary>Occurs when the database is used by another process, or is an incompatible type.</summary>
 		Invalid_StartupParam = 1004,
+		/// <summary>Occurs if no kassen operator is defined.</summary>
+		No_KassenOperator = 1005,
 	}
 }

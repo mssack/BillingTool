@@ -6,6 +6,7 @@
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:controls1="clr-namespace:BillingTool.Themes.Controls"
+		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		CloseButtonVisibility="Collapsed" Style="{StaticResource {x:Type CsWindow}}"
 		Name="Uc" Width="730" SizeToContent="Height">
@@ -46,9 +47,8 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<controls1:ParamBelegDataInvalidReason Grid.Row="0" Value="{Binding}" />
 							<controls1:ParamBelegDataTyp Grid.Row="1" Style="{StaticResource ParamBelegDataTyp}" Value="{Binding Path=Typ}" Width="190" HorizontalAlignment="Left"/>
-							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
+							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}"/>
 							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
 						</Grid>
 					</Expander>
@@ -79,7 +79,7 @@
 										<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Width="150">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
-													<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Collection}"
+													<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
 															SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable"/>
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
@@ -109,7 +109,7 @@
 							<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=MailedBelege}"   Padding="0,0,0,10"  x:Name="MailedBelegeListView">
 								<ListView.View>
 									<GridView>
-										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-TargetMailAddress}" Width="130">
+										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-TargetMailAddress}" Width="160">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
 													<Grid>
@@ -133,7 +133,10 @@
 										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Text}" Width="80">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
-													<PopupButton Content="{Binding Path=Text}">
+													<PopupButton>
+														<PopupButton.Content>
+															<TextBlock Text="{Binding Path=Text, Converter={StaticResource GConv-ShortSingleLine}}" TextTrimming="CharacterEllipsis"/>
+														</PopupButton.Content>
 														<PopupButton.PopupContent>
 															<TextBox Text="{Binding Path=Text}" AcceptsReturn="True" MinWidth="300" MinHeight="60" VerticalContentAlignment="Top" MaxHeight="600" MaxWidth="600" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
 														</PopupButton.PopupContent>
@@ -144,7 +147,7 @@
 										<GridViewColumn Header="{StaticResource Bez-MailedBeleg-OutputFormat}" Width="150">
 											<GridViewColumn.CellTemplate>
 												<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
-													<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Collection}"
+													<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
 															SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />
 												</DataTemplate>
 											</GridViewColumn.CellTemplate>
@@ -204,6 +207,19 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
+					<Border VerticalAlignment="Center" Padding="6,3,6,3" Margin="0,0,10,0">
+						<Border.Style>
+							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource RedBorder}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Path=InvalidReason}" Value="{x:Static extensions:BelegDataInvalidReasons.Valid}">
+										<Setter Property="Visibility" Value="Collapsed"/>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Border.Style>
+
+						<TextBlock Text="{Binding Path=InvalidReason, Converter={StaticResource GConv-GetEnumName}}" Foreground="White"  />
+					</Border>
 					<Button Grid.Column="1" Click="ApprovedClick" Style="{StaticResource AcceptButton}" FontSize="16" Content="Akzeptieren" IsEnabled="{Binding Path=IsValid}" />
 				</Grid>
 			</Grid>

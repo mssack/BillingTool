@@ -2,13 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-08</date>
 
 using System;
-using System.Collections.Generic;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using CsWpfBase.Db;
-using CsWpfBase.Db.models.helper;
 
 
 

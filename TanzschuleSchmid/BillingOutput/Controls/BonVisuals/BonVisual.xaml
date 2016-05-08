@@ -22,16 +22,20 @@
 							</Setter>
 						</DataTrigger>
 						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static extensions:BonLayouts.V1MailBon}">
-							<Setter Property="Content">
+							<Setter Property="ContentTemplate">
 								<Setter.Value>
-									<bonVisuals:V1PrintBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+									<DataTemplate>
+										<bonVisuals:V1PrintBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+									</DataTemplate>
 								</Setter.Value>
 							</Setter>
 						</DataTrigger>
 						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static extensions:BonLayouts.V1StornoBon}">
-							<Setter Property="Content">
+							<Setter Property="ContentTemplate">
 								<Setter.Value>
-									<TextBlock Text="Storno"/>
+									<DataTemplate>
+										<bonVisuals:V1StornoBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+									</DataTemplate>
 								</Setter.Value>
 							</Setter>
 						</DataTrigger>

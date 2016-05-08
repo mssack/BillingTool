@@ -2,9 +2,12 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-05-08</date>
 
 using System;
+using System.Linq;
+using System.Windows;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
 
@@ -49,6 +52,13 @@ namespace BillingTool.btScope.functions
 			var wind = new CheckTrustAbilityWindow(title, text);
 			wind.ShowDialog();
 			return wind.HasBeenValidated;
+		}
+
+		/// <summary>Processes all unprocessed <see cref="MailedBeleg" /> or <see cref="PrintedBeleg" /> for a specific <paramref name="data" /> object.</summary>
+		public void ProcessAllUnprocessed(BelegData data)
+		{
+			var outputWindow = new Window_BelegData_ProcessOutput(data) {Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive)};
+			outputWindow.ShowDialog();
 		}
 	}
 }

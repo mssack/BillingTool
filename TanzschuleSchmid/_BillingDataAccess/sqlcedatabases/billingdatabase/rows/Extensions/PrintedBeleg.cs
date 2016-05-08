@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-06</date>
+// <date>2016-05-08</date>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -42,12 +42,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				return $"{nameof(PrintedBeleg)} [Hash = {GetHashCode()}]";
 			return $"[{nameof(PrintedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatId}']";
 		}
-
-		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
-		public override void ApplyExtendedDefaults()
-		{
-			base.ApplyExtendedDefaults();
-		}
+		
 
 
 		/// <summary>The wrapper property for column property <see cref="ProcessingStateName" />.</summary>

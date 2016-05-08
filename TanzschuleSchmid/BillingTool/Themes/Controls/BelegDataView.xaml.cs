@@ -2,15 +2,16 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-08</date>
 
 using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
+using BillingTool.Themes.Controls.mailedbeleg;
+using BillingTool.Themes.Controls.printedbeleg;
 using BillingTool.Themes.Controls.storno;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
@@ -25,10 +26,17 @@ namespace BillingTool.Themes.Controls
 	/// <summary>This control is used to represent a <see cref="BelegData" /> for viewing purpose. This helps to separate style changes of Bon controls.</summary>
 	public class BelegDataView : Control
 	{
+		#region DP Keys
+#pragma warning disable 1591
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(BelegDataView), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+#pragma warning restore 1591
+		#endregion
 
 
-		private Button _erneutDruckenButton;
-		private Button _erneutSendenButton;
+		private MailedBelegeListView _mailedBelegeListView;
+		private PrintedBelegeListView _printedBelegeListView;
+		private RemailBelegControl _remailBelegControl;
+		private ReprintBelegControl _reprintBelegControl;
 		private Button _stornoButton;
 
 
@@ -50,8 +58,14 @@ namespace BillingTool.Themes.Controls
 				return;
 
 			StornoButton = (Button) Template.FindName("PART_StornoButton", this);
-			ErneutSendenButton = (Button) Template.FindName("PART_ErneutSendenButton", this);
-			ErneutDruckenButton = (Button) Template.FindName("PART_ErneutDruckenButton", this);
+
+			PrintedBelegeListView = (PrintedBelegeListView) Template.FindName("PART_PrintedBelegeListView", this);
+			ReprintBelegControl = (ReprintBelegControl) Template.FindName("PART_ReprintBelegControl", this);
+
+			MailedBelegeListView = (MailedBelegeListView) Template.FindName("PART_MailedBelegeListView", this);
+			RemailBelegControl = (RemailBelegControl) Template.FindName("PART_RemailBelegControl", this);
+
+			BonPreviewControl = (BonPreviewControl) Template.FindName("PART_BonPreviewControl", this);
 		}
 		#endregion
 
@@ -62,18 +76,9 @@ namespace BillingTool.Themes.Controls
 			get { return (BelegData) GetValue(ItemProperty); }
 			set { SetValue(ItemProperty, value); }
 		}
-		/// <summary>The selected <see cref="OutputFormat" /> which will be used for the preview.</summary>
-		public OutputFormat SelectedOutputFormat
-		{
-			get { return (OutputFormat) GetValue(SelectedOutputFormatProperty); }
-			set { SetValue(SelectedOutputFormatProperty, value); }
-		}
-		/// <summary>Gets a list of used <see cref="OutputFormat" />'s by the <see cref="Item" />.</summary>
-		public OutputFormat[] UsedOutputFormats
-		{
-			get { return (OutputFormat[]) GetValue(UsedOutputFormatsProperty); }
-			set { SetValue(UsedOutputFormatsProperty, value); }
-		}
+
+		private BonPreviewControl BonPreviewControl { get; set; }
+
 
 		private Button StornoButton
 		{
@@ -89,51 +94,70 @@ namespace BillingTool.Themes.Controls
 		}
 
 
-		private Button ErneutSendenButton
+		private PrintedBelegeListView PrintedBelegeListView
 		{
-			get { return _erneutSendenButton; }
+			get { return _printedBelegeListView; }
 			set
 			{
-				if (_erneutSendenButton != null && !Equals(_erneutSendenButton, value))
-					_erneutSendenButton.Click -= erneutSendenButton_Click;
-				_erneutSendenButton = value;
-				if (_erneutSendenButton != null)
-					_erneutSendenButton.Click += erneutSendenButton_Click;
+				if (_printedBelegeListView != null && !Equals(_printedBelegeListView, value))
+					_printedBelegeListView.OutputFormatSelected -= NewOutputFormatSelectionRequest;
+				_printedBelegeListView = value;
+				if (_printedBelegeListView != null)
+					_printedBelegeListView.OutputFormatSelected += NewOutputFormatSelectionRequest;
 			}
 		}
-
-
-		private Button ErneutDruckenButton
+		private MailedBelegeListView MailedBelegeListView
 		{
-			get { return _erneutDruckenButton; }
+			get { return _mailedBelegeListView; }
 			set
 			{
-				if (_erneutDruckenButton != null && !Equals(_erneutDruckenButton, value))
-					_erneutDruckenButton.Click -= erneutDruckenButton_Click;
-				_erneutDruckenButton = value;
-				if (_erneutDruckenButton != null)
-					_erneutDruckenButton.Click += erneutDruckenButton_Click;
+				if (_mailedBelegeListView != null && !Equals(_mailedBelegeListView, value))
+					_mailedBelegeListView.OutputFormatSelected -= NewOutputFormatSelectionRequest;
+				_mailedBelegeListView = value;
+				if (_mailedBelegeListView != null)
+					_mailedBelegeListView.OutputFormatSelected += NewOutputFormatSelectionRequest;
+			}
+		}
+		private RemailBelegControl RemailBelegControl
+		{
+			get { return _remailBelegControl; }
+			set
+			{
+				if (_remailBelegControl != null && !Equals(_remailBelegControl, value))
+					_remailBelegControl.MailSended -= BonPreviewSelectableReload;
+				_remailBelegControl = value;
+				if (_remailBelegControl != null)
+					_remailBelegControl.MailSended += BonPreviewSelectableReload;
+			}
+		}
+		private ReprintBelegControl ReprintBelegControl
+		{
+			get { return _reprintBelegControl; }
+			set
+			{
+				if (_reprintBelegControl != null && !Equals(_reprintBelegControl, value))
+					_reprintBelegControl.BelegPrinted -= BonPreviewSelectableReload;
+				_reprintBelegControl = value;
+				if (_reprintBelegControl != null)
+					_reprintBelegControl.BelegPrinted += BonPreviewSelectableReload;
 			}
 		}
 
-		private void ItemChanged()
+		private void NewOutputFormatSelectionRequest(OutputFormat obj)
 		{
-			if (Item == null)
-			{
-				UsedOutputFormats = null;
-				SelectedOutputFormat = null;
-			}
-			else
-			{
-				UsedOutputFormats = Item.PrintedBelege.Select(x => x.OutputFormat).Union(Item.MailedBelege.Select(x => x.OutputFormat)).ToArray();
-				SelectedOutputFormat = UsedOutputFormats.Length == 0 ? null : UsedOutputFormats[0];
-			}
+			BonPreviewControl.SelectedPreviewFormat = obj;
 		}
+
+		private void BonPreviewSelectableReload()
+		{
+			BonPreviewControl.ReloadSelectablePreviewFormats();
+		}
+
+
 
 
 		private void stornoButton_Click(object sender, RoutedEventArgs e)
 		{
-
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
 				var approvalData = StornoApproval.DoApprovalFor(Item);
@@ -143,24 +167,6 @@ namespace BillingTool.Themes.Controls
 				belegData.Comment = approvalData.ReasonText;
 				Bt.DataFunctions.Save_New_BelegData(belegData);
 			}
-
-
 		}
-
-		private void erneutSendenButton_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-		private void erneutDruckenButton_Click(object sender, RoutedEventArgs e)
-		{
-
-		}
-
-#pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(BelegDataView), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((BelegDataView) o).ItemChanged()});
-		public static readonly DependencyProperty SelectedOutputFormatProperty = DependencyProperty.Register("SelectedOutputFormat", typeof(OutputFormat), typeof(BelegDataView), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty UsedOutputFormatsProperty = DependencyProperty.Register("UsedOutputFormats", typeof(OutputFormat[]), typeof(BelegDataView), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat[]), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-#pragma warning restore 1591
 	}
 }

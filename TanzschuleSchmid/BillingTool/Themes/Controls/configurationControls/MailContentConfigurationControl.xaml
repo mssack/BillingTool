@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="BillingTool.Themes.Controls.configurationControls.MailContentConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:btScope="clr-namespace:BillingTool.btScope"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/MailedBeleg.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
+    <Grid DataContext="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations}">
+	    <Grid.RowDefinitions>
+		    <RowDefinition Height="Auto"/>
+		    <RowDefinition Height="Auto"/>
+	    </Grid.RowDefinitions>
+	    <StringParam Grid.Row="0" Header="{StaticResource Bez-MailedBeleg-Betreff}" Value="{Binding Path=Default_MailBetreff}" />
+		<StringParam Grid.Row="1" Header="{StaticResource Bez-MailedBeleg-Text}" Value="{Binding Path=Default_MailText}" AcceptsReturn="True" HeaderAlignment="Top" ExtensionMinHeight="60" />
+    </Grid>
+</UserControl>

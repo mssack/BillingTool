@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -113,7 +114,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 		{
 			if (container == null) return null;
 			T foundElement = null;
-			if (container is FrameworkElement)
+			if (container is FrameworkElement && !(container is ContentPresenter))
 				(container as FrameworkElement).ApplyTemplate();
 
 			for (var i = 0; i < VisualTreeHelper.GetChildrenCount(container); i++)

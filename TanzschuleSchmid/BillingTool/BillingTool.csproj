@@ -105,6 +105,9 @@
     <Compile Include="Themes\Controls\configurationControls\DeviceConfigurationControl.xaml.cs">
       <DependentUpon>DeviceConfigurationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\configurationControls\MailContentConfigurationControl.xaml.cs">
+      <DependentUpon>MailContentConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\FromToSelectorControl.xaml.cs">
       <DependentUpon>FromToSelectorControl.xaml</DependentUpon>
     </Compile>
@@ -120,11 +123,23 @@
     <Compile Include="Themes\Controls\configurationControls\MailConfigurationControl.xaml.cs">
       <DependentUpon>MailConfigurationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\ParamBelegDataInvalidReason.xaml.cs">
-      <DependentUpon>ParamBelegDataInvalidReason.xaml</DependentUpon>
+    <Compile Include="Themes\Controls\mailedbeleg\MailedBelegeListView.xaml.cs">
+      <DependentUpon>MailedBelegeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\mailedbeleg\RemailBelegControl.xaml.cs">
+      <DependentUpon>RemailBelegControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\OutputFormatParam.xaml.cs">
+      <DependentUpon>OutputFormatParam.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\ParamBelegDataTyp.xaml.cs">
       <DependentUpon>ParamBelegDataTyp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\printedbeleg\PrintedBelegeListView.xaml.cs">
+      <DependentUpon>PrintedBelegeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\printedbeleg\ReprintBelegControl.xaml.cs">
+      <DependentUpon>ReprintBelegControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\storno\StornoApproval.xaml.cs">
       <DependentUpon>StornoApproval.xaml</DependentUpon>
@@ -178,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\configurationControls\MailContentConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\FromToSelectorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,13 +217,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\ParamBelegDataInvalidReason.xaml">
+    <Page Include="Themes\Controls\mailedbeleg\MailedBelegeListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\mailedbeleg\RemailBelegControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\OutputFormatParam.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\ParamBelegDataTyp.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\printedbeleg\PrintedBelegeListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\printedbeleg\ReprintBelegControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\storno\StornoApproval.xaml">
       <SubType>Designer</SubType>

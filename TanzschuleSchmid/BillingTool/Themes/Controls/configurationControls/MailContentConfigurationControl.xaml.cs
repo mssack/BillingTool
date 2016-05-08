@@ -14,11 +14,11 @@ using System.Windows.Controls;
 
 namespace BillingTool.Themes.Controls.configurationControls
 {
-	/// <summary>Interaction logic for MailConfigurationControl.xaml</summary>
-	public partial class MailConfigurationControl : UserControl
+	/// <summary>Interaction logic for MailContentConfigurationControl.xaml</summary>
+	public partial class MailContentConfigurationControl : UserControl
 	{
 		/// <summary>ctor</summary>
-		public MailConfigurationControl()
+		public MailContentConfigurationControl()
 		{
 			InitializeComponent();
 		}

@@ -45,6 +45,7 @@ namespace BillingTool.Exceptions
 			No_ValidConfiguration = ExitCodes.No_ValidConfiguration,
 			No_DatabaseConnectionPossible = ExitCodes.No_DatabaseConnectionPossible,
 			Invalid_StartupParam = ExitCodes.Invalid_StartupParam,
+			No_KassenOperator = ExitCodes.No_KassenOperator,
 		}
 	}
 }
