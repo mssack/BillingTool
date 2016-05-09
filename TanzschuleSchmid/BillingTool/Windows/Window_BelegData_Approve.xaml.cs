@@ -2,16 +2,16 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-09</date>
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using BillingTool.btScope;
 using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
@@ -29,10 +29,14 @@ namespace BillingTool.Windows
 	public partial class Window_BelegData_Approve : CsWindow
 	{
 		#region DP Keys
+#pragma warning disable 1591
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(Window_BelegData_Approve), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Approve) o).ItemChanged(args.NewValue as BelegData)});
+#pragma warning restore 1591
 		#endregion
 
 
-		private readonly ProcessLock _managedClosing = new ProcessLock();
+		private readonly ProcessLock _managedClosingLock = new ProcessLock();
+		private readonly ProcessLock _selectionChangedLock = new ProcessLock();
 
 		/// <summary>ctor</summary>
 		public Window_BelegData_Approve()
@@ -41,6 +45,7 @@ namespace BillingTool.Windows
 			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Approve");
 			Closing += WindowClosing;
 		}
+
 		/// <summary>The item which needs to be approved.</summary>
 		public BelegData Item
 		{
@@ -50,11 +55,11 @@ namespace BillingTool.Windows
 
 		private void Approved()
 		{
-			using (_managedClosing.Activate())
+			using (_managedClosingLock.Activate())
 			{
 				Bt.DataFunctions.Save_New_BelegData(Item);
 				Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
-				
+
 				using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 				{
 					Bt.UiFunctions.ProcessAllUnprocessed(Item);
@@ -65,7 +70,7 @@ namespace BillingTool.Windows
 
 		private void Canceled()
 		{
-			using (_managedClosing.Activate())
+			using (_managedClosingLock.Activate())
 			{
 				var i = Item;
 				Item = null;
@@ -74,11 +79,12 @@ namespace BillingTool.Windows
 				Close();
 			}
 		}
+
 		private void SomeOutputFormatChanged()
 		{
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
-		
+
 
 		private void ItemChanged(BelegData belegData)
 		{
@@ -90,7 +96,7 @@ namespace BillingTool.Windows
 
 		private void WindowClosing(object sender, CancelEventArgs e)
 		{
-			if (_managedClosing.Active)
+			if (_managedClosingLock.Active)
 				return;
 			e.Cancel = true;
 		}
@@ -130,9 +136,24 @@ namespace BillingTool.Windows
 			beleg.Delete();
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
-#pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(Window_BelegData_Approve), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Approve) o).ItemChanged(args.NewValue as BelegData)});
 
-#pragma warning restore 1591
+		private void ListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (_selectionChangedLock.Active)
+				return;
+
+
+			using (_selectionChangedLock.Activate())
+			{
+				if (Equals(sender, MailedBelegeListView))
+					PrintedBelegeListView.SelectedItem = null;
+				else if (Equals(sender, PrintedBelegeListView))
+					MailedBelegeListView.SelectedItem = null;
+
+				var outputFormat = ((sender as ListView)?.SelectedItem as IOutputBeleg)?.OutputFormat;
+				if (outputFormat != null)
+					BonPreviewControl.SelectedPreviewFormat = outputFormat;
+			}
+		}
 	}
 }

@@ -35,7 +35,6 @@
 		<Setter Property="AcceptsReturn" Value="True" />
 		<Setter Property="HeaderAlignment" Value="Top" />
 		<Setter Property="ExtensionVerticalAlignment" Value="Top" />
-		<Setter Property="ExtensionMinHeight" Value="60" />
 	</Style>
 	<Style x:Key="ParamPrintBeleg" TargetType="{x:Type BoolParam}">
 		<Setter Property="Header" Value="Ausdrucken" />
