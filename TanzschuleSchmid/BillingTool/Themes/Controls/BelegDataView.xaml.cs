@@ -161,9 +161,10 @@ namespace BillingTool.Themes.Controls
 				var approvalData = StornoApproval.DoApprovalFor(Item);
 				if (approvalData.MessageResult == CsMessage.MessageResults.No)
 					return;
-				var belegData = Bt.DataFunctions.New_StornoBelegData_From_BelegData(Item);
-				belegData.Comment = approvalData.ReasonText;
-				Bt.DataFunctions.Save_New_BelegData(belegData);
+
+				var stornoBeleg = Bt.DataFunctions.BelegData.New_Storno(Item);
+				stornoBeleg.Comment = approvalData.ReasonText;
+				Bt.DataFunctions.BelegData.Finalize(stornoBeleg);
 			}
 		}
 	}

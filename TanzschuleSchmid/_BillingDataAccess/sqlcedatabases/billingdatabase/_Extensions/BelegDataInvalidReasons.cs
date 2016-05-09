@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-09</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -34,5 +34,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 
 		/// <summary>The <see cref="BelegData.StornoBeleg" /> is not entered.</summary>
 		[EnumDescription("Fehlender Stornobeleg", "Bei dem Storno eines Beleges muss der entsprechende Beleg angeführt sein")] Missing_StornoBeleg = 3,
+
+
+		/// <summary>There are no <see cref="BelegPosten" /> in the <see cref="BelegData.Postens" /> list.</summary>
+		[EnumDescription("Keine Artikel", "Es muss zumindest ein Artikel angeführt werden")] Missing_BelegPosten = 4,
 	}
 }

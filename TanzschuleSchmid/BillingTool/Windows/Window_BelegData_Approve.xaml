@@ -38,7 +38,7 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
-					<Expander Header="Belegdaten" IsExpanded="True">
+					<Expander Header="Beleg Daten" IsExpanded="True" >
 						<Grid IsSharedSizeScope="True">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
@@ -53,7 +53,27 @@
 							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
 						</Grid>
 					</Expander>
-					<Expander Grid.Row="1" Header="Artikel" IsExpanded="True" Visibility="Collapsed" />
+					<Expander Grid.Row="1" IsExpanded="True" Padding="0">
+						<Expander.Header>
+							<Grid DataContext="{Binding ElementName=PostenListView, Path=SelectedItem}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<TextBlock Text="Artikel" />
+								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteArtikelClicked" Content="Entfernen"
+										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
+								<PopupButton Grid.Column="3" Content="Neuer Artikel" Margin="0">
+									<PopupButton.PopupContent>
+										<belegapproval:NewBelegPostenControl Item="{Binding ElementName=Uc, Path=Item}"/>
+									</PopupButton.PopupContent>
+								</PopupButton>
+							</Grid>
+						</Expander.Header>
+						<belegapproval:PostenListView Item="{Binding}" x:Name="PostenListView" Padding="0,0,0,10"  />
+					</Expander>
 					<Expander Grid.Row="2"
 							IsExpanded="{Binding Path=PrintedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneTime}" Padding="0">
 						<Expander.Header>
@@ -67,7 +87,7 @@
 								<TextBlock Text="Zu druckende Rechnungen" />
 
 
-								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeletePrintClicked" Content="Löschen"
+								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeletePrintClicked" Content="Entfernen"
 										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
 								<Button Grid.Column="3" Style="{StaticResource AcceptButton}" Click="NewPrintClicked" Content="Neuer Ausdruck" Margin="0" />
 							</Grid>
@@ -88,7 +108,7 @@
 								<TextBlock Text="Zu sendende Emails" />
 
 
-								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteMailClicked" Content="Löschen"
+								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteMailClicked" Content="Entfernen"
 										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
 								<Button Grid.Column="3" Style="{StaticResource AcceptButton}" Click="NewMailClicked" Content="Neue Mail" Margin="0" />
 							</Grid>

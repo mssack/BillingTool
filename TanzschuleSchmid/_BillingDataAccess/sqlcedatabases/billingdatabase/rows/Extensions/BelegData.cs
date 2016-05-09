@@ -57,9 +57,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 
 		/// <summary>returns true if all needed informations are present in this row.</summary>
-		[DependsOn(nameof(TypName))]
-		[DependsOn(nameof(KassenOperator))]
-		[DependsOn(nameof(StornoBelegId))]
+		[DependsOn(nameof(InvalidReason))]
 		public bool IsValid => InvalidReason == BelegDataInvalidReasons.Valid;
 
 		/// <summary>returns true if all needed informations are present in this row.</summary>
@@ -86,6 +84,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 					return BelegDataInvalidReasons.Missing_Kassenoperator;
 				if (Typ == BelegDataTypes.Storno && StornoBeleg == null)
 					return BelegDataInvalidReasons.Missing_StornoBeleg;
+				if (Postens.Count == 0)
+					return BelegDataInvalidReasons.Missing_BelegPosten;
 				return BelegDataInvalidReasons.Valid;
 			}
 		}

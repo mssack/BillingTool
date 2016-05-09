@@ -57,7 +57,7 @@ namespace BillingTool.Themes.Controls.configuration
 
 		private void HinzufügenClicked(object sender, RoutedEventArgs e)
 		{
-			var format = Bt.DataFunctions.New_OutputFormat();
+			var format = Bt.DataFunctions.OutputFormat.New();
 			SelectedItem = format;
 		}
 

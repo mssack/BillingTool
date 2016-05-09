@@ -56,11 +56,20 @@ namespace BillingOutput.Controls.BonVisuals
 			set { SetValue(SteuerAufschlüsselungProperty, value); }
 		}
 
-		private void ItemChanged(BelegData newValue)
+		private void ItemChanged(BelegData oldValue,BelegData newValue)
+		{
+			if (oldValue != null)
+				oldValue.Postens.CollectionChanged -= Postens_CollectionChanged;
+			if (newValue != null)
+				newValue.Postens.CollectionChanged += Postens_CollectionChanged;
+			ReloadSteuerschlüssel();
+
+		}
+
+		private void Postens_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
 			ReloadSteuerschlüssel();
 		}
-
 
 		private void ReloadSteuerschlüssel()
 		{
@@ -120,7 +129,7 @@ namespace BillingOutput.Controls.BonVisuals
 			public decimal BetragDifferenz => BetragBrutto - BetragNetto;
 		}
 #pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1PrintBonVisual) o).ItemChanged(args.NewValue as BelegData)});
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1PrintBonVisual) o).ItemChanged(args.OldValue as BelegData,args.NewValue as BelegData)});
 		public static readonly DependencyProperty SteuerAufschlüsselungProperty = DependencyProperty.Register("SteuerAufschlüsselung", typeof(SteuerSchlüssel[]), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(SteuerSchlüssel[]), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 

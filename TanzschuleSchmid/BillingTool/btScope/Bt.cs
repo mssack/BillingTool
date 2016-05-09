@@ -121,7 +121,7 @@ namespace BillingTool.btScope
 			if (mode == StartupModes.Developer)
 				window = new DeveloperWindow();
 			else if (mode == StartupModes.BelegDataApprove)
-				window = new Window_BelegData_Approve {Item = DataFunctions.New_BelegData_From_Configuration()};
+				window = new Window_BelegData_Approve {Item = DataFunctions.BelegData.New_FromConfiguration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)

@@ -60,11 +60,15 @@ namespace BillingTool.Themes.Controls.belegview
 		{
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
-				var printedBeleg = Bt.DataFunctions.New_PrintBeleg_For_BelegData(Item);
+				var printedBeleg = Bt.DataFunctions.PrintedBeleg.New(Item);
 				printedBeleg.OutputFormat = OutputFormat;
 				printedBeleg.PrinterDevice = Device;
 
 				Bt.UiFunctions.ProcessAllUnprocessed(Item);
+
+				Bt.DataFunctions.PrintedBeleg.Finalize(printedBeleg);
+				Bt.DataFunctions.SyncAnabolicChanges();
+
 				Reset();
 				BelegPrinted?.Invoke();
 			}

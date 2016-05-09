@@ -57,12 +57,14 @@ namespace BillingTool.Windows
 		{
 			using (_managedClosingLock.Activate())
 			{
-				Bt.DataFunctions.Save_New_BelegData(Item);
-				Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
-
 				using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 				{
 					Bt.UiFunctions.ProcessAllUnprocessed(Item);
+
+					Bt.DataFunctions.BelegData.Finalize(Item);
+					Bt.DataFunctions.SyncAnabolicChanges();
+
+					Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
 					Close();
 				}
 			}
@@ -72,9 +74,7 @@ namespace BillingTool.Windows
 		{
 			using (_managedClosingLock.Activate())
 			{
-				var i = Item;
-				Item = null;
-				Bt.DataFunctions.Cancle_New_BelegData(i);
+				Bt.DataFunctions.RejectAllChanges();
 				Bt.Functions.SetExitCode(ExitCodes.BelegDataCreation_Aborted);
 				Close();
 			}
@@ -113,28 +113,35 @@ namespace BillingTool.Windows
 
 		private void NewMailClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.New_MailedBeleg_For_BelegData(Item, "");
+			Bt.DataFunctions.MailedBeleg.New(Item, "");
+
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void NewPrintClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.New_PrintBeleg_For_BelegData(Item);
+			Bt.DataFunctions.PrintedBeleg.New(Item);
+
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void DeleteMailClicked(object sender, RoutedEventArgs e)
 		{
-			var beleg = (MailedBeleg) ((FrameworkElement) sender).DataContext;
-			beleg.Delete();
+			Bt.DataFunctions.MailedBeleg.Delete((MailedBeleg) ((FrameworkElement) sender).DataContext);
+
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void DeletePrintClicked(object sender, RoutedEventArgs e)
 		{
-			var beleg = (PrintedBeleg) ((FrameworkElement) sender).DataContext;
-			beleg.Delete();
+			Bt.DataFunctions.PrintedBeleg.Delete((PrintedBeleg) ((FrameworkElement) sender).DataContext);
+
 			BonPreviewControl.ReloadSelectablePreviewFormats();
+		}
+
+		private void DeleteArtikelClicked(object sender, RoutedEventArgs e)
+		{
+			Bt.DataFunctions.BelegPosten.Delete((BelegPosten) ((FrameworkElement) sender).DataContext);
 		}
 
 		private void ListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
