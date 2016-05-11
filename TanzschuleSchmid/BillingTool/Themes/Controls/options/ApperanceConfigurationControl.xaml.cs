@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 
 
-namespace BillingTool.Themes.Controls.configuration
+namespace BillingTool.Themes.Controls.options
 {
 	/// <summary>Interaction logic for ApperanceConfigurationControl.xaml</summary>
 	public partial class ApperanceConfigurationControl : UserControl

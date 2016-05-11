@@ -12,13 +12,13 @@ using System.Windows.Controls;
 
 
 
-namespace BillingTool.Themes.Controls.configuration
+namespace BillingTool.Themes.Controls.options
 {
-	/// <summary>Interaction logic for DefaultLayoutConfigurationControl.xaml</summary>
-	public partial class DefaultLayoutConfigurationControl : UserControl
+	/// <summary>Interaction logic for MailConfigurationControl.xaml</summary>
+	public partial class MailConfigurationControl : UserControl
 	{
 		/// <summary>ctor</summary>
-		public DefaultLayoutConfigurationControl()
+		public MailConfigurationControl()
 		{
 			InitializeComponent();
 		}

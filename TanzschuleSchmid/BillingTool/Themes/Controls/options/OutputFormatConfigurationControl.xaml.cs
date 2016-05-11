@@ -17,7 +17,7 @@ using CsWpfBase.Global;
 
 
 
-namespace BillingTool.Themes.Controls.configuration
+namespace BillingTool.Themes.Controls.options
 {
 	/// <summary>Interaction logic for OutputFormatConfigurationControl.xaml</summary>
 	public partial class OutputFormatConfigurationControl : UserControl

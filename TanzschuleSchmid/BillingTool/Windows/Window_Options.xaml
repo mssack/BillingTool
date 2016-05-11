@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
-		xmlns:configuration="clr-namespace:BillingTool.Themes.Controls.configuration"
+		xmlns:options="clr-namespace:BillingTool.Themes.Controls.options"
 		mc:Ignorable="d" Style="{StaticResource {x:Type CsWindow}}"
         Title="Window_Options" Height="300" Width="300">
 	<Grid>
@@ -35,10 +35,10 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Expander Grid.Row="0"  Header="Darstellung" IsExpanded="True">
-								<configuration:ApperanceConfigurationControl/>
+								<options:ApperanceConfigurationControl/>
 							</Expander>
 							<Expander Grid.Row="1" Header="Standard werte" IsExpanded="True">
-								<configuration:DefaultLayoutConfigurationControl Grid.IsSharedSizeScope="True"/>
+								<options:DefaultLayoutConfigurationControl Grid.IsSharedSizeScope="True"/>
 							</Expander>
 						</Grid>
 						<Grid Grid.Column="1">
@@ -50,26 +50,25 @@
 								<RowDefinition Height="*"/>
 							</Grid.RowDefinitions>
 							<Expander Grid.Row="0"  Header="E-Mail Konfiguration" IsExpanded="True">
-								<configuration:MailConfigurationControl Grid.IsSharedSizeScope="True"/>
+								<options:MailConfigurationControl Grid.IsSharedSizeScope="True"/>
 							</Expander>
 							<Expander Grid.Row="1" Header="Geräte Konfiguration" IsExpanded="True">
-								<configuration:DeviceConfigurationControl/>
+								<options:DeviceConfigurationControl/>
 							</Expander>
 						</Grid>
 						
 					</Grid>
 					<Grid Grid.Row="1">
 						<Expander Header="E-Mail Inhalt" IsExpanded="True">
-							<configuration:MailContentConfigurationControl Grid.IsSharedSizeScope="True" />
+							<options:MailContentConfigurationControl Grid.IsSharedSizeScope="True" />
 						</Expander>
 					</Grid>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Steuersätze"/>
 			<TabItem Header="Posten"/>
-			<TabItem Header="Kassenbon"/>
 			<TabItem Header="Layouts" Padding="10">
-				<configuration:OutputFormatConfigurationControl />
+				<options:OutputFormatConfigurationControl />
 			</TabItem>
 		</TabControl>
 	</Grid>

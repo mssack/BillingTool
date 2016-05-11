@@ -123,13 +123,13 @@
     <Compile Include="Themes\Controls\_shared\BonPreviewControl.xaml.cs">
       <DependentUpon>BonPreviewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\configuration\DefaultLayoutConfigurationControl.xaml.cs">
+    <Compile Include="Themes\Controls\options\DefaultLayoutConfigurationControl.xaml.cs">
       <DependentUpon>DefaultLayoutConfigurationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\configuration\DeviceConfigurationControl.xaml.cs">
+    <Compile Include="Themes\Controls\options\DeviceConfigurationControl.xaml.cs">
       <DependentUpon>DeviceConfigurationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\configuration\MailContentConfigurationControl.xaml.cs">
+    <Compile Include="Themes\Controls\options\MailContentConfigurationControl.xaml.cs">
       <DependentUpon>MailContentConfigurationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\_shared\FromToSelectorControl.xaml.cs">
@@ -138,13 +138,13 @@
     <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
       <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\configuration\ApperanceConfigurationControl.xaml.cs">
+    <Compile Include="Themes\Controls\options\ApperanceConfigurationControl.xaml.cs">
       <DependentUpon>ApperanceConfigurationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\configuration\OutputFormatConfigurationControl.xaml.cs">
+    <Compile Include="Themes\Controls\options\OutputFormatConfigurationControl.xaml.cs">
       <DependentUpon>OutputFormatConfigurationControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\configuration\MailConfigurationControl.xaml.cs">
+    <Compile Include="Themes\Controls\options\MailConfigurationControl.xaml.cs">
       <DependentUpon>MailConfigurationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\belegview\MailedBelegeListView.xaml.cs">
@@ -223,15 +223,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\configuration\DefaultLayoutConfigurationControl.xaml">
+    <Page Include="Themes\Controls\options\DefaultLayoutConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\configuration\DeviceConfigurationControl.xaml">
+    <Page Include="Themes\Controls\options\DeviceConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\configuration\MailContentConfigurationControl.xaml">
+    <Page Include="Themes\Controls\options\MailContentConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,15 +243,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\configuration\ApperanceConfigurationControl.xaml">
+    <Page Include="Themes\Controls\options\ApperanceConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\configuration\OutputFormatConfigurationControl.xaml">
+    <Page Include="Themes\Controls\options\OutputFormatConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\configuration\MailConfigurationControl.xaml">
+    <Page Include="Themes\Controls\options\MailConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

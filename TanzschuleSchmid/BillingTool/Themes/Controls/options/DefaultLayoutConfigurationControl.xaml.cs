@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Windows.Controls;
@@ -12,13 +12,13 @@ using System.Windows.Controls;
 
 
 
-namespace BillingTool.Themes.Controls.configuration
+namespace BillingTool.Themes.Controls.options
 {
-	/// <summary>Interaction logic for MailContentConfigurationControl.xaml</summary>
-	public partial class MailContentConfigurationControl : UserControl
+	/// <summary>Interaction logic for DefaultLayoutConfigurationControl.xaml</summary>
+	public partial class DefaultLayoutConfigurationControl : UserControl
 	{
 		/// <summary>ctor</summary>
-		public MailContentConfigurationControl()
+		public DefaultLayoutConfigurationControl()
 		{
 			InitializeComponent();
 		}
