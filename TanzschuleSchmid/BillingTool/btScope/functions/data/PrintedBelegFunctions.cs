@@ -16,7 +16,7 @@ using BillingTool.btScope.functions.data.basis;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class PrintedBelegFunctions : DataFunctionsBase<PrintedBeleg>
 	{
 		private static PrintedBelegFunctions _instance;
@@ -45,7 +45,7 @@ namespace BillingTool.btScope.functions.data
 		/// <summary>The action occurs when an <paramref name="item" /> needs finalization after checking if the item is valid. Should be recursive</summary>
 		protected override void FinalizeAction(PrintedBeleg item)
 		{
-			Bt.DataFunctions.OutputFormat.Finalize(item.OutputFormat);
+			Bt.Data.OutputFormat.TryFinalize(item.OutputFormat);
 		}
 
 		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
@@ -60,11 +60,11 @@ namespace BillingTool.btScope.functions.data
 		{
 			var newItem = data.DataSet.PrintedBelege.NewRow();
 			newItem.BelegData = data;
-			newItem.PrinterDevice = Bt.Config.File.KassenEinstellung.PrinterName;
+			newItem.PrinterDevice = Bt.Config.File.KassenEinstellung.Default_PrinterName;
 			newItem.OutputFormat = newItem.DataSet.OutputFormats.Default_PrintFormat;
 			newItem.Table.Add(newItem);
 
-			Notfinalized_Add(newItem);
+			NonFinalized_Add(newItem);
 			return newItem;
 		}
 
@@ -74,7 +74,7 @@ namespace BillingTool.btScope.functions.data
 			if (item.ProcessingState != ProcessingStates.NotProcessed)
 				throw new InvalidOperationException($"The {nameof(PrintedBeleg)} has already been printed and therefore cannot be deleted.");
 
-			Notfinalized_TryRemove(item);
+			NonFinalized_TryRemove(item);
 			item.Delete();
 		}
 	}

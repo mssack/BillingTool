@@ -2,13 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-06</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.ComponentModel;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.Windows;
-using BillingTool.Windows.privileged;
 
 
 
@@ -17,25 +14,22 @@ using BillingTool.Windows.privileged;
 
 namespace BillingTool.btScope.configuration._enums
 {
-	/// <summary>The possible runtime modes of the application.</summary>
+	/// <summary>The possible startup modes of the application. The mode defines the functionality of an application instance.</summary>
 	[Serializable]
 	public enum StartupModes
 	{
 		/// <summary>No startup mode is defined. The application will exit.</summary>
-		[Description("Nicht-startbar")] Undefined,
+		[Description("Nicht definiert")] Undefined,
 
-		/// <summary>The <see cref="DeveloperWindow" /> will be opened. In this <see cref="StartupModes" /> real DAMAGE could be done.</summary>
-		[Description("Development")] Developer,
-		/// <summary>The <see cref="Window_DatabaseViewer" /> will be opened.</summary>
-		[Description("Database")]
-		Database,
+		/// <summary>for testing purpose.</summary>
+		[Description("Database")] Database,
 
 
-		/// <summary>The <see cref="Window_BelegData_Viewer" /> will be opened. Can be used to reprint, mail or even Storno a <see cref="BelegData" />.</summary>
+		/// <summary>Allows re-printing, re-mailing or even canceling a previous created BelegData. Can also be used to manually create a new BelegData.</summary>
 		[Description("Belege View")] BelegDataViewer,
-		/// <summary>The <see cref="Window_BelegData_Approve" /> will be opened.</summary>
+		/// <summary>Allows the creation of a new BelegData.</summary>
 		[Description("Beleg Bestätigung")] BelegDataApprove,
-		/// <summary>The <see cref="Window_Options" /> will be opened.</summary>
+		/// <summary>Allows modifying the options of the program.</summary>
 		[Description("Optionen")] Options,
 	}
 }

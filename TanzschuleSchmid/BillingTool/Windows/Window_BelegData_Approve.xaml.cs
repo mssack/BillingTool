@@ -41,6 +41,8 @@ namespace BillingTool.Windows
 		/// <summary>ctor</summary>
 		public Window_BelegData_Approve()
 		{
+			Bt.EnsureInitialization();
+
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Approve");
 			Closing += WindowClosing;
@@ -55,29 +57,26 @@ namespace BillingTool.Windows
 
 		private void Approved()
 		{
-			using (_managedClosingLock.Activate())
+			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
-				using (CsGlobal.Wpf.Window.GrayOutAllWindows())
-				{
-					Bt.UiFunctions.ProcessAllUnprocessed(Item);
+				Bt.Data.BelegData.Finalize(Item);
+				Bt.Ui.ProcessNonProcessedOutputs(Item);
+				Bt.Data.SyncAnabolicChanges();
 
-					Bt.DataFunctions.BelegData.Finalize(Item);
-					Bt.DataFunctions.SyncAnabolicChanges();
+				Bt.AppOutput.SetExitCode(ExitCodes.NewBelegData_Created);
 
-					Bt.Functions.SetExitCode(ExitCodes.NewBelegData_Created);
+				using (_managedClosingLock.Activate())
 					Close();
-				}
 			}
 		}
 
 		private void Canceled()
 		{
+			Bt.Data.RejectAllChanges();
+			Bt.AppOutput.SetExitCode(ExitCodes.BelegDataCreation_Aborted);
+
 			using (_managedClosingLock.Activate())
-			{
-				Bt.DataFunctions.RejectAllChanges();
-				Bt.Functions.SetExitCode(ExitCodes.BelegDataCreation_Aborted);
 				Close();
-			}
 		}
 
 		private void SomeOutputFormatChanged()
@@ -113,35 +112,35 @@ namespace BillingTool.Windows
 
 		private void NewMailClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.MailedBeleg.New(Item, "");
+			Bt.Data.MailedBeleg.New(Item, "");
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void NewPrintClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.PrintedBeleg.New(Item);
+			Bt.Data.PrintedBeleg.New(Item);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void DeleteMailClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.MailedBeleg.Delete((MailedBeleg) ((FrameworkElement) sender).DataContext);
+			Bt.Data.MailedBeleg.Delete((MailedBeleg) ((FrameworkElement) sender).DataContext);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
 		private void DeletePrintClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.PrintedBeleg.Delete((PrintedBeleg) ((FrameworkElement) sender).DataContext);
+			Bt.Data.PrintedBeleg.Delete((PrintedBeleg) ((FrameworkElement) sender).DataContext);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 		}
 
-		private void DeleteArtikelClicked(object sender, RoutedEventArgs e)
+		private void DeleteBelegPostenClicked(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.BelegPosten.Delete((BelegPosten) ((FrameworkElement) sender).DataContext);
+			Bt.Data.BelegPosten.Delete((BelegPosten) ((FrameworkElement) sender).DataContext);
 		}
 
 		private void ListViewSelectionChanged(object sender, SelectionChangedEventArgs e)

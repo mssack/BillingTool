@@ -158,13 +158,14 @@ namespace BillingTool.Themes.Controls
 		{
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
-				var approvalData = StornoApproval.DoApprovalFor(Item);
+				var approvalData = StornoApprovalControl.DoApprovalFor(Item);
 				if (approvalData.MessageResult == CsMessage.MessageResults.No)
 					return;
 
-				var stornoBeleg = Bt.DataFunctions.BelegData.New_Storno(Item);
+				var stornoBeleg = Bt.Data.BelegData.New_Storno(Item);
 				stornoBeleg.Comment = approvalData.ReasonText;
-				Bt.DataFunctions.BelegData.Finalize(stornoBeleg);
+				Bt.Data.BelegData.Finalize(stornoBeleg);
+				Bt.Data.SyncAnabolicChanges();
 			}
 		}
 	}

@@ -83,7 +83,7 @@ namespace BillingTool.Themes.Controls.belegapproval
 
 		private void ErstellenClick(object sender, RoutedEventArgs e)
 		{
-			Bt.DataFunctions.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
+			Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
 			Reset();
 		}
 	}

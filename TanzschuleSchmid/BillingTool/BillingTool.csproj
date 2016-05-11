@@ -97,8 +97,9 @@
     <Compile Include="btScope\functions\data\PostenFunctions.cs" />
     <Compile Include="btScope\functions\data\PrintedBelegFunctions.cs" />
     <Compile Include="btScope\functions\data\SteuersatzFunctions.cs" />
-    <Compile Include="btScope\functions\Functions.cs" />
+    <Compile Include="btScope\functions\AppOutput.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
+    <Compile Include="btScope\output\Output.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="ExitCodes.cs" />
     <Compile Include="Themes\Controls\belegapproval\BelegDataTypParam.xaml.cs">
@@ -161,17 +162,17 @@
     <Compile Include="Themes\Controls\belegview\ReprintBelegControl.xaml.cs">
       <DependentUpon>ReprintBelegControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\belegview\StornoApproval.xaml.cs">
-      <DependentUpon>StornoApproval.xaml</DependentUpon>
+    <Compile Include="Themes\Controls\belegview\StornoApprovalControl.xaml.cs">
+      <DependentUpon>StornoApprovalControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
     <Compile Include="Windows\Window_BelegData_Approve.xaml.cs">
       <DependentUpon>Window_BelegData_Approve.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\Window_BelegData_ProcessOutput.xaml.cs">
-      <DependentUpon>Window_BelegData_ProcessOutput.xaml</DependentUpon>
+    <Compile Include="Windows\tools\Window_BelegData_ProcessNonProcessedOutputs.xaml.cs">
+      <DependentUpon>Window_BelegData_ProcessNonProcessedOutputs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\CheckTrustAbilityWindow.xaml.cs">
+    <Compile Include="Windows\tools\CheckTrustAbilityWindow.xaml.cs">
       <DependentUpon>CheckTrustAbilityWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\Window_BelegData_Viewer.xaml.cs">
@@ -187,9 +188,6 @@
     <Compile Include="btScope\logging\Logging.cs" />
     <Compile Include="CompilerServices.cs" />
     <Compile Include="btScope\configuration\_enums\StartupModes.cs" />
-    <Compile Include="Windows\privileged\DeveloperWindow.xaml.cs">
-      <DependentUpon>DeveloperWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -277,7 +275,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\belegview\StornoApproval.xaml">
+    <Page Include="Themes\Controls\belegview\StornoApprovalControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -333,11 +331,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Window_BelegData_ProcessOutput.xaml">
+    <Page Include="Windows\tools\Window_BelegData_ProcessNonProcessedOutputs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\CheckTrustAbilityWindow.xaml">
+    <Page Include="Windows\tools\CheckTrustAbilityWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -346,10 +344,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\privileged\Window_KassenConfiguration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\privileged\DeveloperWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

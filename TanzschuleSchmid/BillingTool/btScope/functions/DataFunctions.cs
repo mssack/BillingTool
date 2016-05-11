@@ -15,7 +15,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.functions
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class DataFunctions : Base
 	{
 		private static DataFunctions _instance;
@@ -39,16 +39,16 @@ namespace BillingTool.btScope.functions
 		{
 		}
 
-		private bool UnfinalizedChangesExists()
+		private bool NonFinalizedChangesExists()
 		{
 			return
-				BelegData.HasUnfinalizedRows ||
-				OutputFormat.HasUnfinalizedRows ||
-				BelegPosten.HasUnfinalizedRows ||
-				Posten.HasUnfinalizedRows ||
-				Steuersatz.HasUnfinalizedRows ||
-				MailedBeleg.HasUnfinalizedRows ||
-				PrintedBeleg.HasUnfinalizedRows;
+				BelegData.HasNonFinalizedRows ||
+				OutputFormat.HasNonFinalizedRows ||
+				BelegPosten.HasNonFinalizedRows ||
+				Posten.HasNonFinalizedRows ||
+				Steuersatz.HasNonFinalizedRows ||
+				MailedBeleg.HasNonFinalizedRows ||
+				PrintedBeleg.HasNonFinalizedRows;
 
 		}
 
@@ -79,7 +79,7 @@ namespace BillingTool.btScope.functions
 		/// <summary>Ensures synchronization with file.</summary>
 		public void SyncAnabolicChanges()
 		{
-			if (UnfinalizedChangesExists())
+			if (NonFinalizedChangesExists())
 				throw new InvalidOperationException("There are not finalized changes pending");
 
 			Bt.Db.Billing.SaveAnabolic();
@@ -88,8 +88,8 @@ namespace BillingTool.btScope.functions
 		/// <summary>Ensures synchronization with file.</summary>
 		public void SyncKatabolicChanges()
 		{
-			if (UnfinalizedChangesExists())
-				throw new InvalidOperationException("There are not finalized changes pending");
+			if (NonFinalizedChangesExists())
+				throw new InvalidOperationException("There are unfinalized changes pending");
 
 			Bt.Db.Billing.SaveKatabolic();
 			Bt.Db.Billing.AcceptChanges();
@@ -97,7 +97,7 @@ namespace BillingTool.btScope.functions
 		/// <summary>Ensures synchronization with file.</summary>
 		public void SyncChanges()
 		{
-			if (UnfinalizedChangesExists())
+			if (NonFinalizedChangesExists())
 				throw new InvalidOperationException("There are not finalized changes pending");
 
 			Bt.Db.Billing.SaveUnspecific();

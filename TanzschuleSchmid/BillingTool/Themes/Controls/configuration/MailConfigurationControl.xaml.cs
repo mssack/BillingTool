@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Windows.Controls;

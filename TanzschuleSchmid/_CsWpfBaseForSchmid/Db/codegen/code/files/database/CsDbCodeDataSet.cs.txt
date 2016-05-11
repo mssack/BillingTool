@@ -1,4 +1,7 @@
-﻿/// <summary>'[<c>#DataContextNativeName#</c>].[<c>#DatabaseName#</c>]': a dataset/database inside context [<c>#DataContextNativeName#</c>] providing the tables and views inside database [<c>#DatabaseName#</c>].</summary>
+﻿
+
+
+/// <summary>'[<c>#DataContextNativeName#</c>].[<c>#DatabaseName#</c>]': a dataset/database inside context [<c>#DataContextNativeName#</c>] providing the tables and views inside database [<c>#DatabaseName#</c>].</summary>
 [Serializable] [DebuggerStepThrough]
 #DebuggerDisplayAttribute#
 #CsDbDataSetAttribute#

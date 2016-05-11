@@ -15,7 +15,7 @@ using BillingTool.btScope.functions.data.basis;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class BelegPostenFunctions : DataFunctionsBase<BelegPosten>
 	{
 		private static BelegPostenFunctions _instance;
@@ -51,8 +51,8 @@ namespace BillingTool.btScope.functions.data
 			item.Posten.LastUsedDate = DateTime.Now;
 			item.Steuersatz.LastUsedDate = DateTime.Now;
 
-			Bt.DataFunctions.Posten.Finalize(item.Posten);
-			Bt.DataFunctions.Steuersatz.Finalize(item.Steuersatz);
+			Bt.Data.Posten.TryFinalize(item.Posten);
+			Bt.Data.Steuersatz.TryFinalize(item.Steuersatz);
 		}
 
 		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
@@ -90,7 +90,7 @@ namespace BillingTool.btScope.functions.data
 
 			UpdateBelegData(item);
 
-			Notfinalized_Add(newItem);
+			NonFinalized_Add(newItem);
 			return newItem;
 		}
 
@@ -103,7 +103,7 @@ namespace BillingTool.btScope.functions.data
 			item.Delete();
 
 			UpdateBelegData(belegData);
-			Notfinalized_Remove(item);
+			NonFinalized_Remove(item);
 		}
 
 

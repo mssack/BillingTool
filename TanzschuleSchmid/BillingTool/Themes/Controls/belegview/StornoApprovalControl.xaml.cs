@@ -21,13 +21,13 @@ using CsWpfBase.Themes.Resources.Converters.logic;
 namespace BillingTool.Themes.Controls.belegview
 {
 	/// <summary>Used to approve a Storno action.</summary>
-	public partial class StornoApproval : UserControl
+	public partial class StornoApprovalControl : UserControl
 	{
 
 		/// <summary>Opens a message window and asks for a reason.</summary>
-		public static StornoApproval DoApprovalFor(BelegData target)
+		public static StornoApprovalControl DoApprovalFor(BelegData target)
 		{
-			var stornoApproval = new StornoApproval {ItemToStorno = target};
+			var stornoApproval = new StornoApprovalControl {ItemToStorno = target};
 			var window = CsGlobal.Message.GetWindow(stornoApproval, CsMessage.Types.Warning, $"Beleg {target.Nummer} stornieren?", CsMessage.MessageButtons.YesNo);
 			window.SetBinding(CsMessageWindow.YesButtonEnabledProperty, new Binding("ReasonText") {Source = stornoApproval, Converter = new Conv_InvIsNullOrEmpty()});
 			stornoApproval.MessageResult = window.ShowDialog();
@@ -35,7 +35,7 @@ namespace BillingTool.Themes.Controls.belegview
 		}
 
 		/// <summary>ctor</summary>
-		private StornoApproval()
+		private StornoApprovalControl()
 		{
 			InitializeComponent();
 		}
@@ -61,9 +61,9 @@ namespace BillingTool.Themes.Controls.belegview
 			set { SetValue(ItemToStornoProperty, value); }
 		}
 #pragma warning disable 1591
-		public static readonly DependencyProperty ReasonTextProperty = DependencyProperty.Register("ReasonText", typeof(string), typeof(StornoApproval), new FrameworkPropertyMetadata {DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty ItemToStornoProperty = DependencyProperty.Register("ItemToStorno", typeof(BelegData), typeof(StornoApproval), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty MessageResultProperty = DependencyProperty.Register("MessageResult", typeof(CsMessage.MessageResults), typeof(StornoApproval), new FrameworkPropertyMetadata {DefaultValue = default(CsMessage.MessageResults), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ReasonTextProperty = DependencyProperty.Register("ReasonText", typeof(string), typeof(StornoApprovalControl), new FrameworkPropertyMetadata {DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ItemToStornoProperty = DependencyProperty.Register("ItemToStorno", typeof(BelegData), typeof(StornoApprovalControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty MessageResultProperty = DependencyProperty.Register("MessageResult", typeof(CsMessage.MessageResults), typeof(StornoApprovalControl), new FrameworkPropertyMetadata {DefaultValue = default(CsMessage.MessageResults), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
 	}
 }

@@ -28,58 +28,63 @@ namespace BillingTool.btScope.functions.data.basis
 
 
 		/// <summary>If there are any not finalized rows this property will return true</summary>
-		public bool HasUnfinalizedRows => NotfinalizedRows.Count != 0;
+		public bool HasNonFinalizedRows => NonFinalizedRows.Count != 0;
 
-		private HashSet<TRowType> NotfinalizedRows { get; } = new HashSet<TRowType>();
+		private HashSet<TRowType> NonFinalizedRows { get; } = new HashSet<TRowType>();
 
 		/// <summary>Finalizes the <paramref name="item" />.</summary>
 		public void Finalize(TRowType item)
 		{
-			if (!NotfinalizedRows.Contains(item))
+			if (!NonFinalizedRows.Contains(item))
 				throw new ArgumentException($"The item has never been created through the {nameof(DataFunctions)} scope. Invalid programming behavior.");
 
 			ValidationAction(item);
 			FinalizeAction(item);
 
-			Notfinalized_Remove(item);
+			NonFinalized_Remove(item);
 		}
 
 		/// <summary>Finalizes the <paramref name="item" /> if it is not finalized.</summary>
 		public void TryFinalize(TRowType item)
 		{
-			if (NotfinalizedRows.Contains(item))
-				Finalize(item);
+			if (!NonFinalizedRows.Contains(item)) return;
+
+
+			ValidationAction(item);
+			FinalizeAction(item);
+
+			NonFinalized_Remove(item);
 		}
 
 		/// <summary>Adds an entry to the not finalized collection.</summary>
-		protected void Notfinalized_Add(TRowType item)
+		protected void NonFinalized_Add(TRowType item)
 		{
-			if (NotfinalizedRows.Contains(item))
-				throw new ArgumentException($"The item is already part of the {nameof(NotfinalizedRows)} collection.");
-			NotfinalizedRows.Add(item);
+			if (NonFinalizedRows.Contains(item))
+				throw new ArgumentException($"The item is already part of the {nameof(NonFinalizedRows)} collection.");
+			NonFinalizedRows.Add(item);
 		}
 
 		/// <summary>Removes an entry from the not finalized collection.</summary>
-		protected void Notfinalized_Remove(TRowType item)
+		protected void NonFinalized_Remove(TRowType item)
 		{
-			if (!NotfinalizedRows.Contains(item))
+			if (!NonFinalizedRows.Contains(item))
 				throw new ArgumentException($"The item has never been created through the {nameof(DataFunctions)} scope. Invalid programming behavior.");
-			NotfinalizedRows.Remove(item);
+			NonFinalizedRows.Remove(item);
 		}
 		/// <summary>Removes an entry from the not finalized collection.</summary>
-		protected void Notfinalized_TryRemove(TRowType item)
+		protected void NonFinalized_TryRemove(TRowType item)
 		{
-			if (NotfinalizedRows.Contains(item))
-				NotfinalizedRows.Remove(item);
+			if (NonFinalizedRows.Contains(item))
+				NonFinalizedRows.Remove(item);
 		}
 
 
 
 		/// <summary>Used whenever there is already an instance which is currently not finalized.</summary>
-		public class NotfinalizedInstanceException : Exception
+		public class NotFinalizedInstanceException : Exception
 		{
 			/// <summary>ctor with default message.</summary>
-			public NotfinalizedInstanceException() : base($"There is already a not finalized instance of type {typeof(TRowType).Name}, which have to be finalized before another instance can be created.")
+			public NotFinalizedInstanceException() : base($"There is already a not finalized instance of type {typeof(TRowType).Name}, which have to be finalized before another instance can be created.")
 			{
 
 			}

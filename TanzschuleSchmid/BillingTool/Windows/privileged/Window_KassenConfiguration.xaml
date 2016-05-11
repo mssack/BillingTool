@@ -58,15 +58,9 @@
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<Param>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
-						<TextBox Grid.Column="0" IsReadOnly="True" Text="{Binding Path=PrinterName}" />
-						<Button Grid.Column="1" Content="Auswählen" Click="ChoosePrinterClicked" />
-					</Grid>
+				<Param Header="Standarddrucker">
+					<ComboBox ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}" SelectedValuePath="Name" DisplayMemberPath="Name"
+							SelectedValue="{Binding Path=Default_PrinterName}" />
 				</Param>
 			</Grid>
 		</GroupBox>
@@ -94,27 +88,27 @@
 						<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
 							<Style.Triggers>
 								<DataTrigger Binding="{Binding Path=IsValid}" Value="True">
-									<Setter Property="Content" Value="Speichern und Fortfahren"/>
+									<Setter Property="Content" Value="Speichern und Fortfahren" />
 								</DataTrigger>
 								<DataTrigger Binding="{Binding Path=IsValid}" Value="False">
-									<Setter Property="Content" Value="Schließen und Abbrechen"/>
+									<Setter Property="Content" Value="Schließen und Abbrechen" />
 								</DataTrigger>
 								<MultiDataTrigger>
 									<MultiDataTrigger.Conditions>
-										<Condition Binding="{Binding Path=IsValid}" Value="False"/>
-										<Condition Binding="{Binding ElementName=NextButton, Path=IsMouseOver}" Value="True"/>
+										<Condition Binding="{Binding Path=IsValid}" Value="False" />
+										<Condition Binding="{Binding ElementName=NextButton, Path=IsMouseOver}" Value="True" />
 									</MultiDataTrigger.Conditions>
 
-									<Setter Property="Foreground" Value="White"/>
+									<Setter Property="Foreground" Value="White" />
 									<Setter Property="Background">
 										<Setter.Value>
 											<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-												<GradientStop Color="#DC5F59" Offset="0"/>
-												<GradientStop Color="#B33630" Offset="1"/>
+												<GradientStop Color="#DC5F59" Offset="0" />
+												<GradientStop Color="#B33630" Offset="1" />
 											</LinearGradientBrush>
 										</Setter.Value>
 									</Setter>
-									<Setter Property="BorderBrush" Value="#CD504A"/>
+									<Setter Property="BorderBrush" Value="#CD504A" />
 								</MultiDataTrigger>
 							</Style.Triggers>
 						</Style>

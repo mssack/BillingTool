@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-06</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Windows;
@@ -22,13 +22,16 @@ namespace BillingTool.Themes.Controls.configuration
 	/// <summary>Interaction logic for OutputFormatConfigurationControl.xaml</summary>
 	public partial class OutputFormatConfigurationControl : UserControl
 	{
+		#region DP Keys
+#pragma warning disable 1591
+		public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(OutputFormat), typeof(OutputFormatConfigurationControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((OutputFormatConfigurationControl) o).SelectedItemChanged()});
+#pragma warning restore 1591
+		#endregion
 
 
 		/// <summary>ctor</summary>
 		public OutputFormatConfigurationControl()
 		{
-			Bt.EnsureInitialization();
-			Bt.Db.Billing.OutputFormats.DownloadRows();
 			InitializeComponent();
 		}
 
@@ -40,9 +43,10 @@ namespace BillingTool.Themes.Controls.configuration
 			set { SetValue(SelectedItemProperty, value); }
 		}
 
+
 		private void SelectedItemChanged()
 		{
-			
+
 		}
 
 		private void LöschenClicked(object sender, RoutedEventArgs e)
@@ -57,12 +61,8 @@ namespace BillingTool.Themes.Controls.configuration
 
 		private void HinzufügenClicked(object sender, RoutedEventArgs e)
 		{
-			var format = Bt.DataFunctions.OutputFormat.New();
+			var format = Bt.Data.OutputFormat.New();
 			SelectedItem = format;
 		}
-
-#pragma warning disable 1591
-		public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(OutputFormat), typeof(OutputFormatConfigurationControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((OutputFormatConfigurationControl) o).SelectedItemChanged()});
-#pragma warning restore 1591
 	}
 }

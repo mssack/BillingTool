@@ -101,7 +101,7 @@ namespace BillingTool.btScope.db
 		private void Connect()
 		{
 			if (Billing != null)
-				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.Functions)} instead.");
+				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.AppOutput)} instead.");
 
 
 			Router = new SqlCeRouter(Bt.Config.File.KassenEinstellung.BillingDatabaseFilePath);

@@ -16,7 +16,7 @@ using BillingTool.btScope.functions.data.basis;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class MailedBelegFunctions : DataFunctionsBase<MailedBeleg>
 	{
 		private static MailedBelegFunctions _instance;
@@ -45,7 +45,7 @@ namespace BillingTool.btScope.functions.data
 		/// <summary>The action occurs when an <paramref name="item" /> needs finalization after checking if the item is valid. Should be recursive</summary>
 		protected override void FinalizeAction(MailedBeleg item)
 		{
-			Bt.DataFunctions.OutputFormat.TryFinalize(item.OutputFormat);
+			Bt.Data.OutputFormat.TryFinalize(item.OutputFormat);
 		}
 
 		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
@@ -66,7 +66,7 @@ namespace BillingTool.btScope.functions.data
 			newItem.Text = data.DataSet.Configurations.Default_MailText;
 			newItem.OutputFormat = newItem.DataSet.OutputFormats.Default_MailFormat;
 			newItem.Table.Add(newItem);
-			Notfinalized_Add(newItem);
+			NonFinalized_Add(newItem);
 			return newItem;
 		}
 
@@ -76,7 +76,7 @@ namespace BillingTool.btScope.functions.data
 			if (item.ProcessingState != ProcessingStates.NotProcessed)
 				throw new InvalidOperationException($"The {nameof(MailedBeleg)} has already been printed and therefore cannot be deleted.");
 
-			Notfinalized_TryRemove(item);
+			NonFinalized_TryRemove(item);
 			item.Delete();
 		}
 	}

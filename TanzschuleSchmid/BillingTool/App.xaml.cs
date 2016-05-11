@@ -28,11 +28,11 @@ namespace BillingTool
 				var billingToolException = args.Exception as BillingToolException;
 				if (billingToolException != null && billingToolException.Type != BillingToolException.Types.Undefined)
 				{
-					Bt.Functions.SetExitCode(billingToolException.Type);
+					Bt.AppOutput.SetExitCode(billingToolException.Type);
 				}
 				else
 				{
-					Bt.Functions.SetExitCode(ExitCodes.FatalError);
+					Bt.AppOutput.SetExitCode(ExitCodes.FatalError);
 				}
 
 				try

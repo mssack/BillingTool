@@ -16,7 +16,7 @@ using BillingTool.btScope.functions.data.basis;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class OutputFormatFunctions : DataFunctionsBase<OutputFormat>
 	{
 		private static OutputFormatFunctions _instance;
@@ -64,7 +64,7 @@ namespace BillingTool.btScope.functions.data
 			newItem.Name = "Neues Layout";
 			newItem.Table.Add(newItem);
 
-			Notfinalized_Add(newItem);
+			NonFinalized_Add(newItem);
 
 			return newItem;
 		}

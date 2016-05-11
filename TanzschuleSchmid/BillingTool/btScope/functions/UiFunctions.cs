@@ -10,6 +10,8 @@ using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Windows;
 using CsWpfBase.Ev.Objects;
+using CheckTrustAbilityWindow = BillingTool.Windows.tools.CheckTrustAbilityWindow;
+using Window_BelegData_ProcessNonProcessedOutputs = BillingTool.Windows.tools.Window_BelegData_ProcessNonProcessedOutputs;
 
 
 
@@ -18,7 +20,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.functions
 {
-	/// <summary>The <see cref="Bt.UiFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Ui" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class UiFunctions : Base
 	{
 		private static UiFunctions _instance;
@@ -55,9 +57,9 @@ namespace BillingTool.btScope.functions
 		}
 
 		/// <summary>Processes all unprocessed <see cref="MailedBeleg" /> or <see cref="PrintedBeleg" /> for a specific <paramref name="data" /> object.</summary>
-		public void ProcessAllUnprocessed(BelegData data)
+		public void ProcessNonProcessedOutputs(BelegData data)
 		{
-			var outputWindow = new Window_BelegData_ProcessOutput(data) {Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive)};
+			var outputWindow = new Window_BelegData_ProcessNonProcessedOutputs(data) {Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive)};
 			outputWindow.ShowDialog();
 		}
 	}

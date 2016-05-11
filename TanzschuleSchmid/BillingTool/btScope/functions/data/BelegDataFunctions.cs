@@ -2,10 +2,9 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-11</date>
 
 using System;
-using System.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
@@ -18,7 +17,7 @@ using BillingTool.btScope.functions.data.basis;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class BelegDataFunctions : DataFunctionsBase<BelegData>
 	{
 		private static BelegDataFunctions _instance;
@@ -49,20 +48,21 @@ namespace BillingTool.btScope.functions.data
 		{
 			foreach (var posten in item.Postens)
 			{
-				Bt.DataFunctions.BelegPosten.TryFinalize(posten);
+				Bt.Data.BelegPosten.TryFinalize(posten);
 			}
 			foreach (var mailedBeleg in item.MailedBelege)
 			{
-				Bt.DataFunctions.MailedBeleg.TryFinalize(mailedBeleg);
+				Bt.Data.MailedBeleg.TryFinalize(mailedBeleg);
 			}
 			foreach (var printedBeleg in item.PrintedBelege)
 			{
-				Bt.DataFunctions.PrintedBeleg.TryFinalize(printedBeleg);
+				Bt.Data.PrintedBeleg.TryFinalize(printedBeleg);
 			}
 
 			item.Recalculate_BetragBrutto();
 			item.Recalculate_BetragNetto();
 
+			item.State = BelegDataStates.Approved;
 			item.Nummer = item.DataSet.Configurations.LastBelegNummer + 1;
 			item.UmsatzZähler = item.DataSet.Configurations.Umsatzzähler + item.BetragBrutto;
 
@@ -70,16 +70,14 @@ namespace BillingTool.btScope.functions.data
 			item.DataSet.Configurations.LastBelegNummer = item.Nummer;
 
 			if (item.Typ == BelegDataTypes.Storno)
-				item.StornoBeleg.State = BelegDataStates.Storno;
+				item.StornoBeleg.State = BelegDataStates.Storniert;
 		}
 
 		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
 		protected override void ValidationAction(BelegData item)
 		{
-			if (item.RowState != DataRowState.Added)
-				throw new InvalidOperationException($"The {item} is already added to the table.");
-			if (item.State == BelegDataStates.Unknown)
-				throw new InvalidOperationException($"The {item} state is {nameof(BelegDataStates.Unknown)}.");
+			if (item.State != BelegDataStates.Unknown)
+				throw new InvalidOperationException($"The {item} state is not {nameof(BelegDataStates.Unknown)}.");
 			if (!item.IsValid)
 				throw new InvalidOperationException($"The {item} is invalid and can not be saved.");
 			if (item.Typ == BelegDataTypes.Storno && !item.StornoBeleg.CanBeStorniert)
@@ -94,8 +92,8 @@ namespace BillingTool.btScope.functions.data
 			Bt.EnsureInitialization();
 			var db = Bt.Db.Billing;
 
-			if (HasUnfinalizedRows)
-				throw new NotfinalizedInstanceException();
+			if (HasNonFinalizedRows)
+				throw new NotFinalizedInstanceException();
 
 			var newItem = db.BelegDaten.NewRow();
 
@@ -120,30 +118,30 @@ namespace BillingTool.btScope.functions.data
 
 			foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
 			{
-				var posten = Bt.DataFunctions.Posten.GetOrNew_FromTemplate(template);
-				var steuersatz = Bt.DataFunctions.Steuersatz.GetOrNew_FromTemplate(template);
+				var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
+				var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
 
-				Bt.DataFunctions.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
+				Bt.Data.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
 			}
 			newItem.Recalculate_BetragBrutto();
 			newItem.Recalculate_BetragNetto();
 
 
 			if (Bt.Config.Merged.NewBelegData.PrintBeleg)
-				Bt.DataFunctions.PrintedBeleg.New(newItem);
+				Bt.Data.PrintedBeleg.New(newItem);
 			if (Bt.Config.Merged.NewBelegData.SendBeleg)
-				Bt.DataFunctions.MailedBeleg.New(newItem, Bt.Config.CommandLine.NewBelegData.SendBelegTarget);
+				Bt.Data.MailedBeleg.New(newItem, Bt.Config.CommandLine.NewBelegData.SendBelegTarget);
 
 
-			Notfinalized_Add(newItem);
+			NonFinalized_Add(newItem);
 			return newItem;
 		}
 
 		/// <summary>Creates a new <see cref="BelegData" /> for storno the <paramref name="data" />.</summary>
 		public BelegData New_Storno(BelegData data)
 		{
-			if (HasUnfinalizedRows)
-				throw new NotfinalizedInstanceException();
+			if (HasNonFinalizedRows)
+				throw new NotFinalizedInstanceException();
 			if (!data.CanBeStorniert)
 				throw new InvalidOperationException($"The {data} cannot be stornod.");
 
@@ -159,13 +157,13 @@ namespace BillingTool.btScope.functions.data
 
 			foreach (var belegPosten in data.Postens)
 			{
-				var posten = Bt.DataFunctions.BelegPosten.New(newItem, -belegPosten.Anzahl, belegPosten.Posten, belegPosten.Steuersatz);
+				Bt.Data.BelegPosten.New(newItem, -belegPosten.Anzahl, belegPosten.Posten, belegPosten.Steuersatz);
 			}
 
 			newItem.Recalculate_BetragBrutto();
 			newItem.Recalculate_BetragNetto();
 
-			Notfinalized_Add(newItem);
+			NonFinalized_Add(newItem);
 			return newItem;
 		}
 	}

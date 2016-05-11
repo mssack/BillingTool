@@ -60,14 +60,13 @@ namespace BillingTool.Themes.Controls.belegview
 		{
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
-				var printedBeleg = Bt.DataFunctions.PrintedBeleg.New(Item);
+				var printedBeleg = Bt.Data.PrintedBeleg.New(Item);
 				printedBeleg.OutputFormat = OutputFormat;
 				printedBeleg.PrinterDevice = Device;
+				Bt.Data.PrintedBeleg.Finalize(printedBeleg);
+				Bt.Ui.ProcessNonProcessedOutputs(Item);
+				Bt.Data.SyncAnabolicChanges();
 
-				Bt.UiFunctions.ProcessAllUnprocessed(Item);
-
-				Bt.DataFunctions.PrintedBeleg.Finalize(printedBeleg);
-				Bt.DataFunctions.SyncAnabolicChanges();
 
 				Reset();
 				BelegPrinted?.Invoke();
@@ -78,7 +77,7 @@ namespace BillingTool.Themes.Controls.belegview
 		{
 			OutputFormat = (Item != null && Item.Typ == BelegDataTypes.Storno) ? Bt.Db.Billing.OutputFormats.Default_StornoFormat : Bt.Db.Billing.OutputFormats.Default_PrintFormat;
 
-			Device = Bt.Config.File.KassenEinstellung.PrinterName;
+			Device = Bt.Config.File.KassenEinstellung.Default_PrinterName;
 		}
 
 		private void DruckenButtonClicked(object sender, RoutedEventArgs e)

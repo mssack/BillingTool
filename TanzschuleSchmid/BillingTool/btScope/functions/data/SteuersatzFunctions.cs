@@ -18,7 +18,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class SteuersatzFunctions : DataFunctionsBase<Steuersatz>
 	{
 		private static SteuersatzFunctions _instance;
@@ -48,8 +48,8 @@ namespace BillingTool.btScope.functions.data
 			var newItem = Bt.Db.Billing.Steuersätze.FindOrLoad_By_Percent(template.Steuer);
 			if (newItem == null)
 			{
-				if (HasUnfinalizedRows)
-					throw new NotfinalizedInstanceException();
+				if (HasNonFinalizedRows)
+					throw new NotFinalizedInstanceException();
 
 				newItem = Bt.Db.Billing.Steuersätze.NewRow();
 				newItem.CreationDate = DateTime.Now;
@@ -57,7 +57,7 @@ namespace BillingTool.btScope.functions.data
 				newItem.Kürzel = ((char) (Bt.Db.Billing.Configurations.LastSteuersatzKürzel + 1)).ToString();
 				newItem.Table.Add(newItem);
 
-				Notfinalized_Add(newItem);
+				NonFinalized_Add(newItem);
 			}
 			return newItem;
 		}

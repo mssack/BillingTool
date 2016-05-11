@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Collections.Generic;
@@ -46,19 +46,17 @@ namespace BillingOutput.btOutputScope
 
 
 			var taskarray = tasks.ToArray();
-			var t = new Task(() => Task.WaitAll(taskarray), TaskCreationOptions.LongRunning);
-			t.Start(TaskScheduler.Default);
-			var continuationTask = t.ContinueWith(task =>
+			var t = new Task<Task[]>(() =>
 			{
-				data.DataSet.SaveAnabolic();
-				data.DataSet.AcceptChanges();
+				Task.WaitAll(taskarray);
 				return taskarray;
-			}, TaskScheduler.FromCurrentSynchronizationContext());
-			return continuationTask;
+			}, TaskCreationOptions.LongRunning);
+			t.Start(TaskScheduler.Default);
+			return t;
 		}
 
 		/// <summary>Processes the <paramref name="data" /> and adjusts the <see cref="MailedBeleg.ProcessingState" /> row.</summary>
-		public static Task<MailedBeleg> Process(MailedBeleg data, IContainMailConfiguration mailConfig)
+		private static Task<MailedBeleg> Process(MailedBeleg data, IContainMailConfiguration mailConfig)
 		{
 			if (data.ProcessingState != ProcessingStates.NotProcessed)
 				throw new InvalidOperationException($"The {data} has currently the wrong state.");
@@ -120,7 +118,7 @@ namespace BillingOutput.btOutputScope
 		}
 
 		/// <summary>Processes the <paramref name="data" /> and adjusts the <see cref="PrintedBeleg.ProcessingState" /> row.</summary>
-		public static Task<PrintedBeleg> Process(PrintedBeleg data)
+		private static Task<PrintedBeleg> Process(PrintedBeleg data)
 		{
 			if (data.ProcessingState != ProcessingStates.NotProcessed)
 				throw new InvalidOperationException($"The {data} has currently the wrong state.");

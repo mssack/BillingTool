@@ -15,7 +15,7 @@ using CsWpfBase.Themes.Controls.Containers;
 
 
 
-namespace BillingTool.Windows
+namespace BillingTool.Windows.tools
 {
 	/// <summary>Interaction logic for CheckTrustAbilityWindow.xaml</summary>
 	public partial class CheckTrustAbilityWindow : CsWindow

@@ -83,14 +83,14 @@ namespace BillingTool.Themes.Controls.belegview
 		{
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
-				var mailedBeleg = Bt.DataFunctions.MailedBeleg.New(Item, TargetMailAddress);
+				var mailedBeleg = Bt.Data.MailedBeleg.New(Item, TargetMailAddress);
 				mailedBeleg.OutputFormat = OutputFormat;
 				mailedBeleg.Betreff = Betreff;
 				mailedBeleg.Text = Text;
-				Bt.UiFunctions.ProcessAllUnprocessed(Item);
+				Bt.Data.MailedBeleg.Finalize(mailedBeleg);
 
-				Bt.DataFunctions.MailedBeleg.Finalize(mailedBeleg);
-				Bt.DataFunctions.SyncAnabolicChanges();
+				Bt.Ui.ProcessNonProcessedOutputs(Item);
+				Bt.Data.SyncAnabolicChanges();
 
 				Reset();
 				MailSended?.Invoke();

@@ -41,7 +41,7 @@ namespace BillingTool.btScope.configuration.configFiles
 
 		private string _billingDatabaseFilePath;
 		private string _kassenId;
-		private string _printerName;
+		private string _defaultPrinterName;
 		private double _scaling = 1.3;
 		private bool _smtpEnableSsl;
 
@@ -143,12 +143,12 @@ namespace BillingTool.btScope.configuration.configFiles
 		#endregion
 
 
-		/// <summary>Gets or sets the PrinterName.</summary>
+		/// <summary>Gets or sets the Default_PrinterName.</summary>
 		[Key]
-		public string PrinterName
+		public string Default_PrinterName
 		{
-			get { return _printerName; }
-			set { SetProperty(ref _printerName, value); }
+			get { return _defaultPrinterName; }
+			set { SetProperty(ref _defaultPrinterName, value); }
 		}
 
 		/// <summary>Check if all fields which are important are present.</summary>

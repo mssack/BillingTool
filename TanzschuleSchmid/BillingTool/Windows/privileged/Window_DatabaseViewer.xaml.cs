@@ -57,7 +57,7 @@ namespace BillingTool.Windows.privileged
 
 		private void DatabaseWindow_Closing(object sender, CancelEventArgs e)
 		{
-			Bt.Db.Billing.SaveUnspecific();
+			Bt.Data.SyncChanges();
 		}
 
 

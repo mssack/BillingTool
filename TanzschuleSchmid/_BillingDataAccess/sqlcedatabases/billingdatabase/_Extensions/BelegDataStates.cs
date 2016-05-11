@@ -24,15 +24,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 		/// <summary>No state is applied.</summary>
 		[EnumDescription("Unbekannt")]
 		Unknown = 0,
-		/// <summary>The <see cref="BelegData" /> was approved by an external application. The application didn't asked the user for approval.</summary>
-		[EnumDescription("Automatisch Bestätigt", "Dieser Beleg wurde durch die Applikation bestätigt.")]
-		Approved_ByApplication = 1,
 		/// <summary>The <see cref="BelegData" /> was approved by an the user.</summary>
-		[EnumDescription("Bestätigt durch User", "Dieser Beleg wurde durch den User bestätigt.")]
-		Approved_ByUser = 2,
-		/// <summary>The <see cref="BelegData" /> was Storno.</summary>
-		[EnumDescription("Storniert", "Der Beleg wurde bereits storniert")]
-		Storno = 3
+		[EnumDescription("Bestätigt", "Dieser Beleg wurde durch den User bestätigt.")]
+		Approved = 1,
+		/// <summary>The <see cref="BelegData" /> was storniert.</summary>
+		[EnumDescription("Storniert", "Der Beleg wurde storniert")]
+		Storniert = 2
 	}
 
 

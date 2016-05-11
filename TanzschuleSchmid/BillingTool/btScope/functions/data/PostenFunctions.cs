@@ -16,7 +16,7 @@ using BillingTool.btScope.functions.data.basis;
 
 namespace BillingTool.btScope.functions.data
 {
-	/// <summary>The <see cref="Bt.DataFunctions" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class PostenFunctions : DataFunctionsBase<Posten>
 	{
 		private static PostenFunctions _instance;
@@ -68,7 +68,7 @@ namespace BillingTool.btScope.functions.data
 				newItem.PreisBrutto = template.BetragBrutto;
 				newItem.Table.Add(newItem);
 
-				Notfinalized_Add(newItem);
+				NonFinalized_Add(newItem);
 			}
 			return newItem;
 		}

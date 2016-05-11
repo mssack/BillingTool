@@ -13,10 +13,10 @@ using BillingTool.btScope.configuration._enums;
 using BillingTool.btScope.db;
 using BillingTool.btScope.functions;
 using BillingTool.btScope.logging;
+using BillingTool.btScope.output;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
 using CsWpfBase.Global;
-using DeveloperWindow = BillingTool.Windows.privileged.DeveloperWindow;
 using Window_DatabaseViewer = BillingTool.Windows.privileged.Window_DatabaseViewer;
 using Window_KassenConfiguration = BillingTool.Windows.privileged.Window_KassenConfiguration;
 
@@ -43,11 +43,13 @@ namespace BillingTool.btScope
 		/// <summary>Used to interact with the underlaying database. Use <see cref="Config" /> to set the current database.</summary>
 		public static Db Db => Db.I;
 		/// <summary>Default functions used to interact with the user.</summary>
-		public static UiFunctions UiFunctions => UiFunctions.I;
+		public static UiFunctions Ui => UiFunctions.I;
 		/// <summary>Default data functions used to interact with the database.</summary>
-		public static DataFunctions DataFunctions => DataFunctions.I;
+		public static DataFunctions Data => DataFunctions.I;
+		/// <summary>Functions needed for the application interaction with the environment.</summary>
+		public static AppOutput AppOutput => AppOutput.I;
 		/// <summary>Functions needed for the application.</summary>
-		public static Functions Functions => Functions.I;
+		public static Output Output => Output.I;
 
 
 
@@ -74,7 +76,7 @@ namespace BillingTool.btScope
 			}
 
 
-			var createDb = UiFunctions.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
+			var createDb = Ui.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
 			if (createDb == false)
 			{
 				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbankinstallation wurde vom User abgebrochen.");
@@ -117,11 +119,10 @@ namespace BillingTool.btScope
 			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
+
 			Window window;
-			if (mode == StartupModes.Developer)
-				window = new DeveloperWindow();
-			else if (mode == StartupModes.BelegDataApprove)
-				window = new Window_BelegData_Approve {Item = DataFunctions.BelegData.New_FromConfiguration()};
+			if (mode == StartupModes.BelegDataApprove)
+				window = new Window_BelegData_Approve {Item = Data.BelegData.New_FromConfiguration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)
@@ -134,10 +135,7 @@ namespace BillingTool.btScope
 
 
 			Application.Current.MainWindow = window;
-
-
 			window.Show();
-
 		}
 
 		/// <summary>gets an indicator whether the database is accessible.</summary>

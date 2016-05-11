@@ -7,7 +7,7 @@
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
-		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Padding="10" Style="{StaticResource {x:Type CsWindow}}" >
+		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Style="{StaticResource {x:Type CsWindow}}" >
 	<Grid DataContext="{Binding ElementName=Wc}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />

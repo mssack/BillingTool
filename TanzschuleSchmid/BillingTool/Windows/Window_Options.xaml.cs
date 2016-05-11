@@ -34,8 +34,7 @@ namespace BillingTool.Windows
 		
 		private void Window_Options_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			Bt.Db.Billing.SaveUnspecific();
-			Bt.Db.Billing.AcceptChanges();
+			Bt.Data.SyncChanges();
 		}
 	}
 }

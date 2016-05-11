@@ -63,7 +63,7 @@
 									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
 								<TextBlock Text="Artikel" />
-								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteArtikelClicked" Content="Entfernen"
+								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteBelegPostenClicked" Content="Entfernen"
 										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
 								<PopupButton Grid.Column="3" Content="Neuer Artikel" Margin="0">
 									<PopupButton.PopupContent>

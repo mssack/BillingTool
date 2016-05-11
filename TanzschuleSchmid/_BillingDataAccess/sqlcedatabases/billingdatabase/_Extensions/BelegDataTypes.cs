@@ -5,7 +5,6 @@
 // <date>2016-04-02</date>
 
 using System;
-using System.ComponentModel;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Attributes;
 
