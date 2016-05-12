@@ -41,8 +41,6 @@ namespace BillingTool.Windows
 		/// <summary>ctor</summary>
 		public Window_BelegData_Approve()
 		{
-			Bt.EnsureInitialization();
-
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Approve");
 			Closing += WindowClosing;

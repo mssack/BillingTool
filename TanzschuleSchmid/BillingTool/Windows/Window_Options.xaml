@@ -65,7 +65,9 @@
 					</Grid>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Steuersätze"/>
+			<TabItem Header="Steuersätze" Padding="10">
+				<options:SteuersatzConfigurationControl/>
+			</TabItem>
 			<TabItem Header="Posten"/>
 			<TabItem Header="Layouts" Padding="10">
 				<options:OutputFormatConfigurationControl />

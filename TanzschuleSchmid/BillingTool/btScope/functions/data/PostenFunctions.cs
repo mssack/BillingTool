@@ -62,6 +62,9 @@ namespace BillingTool.btScope.functions.data
 			var newItem = Bt.Db.Billing.Postens.FindOrLoad_By_NameAndPreis(template.Name, template.BetragBrutto);
 			if (newItem == null)
 			{
+				if (HasNonFinalizedRows)
+					throw new NotFinalizedInstanceException();
+
 				newItem = Bt.Db.Billing.Postens.NewRow();
 				newItem.CreationDate = DateTime.Now;
 				newItem.Name = template.Name;

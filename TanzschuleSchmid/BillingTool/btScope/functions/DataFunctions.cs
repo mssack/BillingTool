@@ -2,11 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-11</date>
 
 using System;
+using System.Linq;
 using BillingTool.btScope.functions.data;
+using BillingTool.btScope.functions.data.basis;
 using CsWpfBase.Ev.Objects;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -37,19 +40,7 @@ namespace BillingTool.btScope.functions
 
 		private DataFunctions()
 		{
-		}
-
-		private bool NonFinalizedChangesExists()
-		{
-			return
-				BelegData.HasNonFinalizedRows ||
-				OutputFormat.HasNonFinalizedRows ||
-				BelegPosten.HasNonFinalizedRows ||
-				Posten.HasNonFinalizedRows ||
-				Steuersatz.HasNonFinalizedRows ||
-				MailedBeleg.HasNonFinalizedRows ||
-				PrintedBeleg.HasNonFinalizedRows;
-
+			All = new DataFunctionsBase[] {BelegData, OutputFormat, BelegPosten, Posten, Steuersatz, MailedBeleg, PrintedBeleg};
 		}
 
 		/// <summary>collapses functions for the specified row object.</summary>
@@ -67,15 +58,23 @@ namespace BillingTool.btScope.functions
 		/// <summary>collapses functions for the specified row object.</summary>
 		public PrintedBelegFunctions PrintedBeleg => PrintedBelegFunctions.I;
 
+		private DataFunctionsBase[] All { get; }
 
 
 
+		/// <summary>Try to finalize each unfinalized item. If the item can not be validated it will be deleted.</summary>
+		public void Finalize_Or_Reject_All()
+		{
+			All.ForEach(x => x.Finalize_Or_Reject_All());
+		}
 
 		/// <summary>Ensures synchronization with file.</summary>
 		public void RejectAllChanges()
 		{
 			Bt.Db.Billing.RejectChanges();
+			All.ForEach(x => x.Delete_All());
 		}
+
 		/// <summary>Ensures synchronization with file.</summary>
 		public void SyncAnabolicChanges()
 		{
@@ -85,6 +84,7 @@ namespace BillingTool.btScope.functions
 			Bt.Db.Billing.SaveAnabolic();
 			Bt.Db.Billing.AcceptChanges();
 		}
+
 		/// <summary>Ensures synchronization with file.</summary>
 		public void SyncKatabolicChanges()
 		{
@@ -94,6 +94,7 @@ namespace BillingTool.btScope.functions
 			Bt.Db.Billing.SaveKatabolic();
 			Bt.Db.Billing.AcceptChanges();
 		}
+
 		/// <summary>Ensures synchronization with file.</summary>
 		public void SyncChanges()
 		{
@@ -102,6 +103,12 @@ namespace BillingTool.btScope.functions
 
 			Bt.Db.Billing.SaveUnspecific();
 			Bt.Db.Billing.AcceptChanges();
+		}
+
+
+		private bool NonFinalizedChangesExists()
+		{
+			return All.Any(x => x.HasNonFinalizedRows);
 		}
 	}
 }

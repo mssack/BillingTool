@@ -48,7 +48,10 @@ namespace BillingTool.btScope.functions.data
 		{
 			foreach (var posten in item.Postens)
 			{
+				posten.Steuersatz.LastUsedDate = DateTime.Now;
+				posten.Posten.LastUsedDate = DateTime.Now;
 				Bt.Data.BelegPosten.TryFinalize(posten);
+				
 			}
 			foreach (var mailedBeleg in item.MailedBelege)
 			{
@@ -120,6 +123,9 @@ namespace BillingTool.btScope.functions.data
 			{
 				var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
 				var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
+
+				Bt.Data.Steuersatz.TryFinalize(steuersatz);
+				Bt.Data.Posten.TryFinalize(posten);
 
 				Bt.Data.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
 			}

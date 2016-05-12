@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-05</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Linq;
@@ -30,7 +30,6 @@ namespace BillingTool.Windows
 		/// <summary>ctor</summary>
 		public Window_BelegData_Viewer()
 		{
-			Bt.EnsureInitialization();
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Viewer");
 			Loaded += WindowLoaded;
@@ -54,7 +53,7 @@ namespace BillingTool.Windows
 		private void WindowLoaded(object sender, RoutedEventArgs e)
 		{
 			var latestTen = Bt.Db.Billing.BelegDaten.Get_Latest(10);
-			FromToSelector.From = latestTen.Any()?latestTen.Min(x => x.Datum):DateTime.Now;
+			FromToSelector.From = latestTen.Any() ? latestTen.Min(x => x.Datum) : DateTime.Now;
 			FromToSelector.To = DateTime.Now;
 			Refilter();
 			FromToSelector.SelectionChanged += FromToSelector_SelectionChanged;
@@ -76,7 +75,7 @@ namespace BillingTool.Windows
 			FilteredItems = collection;
 
 			if (Item == null)
-				Item = FilteredItems.Count == 0?null: FilteredItems[0];
+				Item = FilteredItems.Count == 0 ? null : FilteredItems[0];
 		}
 
 

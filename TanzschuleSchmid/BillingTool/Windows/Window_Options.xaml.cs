@@ -2,13 +2,12 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-06</date>
+// <date>2016-05-11</date>
 
 using System;
-using System.Windows;
+using System.ComponentModel;
 using BillingTool.btScope;
 using CsWpfBase.Global;
-using CsWpfBase.Global.message;
 using CsWpfBase.Themes.Controls.Containers;
 
 
@@ -25,15 +24,15 @@ namespace BillingTool.Windows
 		/// <summary>ctor</summary>
 		public Window_Options()
 		{
-			Bt.EnsureInitialization();
 			InitializeComponent();
 			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_Options");
-			this.Closing += Window_Options_Closing;
+			Closing += Window_Options_Closing;
 		}
 
-		
-		private void Window_Options_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+
+		private void Window_Options_Closing(object sender, CancelEventArgs e)
 		{
+			Bt.Data.Finalize_Or_Reject_All();
 			Bt.Data.SyncChanges();
 		}
 	}

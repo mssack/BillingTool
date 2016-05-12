@@ -120,6 +120,9 @@
     <Compile Include="Themes\Controls\BelegDataView.xaml.cs">
       <DependentUpon>BelegDataView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\options\SteuersatzConfigurationControl.xaml.cs">
+      <DependentUpon>SteuersatzConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\_shared\BonPreviewControl.xaml.cs">
       <DependentUpon>BonPreviewControl.xaml</DependentUpon>
     </Compile>
@@ -216,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\BelegDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\options\SteuersatzConfigurationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -2,11 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Runtime.CompilerServices;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 
 
@@ -34,5 +34,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			return true;
 		}
 		#endregion
+
+
+		/// <summary>returns true if this element has been used before.</summary>
+		[DependsOn(nameof(LastUsedDate))]
+		public bool HasBeenUsed => LastUsedDate != null;
 	}
 }

@@ -3,7 +3,7 @@
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 
 	[CreationDate]		datetime		NOT NULL DEFAULT getdate(),
-	[LastUsed]			datetime		,
+	[LastUsedDate]			datetime		,
 	
 
 	[Name]				ntext			NOT NULL,

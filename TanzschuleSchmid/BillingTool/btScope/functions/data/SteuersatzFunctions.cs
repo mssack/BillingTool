@@ -42,7 +42,23 @@ namespace BillingTool.btScope.functions.data
 		{
 		}
 
-		/// <summary>Get or creates a <see cref="Posten" /> from the database specified by a template.</summary>
+		/// <summary>Get or creates a <see cref="Steuersatz" />.</summary>
+		public Steuersatz New()
+		{
+			if (HasNonFinalizedRows)
+				throw new NotFinalizedInstanceException();
+
+
+			var newItem = Bt.Db.Billing.Steuersätze.NewRow();
+			newItem.CreationDate = DateTime.Now;
+			newItem.Kürzel = ((char)(Bt.Db.Billing.Configurations.LastSteuersatzKürzel + 1)).ToString();
+			newItem.Table.Add(newItem);
+
+
+			NonFinalized_Add(newItem);
+			return newItem;
+		}
+		/// <summary>Get or creates a <see cref="Steuersatz" /> from the database specified by a template.</summary>
 		public Steuersatz GetOrNew_FromTemplate(CommandLine_BelegPostenTemplate template)
 		{
 			var newItem = Bt.Db.Billing.Steuersätze.FindOrLoad_By_Percent(template.Steuer);

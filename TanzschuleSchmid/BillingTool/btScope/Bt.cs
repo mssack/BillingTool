@@ -119,7 +119,7 @@ namespace BillingTool.btScope
 			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
-
+			Bt.EnsureInitialization();
 			Window window;
 			if (mode == StartupModes.BelegDataApprove)
 				window = new Window_BelegData_Approve {Item = Data.BelegData.New_FromConfiguration()};

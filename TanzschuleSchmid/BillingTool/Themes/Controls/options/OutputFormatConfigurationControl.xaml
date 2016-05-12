@@ -9,6 +9,13 @@
 			xmlns:system="clr-namespace:System;assembly=mscorlib"
 			mc:Ignorable="d"
 			d:DesignHeight="300" d:DesignWidth="300" x:Name="Control">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/OutputFormat.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
 	<Grid DataContext="{Binding ElementName=Control}" >
 		<Grid.Resources>
 			<DataTemplate DataType="{x:Type billingDatabaseDb:OutputFormat}">
@@ -64,9 +71,9 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<ParamView Grid.Row="0" Header="Erstelldatum" Value="{Binding Path=CreationDate}" />
-						<StringParam Grid.Row="1" Header="Name" Value="{Binding Path=Name}" />
-						<Param Grid.Row="2" Header="Layout" IsReadOnly="{Binding Path=HasBeenUsed}">
+						<ParamView Grid.Row="0" Header="{StaticResource Bez-OutputFormat-CreationDate}" Value="{Binding Path=CreationDate}" />
+						<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-Name}" Value="{Binding Path=Name}" />
+						<Param Grid.Row="2" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" IsReadOnly="{Binding Path=HasBeenUsed}">
 							<Param.Resources>
 								<x:Array x:Key="IgnoredEnums" Type="system:Enum">
 									<x:Static MemberType="extensions:BonLayouts" Member="Unknown" />
@@ -78,7 +85,7 @@
 										ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}" />
 							</Param.Content>
 						</Param>
-						<StringParam Grid.Row="3" Header="Comment" Value="{Binding Path=Comment}" AcceptsReturn="True" />
+						<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
 					</Grid>
 				</GroupBox>
 				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Texte">
@@ -88,9 +95,9 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<StringParam Grid.Row="0" Header="Text 1" Value="{Binding Path=FirstText}" AcceptsReturn="True"/>
-						<StringParam Grid.Row="1" Header="Text 2" Value="{Binding Path=SecondText}" AcceptsReturn="True"/>
-						<StringParam Grid.Row="2" Header="Text 3" Value="{Binding Path=ThirdText}" AcceptsReturn="True"/>
+						<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True"/>
+						<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True"/>
+						<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"/>
 					</Grid>
 				</GroupBox>
 				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Bilder">
@@ -100,9 +107,9 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<ImageParam Grid.Row="0" Header="Bild 1" Value="{Binding Path=FirstImage}" />
-						<ImageParam Grid.Row="1" Header="Bild 2" Value="{Binding Path=SecondImage}" />
-						<ImageParam Grid.Row="2" Header="Bild 3" Value="{Binding Path=ThirdImage}" />
+						<ImageParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstImageBinary}" Value="{Binding Path=FirstImage}" />
+						<ImageParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondImageBinary}" Value="{Binding Path=SecondImage}" />
+						<ImageParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdImageBinary}" Value="{Binding Path=ThirdImage}" />
 					</Grid>
 				</GroupBox>
 
