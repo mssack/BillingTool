@@ -72,9 +72,19 @@
   <ItemGroup>
     <Compile Include="CompilerServices.cs" />
     <Compile Include="DatabaseCreation\DatabaseInstaller.cs" />
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateRelations.txt" />
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt" />
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\OutputFormats.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Steuersatz.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\OutputFormatsTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataInvalidReasons.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\ICanBeFilteredByDate.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IOutputBeleg.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IStoreZuletztGeändert.cs" />
+    <Compile Include="_Exceptions\BillingDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,7 +109,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateLogsTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Logs.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\_CsWpfBaseForSchmid\_CsWpfBaseForSchmid.csproj">
@@ -108,7 +118,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegDaten.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\MailedBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\PrintedBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataStates.cs" />
@@ -137,63 +147,67 @@
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\OutputFormats.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BonLayouts.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\ProcessingStates.cs" />
     <Compile Include="sqlcedatabases\Router\SqlCeRouter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceca35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll">
       <TargetPath>sqlceca35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlcecompact35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcecompact35.dll">
       <TargetPath>sqlcecompact35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceer35DE.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35DE.dll">
       <TargetPath>sqlceer35DE.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceer35EN.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35EN.dll">
       <TargetPath>sqlceer35EN.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceme35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceme35.dll">
       <TargetPath>sqlceme35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceoledb35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceoledb35.dll">
       <TargetPath>sqlceoledb35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlceqp35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceqp35.dll">
       <TargetPath>sqlceqp35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\sqlcese35.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcese35.dll">
       <TargetPath>sqlcese35.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\ssleay32.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\ssleay32.dll">
       <TargetPath>ssleay32.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="SqlCeAssemblys\System.Data.SqlServerCe.dll">
+    <ContentWithTargetPath Include="_Assemblys\SqlCe - x86 - 3.5.8080.0\System.Data.SqlServerCe.dll">
       <TargetPath>System.Data.SqlServerCe.dll</TargetPath>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Configurations.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreatePostensTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Postens.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\Steuersätze.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt" />
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\PrintedBelege.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\OutputFormats.txt" />
     <Compile Include="sqlcedatabases\SqlCeDatabasesContext.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\dataset\BillingDatabase.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
@@ -213,6 +227,9 @@
     <Compile Include="sqlcedatabases\billingdatabase\tables\MailedBelegeTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="sqlcedatabases\billingdatabase\tables\OutputFormatsTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\tables\PostensTable.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]">
       <SubType>Component</SubType>
     </Compile>
@@ -227,6 +244,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IConfiguration.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ILog.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IMailedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IOutputFormat.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IPosten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\IPrintedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rowinterfaces\ISteuersatz.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
@@ -235,6 +253,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\rows\Configuration.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Log.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\MailedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
+    <Compile Include="sqlcedatabases\billingdatabase\rows\OutputFormat.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Posten.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\PrintedBeleg.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Steuersatz.generated.cs" Label="CsWpfBase.Db.codegen.[SqlCeDatabases]" />

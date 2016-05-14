@@ -1,0 +1,78 @@
+﻿<CsWindow x:Class="BillingTool.Windows.tools.Window_BelegData_ProcessNonProcessedOutputs"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:BillingDatabaseDb="SqlCeDatabases.BillingDatabase"
+		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		mc:Ignorable="d" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+		FooterVisibility="Collapsed" HeaderVisibility="Collapsed"
+		Title="Window_BelegData_ProcessNonProcessedOutputs" Height="300" Width="300" Topmost="True" WindowStartupLocation="CenterOwner" x:Name="Uc" Padding="30,20,30,20"
+		CloseButtonVisibility="Collapsed">
+	<Grid IsSharedSizeScope="True">
+		<Grid.LayoutTransform>
+			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"
+							ScaleY="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" />
+		</Grid.LayoutTransform>
+		<Grid.Resources>
+			<Style x:Key="EntryStyle" TargetType="Border">
+				<Setter Property="Padding" Value="3" />
+				<Setter Property="BorderBrush" Value="DimGray" />
+				<Setter Property="Background" Value="GhostWhite"/>
+				<Setter Property="BorderThickness" Value="1" />
+				<Setter Property="Margin" Value="2" />
+			</Style>
+		</Grid.Resources>
+		<ItemsControl Focusable="False" ItemsSource="{Binding ElementName=Uc, Path=OpenedItems}">
+			<ItemsControl.Resources>
+				<DataTemplate DataType="{x:Type BillingDatabaseDb:PrintedBeleg}">
+					<Border>
+						<Border.Style>
+							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource EntryStyle}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static extensions:ProcessingStates.Failed}">
+										<Setter Property="ToolTip" Value="{Binding Path=ProcessingException}" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Border.Style>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" SharedSizeGroup="a" />
+								<ColumnDefinition Width="Auto" SharedSizeGroup="b" />
+								<ColumnDefinition Width="Auto" SharedSizeGroup="c" />
+							</Grid.ColumnDefinitions>
+							<Image Style="{StaticResource ProcessingStateIcon}" DataContext="{Binding Path=ProcessingState}" />
+							<TextBlock Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" Text="Ausdruck" />
+							<TextBlock Grid.Column="2" Margin="0,0,5,0" VerticalAlignment="Center" Text="{Binding Path=PrinterDevice}" />
+						</Grid>
+					</Border>
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type BillingDatabaseDb:MailedBeleg}">
+					<Border>
+						<Border.Style>
+							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource EntryStyle}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static extensions:ProcessingStates.Failed}">
+										<Setter Property="ToolTip" Value="{Binding Path=ProcessingException}" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</Border.Style>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" SharedSizeGroup="a" />
+								<ColumnDefinition Width="Auto" SharedSizeGroup="b" />
+								<ColumnDefinition Width="Auto" SharedSizeGroup="c" />
+							</Grid.ColumnDefinitions>
+							<Image Style="{StaticResource ProcessingStateIcon}" DataContext="{Binding Path=ProcessingState}" />
+							<TextBlock Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" Text="E-Mail" />
+							<TextBlock Grid.Column="2" Margin="0,0,5,0" VerticalAlignment="Center" Text="{Binding Path=TargetMailAddress}" />
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.Resources>
+		</ItemsControl>
+	</Grid>
+</CsWindow>

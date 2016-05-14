@@ -1,0 +1,20 @@
+﻿CREATE TABLE [MailedBelege]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+
+	[BelegDataId]			uniqueidentifier	NOT NULL,
+	[ProcessingStateName]	nvarchar(100) NOT NULL DEFAULT('NotProcessed'),
+	[ProcessingDate]		datetime NOT NULL DEFAULT getdate(),
+	[ProcessingException]	ntext,
+	
+	[OutputFormatId]		uniqueidentifier NOT NULL,
+	
+	[TargetMailAddress]		ntext NOT NULL,
+	[Betreff]				ntext NOT NULL DEFAULT(''),
+	[Text]					ntext NOT NULL DEFAULT(''),
+
+
+	
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
+)

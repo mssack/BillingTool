@@ -27,11 +27,14 @@
 	<format:Conv_ArrayToFormattedText x:Key="GConv-ArrayToFormattedText" />
 	<converters:Conv_MultiBindingStringFormat x:Key="GConv-MultiBindingStringFormat" />
 	<converters:Conv_BindingStringFormat x:Key="GConv-BindingStringFormat" />
+	<converters:Conv_ShortSingleLine x:Key="GConv-ShortSingleLine" />
 
 	<converters:Conv_ThicknessInverter x:Key="GConv-ThicknessInverter" />
+	<converters:Conv_PercentOf x:Key="GConv-PercentOf" />
 	<converters:Conv_ThicknessZeroSetter x:Key="GConv-ThicknessZeroSetter" />
 	<converters:Conv_MultiBindingLevelToMargin x:Key="GConv-MultiBindingLevelToMargin" />
 	<format:Conv_EnumToDescription x:Key="GConv-GetEnumDescription" />
+	<format:Conv_EnumToName x:Key="GConv-GetEnumName" />
 
 	<converters:Conv_UntilDateTimeConverter x:Key="GConv-TimeUntilDateTime" />
 	<logic:Conv_DateTimeIsInFuture x:Key="GConv-DateTimeIsInFuture" />
@@ -40,5 +43,7 @@
 	<format:Conv_Ipv6AddressToString x:Key="GConv-Ipv6AddressToString" />
 	<converters:Conv_ToStaticList x:Key="GConv-ToStaticList" />
 	<converters:Conv_PercentToColor x:Key="GConv-PercentToColor" />
+	<converters:Conv_ExceptionToExceptionList x:Key="GConv-ExceptionToExceptionList" />
+	<converters:Conv_GetTypeName x:Key="GConv-GetTypeName" />
 	<image:Conv_PercentToQualityImage x:Key="GConv-PercentToQualityImage" />
 </ResourceDictionary>

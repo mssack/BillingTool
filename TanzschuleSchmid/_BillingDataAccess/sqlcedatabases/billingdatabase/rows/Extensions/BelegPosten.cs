@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-19</date>
 
 using System;
 using System.Windows.Markup;
@@ -16,6 +16,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
 	partial class BelegPosten
 	{
+
+
 		/// <summary>The calculated brutto amount. Calculation formula: (<see cref="Anzahl" />*<see cref="Posten" />)</summary>
 		[DependsOn(nameof(Anzahl))]
 		[DependsOn(nameof(Posten))]

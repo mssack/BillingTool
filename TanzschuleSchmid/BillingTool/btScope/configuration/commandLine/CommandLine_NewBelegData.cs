@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope.configuration._interfaces;
+using BillingTool.Exceptions;
 using CsWpfBase.Ev.Objects;
 
 
@@ -52,9 +53,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		private string _empfänger;
 		private string _empfängerId;
 		private string _kassenOperator;
-		private string _kommentar;
-
-
+		private string _comment;
 		private CommandLine_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
 		private bool _sendBeleg;
@@ -111,7 +110,7 @@ namespace BillingTool.btScope.configuration.commandLine
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZuletztGeändert</c>]</summary>
-		public DateTime ZuletztGeändert
+		public DateTime? CommentLastChanged
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -173,11 +172,11 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Kommentar</c>]</summary>
-		public string Kommentar
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
+		public string Comment
 		{
-			get { return _kommentar; }
-			set { SetProperty(ref _kommentar, value); }
+			get { return _comment; }
+			set { SetProperty(ref _comment, value); }
 		}
 
 
@@ -250,7 +249,7 @@ namespace BillingTool.btScope.configuration.commandLine
 				}
 				else if (param == $"{ParamPrefix}{nameof(Postens)}".ToLower())
 				{
-					ParsePosten(value);
+					ParsePosten(nameof(Postens),value);
 				}
 
 				if (found)
@@ -258,11 +257,11 @@ namespace BillingTool.btScope.configuration.commandLine
 			}
 		}
 
-		private void ParsePosten(string value)
+		private void ParsePosten(string parameterName, string value)
 		{
 			// FOR TESTING see http://www.regextester.com/
 			if (value.Length < 2 || value[0] != '{' || value[value.Length - 1] != '}')
-				throw new InvalidDataException($"The parameter ist invalid. see '{value}'");
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Der parameter[{parameterName}] ist ungültig weil der Wert[{value}] falsch ist.");
 
 			value = value.Substring(1, value.Length - 2);
 			// find all {...} in {...}, {...}, {...} => if ... contains '}' escape it with '\}'

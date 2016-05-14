@@ -2,17 +2,15 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-04-15</date>
 
 using System;
-using BillingDataAccess.DatabaseCreation;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.Router;
 using BillingTool.btScope.configuration.merged;
-using BillingTool.btScope.functions;
+using BillingTool.Exceptions;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Ev.Objects;
-using CsWpfBase.Global;
 
 
 
@@ -70,14 +68,30 @@ namespace BillingTool.btScope.db
 		public void EnsureConnectivity()
 		{
 			if (Billing == null)
-				Connect();
+			{
+				try
+				{
+					Connect();
+				}
+				catch (Exception exc)
+				{
+					throw new BillingToolException(BillingToolException.Types.No_DatabaseConnectionPossible, "Die Verbindung zur Datenbank konnte nicht aufgebaut werden. Siehe innere Exception", exc);
+				}
+			}
 
 			if (Router.State.IsConnected)
 				return;
 
 			Router.Open();
 			if (!Router.State.IsConnected)
-				throw Router.State.LastException;
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseConnectionPossible, "Die Verbindung zur Datenbank konnte nicht aufgebaut werden. Siehe innere Exception", Router.State.LastException); 
+		}
+
+
+		/// <summary>Used to determine whether the connection to the database is opened.</summary>
+		public bool IsConnected()
+		{
+			return Router.State.IsConnected;
 		}
 
 		/// <summary>
@@ -87,7 +101,7 @@ namespace BillingTool.btScope.db
 		private void Connect()
 		{
 			if (Billing != null)
-				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.Functions)} instead.");
+				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.AppOutput)} instead.");
 
 
 			Router = new SqlCeRouter(Bt.Config.File.KassenEinstellung.BillingDatabaseFilePath);

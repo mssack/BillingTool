@@ -30,6 +30,7 @@
 									<ColumnDefinition Width="30" />
 									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
+								<!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
 								<TextBlock Text="{Binding Path=Generic_Collection.Count}" TextAlignment="Right" Margin="0,0,0,0" />
 								<TextBlock Grid.Column="1" Text="{Binding Path=TableName}" Margin="5,0,0,0" />
 							</Grid>

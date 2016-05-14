@@ -2,12 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-05-07</date>
 
 using System;
 using System.IO;
-using System.Printing;
-using System.Windows.Controls;
 using BillingOutput.Interfaces;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
@@ -22,7 +20,7 @@ namespace BillingTool.btScope.configuration.configFiles
 {
 	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
 	// ReSharper disable once InconsistentNaming
-	public sealed class ConfigFile_KassenEinstellung : ConfigFileBase, IContainKassenEinstellungen, IContainMailConfiguration, IContainPrinterConfiguration
+	public sealed class ConfigFile_KassenEinstellung : ConfigFileBase, IContainKassenEinstellungen, IContainMailConfiguration
 	{
 		private static ConfigFile_KassenEinstellung _instance;
 		private static readonly object SingletonLock = new object();
@@ -43,7 +41,7 @@ namespace BillingTool.btScope.configuration.configFiles
 
 		private string _billingDatabaseFilePath;
 		private string _kassenId;
-		private string _printerName;
+		private string _defaultPrinterName;
 		private double _scaling = 1.3;
 		private bool _smtpEnableSsl;
 
@@ -73,14 +71,20 @@ namespace BillingTool.btScope.configuration.configFiles
 		public string BillingDatabaseFilePath
 		{
 			get { return _billingDatabaseFilePath; }
-			set { if (SetProperty(ref _billingDatabaseFilePath, value)) OnPropertyChanged(nameof(IsValid)); }
+			set
+			{
+				if (SetProperty(ref _billingDatabaseFilePath, value)) OnPropertyChanged(nameof(IsValid));
+			}
 		}
 		/// <summary>The unique id of the current Kassa.</summary>
 		[Key]
 		public string KassenId
 		{
 			get { return _kassenId; }
-			set { if (SetProperty(ref _kassenId, value)) OnPropertyChanged(nameof(IsValid)); }
+			set
+			{
+				if (SetProperty(ref _kassenId, value)) OnPropertyChanged(nameof(IsValid));
+			}
 		}
 		/// <summary>Gets or sets the mail address from which the mail should be send.</summary>
 		[Key]
@@ -128,9 +132,6 @@ namespace BillingTool.btScope.configuration.configFiles
 
 
 
-		/// <summary>The printer for the BON's.</summary>
-		public PrintDialog Printer => new PrintDialog() {PrintQueue = new PrintQueue(new PrintServer(), PrinterName)};
-
 
 		/// <summary>Gets or sets the Scaling.</summary>
 		[Key]
@@ -142,12 +143,12 @@ namespace BillingTool.btScope.configuration.configFiles
 		#endregion
 
 
-		/// <summary>Gets or sets the PrinterName.</summary>
+		/// <summary>Gets or sets the Default_PrinterName.</summary>
 		[Key]
-		public string PrinterName
+		public string Default_PrinterName
 		{
-			get { return _printerName; }
-			set { SetProperty(ref _printerName, value); }
+			get { return _defaultPrinterName; }
+			set { SetProperty(ref _defaultPrinterName, value); }
 		}
 
 		/// <summary>Check if all fields which are important are present.</summary>

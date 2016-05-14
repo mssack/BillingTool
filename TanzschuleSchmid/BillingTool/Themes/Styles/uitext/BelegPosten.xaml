@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+	<system:String x:Key="Bez-BelegPosten-CreationDate">Erstelldatum</system:String>
+	<system:String x:Key="Bez-BelegPosten-Anzahl">Anzahl</system:String>
+	<system:String x:Key="Bez-BelegPosten-Steuersatz">Steuersatz</system:String>
+	<system:String x:Key="Bez-BelegPosten-Reduziert">Reduziert</system:String>
+	<system:String x:Key="Bez-BelegPosten-Brutto">Brutto</system:String>
+	<system:String x:Key="Bez-BelegPosten-Netto">Netto</system:String>
+</ResourceDictionary>

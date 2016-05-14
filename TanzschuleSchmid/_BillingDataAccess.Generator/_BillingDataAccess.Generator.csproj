@@ -146,83 +146,86 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceca35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll">
       <TargetPath>sqlceca35.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlceca35.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceca35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlcecompact35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcecompact35.dll">
       <TargetPath>sqlcecompact35.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlcecompact35.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcecompact35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceer35DE.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35DE.dll">
       <TargetPath>sqlceer35DE.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlceer35DE.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35DE.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceer35EN.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35EN.dll">
       <TargetPath>sqlceer35EN.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlceer35EN.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceer35EN.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceme35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceme35.dll">
       <TargetPath>sqlceme35.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlceme35.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceme35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceoledb35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceoledb35.dll">
       <TargetPath>sqlceoledb35.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlceoledb35.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceoledb35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlceqp35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceqp35.dll">
       <TargetPath>sqlceqp35.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlceqp35.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlceqp35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\sqlcese35.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcese35.dll">
       <TargetPath>sqlcese35.dll</TargetPath>
-      <Link>SqlCeAssemblys\sqlcese35.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\sqlcese35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\ssleay32.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\ssleay32.dll">
       <TargetPath>ssleay32.dll</TargetPath>
-      <Link>SqlCeAssemblys\ssleay32.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\ssleay32.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <ContentWithTargetPath Include="..\_BillingDataAccess\SqlCeAssemblys\System.Data.SqlServerCe.dll">
+    <ContentWithTargetPath Include="..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\System.Data.SqlServerCe.dll">
       <TargetPath>System.Data.SqlServerCe.dll</TargetPath>
-      <Link>SqlCeAssemblys\System.Data.SqlServerCe.dll</Link>
+      <Link>_Assemblys\SqlCe - x86 - 3.5.8080.0\System.Data.SqlServerCe.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ContentWithTargetPath>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateBelegDatenTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateBelegPostensTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateLogsTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateLogsTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreatePostensTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreatePostensTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateRelations.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateRelations.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateSteuersätzeTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateConfigurationsTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreateMailedBelegeTable.txt</Link>
-    </Resource>
-    <Resource Include="..\_BillingDataAccess\DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt">
-      <Link>DatabaseCreation\SQL Scripts\CreatePrintedBelegeTable.txt</Link>
-    </Resource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\BelegDaten.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\BelegDaten.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\Configurations.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\Configurations.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\Logs.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\Logs.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\Postens.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\Postens.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\PrintedBelege.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\PrintedBelege.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\Steuersätze.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\Steuersätze.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\_BillingDataAccess\DatabaseCreation\SqlCeScripts\Tables\OutputFormats.txt">
+      <Link>DatabaseCreation\SqlCeScripts\Tables\OutputFormats.txt</Link>
+    </EmbeddedResource>
     <Content Include="BillingDatabase.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

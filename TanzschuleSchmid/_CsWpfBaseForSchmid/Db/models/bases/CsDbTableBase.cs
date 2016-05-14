@@ -1,8 +1,8 @@
-﻿// Copyright (c) 2014 - 2016 All Rights Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-01-03</date>
+// <date>2016-05-14</date>
 
 using System;
 using System.Collections;
@@ -27,6 +27,7 @@ namespace CsWpfBase.Db.models.bases
 	public abstract class CsDbTableBase : DataTable, INotifyPropertyChanged, IContainDbProxy
 	{
 		[field: NonSerialized] private readonly Dictionary<string, string[]> _propertyDependencys;
+		[field: NonSerialized] private bool _hasBeenLoaded;
 		[field: NonSerialized] private PropertyChangedEventHandler _propertyChanged;
 		[field: NonSerialized] private bool _schemaLoaded;
 
@@ -62,10 +63,68 @@ namespace CsWpfBase.Db.models.bases
 		// ReSharper disable once InconsistentNaming
 		/// <summary>This is the generic version of the Collection property.</summary>
 		public abstract IEnumerable Generic_Collection { get; }
+		/// <summary>occurs whenever a cell changes or a property inside this class.</summary>
+		public virtual event PropertyChangedEventHandler PropertyChanged
+		{
+			add { _propertyChanged = (PropertyChangedEventHandler) Delegate.Combine(_propertyChanged, value); }
+			remove { _propertyChanged = (PropertyChangedEventHandler) Delegate.Remove(_propertyChanged, value); }
+		}
+
+
+		/// <summary>The db proxy all commands should be routed through this.</summary>
+		public virtual IDbProxy DbProxy
+		{
+			get
+			{
+				var dataSetProxy = (DataSet as IContainDbProxy)?.DbProxy;
+				if (dataSetProxy == null)
+					throw new Exception("No db proxy found on DataSet. Implement IContainDbProxy on DataSet Level and include this table in the data set.");
+				return dataSetProxy;
+			}
+		}
+
+
+		/// <summary>The default sql column selector used by the generated properties. (SELECT {DefaultSqlSelector} FROM ...</summary>
+		protected virtual string DefaultSqlSelector => "*";
+
+		/// <summary>Sets the property and calls on property changed if anything have changed.</summary>
+		protected virtual bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propName = "")
+		{
+			if (Equals(field, value))
+				return false;
+			field = value;
+			OnPropertyChanged(propName);
+			return true;
+		}
+
+		/// <summary>
+		///     Invokes the property changed event for a value. IMPORTENT: Also sends property changed for all depending properties. Use
+		///     <see cref="DependsOnAttribute" /> to specify properties that depends on other properties.
+		/// </summary>
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			if (_propertyChanged == null)
+				return;
+			if (propertyName == null)
+				return;
+
+			_propertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+			string[] dependingPropertys;
+			if (_propertyDependencys.TryGetValue(propertyName, out dependingPropertys))
+				dependingPropertys.ForEach(x => _propertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
+		}
+
+
+		/// <summary>Occurs whenever a property changes inside a row.</summary>
+		protected internal virtual void RowInternalPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+
+		}
 		#endregion
 
 
-		#region Overrides
+		#region Overrides/Interfaces
 		/// <summary>Raises the <see cref="E:System.Data.DataTable.RowChanged" /> event.</summary>
 		protected override void OnRowChanged(DataRowChangeEventArgs e)
 		{
@@ -104,32 +163,12 @@ namespace CsWpfBase.Db.models.bases
 		#endregion
 
 
-		#region Interfaces
-		/// <summary>occurs whenever a cell changes or a property inside this class.</summary>
-		public virtual event PropertyChangedEventHandler PropertyChanged
+		/// <summary>If HasBeenLoaded equals true, the generated properties will not execute a sql command. Instead it will search in the locally available data.</summary>
+		public bool HasBeenLoaded
 		{
-			add { _propertyChanged = (PropertyChangedEventHandler) Delegate.Combine(_propertyChanged, value); }
-			remove { _propertyChanged = (PropertyChangedEventHandler) Delegate.Remove(_propertyChanged, value); }
+			get { return _hasBeenLoaded; }
+			set { _hasBeenLoaded = value; }
 		}
-
-
-		/// <summary>The db proxy all commands should be routed through this.</summary>
-		public virtual IDbProxy DbProxy
-		{
-			get
-			{
-				var dataSetProxy = (DataSet as IContainDbProxy)?.DbProxy;
-				if (dataSetProxy == null)
-					throw new Exception("No db proxy found on DataSet. Implement IContainDbProxy on DataSet Level and include this table in the data set.");
-				return dataSetProxy;
-			}
-		}
-		#endregion
-
-
-		///	<summary>If HasBeenLoaded equals true, the generated properties will not execute a sql command. Instead it will search in the locally available data.</summary>
-		[field: NonSerialized]
-		public bool HasBeenLoaded { get; set; }
 
 
 		/// <summary>Gets the owning data set.</summary>
@@ -138,10 +177,6 @@ namespace CsWpfBase.Db.models.bases
 
 		/// <summary>Gets the owning data context.</summary>
 		public CsDbDataContext DataContext => DataSet.DataContext;
-
-
-		/// <summary>The default sql column selector used by the generated properties. (SELECT {DefaultSqlSelector} FROM ...</summary>
-		protected virtual string DefaultSqlSelector => "*";
 
 		/// <summary>Gets the relations for this table type.</summary>
 		public CsDbRelation[] GetRelations()
@@ -172,46 +207,12 @@ namespace CsWpfBase.Db.models.bases
 			_schemaLoaded = true;
 		}
 
-		/// <summary>Sets the property and calls on property changed if anything have changed.</summary>
-		protected virtual bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propName = "")
-		{
-			if (Equals(field, value))
-				return false;
-			field = value;
-			OnPropertyChanged(propName);
-			return true;
-		}
-
-		/// <summary>
-		///     Invokes the property changed event for a value. IMPORTENT: Also sends property changed for all depending properties. Use
-		///     <see cref="DependsOnAttribute" /> to specify properties that depends on other properties.
-		/// </summary>
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			if (_propertyChanged == null)
-				return;
-			if (propertyName == null)
-				return;
-
-			_propertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-			string[] dependingPropertys;
-			if (_propertyDependencys.TryGetValue(propertyName, out dependingPropertys))
-				dependingPropertys.ForEach(x => _propertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
-		}
 		/// <summary>Creates a new native table with the schema and data from the current fixed table.</summary>
 		public DataTable CloneTo_Native()
 		{
 			var legacyTable = new DataTable(TableName);
 			legacyTable.Merge(this);
 			return legacyTable;
-		}
-
-
-		/// <summary>Occurs whenever a property changes inside a row.</summary>
-		protected internal virtual void RowInternalPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-
 		}
 
 		/// <summary>Converts a value to a valid sql param</summary>

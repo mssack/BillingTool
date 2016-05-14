@@ -2,11 +2,13 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:system="clr-namespace:System;assembly=mscorlib">
 
+	<system:String x:Key="Bez-BelegData-State">Status</system:String>
 	<system:String x:Key="Bez-BelegData-Typ">Typ</system:String>
 	<system:String x:Key="Bez-BelegData-Datum">Datum</system:String>
 	<system:String x:Key="Bez-BelegData-KassenId">Kassen ID</system:String>
 	<system:String x:Key="Bez-BelegData-KassenOperator">Kassenoperator</system:String>
 	<system:String x:Key="Bez-BelegData-Nummer">Nummer</system:String>
+	<system:String x:Key="Bez-BelegData-StornoReason">Begründung</system:String>
 	<system:String x:Key="Bez-BelegData-UmsatzZähler">Umsatzzähler</system:String>
 	<system:String x:Key="Bez-BelegData-BetragBrutto">Betrag (Brutto)</system:String>
 	<system:String x:Key="Bez-BelegData-BetragNetto">Betrag (Netto)</system:String>
@@ -15,10 +17,12 @@
 	<system:String x:Key="Bez-BelegData-MailCount">Mails</system:String>
 	<system:String x:Key="Bez-BelegData-Empfänger">Empfänger</system:String>
 	<system:String x:Key="Bez-BelegData-EmpfängerId">Empfänger ID</system:String>
-	<system:String x:Key="Bez-BelegData-Kommentar">Kommentar</system:String>
-	<system:String x:Key="Bez-BelegData-ZuletztGeändert">Zuletzt geändert</system:String>
+	<system:String x:Key="Bez-BelegData-Comment">Kommentar</system:String>
+	<system:String x:Key="Bez-BelegData-CommentLastChanged">Zuletzt geändert</system:String>
+	<system:String x:Key="Bez-BelegData-InvalidState">Status</system:String>
 
 
+	<system:String x:Key="Help-BelegData-State">Der Status dieser Belegs. z.B. Storniert.</system:String>
 	<system:String x:Key="Help-BelegData-Typ">Belegtyp z.b Bar, Bankomat..</system:String>
 	<system:String x:Key="Help-BelegData-Datum">Erstelldatum/Signaturdatum des Belegs</system:String>
 	<system:String x:Key="Help-BelegData-KassenId">Die eindeutige KassenID in diesem Unternehmen</system:String>
@@ -32,12 +36,10 @@
 	<system:String x:Key="Help-BelegData-MailCount">Die Anzahl der versendeten Mails dieses Beleges.</system:String>
 	<system:String x:Key="Help-BelegData-Empfänger">Der Empfänger dieses Bons.</system:String>
 	<system:String x:Key="Help-BelegData-EmpfängerId">Die eindeutige Empfänger Id des Empfängers.</system:String>
-	<system:String x:Key="Help-BelegData-Kommentar">Ein Kommentar zu diesem Bon.</system:String>
-	<system:String x:Key="Help-BelegData-ZuletztGeändert">Das Datum der letzten Änderung dieses Bons.</system:String>
+	<system:String x:Key="Help-BelegData-Comment">Ein Kommentar zu diesem Bon.</system:String>
+	<system:String x:Key="Help-BelegData-CommentLastChanged">Das Datum der letzten Änderung dieses Bons.</system:String>
 
 
 	<system:String x:Key="Bez-BelegData-Button-Cancle">Abbrechen</system:String>
-	<system:String x:Key="Bez-BelegData-Button-Bar">Bar</system:String>
-	<system:String x:Key="Bez-BelegData-Button-Bankomat">Bankomat</system:String>
-	<system:String x:Key="Bez-BelegData-Button-Kreditkarte">Kreditkarte</system:String>
+	<system:String x:Key="Bez-BelegData-Button-Approve">Bestätigen</system:String>
 </ResourceDictionary>

@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+	<system:String x:Key="Bez-Configuration-Name">Name</system:String>
+	<system:String x:Key="Bez-Configuration-Value">Wert</system:String>
+	<system:String x:Key="Bez-Configuration-LastChanged">Zuletzt geändert</system:String>
+
+</ResourceDictionary>

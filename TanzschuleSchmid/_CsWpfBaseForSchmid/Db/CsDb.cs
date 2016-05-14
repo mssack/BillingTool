@@ -6,6 +6,7 @@
 
 using System;
 using CsWpfBase.Db.codegen;
+using CsWpfBase.Db.statements;
 
 
 
@@ -19,5 +20,7 @@ namespace CsWpfBase.Db
 	{
 		/// <summary>Code generating</summary>
 		public static CsDbCodeGen CodeGen => CsDbCodeGen.I;
+		/// <summary>Useful statements for database operations.</summary>
+		public static CsDbStatements Statements => CsDbStatements.I;
 	}
 }

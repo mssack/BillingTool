@@ -151,6 +151,8 @@ namespace CsWpfBase.Ev.Public.Extensions
 		/// </summary>
 		public static BitmapSource ConvertTo_Image(this byte[] data)
 		{
+			if (data == null || data.Length == 0)
+				return null;
 			BitmapImage img;
 			using (var sr = new MemoryStream(data))
 			{

@@ -2,15 +2,16 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-04-06</date>
 
 using System;
 using System.Data.SqlServerCe;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Windows;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Ev.Public.Extensions;
-using CsWpfBase.Global;
 
 
 
@@ -87,8 +88,8 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 
 			OpenDatabaseFile();
 
-			CreateTables();
-			CreateRelations();
+			Execute_TableScripts();
+			Execute_RelationScripts();
 
 			CloseDatabaseFile();
 		}
@@ -108,6 +109,7 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 			Connection = new SqlCeConnection($"data source={DatabaseFilePath}");
 			Connection.Open();
 		}
+
 		/// <summary>Closes the <see cref="Connection" />.</summary>
 		private void CloseDatabaseFile()
 		{
@@ -116,20 +118,31 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 			Connection = null;
 		}
 
-		private void CreateTables()
-		{
-			string[] orderedScripts = { "CreateConfigurationsTable", "CreateBelegDatenTable", "CreatePrintedBelegeTable", "CreateMailedBelegeTable", "CreateBelegPostensTable", "CreateLogsTable", "CreatePostensTable", "CreateSteuersätzeTable" };
 
-			orderedScripts.ForEach(x=> Execute_SqlScript(Get_SqlScript(x)));
-		}
-		private void CreateRelations()
+		/// <summary>Executes all scripts inside table folder. Files have to have property 'embedded_Resource' set.</summary>
+		private void Execute_TableScripts()
 		{
-			var relationScripts = Get_SqlScript("CreateRelations").Split("\r\n\r\n");
-			relationScripts.ForEach(x =>
-			{
-				Debug.WriteLine(x);
-				Execute_SqlScript(x);
-			});
+			var tableScripts = Assembly.GetCallingAssembly().GetManifestResourceNames()
+										.Where(x => x.Contains("SqlCeScripts.Tables"))
+										.SelectMany(x => Get_SqlScript(x).Split("#Split#"))
+										.Select(x => x.Trim(' ', '\r', '\n'))
+										.ToArray();
+
+
+			tableScripts.ForEach(Execute_SqlScript);
+		}
+
+		/// <summary>Executes all scripts inside relation folder. Files have to have property 'embedded_Resource' set.</summary>
+		private void Execute_RelationScripts()
+		{
+			var relationScripts = Assembly.GetCallingAssembly().GetManifestResourceNames()
+											.Where(x => x.Contains("SqlCeScripts.Relations"))
+											.SelectMany(x => Get_SqlScript(x).Split("#Split#"))
+											.Select(x => x.Trim(' ', '\r', '\n'))
+											.ToArray();
+
+
+			relationScripts.ForEach(Execute_SqlScript);
 		}
 
 		/// <summary>
@@ -138,7 +151,9 @@ namespace BillingDataAccessGenerator.DatabaseCreation
 		/// </summary>
 		private string Get_SqlScript(string scriptName)
 		{
-			return CsGlobal.Storage.Resource.File.Read("BillingDataAccessGenerator", $@"DatabaseCreation\SQL Scripts\{scriptName}.txt");
+			// ReSharper disable once AssignNullToNotNullAttribute
+			using (var file = new StreamReader(Assembly.GetCallingAssembly().GetManifestResourceStream(scriptName)))
+				return file.ReadToEnd();
 		}
 
 		/// <summary>Executes a SQL command on the connection.</summary>

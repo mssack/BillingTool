@@ -45,11 +45,6 @@ namespace BillingTool.btScope.configuration.configFiles
 		///     and other general configurations.
 		/// </summary>
 		public ConfigFile_KassenEinstellung KassenEinstellung => ConfigFile_KassenEinstellung.I;
-		/// <summary>
-		///     The <see cref="KassenEinstellung" /> sub configuration holds all uncategorize able configurations like <see cref="StartupModes" />, the database location
-		///     and other general configurations.
-		/// </summary>
-		public ConfigFile_BonLayout BonLayout => ConfigFile_BonLayout.I;
 
 
 

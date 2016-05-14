@@ -2,16 +2,15 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-05-11</date>
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Threading;
+using System.Printing;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -32,29 +31,32 @@ namespace BillingOutput.btOutputScope
 	/// <summary>Used to access all output capacity's.</summary>
 	public static class BtOutput
 	{
-		private static ImageRenderer ImageRenderer => ImageRenderer.I;
-		private static PdfCreator PdfCreator => PdfCreator.I;
 		private static readonly StaTaskScheduler StaTaskScheduler = new StaTaskScheduler(2);
 		private static readonly StaTaskScheduler StaPrinterScheduler = new StaTaskScheduler(1);
-		
+		private static ImageRenderer ImageRenderer => ImageRenderer.I;
+		private static PdfCreator PdfCreator => PdfCreator.I;
+
 
 		/// <summary>Processes all <see cref="ProcessingStates.NotProcessed" /> linked outputs.</summary>
-		public static Task<Task[]> Process(BelegData data, IContainPrinterConfiguration printConfig, IContainMailConfiguration mailConfig)
+		public static Task<Task[]> Process(BelegData data, IContainMailConfiguration mailConfig)
 		{
 			var tasks = new List<Task>();
 			tasks.AddRange(data.MailedBelege.Where(x => x.ProcessingState == ProcessingStates.NotProcessed).Select(x => Process(x, mailConfig)));
-			tasks.AddRange(data.PrintedBelege.Where(x => x.ProcessingState == ProcessingStates.NotProcessed).Select(x => Process(x, printConfig)));
+			tasks.AddRange(data.PrintedBelege.Where(x => x.ProcessingState == ProcessingStates.NotProcessed).Select(Process));
 
 
 			var taskarray = tasks.ToArray();
-			var t = new Task(() => Task.WaitAll(taskarray), TaskCreationOptions.LongRunning);
+			var t = new Task<Task[]>(() =>
+			{
+				Task.WaitAll(taskarray);
+				return taskarray;
+			}, TaskCreationOptions.LongRunning);
 			t.Start(TaskScheduler.Default);
-			var continuationTask = t.ContinueWith(task => { data.DataSet.SaveAnabolic(); data.DataSet.AcceptChanges(); return taskarray; }, TaskScheduler.FromCurrentSynchronizationContext());
-			return continuationTask;
+			return t;
 		}
 
 		/// <summary>Processes the <paramref name="data" /> and adjusts the <see cref="MailedBeleg.ProcessingState" /> row.</summary>
-		public static Task<MailedBeleg> Process(MailedBeleg data, IContainMailConfiguration mailConfig)
+		private static Task<MailedBeleg> Process(MailedBeleg data, IContainMailConfiguration mailConfig)
 		{
 			if (data.ProcessingState != ProcessingStates.NotProcessed)
 				throw new InvalidOperationException($"The {data} has currently the wrong state.");
@@ -70,36 +72,36 @@ namespace BillingOutput.btOutputScope
 				var image = ProcessFormat(data.BelegData, data.OutputFormat);
 				using (var pdfLifeLine = PdfCreator.CreatePdf(data.BelegData, image))
 				{
-					var smtpClient = new SmtpClient
+					using (var smtpClient = new SmtpClient
 					{
 						Host = mailConfig.SmtpServer,
 						UseDefaultCredentials = false,
 						Credentials = new NetworkCredential(mailConfig.SmtpUsername, mailConfig.SmtpPassword),
-						Timeout = 5*60*1000,
-						EnableSsl = mailConfig.SmtpEnableSsl
-					};
-
-
-
-					var message = new MailMessage
+						Timeout = 30*1000,
+						EnableSsl = mailConfig.SmtpEnableSsl,
+						Port = mailConfig.SmtpPort
+					})
 					{
-						From = new MailAddress(mailConfig.SmtpMailAddress),
-						Subject = data.Betreff,
-						IsBodyHtml = false,
-						Body = data.Text
-					};
-					message.To.Add(data.TargetMailAddress);
-					message.Attachments.Add(pdfLifeLine.AsMailAttachment());
-
-
-					smtpClient.Send(message);
-					message.Dispose();
-					smtpClient.Dispose();
+						using (var message = new MailMessage
+						{
+							From = new MailAddress(mailConfig.SmtpMailAddress),
+							Subject = data.Betreff,
+							IsBodyHtml = false,
+							Body = data.Text
+						})
+						{
+							message.To.Add(data.TargetMailAddress);
+							message.Attachments.Add(pdfLifeLine.AsMailAttachment());
+							smtpClient.Send(message);
+						}
+					}
 				}
 			}, TaskCreationOptions.LongRunning);
 			var continuationTask = t.ContinueWith(task =>
 			{
 				data.ProcessingDate = DateTime.Now;
+				data.OutputFormat.LastUsedDate = data.ProcessingDate;
+				data.BelegData.MailCount++;
 				if (task.Exception != null && task.IsFaulted)
 				{
 					data.ProcessingState = ProcessingStates.Failed;
@@ -116,7 +118,7 @@ namespace BillingOutput.btOutputScope
 		}
 
 		/// <summary>Processes the <paramref name="data" /> and adjusts the <see cref="PrintedBeleg.ProcessingState" /> row.</summary>
-		public static Task<PrintedBeleg> Process(PrintedBeleg data, IContainPrinterConfiguration printConfig)
+		private static Task<PrintedBeleg> Process(PrintedBeleg data)
 		{
 			if (data.ProcessingState != ProcessingStates.NotProcessed)
 				throw new InvalidOperationException($"The {data} has currently the wrong state.");
@@ -125,16 +127,17 @@ namespace BillingOutput.btOutputScope
 
 			var context = TaskScheduler.FromCurrentSynchronizationContext();
 			data.ProcessingState = ProcessingStates.Processing;
-			data.PrinterDevice = printConfig.Printer.PrintQueue.FullName;
 
 			var t = new Task(() =>
 			{
-				var image = new Image { Source = ProcessFormat(data.BelegData, data.OutputFormat) };
-				printConfig.Printer.PrintVisual(image, $"{data.BelegData}");
+				var image = new Image {Source = ProcessFormat(data.BelegData, data.OutputFormat)};
+				new PrintDialog {PrintQueue = new PrintQueue(new PrintServer(), data.PrinterDevice)}.PrintVisual(image, $"{data.BelegData}");
 			}, TaskCreationOptions.LongRunning);
 			var continuationTask = t.ContinueWith(task =>
 			{
 				data.ProcessingDate = DateTime.Now;
+				data.OutputFormat.LastUsedDate = data.ProcessingDate;
+				data.BelegData.PrintCount++;
 				if (task.Exception != null && task.IsFaulted)
 				{
 					data.ProcessingState = ProcessingStates.Failed;
@@ -151,12 +154,11 @@ namespace BillingOutput.btOutputScope
 		}
 
 
-		private static BitmapSource ProcessFormat(BelegData data, OutputFormats format)
+		private static BitmapSource ProcessFormat(BelegData data, OutputFormat format)
 		{
-			if (format == OutputFormats.StandardBonV1)
-				return ImageRenderer.BonV1(data);
-			else
+			if (format.BonLayout == BonLayouts.Unknown)
 				throw new InvalidOperationException($"The format {format} is not a valid format for a rendering of data {data}.");
+			return ImageRenderer.Render(data, format);
 		}
 	}
 }

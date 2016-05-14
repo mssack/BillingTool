@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-03</date>
+// <date>2016-04-15</date>
 
 using System;
 using System.IO;
@@ -13,8 +13,12 @@ using BillingTool.btScope.configuration._enums;
 using BillingTool.btScope.db;
 using BillingTool.btScope.functions;
 using BillingTool.btScope.logging;
+using BillingTool.btScope.output;
+using BillingTool.Exceptions;
 using BillingTool.Windows;
 using CsWpfBase.Global;
+using Window_DatabaseViewer = BillingTool.Windows.privileged.Window_DatabaseViewer;
+using Window_KassenConfiguration = BillingTool.Windows.privileged.Window_KassenConfiguration;
 
 
 
@@ -39,11 +43,13 @@ namespace BillingTool.btScope
 		/// <summary>Used to interact with the underlaying database. Use <see cref="Config" /> to set the current database.</summary>
 		public static Db Db => Db.I;
 		/// <summary>Default functions used to interact with the user.</summary>
-		public static UiFunctions UiFunctions => UiFunctions.I;
+		public static UiFunctions Ui => UiFunctions.I;
 		/// <summary>Default data functions used to interact with the database.</summary>
-		public static DataFunctions DataFunctions => DataFunctions.I;
+		public static DataFunctions Data => DataFunctions.I;
+		/// <summary>Functions needed for the application interaction with the environment.</summary>
+		public static AppOutput AppOutput => AppOutput.I;
 		/// <summary>Functions needed for the application.</summary>
-		public static Functions Functions => Functions.I;
+		public static Output Output => Output.I;
 
 
 
@@ -56,26 +62,22 @@ namespace BillingTool.btScope
 				var window = new Window_KassenConfiguration();
 				window.ShowDialog();
 				if (!Config.File.KassenEinstellung.IsValid)
-				{
-					Functions.SetExitCode(ExitCodes.No_ValidConfiguration);
-					Environment.Exit(0);
-				}
+					throw new BillingToolException(BillingToolException.Types.No_ValidConfiguration, $"Es wurde keine gültige Datenbankkonfiguration erstellt.");
 			}
 
 
 			var fi = new FileInfo(Config.File.KassenEinstellung.BillingDatabaseFilePath);
 			if (fi.Exists)
 			{
-				Db.EnsureConnectivity();
+				InitDb();
 				return;
 			}
 
 
-			var createDb = UiFunctions.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
+			var createDb = Ui.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
 			if (createDb == false)
 			{
-				Functions.SetExitCode(ExitCodes.No_DatabaseAvailable);
-				Environment.Exit(0);
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbankinstallation wurde vom User abgebrochen.");
 			}
 			try
 			{
@@ -84,48 +86,74 @@ namespace BillingTool.btScope
 					installer.Install();
 				}
 			}
-			catch (Exception)
+			catch (BadImageFormatException exc)
 			{
-				Functions.SetExitCode(ExitCodes.No_DatabaseAvailable);
-				Environment.Exit(0);
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die verwendete Architektur 64 Bit ist nicht erlaubt. Kompilieren Sie diese Applikation noch einmal als x86 (Environment.Is64BitProcess[{Environment.Is64BitProcess}])", exc);
+			}
+			catch (Exception exc)
+			{
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbank konnte nicht installiert werden.", exc);
 			}
 
+			InitDb();
+		}
 
+		private static void InitDb()
+		{
 			Db.EnsureConnectivity();
+			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
+				Db.Billing.OutputFormats.DownloadRows();
+			if (Db.Billing.Configurations.HasBeenLoaded != true)
+				Db.Billing.Configurations.DownloadRows();
 		}
 
 		/// <summary>does the startup</summary>
 		public static void Startup(string[] startupArgs)
 		{
 			Config.CommandLine.Interpret(startupArgs);
-
 			var mode = Config.CommandLine.General.StartupMode;
+			CsGlobal.Message.SetDefaultScaling(Bt.Config.File.KassenEinstellung.Scaling);
 
-			if (mode == StartupModes.Developer)
+			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
+				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
+
+			Window window;
+			if (mode == StartupModes.BelegDataApprove)
+				window = new Window_BelegData_Approve {Item = Data.BelegData.New_FromConfiguration()};
+			else if (mode == StartupModes.BelegDataViewer)
+				window = new Window_BelegData_Viewer();
+			else if (mode == StartupModes.Options)
 			{
-				var w = new DeveloperWindow();
-				Application.Current.MainWindow = w;
-
-				w.Show();
-			}
-			else if (mode == StartupModes.ApproveBelegData)
-			{
-				var window = new Window_BelegData_Approve();
-				Application.Current.MainWindow = window;
-
-				window.Item = DataFunctions.New_BelegData_FromConfiguration();
-				window.Show();
+				EnsureInitialization();
+				window = new Window_Options();
 			}
 			else if (mode == StartupModes.Database)
+				window = new Window_DatabaseViewer();
+			else
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Fehlender {nameof(StartupModes)} siehe enumeration[{nameof(StartupModes)}].");
+
+
+
+			Application.Current.MainWindow = window;
+			EnsureInitialization();
+			window.Loaded += (sender, args) =>
 			{
-				var window = new DatabaseWindow();
-				Application.Current.MainWindow = window;
+				((Window) sender).Icon = Bt.Db.Billing.Configurations.HeaderLogo;
+			};
+			window.Show();
+		}
 
-				window.Show();
-			}
-
-			if (Application.Current.MainWindow == null)
-				Application.Current.MainWindow = Application.Current.Windows[0];
+		/// <summary>gets an indicator whether the database is accessible.</summary>
+		public static bool IsInitialized()
+		{
+			if (!Config.File.KassenEinstellung.Path.Exists || !Config.File.KassenEinstellung.IsValid)
+				return false;
+			var fi = new FileInfo(Config.File.KassenEinstellung.BillingDatabaseFilePath);
+			if (!fi.Exists)
+				return false;
+			if (!Db.IsConnected())
+				return false;
+			return true;
 		}
 	}
 }

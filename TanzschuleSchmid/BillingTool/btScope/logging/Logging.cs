@@ -58,6 +58,10 @@ namespace BillingTool.btScope.logging
 
 			var fileInfo = new FileInfo(filePath);
 
+			if (logType == LogTypes.Fatal && !Bt.IsInitialized())
+			{
+				return;
+			}
 			Bt.EnsureInitialization();
 			var log = Bt.Db.Billing.Logs.NewRow();
 			log.Type = logType;

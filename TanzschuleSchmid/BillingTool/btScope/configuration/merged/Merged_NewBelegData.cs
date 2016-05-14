@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-19</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -39,6 +39,16 @@ namespace BillingTool.btScope.configuration.merged
 			}
 		}
 
+
+		/// <summary>Try to get the value from command line configuration. If command line configuration is default use the value from configuration file.</summary>
+		private static T GetMergedValue<T>(Func<IConfig_NewBelegData, T> get)
+		{
+			var value = get(Bt.Config.CommandLine.NewBelegData);
+			if (value != null && !Equals(default(T), value))
+				return value;
+			return get(Bt.Config.File.NewBelegData);
+		}
+
 		private Merged_NewBelegData()
 		{
 		}
@@ -51,7 +61,7 @@ namespace BillingTool.btScope.configuration.merged
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
 		public string StateName
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
@@ -94,7 +104,7 @@ namespace BillingTool.btScope.configuration.merged
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZuletztGeändert</c>]</summary>
-		public DateTime ZuletztGeändert
+		public DateTime? CommentLastChanged
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -132,10 +142,10 @@ namespace BillingTool.btScope.configuration.merged
 			get { return GetMergedValue(setting => setting.KassenOperator); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Kommentar</c>]</summary>
-		public string Kommentar
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
+		public string Comment
 		{
-			get { return GetMergedValue(setting => setting.Kommentar); }
+			get { return GetMergedValue(setting => setting.Comment); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZusatzText</c>]</summary>
@@ -178,15 +188,5 @@ namespace BillingTool.btScope.configuration.merged
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		#endregion
-
-
-		/// <summary>Try to get the value from command line configuration. If command line configuration is default use the value from configuration file.</summary>
-		private static T GetMergedValue<T>(Func<IConfig_NewBelegData, T> get)
-		{
-			var value = get(Bt.Config.CommandLine.NewBelegData);
-			if (value != null && !Equals(default(T), value))
-				return value;
-			return get(Bt.Config.File.NewBelegData);
-		}
 	}
 }

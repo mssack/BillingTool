@@ -1,16 +1,16 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-06-11</date>
+// <date>2016-05-06</date>
 
 using System;
-using System.Net.Mime;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
 using CsWpfBase.Ev.Objects;
+
 
 
 
@@ -22,12 +22,9 @@ namespace CsWpfBase.Global.message
 	[Serializable]
 	public sealed class CsgMessage : Base
 	{
-		#region SINGLETON CLASS
+
 		private static CsgMessage _instance;
 		private static readonly object SingletonLock = new object();
-		private CsgMessage()
-		{
-		}
 		/// <summary>Returns the singleton instance</summary>
 		internal static CsgMessage I
 		{
@@ -41,7 +38,10 @@ namespace CsWpfBase.Global.message
 				}
 			}
 		}
-		#endregion
+
+		private CsgMessage()
+		{
+		}
 
 
 		/// <summary>Pushes a message on the users screen.</summary>
@@ -52,15 +52,25 @@ namespace CsWpfBase.Global.message
 
 			if (Application.Current.Dispatcher.Thread != Thread.CurrentThread)
 			{
-				Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
-				{
-					var w1 = new CsMessageWindow(new CsMessage(type, content, title, buttons, methodName, classFilePath, classLineNumber));
-					w1.ShowDialog();
-				}));
+				Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => { GetWindow(content, type, title, buttons, methodName, classFilePath, classLineNumber).ShowDialog(); }));
 				return CsMessage.MessageResults.Undefined;
 			}
-			var w = new CsMessageWindow(new CsMessage(type, content, title, buttons, methodName, classFilePath, classLineNumber));
-			return w.ShowDialog();
+			return GetWindow(content, type, title, buttons, methodName, classFilePath, classLineNumber).ShowDialog();
+		}
+
+		/// <summary>Pushes a message on the users screen.</summary>
+		public CsMessageWindow GetWindow(object content, CsMessage.Types type = CsMessage.Types.Information, string title = null, CsMessage.MessageButtons buttons = CsMessage.MessageButtons.Ok, [CallerMemberName] string methodName = null, [CallerFilePath] string classFilePath = null, [CallerLineNumber] int classLineNumber = 0)
+		{
+			if (Application.Current == null)
+				return null;
+			var w1 = new CsMessageWindow(new CsMessage(type, content, title, buttons, methodName, classFilePath, classLineNumber));
+			return w1;
+		}
+
+		/// <summary>Sets the default message scaling.</summary>
+		public void SetDefaultScaling(double scaling)
+		{
+			CsMessageWindow.DefaultContentScaling = scaling;
 		}
 	}
 }

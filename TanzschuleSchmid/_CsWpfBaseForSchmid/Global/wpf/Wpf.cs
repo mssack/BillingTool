@@ -1,12 +1,13 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-06-11</date>
+// <date>2016-05-05</date>
 
 using System;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Global.wpf.Storage;
+
 
 
 
@@ -18,12 +19,8 @@ namespace CsWpfBase.Global.wpf
 	[Serializable]
 	public sealed class CsgWpf : Base
 	{
-		#region SINGLETON CLASS
 		private static CsgWpf _instance;
 		private static readonly object SingletonLock = new object();
-		private CsgWpf()
-		{
-		}
 		/// <summary>Returns the singleton instance</summary>
 		internal static CsgWpf I
 		{
@@ -37,33 +34,23 @@ namespace CsWpfBase.Global.wpf
 				}
 			}
 		}
-		#endregion
+
+		private CsgWpf()
+		{
+		}
 
 
 		/// <summary>Provides a way to save states of user controls in wpf.</summary>
-		public CsgWpfStorage Storage
-		{
-			get { return CsgWpfStorage.I; }
-		}
+		public CsgWpfStorage Storage => CsgWpfStorage.I;
 		/// <summary>Collapsing animation helpers for code behind animations.</summary>
-		public CsgWpfAnimation Animation
-		{
-			get { return CsgWpfAnimation.I; }
-		}
+		public CsgWpfAnimation Animation => CsgWpfAnimation.I;
 		/// <summary>Provides a singleton time class which is bind able and provides automated updates when time changes.</summary>
-		public CsgWpfTime Time
-		{
-			get { return CsgWpfTime.I; }
-		}
+		public CsgWpfTime Time => CsgWpfTime.I;
 		/// <summary>Visual tree helper methods.</summary>
-		public CsgWpfVisualTree VisualTree
-		{
-			get { return CsgWpfVisualTree.I; }
-		}
+		public CsgWpfVisualTree VisualTree => CsgWpfVisualTree.I;
 		/// <summary>Dragging helper methods.</summary>
-		public CsgWpfDragging Dragging
-		{
-			get { return CsgWpfDragging.I; }
-		}
+		public CsgWpfDragging Dragging => CsgWpfDragging.I;
+		/// <summary>Window helper methods.</summary>
+		public CsgWpfWindow Window => CsgWpfWindow.I;
 	}
 }

@@ -1,8 +1,8 @@
-// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-07-24</date>
+// <date>2016-05-06</date>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -23,7 +23,7 @@ namespace CsWpfBase.Global.message
 	public sealed class CsMessage : Base
 	{
 		private CodePosition _code;
-		private Object _content;
+		private object _content;
 		private string _iD;
 		private MessageButtons _messageButton;
 		private string _messageId;
@@ -85,7 +85,7 @@ namespace CsWpfBase.Global.message
 			set { SetProperty(ref _title, value); }
 		}
 		/// <summary>Gets the content of the message.</summary>
-		public Object Content
+		public object Content
 		{
 			get { return _content; }
 			private set { SetProperty(ref _content, value); }

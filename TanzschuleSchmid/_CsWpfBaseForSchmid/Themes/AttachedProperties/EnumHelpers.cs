@@ -1,13 +1,14 @@
-﻿// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+﻿// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-06-11</date>
+// <date>2016-04-19</date>
 
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Markup;
+using CsWpfBase.Ev.Public.Extensions;
+
 
 
 
@@ -15,7 +16,8 @@ using System.Windows.Markup;
 
 namespace CsWpfBase.Themes.AttachedProperties
 {
-	/// <summary>Usage:
+	/// <summary>
+	///     Usage:
 	///     <ComboBox SelectedValue="{Binding Path=AutoReorder}" SelectedValuePath="Value" DisplayMemberPath="Description" ItemsSource="{Binding Source={EnumerationExtension {x:Type local:Ipv4LanScannerView+Option+AutoReorderingTypes}}}"></ComboBox>
 	/// </summary>
 #pragma warning disable 1591
@@ -31,6 +33,16 @@ namespace CsWpfBase.Themes.AttachedProperties
 
 			EnumType = enumType;
 		}
+
+
+		#region Overrides/Interfaces
+		public override object ProvideValue(IServiceProvider serviceProvider)
+		{
+			var enumValues = Enum.GetValues(EnumType);
+			return enumValues.OfType<Enum>().Where(x => !IgnoredEnums.Contains(x)).Select(x => new EnumerationMember() {Value = x, Name = x.GetName(), Description = x.GetDescription()}).ToArray();
+		}
+		#endregion
+
 
 		public Type EnumType
 		{
@@ -48,33 +60,7 @@ namespace CsWpfBase.Themes.AttachedProperties
 				_enumType = value;
 			}
 		}
-
-		public override object ProvideValue(IServiceProvider serviceProvider)
-		{
-			var enumValues = Enum.GetValues(EnumType);
-
-			return (
-				from object enumValue in enumValues
-				select new EnumerationMember
-						{
-							Value = enumValue,
-							Description = GetDescription((Enum) enumValue)
-						}).ToArray();
-		}
-
-		public static string GetDescription(Enum enumValue)
-		{
-			var descriptionAttribute = enumValue.GetType()
-												.GetField(enumValue.ToString())
-												.GetCustomAttributes(typeof (DescriptionAttribute), false)
-												.FirstOrDefault() as DescriptionAttribute;
-
-
-			return descriptionAttribute != null
-				? descriptionAttribute.Description
-				: enumValue.ToString();
-		}
-
+		public Enum[] IgnoredEnums { get; set; }
 
 
 
@@ -82,6 +68,7 @@ namespace CsWpfBase.Themes.AttachedProperties
 		public class EnumerationMember
 		{
 			public string Description { get; set; }
+			public string Name { get; set; }
 			public object Value { get; set; }
 		}
 	}

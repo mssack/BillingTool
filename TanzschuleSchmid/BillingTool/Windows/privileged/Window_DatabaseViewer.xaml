@@ -1,0 +1,353 @@
+﻿<CsWindow x:Class="BillingTool.Windows.privileged.Window_DatabaseViewer"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
+		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
+		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
+		mc:Ignorable="d"
+		Title="Datenbank" Height="500" Width="900" x:Name="Uc" FooterVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
+		AWindowDragMove.IsActive="True">
+	<Grid DataContext="{Binding ElementName=Uc}" Margin="15,15,15,15">
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<Grid Margin="0,-10,0,-20" Panel.ZIndex="99999">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="1" VerticalAlignment="Bottom">
+				<Grid.Resources>
+					<Style TargetType="{x:Type DatePickerTextBox}">
+						<Setter Property="IsReadOnly" Value="True" />
+					</Style>
+				</Grid.Resources>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<shared:FromToSelectorControl x:Name="FromToSelector" SelectionChanged="FromToSelectorControl_OnSelectionChanged"></shared:FromToSelectorControl>
+				<Button Grid.Column="1" Content="Änderungen verwerfen" Click="ÄnderungenVerwerfenClicked" Margin="10,0,0,0" Padding="10,3,10,3"
+						Foreground="#DF3E3E" />
+				<Button Grid.Column="2" Content="Exportieren" Margin="10,0,0,0" Padding="10,3,10,3" />
+
+			</Grid>
+		</Grid>
+
+		<TabControl Grid.Row="1" SelectionChanged="TabItemChanged" x:Name="TabControl1">
+			<TabItem Header="Belegdaten" x:Name="BelegDataTab" Tag="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.BelegDaten}">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=FilteredBelegDaten}">
+					<ListView.Resources>
+						<ResourceDictionary>
+							<ResourceDictionary.MergedDictionaries>
+								<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
+							</ResourceDictionary.MergedDictionaries>
+						</ResourceDictionary>
+					</ListView.Resources>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Typ}" Sort.PropertyName="TypName">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=TypName}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Datum}" Sort.PropertyName="Datum">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=Datum}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-KassenId}" Sort.PropertyName="KassenId">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=KassenId}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-KassenOperator}" Sort.PropertyName="KassenOperator">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=KassenOperator}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Nummer}" Sort.PropertyName="Nummer">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=Nummer}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-UmsatzZähler}" Sort.PropertyName="UmsatzZähler">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=UmsatzZähler, StringFormat={}{0:0.00} €}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-BetragBrutto}" Sort.PropertyName="BetragBrutto">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00} €}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-BetragNetto}" Sort.PropertyName="BetragNetto">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=BetragNetto, StringFormat={}{0:0.00} €}" TextAlignment="Right" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-ZusatzText}" Sort.PropertyName="ZusatzText">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=ZusatzText}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-PrintCount}" Sort.PropertyName="PrintCount">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=PrintCount}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-MailCount}" Sort.PropertyName="MailCount">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=MailCount}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Empfänger}" Sort.PropertyName="Empfänger">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=Empfänger}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-EmpfängerId}" Sort.PropertyName="EmpfängerId">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=EmpfängerId}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Comment}" Sort.PropertyName="Comment">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBox Text="{Binding Path=Comment}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-BelegData-Comment}" Sort.PropertyName="CommentLastChanged">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
+										<TextBlock Text="{Binding Path=CommentLastChanged}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+			<TabItem Header="Posten" x:Name="PostenTab" Tag="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Postens}">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Postens}">
+					<ListView.Resources>
+						<ResourceDictionary>
+							<ResourceDictionary.MergedDictionaries>
+								<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/Posten.xaml" />
+							</ResourceDictionary.MergedDictionaries>
+						</ResourceDictionary>
+					</ListView.Resources>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="{StaticResource Bez-Posten-CreationDate}" Sort.PropertyName="CreationDate">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=CreationDate}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-Name}" Sort.PropertyName="Name">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=Name}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-PreisBrutto}" Sort.PropertyName="PreisBrutto">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=PreisBrutto, StringFormat={}{0:0.00} €}" TextAlignment="Right" FontFamily="Consolas" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-AnzahlGekauft}" Sort.PropertyName="AnzahlGekauft">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=AnzahlGekauft}" TextAlignment="Right" FontFamily="Consolas" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-AnzahlStorniert}" Sort.PropertyName="AnzahlStorniert">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock Text="{Binding Path=AnzahlStorniert}" TextAlignment="Right" FontFamily="Consolas" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Posten-Comment}" Sort.PropertyName="Comment">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBox Text="{Binding Path=Comment}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+			<TabItem Header="Konfiguration" x:Name="ConfigurationTab" Tag="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations}">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations}">
+					<ListView.Resources>
+						<ResourceDictionary>
+							<ResourceDictionary.MergedDictionaries>
+								<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/Configuration.xaml" />
+							</ResourceDictionary.MergedDictionaries>
+						</ResourceDictionary>
+					</ListView.Resources>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="{StaticResource Bez-Configuration-Name}" Sort.PropertyName="Name">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Configuration}">
+										<TextBlock Text="{Binding Path=Name}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Configuration-Value}" Sort.PropertyName="Value">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Configuration}">
+										<TextBlock Text="{Binding Path=Value}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Configuration-LastChanged}" Sort.PropertyName="LastChanged">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Configuration}">
+										<TextBlock Text="{Binding Path=LastChanged}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+			<TabItem Header="Logs" x:Name="LogsTab" Tag="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Logs}">
+				<ListView Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=FilteredLogs}">
+					<ListView.Resources>
+						<ResourceDictionary>
+							<ResourceDictionary.MergedDictionaries>
+								<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/Log.xaml" />
+							</ResourceDictionary.MergedDictionaries>
+						</ResourceDictionary>
+					</ListView.Resources>
+					<ListView.View>
+						<GridView>
+							<GridViewColumn Header="{StaticResource Bez-Log-TypeName}" Sort.PropertyName="TypeName">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+											</Grid.ColumnDefinitions>
+											<Image Width="13" Height="13" RenderOptions.BitmapScalingMode="HighQuality" Margin="0,0,5,0">
+												<Image.Style>
+													<Style TargetType="Image">
+														<Style.Triggers>
+
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Information}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-Info}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Warning}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-Warning}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Error}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-Error}" />
+															</DataTrigger>
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Fatal}">
+																<Setter Property="Source" Value="{StaticResource GIco-Message-FatalError}" />
+															</DataTrigger>
+														</Style.Triggers>
+													</Style>
+												</Image.Style>
+											</Image>
+											<TextBlock Grid.Column="1" Text="{Binding Path=TypeName}" />
+										</Grid>
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Log-Date}" Sort.PropertyName="Date">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=Date}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Log-Title}" Sort.PropertyName="Title">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=Title}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Log-Content}" Sort.PropertyName="Content">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=Content}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Log-Comment}" Sort.PropertyName="Comment">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<TextBox Text="{Binding Path=Comment}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Log-CodePosition}" Sort.PropertyName="CodePosition">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=CodePosition}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+							<GridViewColumn Header="{StaticResource Bez-Log-CommandLine}" Sort.PropertyName="CommandLine">
+								<GridViewColumn.CellTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Log}">
+										<TextBlock Text="{Binding Path=CommandLine}" />
+									</DataTemplate>
+								</GridViewColumn.CellTemplate>
+							</GridViewColumn>
+						</GridView>
+					</ListView.View>
+				</ListView>
+			</TabItem>
+		</TabControl>
+
+	</Grid>
+</CsWindow>

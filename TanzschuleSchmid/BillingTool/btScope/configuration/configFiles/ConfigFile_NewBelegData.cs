@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-04-19</date>
 
 using System;
 using System.IO;
@@ -44,15 +44,15 @@ namespace BillingTool.btScope.configuration.configFiles
 				}
 			}
 		}
-		private string _zusatzText;
+		private string _comment;
 		private string _empfänger;
 		private string _empfängerId;
 		private string _kassenOperator;
-		private string _kommentar;
 		private bool _printBeleg;
 		private bool _sendBeleg;
 		private string _sendBelegTarget;
-		private string _typName;
+		private string _typName = BelegDataTypes.Undefined.ToString();
+		private string _zusatzText;
 
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
@@ -75,7 +75,7 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
 		public string StateName
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
@@ -112,7 +112,7 @@ namespace BillingTool.btScope.configuration.configFiles
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZuletztGeändert</c>]</summary>
-		public DateTime ZuletztGeändert
+		public DateTime? CommentLastChanged
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -180,11 +180,11 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Kommentar</c>]</summary>
-		public string Kommentar
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
+		public string Comment
 		{
-			get { return _kommentar; }
-			set { SetProperty(ref _kommentar, value); }
+			get { return _comment; }
+			set { SetProperty(ref _comment, value); }
 		}
 		/// <summary>If true a new <see cref="PrintedBeleg" /> will be created and printed to a printer.</summary>
 		public bool PrintBeleg

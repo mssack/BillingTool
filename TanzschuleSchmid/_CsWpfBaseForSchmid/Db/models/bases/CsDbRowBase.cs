@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-29</date>
+// <date>2016-05-09</date>
 
 using System;
 using System.Collections.Generic;
@@ -118,10 +118,19 @@ namespace CsWpfBase.Db.models.bases
 			if (_propertyChanged != null)
 			{
 				_propertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-				dependingPropertys?.ForEach(x => _propertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
+				dependingPropertys?.ForEach(OnPropertyChanged);
 			}
-			_internalPropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+			if (_internalPropertyChanged != null)
+			{
+				_internalPropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+				dependingPropertys?.ForEach(OnPropertyChanged);
+			}
+		}
 
+		/// <summary>Invokes the property changed event for a property.</summary>
+		public virtual void RaisePropertyChanged(string propertyName)
+		{
+			OnPropertyChanged(propertyName);
 		}
 
 		/// <summary>Used to notify about change if user changes the data base field directly.</summary>
@@ -196,7 +205,7 @@ namespace CsWpfBase.Db.models.bases
 				var properties = t.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 				foreach (var property in properties)
 				{
-					var attributes = property.GetCustomAttributes(typeof (CsDbNativeDataColumnAttribute), false);
+					var attributes = property.GetCustomAttributes(typeof(CsDbNativeDataColumnAttribute), false);
 					if (attributes.Length != 1)
 						continue;
 

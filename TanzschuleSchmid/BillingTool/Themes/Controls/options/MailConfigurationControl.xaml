@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="BillingTool.Themes.Controls.options.MailConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:btScope="clr-namespace:BillingTool.btScope"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<Grid IsSharedSizeScope="True" DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<StringParam Grid.Row="0" Header="Server" Value="{Binding Path=SmtpServer}" />
+		<UInt16Param Grid.Row="1" Header="Port" Value="{Binding Path=SmtpPort}" />
+		<BoolParam Grid.Row="2" Header="SSL" Value="{Binding Path=SmtpEnableSsl}" />
+		<StringParam Grid.Row="3" Header="Absender mail" Value="{Binding Path=SmtpMailAddress}" />
+		<StringParam Grid.Row="4" Header="Username" Value="{Binding Path=SmtpUsername}" />
+		<StringParam Grid.Row="5" Header="Password" Value="{Binding Path=SmtpPassword}" />
+	</Grid>
+</UserControl>

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-01</date>
+// <date>2016-04-17</date>
 
 using System;
 using System.Globalization;
@@ -26,21 +26,21 @@ namespace CsWpfBase.Themes.Controls.Containers
 	public class CsWindow : Window
 	{
 		#region DP Keys
-		public static readonly DependencyProperty ResizeThicknessProperty = DependencyProperty.Register("ResizeThickness", typeof (Thickness), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Thickness), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof (object), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty HeaderTemplateProperty = DependencyProperty.Register("HeaderTemplate", typeof (DataTemplate), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty CloseButtonVisibilityProperty = DependencyProperty.Register("CloseButtonVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty MaximizeButtonVisibilityProperty = DependencyProperty.Register("MaximizeButtonVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty MinimizeButtonVisibilityProperty = DependencyProperty.Register("MinimizeButtonVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty HeaderVisibilityProperty = DependencyProperty.Register("HeaderVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty HeaderBackgroundProperty = DependencyProperty.Register("HeaderBackground", typeof (Brush), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Brush), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty IconVisibilityProperty = DependencyProperty.Register("IconVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty FooterProperty = DependencyProperty.Register("Footer", typeof (object), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty FooterTemplateProperty = DependencyProperty.Register("FooterTemplate", typeof (DataTemplate), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty FooterVisibilityProperty = DependencyProperty.Register("FooterVisibility", typeof (Visibility), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty ScaleProperty = DependencyProperty.Register("Scale", typeof (double), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(double), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty ScaleActivatedProperty = DependencyProperty.Register("ScaleActivated", typeof (bool), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty GausianBorderBrushProperty = DependencyProperty.Register("GausianBorderBrush", typeof (Brush), typeof (CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Brush), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty IsGrayedOutProperty = DependencyProperty.Register("IsGrayedOut", typeof(bool), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(bool), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ResizeThicknessProperty = DependencyProperty.Register("ResizeThickness", typeof(Thickness), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Thickness), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register("Header", typeof(object), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty HeaderTemplateProperty = DependencyProperty.Register("HeaderTemplate", typeof(DataTemplate), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty CloseButtonVisibilityProperty = DependencyProperty.Register("CloseButtonVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty MaximizeButtonVisibilityProperty = DependencyProperty.Register("MaximizeButtonVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty MinimizeButtonVisibilityProperty = DependencyProperty.Register("MinimizeButtonVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty HeaderVisibilityProperty = DependencyProperty.Register("HeaderVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty HeaderBackgroundProperty = DependencyProperty.Register("HeaderBackground", typeof(Brush), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Brush), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty IconVisibilityProperty = DependencyProperty.Register("IconVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty FooterProperty = DependencyProperty.Register("Footer", typeof(object), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty FooterTemplateProperty = DependencyProperty.Register("FooterTemplate", typeof(DataTemplate), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(DataTemplate), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty FooterVisibilityProperty = DependencyProperty.Register("FooterVisibility", typeof(Visibility), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Visibility), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty ScaleProperty = DependencyProperty.Register("Scale", typeof(double), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(double), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty GausianBorderBrushProperty = DependencyProperty.Register("GausianBorderBrush", typeof(Brush), typeof(CsWindow), new FrameworkPropertyMetadata {DefaultValue = default(Brush), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
@@ -51,7 +51,7 @@ namespace CsWpfBase.Themes.Controls.Containers
 
 		static CsWindow()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof (CsWindow), new FrameworkPropertyMetadata(typeof (CsWindow)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(CsWindow), new FrameworkPropertyMetadata(typeof(CsWindow)));
 		}
 
 
@@ -59,7 +59,7 @@ namespace CsWpfBase.Themes.Controls.Containers
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
-			(Template.FindName("PART_FirstElementInTemplate", this) as FrameworkElement).ManipulationBoundaryFeedback += (sender, args) => args.Handled = true;
+			((FrameworkElement) Template.FindName("PART_FirstElementInTemplate", this)).ManipulationBoundaryFeedback += (sender, args) => args.Handled = true;
 		}
 		#endregion
 
@@ -134,12 +134,13 @@ namespace CsWpfBase.Themes.Controls.Containers
 			get { return (double) GetValue(ScaleProperty); }
 			set { SetValue(ScaleProperty, value); }
 		}
-		public bool ScaleActivated
-		{
-			get { return (bool) GetValue(ScaleActivatedProperty); }
-			set { SetValue(ScaleActivatedProperty, value); }
-		}
 
+
+		public bool IsGrayedOut
+		{
+			get { return (bool) GetValue(IsGrayedOutProperty); }
+			set { SetValue(IsGrayedOutProperty, value); }
+		}
 
 		public Thickness ResizeThickness
 		{
