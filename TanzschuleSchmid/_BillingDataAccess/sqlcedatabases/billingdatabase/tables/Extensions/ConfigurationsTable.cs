@@ -6,6 +6,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -110,9 +111,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			set { SetValue(value); }
 		}
 
-
 		private T GetValue<T>(T defaultValue = default(T), [CallerMemberName] string name = null)
 		{
+			if (DbProxy == null)
+				return default(T);
+
+
 			var config = GetRow(name, defaultValue == null ? null : defaultValue.ToString());
 
 			if (string.IsNullOrEmpty(config.Value))

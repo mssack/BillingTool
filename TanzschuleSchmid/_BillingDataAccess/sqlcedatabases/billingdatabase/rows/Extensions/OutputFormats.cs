@@ -160,8 +160,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		}
 
 		/// <summary>returns true if this element has been used before.</summary>
-		[DependsOn(nameof(LastUsed))]
-		public bool HasBeenUsed => LastUsed != null;
+		[DependsOn(nameof(LastUsedDate))]
+		public bool HasBeenUsed => LastUsedDate != null;
 		
 
 

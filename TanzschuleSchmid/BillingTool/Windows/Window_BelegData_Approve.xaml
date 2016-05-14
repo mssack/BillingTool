@@ -53,7 +53,7 @@
 							<StringParam Grid.Row="3" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
 						</Grid>
 					</Expander>
-					<Expander Grid.Row="1" IsExpanded="True" Padding="0">
+					<Expander Grid.Row="1" IsExpanded="True" Padding="0" Visibility="Collapsed">
 						<Expander.Header>
 							<Grid DataContext="{Binding ElementName=PostenListView, Path=SelectedItem}">
 								<Grid.ColumnDefinitions>

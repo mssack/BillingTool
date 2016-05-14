@@ -62,9 +62,7 @@ namespace BillingTool.btScope
 				var window = new Window_KassenConfiguration();
 				window.ShowDialog();
 				if (!Config.File.KassenEinstellung.IsValid)
-				{
 					throw new BillingToolException(BillingToolException.Types.No_ValidConfiguration, $"Es wurde keine gültige Datenbankkonfiguration erstellt.");
-				}
 			}
 
 
@@ -119,14 +117,16 @@ namespace BillingTool.btScope
 			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
-			Bt.EnsureInitialization();
 			Window window;
 			if (mode == StartupModes.BelegDataApprove)
 				window = new Window_BelegData_Approve {Item = Data.BelegData.New_FromConfiguration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)
+			{
+				EnsureInitialization();
 				window = new Window_Options();
+			}
 			else if (mode == StartupModes.Database)
 				window = new Window_DatabaseViewer();
 			else
@@ -135,6 +135,11 @@ namespace BillingTool.btScope
 
 
 			Application.Current.MainWindow = window;
+			EnsureInitialization();
+			window.Loaded += (sender, args) =>
+			{
+				((Window) sender).Icon = Bt.Db.Billing.Configurations.HeaderLogo;
+			};
 			window.Show();
 		}
 

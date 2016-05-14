@@ -26,7 +26,7 @@ namespace CsWpfBase.Db.models
 	[Serializable]
 	public abstract class CsDbTable : CsDbTableBase
 	{
-		
+
 	}
 	/// <summary>The base for each row inside the db engine.</summary>
 	[Serializable]
@@ -39,6 +39,8 @@ namespace CsWpfBase.Db.models
 
 
 		#region Overrides
+
+
 		/// <summary>Raises the <see cref="E:System.Data.DataTable.RowChanged" /> event.</summary>
 		protected override void OnRowChanged(DataRowChangeEventArgs e)
 		{

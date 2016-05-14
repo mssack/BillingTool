@@ -58,6 +58,7 @@ namespace BillingTool.Windows
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
 				Bt.Data.BelegData.Finalize(Item);
+				Bt.Data.SyncAnabolicChanges();
 				Bt.Ui.ProcessNonProcessedOutputs(Item);
 				Bt.Data.SyncAnabolicChanges();
 

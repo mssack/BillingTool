@@ -100,7 +100,7 @@ namespace BillingOutput.btOutputScope
 			var continuationTask = t.ContinueWith(task =>
 			{
 				data.ProcessingDate = DateTime.Now;
-				data.OutputFormat.LastUsed = data.ProcessingDate;
+				data.OutputFormat.LastUsedDate = data.ProcessingDate;
 				data.BelegData.MailCount++;
 				if (task.Exception != null && task.IsFaulted)
 				{
@@ -136,7 +136,7 @@ namespace BillingOutput.btOutputScope
 			var continuationTask = t.ContinueWith(task =>
 			{
 				data.ProcessingDate = DateTime.Now;
-				data.OutputFormat.LastUsed = data.ProcessingDate;
+				data.OutputFormat.LastUsedDate = data.ProcessingDate;
 				data.BelegData.PrintCount++;
 				if (task.Exception != null && task.IsFaulted)
 				{
