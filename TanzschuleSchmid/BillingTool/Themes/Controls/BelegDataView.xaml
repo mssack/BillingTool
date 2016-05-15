@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:local="clr-namespace:BillingTool.Themes.Controls"
-					xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 					xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 					xmlns:belegview="clr-namespace:BillingTool.Themes.Controls.belegview"
 					xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared">
@@ -142,14 +141,13 @@
 											</Style>
 										</ListView.ItemContainerStyle>
 										<ListView.View>
-											<GridView>
-											</GridView>
+											<GridView />
 										</ListView.View>
 									</belegview:BelegPostenListView>
 								</Expander>
 								<Expander Grid.Row="2" IsExpanded="False" Padding="0">
 									<Expander.Header>
-										<Grid >
+										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="Auto" />
 												<ColumnDefinition Width="*" />
@@ -160,10 +158,10 @@
 
 											<PopupButton Grid.Column="2" Margin="0" Padding="5,1,5,1">
 												<PopupButton.Content>
-													<TextBlock Text="Erneut Drucken" TextAlignment="Center"/>
+													<TextBlock Text="Erneut Drucken" TextAlignment="Center" />
 												</PopupButton.Content>
 												<PopupButton.PopupContent>
-													<belegview:ReprintBelegControl Item="{Binding}" x:Name="PART_ReprintBelegControl"/>
+													<belegview:ReprintBelegControl Item="{Binding}" x:Name="PART_ReprintBelegControl" />
 												</PopupButton.PopupContent>
 											</PopupButton>
 										</Grid>
@@ -172,7 +170,7 @@
 								</Expander>
 								<Expander Grid.Row="3" IsExpanded="False" Padding="0">
 									<Expander.Header>
-										<Grid >
+										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="Auto" />
 												<ColumnDefinition Width="*" />
@@ -183,15 +181,15 @@
 
 											<PopupButton Grid.Column="2" Margin="0" Padding="5,1,5,1">
 												<PopupButton.Content>
-													<TextBlock Text="Erneut Senden" TextAlignment="Center"/>
+													<TextBlock Text="Erneut Senden" TextAlignment="Center" />
 												</PopupButton.Content>
 												<PopupButton.PopupContent>
-													<belegview:RemailBelegControl Item="{Binding}" x:Name="PART_RemailBelegControl"/>
+													<belegview:RemailBelegControl Item="{Binding}" x:Name="PART_RemailBelegControl" />
 												</PopupButton.PopupContent>
 											</PopupButton>
 										</Grid>
 									</Expander.Header>
-									<belegview:MailedBelegeListView Item="{Binding}" x:Name="PART_MailedBelegeListView" /> 
+									<belegview:MailedBelegeListView Item="{Binding}" x:Name="PART_MailedBelegeListView" />
 								</Expander>
 							</Grid>
 
@@ -224,8 +222,8 @@
 										</Border>
 									</Grid>
 								</Border>
-								<Expander Grid.Row="1" Header="Rechnungsansicht" IsExpanded="True" Padding="0" >
-									<shared:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl"/>
+								<Expander Grid.Row="1" Header="Rechnungsansicht" IsExpanded="True" Padding="0">
+									<shared:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl" />
 								</Expander>
 								<UniformGrid Grid.Row="2">
 									<Button Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
