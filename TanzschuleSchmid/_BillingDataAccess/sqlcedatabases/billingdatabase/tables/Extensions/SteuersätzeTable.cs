@@ -142,7 +142,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				_defaultBetragSatzErmäßigt2.Id = id;
 				_defaultBetragSatzErmäßigt2.CreationDate = DateTime.Now;
 				_defaultBetragSatzErmäßigt2.Name = "Ermäßigt 2";
-				_defaultBetragSatzErmäßigt2.Percent = 10;
+				_defaultBetragSatzErmäßigt2.Percent = 13;
 				_defaultBetragSatzErmäßigt2.Table.Add(_defaultBetragSatzErmäßigt2);
 				return _defaultBetragSatzErmäßigt2;
 			}

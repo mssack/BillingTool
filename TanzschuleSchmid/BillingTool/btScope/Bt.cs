@@ -73,7 +73,7 @@ namespace BillingTool.btScope
 			}
 
 
-			var createDb = Ui.CheckOperatorsTrustAbility("Datenbank fehlt", "Sie sind dabei eine komplett neue Datenbank zu erstellen. Sie müssen sich im Klaren sein das alle bisherigen Belegdaten, sollten denn welche vorhanden sein, durch diesen Schritt ungültig werden. Sie müssen sich absolut sicher sein, dass Sie das wollen.");
+			var createDb = Ui.CheckOperatorsTrustAbility("Vorsicht! Bitte Lesen!", "Mit dem folgenden Schritt erstellen Sie eine neue Datenbank für die Kassa. Dieser Schritt kann nicht rückgängig gemacht werden und bedeutet, dass alle bisherigen Belegdaten, Rechnungsdaten und Finanzdaten unwiderruflich gelöscht werden. Dieser Schritt macht nur bei der erstmaligen Installation Sinn. Sollten Sie sich bei dieser Entscheidung unsicher sein, kontaktieren Sie Ihren Systemadministrator.");
 			if (createDb == false)
 			{
 				throw new BillingToolException(BillingToolException.Types.No_DatabaseAvailable, $"Die Datenbankinstallation wurde vom User abgebrochen.");

@@ -9,8 +9,15 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
 		<Grid.Resources>
-			<DataTemplate DataType="{x:Type billingDatabaseDb:OutputFormat}">
-				<TextBlock Text="{Binding Path=Name}"/>
+			<DataTemplate DataType="{x:Type billingDatabaseDb:Steuersatz}">
+				<TextBlock>
+					<TextBlock.Text>
+						<MultiBinding StringFormat="{}{0} ({1:0.00}))">
+							<Binding Path="Name"/>
+							<Binding Path="Percent"/>
+						</MultiBinding>
+					</TextBlock.Text>
+				</TextBlock>
 			</DataTemplate>
 		</Grid.Resources>
 		<Grid.RowDefinitions>
