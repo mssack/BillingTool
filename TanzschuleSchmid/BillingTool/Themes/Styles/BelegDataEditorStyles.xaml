@@ -21,6 +21,9 @@
 		<Setter Property="ExtensionVerticalAlignment" Value="Top" />
 		<Setter Property="ExtensionMinHeight" Value="60" />
 	</Style>
+	<Style x:Key="ParamZahlungsreferenz" TargetType="{x:Type StringParam}">
+		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Zahlungsreferenz}" />
+	</Style>
 	<Style x:Key="ParamEmpfänger" TargetType="{x:Type StringParam}">
 		<Setter Property="Header" Value="{StaticResource Bez-BelegData-Empfänger}" />
 		<Setter Property="Help" Value="{StaticResource Help-BelegData-Empfänger}" />

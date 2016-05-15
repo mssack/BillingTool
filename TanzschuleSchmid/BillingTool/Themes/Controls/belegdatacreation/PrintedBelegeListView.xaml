@@ -12,6 +12,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/PrintedBeleg.xaml" />
+				<ResourceDictionary Source="/BillingTool;component/Themes/Controls/belegdatacreation/StandardizedLook.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</ListView.Resources>
@@ -26,8 +27,9 @@
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
 							<Image Source="{StaticResource GIco-Hardware-Printer}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Margin="0,0,5,0" />
-							<ComboBox Grid.Column="1" ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}" DisplayMemberPath="Name"
-									SelectedValuePath="Name" SelectedValue="{Binding Path=PrinterDevice}" />
+							<ComboBox Style="{StaticResource StdComboBox}" Grid.Column="1"
+									ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}"
+									DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Path=PrinterDevice}" />
 						</Grid>
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
@@ -35,8 +37,8 @@
 			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Width="150">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
-						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
-								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />
+						<ComboBox Style="{StaticResource StdComboBox}" ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
+								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable"  />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>

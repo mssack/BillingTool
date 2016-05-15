@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
+	</ResourceDictionary.MergedDictionaries>
+
+	<Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}" x:Key="StdComboBox">
+		<Setter Property="Margin" Value="0,2,0,2"/>
+		<Setter Property="Padding" Value="3,1,3,1"/>
+	</Style>
+	<Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}" x:Key="StdTextBox">
+		<Setter Property="Margin" Value="0,2,0,2"/>
+		<Setter Property="Padding" Value="3,1,3,1"/>
+	</Style>
+	<Style TargetType="PopupButton"  x:Key="StdPopupButton">
+		<Setter Property="Margin" Value="0,2,0,2"/>
+		<Setter Property="Padding" Value="3,1,3,1"/>
+	</Style>
+	<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" x:Key="StdButton">
+		<Setter Property="Margin" Value="0,2,0,2"/>
+		<Setter Property="Padding" Value="3,1,3,1"/>
+	</Style>
+    
+</ResourceDictionary>

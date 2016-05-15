@@ -17,6 +17,7 @@
 	<system:String x:Key="Bez-BelegData-MailCount">Mails</system:String>
 	<system:String x:Key="Bez-BelegData-Empfänger">Empfänger</system:String>
 	<system:String x:Key="Bez-BelegData-EmpfängerId">Empfänger ID</system:String>
+	<system:String x:Key="Bez-BelegData-Zahlungsreferenz">Zahlungsreferenz</system:String>
 	<system:String x:Key="Bez-BelegData-Comment">Kommentar</system:String>
 	<system:String x:Key="Bez-BelegData-CommentLastChanged">Zuletzt geändert</system:String>
 	<system:String x:Key="Bez-BelegData-InvalidState">Status</system:String>

@@ -13,6 +13,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using BillingTool.btScope;
+using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
 using CsWpfBase.Utilitys;
@@ -120,6 +121,7 @@ namespace BillingTool.Windows
 			Bt.Data.MailedBeleg.New(Item, "");
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
+			((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = true;
 		}
 
 		private void NewPrintClicked(object sender, RoutedEventArgs e)
@@ -127,6 +129,7 @@ namespace BillingTool.Windows
 			Bt.Data.PrintedBeleg.New(Item);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
+			((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = true;
 		}
 
 		private void DeleteMailClicked(object sender, RoutedEventArgs e)
@@ -134,6 +137,9 @@ namespace BillingTool.Windows
 			Bt.Data.MailedBeleg.Delete((MailedBeleg) ((FrameworkElement) sender).DataContext);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
+
+			if (Item.MailedBelege.Count == 0)
+				((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = false;
 		}
 
 		private void DeletePrintClicked(object sender, RoutedEventArgs e)
@@ -141,6 +147,8 @@ namespace BillingTool.Windows
 			Bt.Data.PrintedBeleg.Delete((PrintedBeleg) ((FrameworkElement) sender).DataContext);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
+			if (Item.PrintedBelege.Count == 0)
+				((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = false;
 		}
 
 		private void DeleteBelegPostenClicked(object sender, RoutedEventArgs e)

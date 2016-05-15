@@ -46,6 +46,7 @@
 													<RowDefinition Height="Auto" />
 													<RowDefinition Height="Auto" />
 													<RowDefinition Height="Auto" />
+													<RowDefinition Height="Auto" />
 												</Grid.RowDefinitions>
 												<ParamView Grid.Row="0" Header="{StaticResource Bez-BelegData-Datum}" Value="{Binding Path=Datum}" />
 												<ParamView Grid.Row="1" Header="{StaticResource Bez-BelegData-Nummer}" Value="{Binding Path=Nummer}" />
@@ -53,6 +54,7 @@
 															Value="{Binding Path=Typ, Converter={StaticResource GConv-GetEnumName}}" />
 												<ParamView Grid.Row="3" Header="{StaticResource Bez-BelegData-KassenId}" Value="{Binding Path=KassenId}" />
 												<ParamView Grid.Row="4" Header="{StaticResource Bez-BelegData-KassenOperator}" Value="{Binding Path=KassenOperator}" />
+												<ParamView Grid.Row="5" Header="{StaticResource Bez-BelegData-Zahlungsreferenz}" Value="{Binding Path=ZahlungsReferenz}" />
 											</Grid>
 										</Border>
 									</Expander>
