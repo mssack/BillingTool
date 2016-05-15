@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-15</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.IO;
@@ -16,9 +16,8 @@ using BillingTool.btScope.logging;
 using BillingTool.btScope.output;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
+using BillingTool.Windows.privileged;
 using CsWpfBase.Global;
-using Window_DatabaseViewer = BillingTool.Windows.privileged.Window_DatabaseViewer;
-using Window_KassenConfiguration = BillingTool.Windows.privileged.Window_KassenConfiguration;
 
 
 
@@ -98,21 +97,12 @@ namespace BillingTool.btScope
 			InitDb();
 		}
 
-		private static void InitDb()
-		{
-			Db.EnsureConnectivity();
-			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
-				Db.Billing.OutputFormats.DownloadRows();
-			if (Db.Billing.Configurations.HasBeenLoaded != true)
-				Db.Billing.Configurations.DownloadRows();
-		}
-
 		/// <summary>does the startup</summary>
 		public static void Startup(string[] startupArgs)
 		{
 			Config.CommandLine.Interpret(startupArgs);
 			var mode = Config.CommandLine.General.StartupMode;
-			CsGlobal.Message.SetDefaultScaling(Bt.Config.File.KassenEinstellung.Scaling);
+			CsGlobal.Message.SetDefaultScaling(Config.File.KassenEinstellung.Scaling);
 
 			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
@@ -123,10 +113,7 @@ namespace BillingTool.btScope
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)
-			{
-				EnsureInitialization();
 				window = new Window_Options();
-			}
 			else if (mode == StartupModes.Database)
 				window = new Window_DatabaseViewer();
 			else
@@ -136,10 +123,7 @@ namespace BillingTool.btScope
 
 			Application.Current.MainWindow = window;
 			EnsureInitialization();
-			window.Loaded += (sender, args) =>
-			{
-				((Window) sender).Icon = Bt.Db.Billing.Configurations.HeaderLogo;
-			};
+			window.Loaded += (sender, args) => { ((Window) sender).Icon = Db.Billing.Configurations.HeaderLogo; };
 			window.Show();
 		}
 
@@ -154,6 +138,15 @@ namespace BillingTool.btScope
 			if (!Db.IsConnected())
 				return false;
 			return true;
+		}
+
+		private static void InitDb()
+		{
+			Db.EnsureConnectivity();
+			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
+				Db.Billing.OutputFormats.DownloadRows();
+			if (Db.Billing.Configurations.HasBeenLoaded != true)
+				Db.Billing.Configurations.DownloadRows();
 		}
 	}
 }
