@@ -15,7 +15,7 @@
 
 	<Style TargetType="{x:Type CsWindow}" x:Key="{x:Type CsWindow}">
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Mode=OneTime}" />
+		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Converter={StaticResource GConv-CloneImage}}" />
 		<Setter Property="Scale" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"/>
 		<Setter Property="HeaderTemplate">
 			<Setter.Value>

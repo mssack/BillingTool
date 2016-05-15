@@ -13,6 +13,7 @@
 	<logic:Conv_BoolInverter x:Key="GConv-BoolInverter" />
 	<logic:Conv_GreaterThen x:Key="GConv-GreaterThen" />
 	<logic:Conv_LessThen x:Key="GConv-LessThen" />
+	<logic:Conv_DateTimeIsInFuture x:Key="GConv-DateTimeIsInFuture" />
 
 
 	<visibility:Conv_BoolVisibility x:Key="GConv-BoolVisibility" />
@@ -33,17 +34,19 @@
 	<converters:Conv_PercentOf x:Key="GConv-PercentOf" />
 	<converters:Conv_ThicknessZeroSetter x:Key="GConv-ThicknessZeroSetter" />
 	<converters:Conv_MultiBindingLevelToMargin x:Key="GConv-MultiBindingLevelToMargin" />
-	<format:Conv_EnumToDescription x:Key="GConv-GetEnumDescription" />
-	<format:Conv_EnumToName x:Key="GConv-GetEnumName" />
 
 	<converters:Conv_UntilDateTimeConverter x:Key="GConv-TimeUntilDateTime" />
-	<logic:Conv_DateTimeIsInFuture x:Key="GConv-DateTimeIsInFuture" />
 	<converters:Conv_TimeDiffference x:Key="GConv-TimeDiffference" />
 
+	<format:Conv_EnumToDescription x:Key="GConv-GetEnumDescription" />
+	<format:Conv_EnumToName x:Key="GConv-GetEnumName" />
 	<format:Conv_Ipv6AddressToString x:Key="GConv-Ipv6AddressToString" />
+	
 	<converters:Conv_ToStaticList x:Key="GConv-ToStaticList" />
 	<converters:Conv_PercentToColor x:Key="GConv-PercentToColor" />
 	<converters:Conv_ExceptionToExceptionList x:Key="GConv-ExceptionToExceptionList" />
 	<converters:Conv_GetTypeName x:Key="GConv-GetTypeName" />
+	
 	<image:Conv_PercentToQualityImage x:Key="GConv-PercentToQualityImage" />
+	<image:Conv_ImageClone x:Key="GConv-CloneImage" />
 </ResourceDictionary>

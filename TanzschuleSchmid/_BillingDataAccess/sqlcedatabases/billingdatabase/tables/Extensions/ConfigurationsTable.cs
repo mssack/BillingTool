@@ -93,12 +93,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				if (_headerLogo != null)
 					return _headerLogo;
 				_headerLogo = GetValue<string>().ConvertTo_Bytes().ConvertTo_Image();
+				_headerLogo.Freeze();
 				return _headerLogo;
 			}
 			set
 			{
 				_headerLogo = value.ResizeToMaximum(100, 100);
-				Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.ApplicationIdle, new Action(() => { }));
+				_headerLogo.Freeze();
 				SetValue(_headerLogo.ConvertTo_PngByteArray().ConvertTo_Base64());
 
 			}

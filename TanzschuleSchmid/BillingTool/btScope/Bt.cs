@@ -6,6 +6,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
 using BillingTool.btScope.configuration;
@@ -123,7 +124,6 @@ namespace BillingTool.btScope
 
 			Application.Current.MainWindow = window;
 			EnsureInitialization();
-			window.Loaded += (sender, args) => { ((Window) sender).Icon = Db.Billing.Configurations.HeaderLogo; };
 			window.Show();
 		}
 
