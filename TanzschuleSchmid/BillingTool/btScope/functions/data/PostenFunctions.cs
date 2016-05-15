@@ -51,7 +51,8 @@ namespace BillingTool.btScope.functions.data
 		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
 		protected override void ValidationAction(Posten item)
 		{
-
+			if (Bt.Db.Billing.Postens.LoadThenFind_All_By_NameAndPreis(item.Name, item.PreisBrutto).Length >1)
+				throw new InvalidOperationException("So ein Posten existiert bereits.");
 		}
 		#endregion
 
@@ -73,6 +74,20 @@ namespace BillingTool.btScope.functions.data
 
 				NonFinalized_Add(newItem);
 			}
+			return newItem;
+		}
+		/// <summary>Get or creates a <see cref="Posten" /> from the database specified by a template.</summary>
+		public Posten New()
+		{
+			if (HasNonFinalizedRows)
+				throw new NotFinalizedInstanceException();
+
+			var newItem = Bt.Db.Billing.Postens.NewRow();
+			newItem.CreationDate = DateTime.Now;
+			newItem.Name = "Neuer Posten";
+			newItem.PreisBrutto = 0;
+			newItem.Table.Add(newItem);
+			NonFinalized_Add(newItem);
 			return newItem;
 		}
 

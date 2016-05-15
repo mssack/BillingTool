@@ -83,7 +83,14 @@
 			<TabItem Header="Steuersätze" Padding="10">
 				<options:SteuersatzConfigurationControl />
 			</TabItem>
-			<TabItem Header="Posten" />
+			<TabItem Header="Posten" Padding="10">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<options:PostenConfigurationControl />
+				</Grid>
+			</TabItem>
 			<TabItem Header="Layouts" Padding="10">
 				<options:OutputFormatConfigurationControl />
 			</TabItem>

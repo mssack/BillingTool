@@ -89,5 +89,19 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			var postens = Select($"{NameCol} = '{name}' AND {PreisBruttoCol} = '{preis}'");
 			return postens.Length == 0 ? null : postens[0];
 		}
+
+
+		/// <summary>
+		///     Load then finds a <see cref="Posten" /> where <see cref="Posten.Name" /> = <paramref name="name" /> AND <see cref="Posten.PreisBrutto" /> =
+		///     <paramref name="preis" />.
+		/// </summary>
+		/// <param name="name"><see cref="Posten.Name" />.</param>
+		/// <param name="preis"><see cref="Posten.PreisBrutto" />.</param>
+		public Posten[] LoadThenFind_All_By_NameAndPreis(string name, decimal preis)
+		{
+			if (HasBeenLoaded == false)
+				DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{NameCol}] LIKE '{name}' AND [{PreisBruttoCol}] = {preis}", false);
+			return Select($"{NameCol} = '{name}' AND {PreisBruttoCol} = '{preis}'");
+		}
 	}
 }

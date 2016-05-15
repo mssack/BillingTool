@@ -28,6 +28,8 @@ namespace BillingTool.btScope.functions.data.basis
 		public abstract void Delete_All();
 		/// <summary>If there are any not finalized rows this property will return true</summary>
 		public abstract bool HasNonFinalizedRows { get; }
+		/// <summary>Finalize each unfinalized item. If the item can not be validated it will throw an exception.</summary>
+		public abstract void Finalize_All();
 	}
 
 	/// <summary>Used for ensuring.</summary>
@@ -78,6 +80,14 @@ namespace BillingTool.btScope.functions.data.basis
 					row.Delete();
 					NonFinalized_Remove(row);
 				}
+			}
+		}
+		/// <summary>Finalize each unfinalized item. If the item can not be validated it will throw an exception.</summary>
+		public override void Finalize_All()
+		{
+			foreach (var row in NonFinalizedRows.ToArray())
+			{
+				InternalFinalize(row);
 			}
 		}
 		/// <summary>Removes all unfinalized rows.</summary>

@@ -38,7 +38,6 @@ namespace BillingTool.Themes.Controls.options
 
 		private void Control_Loaded(object sender, RoutedEventArgs e)
 		{
-			Bt.EnsureInitialization();
 			if (!Bt.Db.Billing.Steuersätze.HasBeenLoaded)
 				Bt.Db.Billing.Steuersätze.DownloadRows();
 		}
