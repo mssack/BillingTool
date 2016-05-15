@@ -144,7 +144,7 @@
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" Click="CancleClick" Style="{StaticResource CancleButton}" FontSize="16" Content="Abbrechen" />
+				<Button Grid.Column="0" Click="CancleClick" Style="{StaticResource CancleButton}" FontSize="16" Content="Abbrechen" IsCancel="True" />
 
 
 				<Grid Grid.Column="2">
@@ -167,7 +167,7 @@
 						<TextBlock Text="{Binding Path=InvalidReason, Converter={StaticResource GConv-GetEnumName}}" Foreground="White" />
 					</Border>
 					<Button Grid.Column="1" Click="ApprovedClick" Style="{StaticResource AcceptButton}" FontSize="16" Content="Akzeptieren"
-							IsEnabled="{Binding Path=IsValid}" />
+							IsEnabled="{Binding Path=IsValid}" IsDefault="True" />
 				</Grid>
 			</Grid>
 		</Border>

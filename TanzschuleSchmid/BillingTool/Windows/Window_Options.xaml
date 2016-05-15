@@ -37,18 +37,8 @@
 							<Expander Grid.Row="0" Header="Darstellung" IsExpanded="True">
 								<options:ApperanceConfigurationControl />
 							</Expander>
-							<Expander Grid.Row="1" Header="Standard werte" IsExpanded="True">
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-										<RowDefinition Height="Auto"/>
-									</Grid.RowDefinitions>
-									
-									<options:DefaultLayoutConfigurationControl Grid.Row="0" Grid.IsSharedSizeScope="True" />
-									<options:DefaultSteuersatzConfigurationControl Grid.Row="1" Grid.IsSharedSizeScope="True" />
-								</Grid>
+							<Expander Grid.Row="1" Header="Geräte Konfiguration" IsExpanded="True">
+								<options:DeviceConfigurationControl />
 							</Expander>
 						</Grid>
 						<Grid Grid.Column="1">
@@ -62,9 +52,6 @@
 							<Expander Grid.Row="0" Header="E-Mail Konfiguration" IsExpanded="True">
 								<options:MailConfigurationControl Grid.IsSharedSizeScope="True" />
 							</Expander>
-							<Expander Grid.Row="1" Header="Geräte Konfiguration" IsExpanded="True">
-								<options:DeviceConfigurationControl />
-							</Expander>
 						</Grid>
 
 					</Grid>
@@ -73,6 +60,24 @@
 							<options:MailContentConfigurationControl Grid.IsSharedSizeScope="True" />
 						</Expander>
 					</Grid>
+				</Grid>
+			</TabItem>
+			<TabItem Header="Standardwerte" Padding="10">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<Expander Grid.Row="0" Header="Layouts" IsExpanded="True">
+						<options:DefaultLayoutConfigurationControl  Grid.IsSharedSizeScope="True" />
+					</Expander>
+					<Expander Grid.Row="1" Header="Steuersatz" IsExpanded="True">
+						<options:DefaultSteuersatzConfigurationControl  Grid.IsSharedSizeScope="True" />
+					</Expander>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Steuersätze" Padding="10">

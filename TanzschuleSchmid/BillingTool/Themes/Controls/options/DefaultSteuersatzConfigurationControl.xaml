@@ -12,7 +12,7 @@
 			<DataTemplate DataType="{x:Type billingDatabaseDb:Steuersatz}">
 				<TextBlock>
 					<TextBlock.Text>
-						<MultiBinding StringFormat="{}{0} ({1:0.00}))">
+						<MultiBinding StringFormat="{}{0} ({1:0.00})">
 							<Binding Path="Name"/>
 							<Binding Path="Percent"/>
 						</MultiBinding>
