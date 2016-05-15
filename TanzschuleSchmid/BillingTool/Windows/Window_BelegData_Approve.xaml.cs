@@ -42,7 +42,10 @@ namespace BillingTool.Windows
 		public Window_BelegData_Approve()
 		{
 			InitializeComponent();
-			CsGlobal.Wpf.Storage.Window.Handle(this, "Window_BelegData_Approve");
+			CsGlobal.Wpf.Storage.Window.Handle(this, nameof(Window_BelegData_Approve));
+			CsGlobal.Wpf.Storage.ListView.Handle(PostenListView, nameof(PostenListView));
+			CsGlobal.Wpf.Storage.ListView.Handle(MailedBelegeListView, nameof(MailedBelegeListView));
+			CsGlobal.Wpf.Storage.ListView.Handle(PrintedBelegeListView, nameof(PrintedBelegeListView));
 			Closing += WindowClosing;
 		}
 

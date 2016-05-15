@@ -135,7 +135,7 @@ namespace CsWpfBase.Db.models.bases
 			{
 				RegisterRowChangedEvent(rowBase);
 			}
-			else if (e.Action == DataRowAction.Delete)
+			else if (e.Action == DataRowAction.Delete || (e.Action == DataRowAction.Rollback && rowBase.RowState == DataRowState.Detached))
 			{
 				UnregisterRowChangedEvent(rowBase);
 			}
