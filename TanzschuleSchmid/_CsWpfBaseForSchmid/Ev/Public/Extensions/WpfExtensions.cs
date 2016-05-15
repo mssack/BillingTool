@@ -83,7 +83,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 		}
 
 		/// <summary>
-		///     Searches the visual childs fo an element of type <typeparamref name="T" /> where the name of the frame work element is
+		///     Searches the visual children for an element of type <typeparamref name="T" /> where the name of the frame work element is
 		///     <paramref name="name" />.
 		/// </summary>
 		/// <typeparam name="T">The type to search for</typeparam>
@@ -95,6 +95,22 @@ namespace CsWpfBase.Ev.Public.Extensions
 			if (container is T && condition((T) container))
 				return (T) container;
 			return RecursiveGetVisualChildByCondition<T>(container, condition);
+		}
+
+		/// <summary>
+		///     Searches the parents for an element of type <typeparamref name="T" /> where the frame work element meets the <paramref name="condition"/>.
+		/// </summary>
+		/// <typeparam name="T">The type to search for</typeparam>
+		/// <param name="element">the child control</param>
+		/// <param name="condition">The condition the object needs</param>
+		/// <returns></returns>
+		public static T GetParentByCondition<T>(this FrameworkElement element, Func<T, bool> condition) where T : FrameworkElement
+		{
+			if (element == null)
+				return null;
+			if (element is T && condition((T)element))
+				return (T) element;
+			return GetParentByCondition(element.Parent as FrameworkElement, condition);
 		}
 
 

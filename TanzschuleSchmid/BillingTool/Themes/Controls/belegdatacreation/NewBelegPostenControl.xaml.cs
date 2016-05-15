@@ -8,9 +8,11 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -87,8 +89,13 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 			if (item != null)
 				item.Anzahl = item.Anzahl + Anzahl;
 			else
-				Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
+			{
+				var belegPosten = Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
+				Bt.Data.BelegPosten.Finalize(belegPosten);
+			}
 			Reset();
+
+			this.GetParentByCondition<Popup>(p => true).IsOpen = false;
 		}
 	}
 }
