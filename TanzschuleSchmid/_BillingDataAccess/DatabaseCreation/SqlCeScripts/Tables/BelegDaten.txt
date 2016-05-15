@@ -23,7 +23,7 @@
 	[EmpfängerId]		ntext,
 
 
-
+	[ZahlungsReferenz]		ntext,
 	[Comment]				ntext,
 	[CommentLastChanged]	datetime
 )

@@ -60,6 +60,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		private string _sendBelegTarget;
 		private string _typName;
 		private string _zusatzText;
+		private string _zahlungsReferenz;
 
 		private CommandLine_NewBelegData()
 		{
@@ -171,6 +172,12 @@ namespace BillingTool.btScope.configuration.commandLine
 		{
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
+		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
+		public string ZahlungsReferenz
+		{
+			get { return _zahlungsReferenz; }
+			set { SetProperty(ref _zahlungsReferenz, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
 		public string Comment

@@ -15,14 +15,22 @@
 		</Grid.RowDefinitions>
 
 		<Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="0,0,0,10" Margin="0,0,0,10">
-			<shared:FromToSelectorControl x:Name="FromToSelector" HorizontalAlignment="Center" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Button Style="{StaticResource AcceptButton}" Content="Neuer Beleg" Click="NeuerBelegClicked"  Margin="0" Padding="7,2,7,2" Width="{Binding ElementName=lstView, Path=ActualWidth}"/>
+				<shared:FromToSelectorControl Grid.Column="1" x:Name="FromToSelector" HorizontalAlignment="Center" />
+
+			</Grid>
 		</Border>
 		<Grid Grid.Row="1" >
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<ListView ItemsSource="{Binding Path=FilteredItems}" SelectedItem="{Binding Path=Item}">
+			<ListView ItemsSource="{Binding Path=FilteredItems}" SelectedItem="{Binding Path=Item}" x:Name="lstView">
 				<ListView.ItemTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
 						<Grid>

@@ -298,7 +298,7 @@ namespace CsWpfBase.Db.models.helper
 					OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, row, indexOf));
 				return;
 			}
-			if (!contained && row.RowState == DataRowState.Deleted)
+			if (!contained && (row.RowState == DataRowState.Deleted || row.RowState == DataRowState.Detached))
 			{
 				return;
 			}

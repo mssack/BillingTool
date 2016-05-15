@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-11</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.Linq;
@@ -76,6 +76,19 @@ namespace BillingTool.Windows
 
 			if (Item == null)
 				Item = FilteredItems.Count == 0 ? null : FilteredItems[0];
+		}
+
+		private void NeuerBelegClicked(object sender, RoutedEventArgs e)
+		{
+			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
+			{
+				var w = new Window_BelegData_Creation(false)
+				{
+					Item = Bt.Data.BelegData.New_FromConfiguration(), Owner = this,
+					WindowStartupLocation = WindowStartupLocation.CenterOwner
+				};
+				w.ShowDialog();
+			}
 		}
 
 

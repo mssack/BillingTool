@@ -142,6 +142,12 @@ namespace BillingTool.btScope.configuration.merged
 			get { return GetMergedValue(setting => setting.KassenOperator); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
+		public string ZahlungsReferenz
+		{
+			get { return GetMergedValue(setting => setting.ZahlungsReferenz); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
 		public string Comment
 		{

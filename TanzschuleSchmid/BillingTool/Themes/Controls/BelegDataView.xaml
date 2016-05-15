@@ -145,7 +145,7 @@
 										</ListView.View>
 									</belegview:BelegPostenListView>
 								</Expander>
-								<Expander Grid.Row="2" IsExpanded="False" Padding="0">
+								<Expander Grid.Row="2" IsExpanded="{Binding Path=PrintedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneWay}" Padding="0">
 									<Expander.Header>
 										<Grid>
 											<Grid.ColumnDefinitions>
@@ -168,7 +168,7 @@
 									</Expander.Header>
 									<belegview:PrintedBelegeListView Item="{Binding}" x:Name="PART_PrintedBelegeListView" />
 								</Expander>
-								<Expander Grid.Row="3" IsExpanded="False" Padding="0">
+								<Expander Grid.Row="3" IsExpanded="{Binding Path=MailedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneTime}" Padding="0">
 									<Expander.Header>
 										<Grid>
 											<Grid.ColumnDefinitions>
@@ -222,13 +222,11 @@
 										</Border>
 									</Grid>
 								</Border>
+								<Button Grid.Row="0" Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
+											Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="7,2,7,2" Margin="0,0,10,10" />
 								<Expander Grid.Row="1" Header="Rechnungsansicht" IsExpanded="True" Padding="0">
 									<shared:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl" />
 								</Expander>
-								<UniformGrid Grid.Row="2">
-									<Button Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
-											Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" />
-								</UniformGrid>
 							</Grid>
 						</Grid>
 					</Border>

@@ -53,6 +53,7 @@ namespace BillingTool.btScope.configuration.configFiles
 		private string _sendBelegTarget;
 		private string _typName = BelegDataTypes.Undefined.ToString();
 		private string _zusatzText;
+		private string _zahlungsReferenz;
 
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
@@ -179,6 +180,12 @@ namespace BillingTool.btScope.configuration.configFiles
 		{
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
+		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
+		public string ZahlungsReferenz
+		{
+			get { return _zahlungsReferenz; }
+			set { SetProperty(ref _zahlungsReferenz, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
 		public string Comment
