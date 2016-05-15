@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.ComponentModel;
@@ -24,29 +24,32 @@ using CsWpfBase.Utilitys;
 
 namespace BillingTool.Windows
 {
-	/// <summary>Interaction logic for Window_BelegData_Approve.xaml</summary>
+	/// <summary>Interaction logic for Window_BelegData_Creation.xaml</summary>
 	// ReSharper disable once InconsistentNaming
-	public partial class Window_BelegData_Approve : CsWindow
+	public partial class Window_BelegData_Creation : CsWindow
 	{
-		#region DP Keys
-#pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(Window_BelegData_Approve), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Approve) o).ItemChanged(args.NewValue as BelegData)});
-#pragma warning restore 1591
-		#endregion
 
 
 		private readonly ProcessLock _managedClosingLock = new ProcessLock();
 		private readonly ProcessLock _selectionChangedLock = new ProcessLock();
 
 		/// <summary>ctor</summary>
-		public Window_BelegData_Approve()
+		public Window_BelegData_Creation(bool isApproval)
 		{
+			IsApproval = isApproval;
 			InitializeComponent();
-			CsGlobal.Wpf.Storage.Window.Handle(this, nameof(Window_BelegData_Approve));
+			CsGlobal.Wpf.Storage.Window.Handle(this, nameof(Window_BelegData_Creation));
 			CsGlobal.Wpf.Storage.ListView.Handle(PostenListView, nameof(PostenListView));
 			CsGlobal.Wpf.Storage.ListView.Handle(MailedBelegeListView, nameof(MailedBelegeListView));
 			CsGlobal.Wpf.Storage.ListView.Handle(PrintedBelegeListView, nameof(PrintedBelegeListView));
 			Closing += WindowClosing;
+		}
+
+		/// <summary>If true this window will only be used to approve data not to modify or create data.</summary>
+		public bool IsApproval
+		{
+			get { return (bool) GetValue(IsApprovalProperty); }
+			set { SetValue(IsApprovalProperty, value); }
 		}
 
 		/// <summary>The item which needs to be approved.</summary>
@@ -163,5 +166,9 @@ namespace BillingTool.Windows
 					BonPreviewControl.SelectedPreviewFormat = outputFormat;
 			}
 		}
+#pragma warning disable 1591
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(Window_BelegData_Creation), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Creation) o).ItemChanged(args.NewValue as BelegData)});
+		public static readonly DependencyProperty IsApprovalProperty = DependencyProperty.Register("IsApproval", typeof(bool), typeof(Window_BelegData_Creation), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+#pragma warning restore 1591
 	}
 }

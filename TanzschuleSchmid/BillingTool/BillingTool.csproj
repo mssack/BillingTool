@@ -106,19 +106,19 @@
     <Compile Include="btScope\output\Output.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="ExitCodes.cs" />
-    <Compile Include="Themes\Controls\belegapproval\BelegDataTypParam.xaml.cs">
+    <Compile Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml.cs">
       <DependentUpon>BelegDataTypParam.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\belegapproval\MailedBelegeListView.xaml.cs">
+    <Compile Include="Themes\Controls\belegdatacreation\MailedBelegeListView.xaml.cs">
       <DependentUpon>MailedBelegeListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\belegapproval\NewBelegPostenControl.xaml.cs">
+    <Compile Include="Themes\Controls\belegdatacreation\NewBelegPostenControl.xaml.cs">
       <DependentUpon>NewBelegPostenControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\belegapproval\PostenListView.xaml.cs">
+    <Compile Include="Themes\Controls\belegdatacreation\PostenListView.xaml.cs">
       <DependentUpon>PostenListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\belegapproval\PrintedBelegeListView.xaml.cs">
+    <Compile Include="Themes\Controls\belegdatacreation\PrintedBelegeListView.xaml.cs">
       <DependentUpon>PrintedBelegeListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\BelegDataView.xaml.cs">
@@ -182,8 +182,8 @@
       <DependentUpon>StornoApprovalControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
-    <Compile Include="Windows\Window_BelegData_Approve.xaml.cs">
-      <DependentUpon>Window_BelegData_Approve.xaml</DependentUpon>
+    <Compile Include="Windows\Window_BelegData_Creation.xaml.cs">
+      <DependentUpon>Window_BelegData_Creation.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\tools\Window_BelegData_ProcessNonProcessedOutputs.xaml.cs">
       <DependentUpon>Window_BelegData_ProcessNonProcessedOutputs.xaml</DependentUpon>
@@ -211,23 +211,23 @@
     <Compile Include="Windows\Window_Options.xaml.cs">
       <DependentUpon>Window_Options.xaml</DependentUpon>
     </Compile>
-    <Page Include="Themes\Controls\belegapproval\BelegDataTypParam.xaml">
+    <Page Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\belegapproval\MailedBelegeListView.xaml">
+    <Page Include="Themes\Controls\belegdatacreation\MailedBelegeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\belegapproval\NewBelegPostenControl.xaml">
+    <Page Include="Themes\Controls\belegdatacreation\NewBelegPostenControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\belegapproval\PostenListView.xaml">
+    <Page Include="Themes\Controls\belegdatacreation\PostenListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\belegapproval\PrintedBelegeListView.xaml">
+    <Page Include="Themes\Controls\belegdatacreation\PrintedBelegeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -359,7 +359,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\Window_BelegData_Approve.xaml">
+    <Page Include="Windows\Window_BelegData_Creation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -15,7 +15,7 @@ using CsWpfBase.Themes.Controls.ParameterEngine;
 
 
 
-namespace BillingTool.Themes.Controls.belegapproval
+namespace BillingTool.Themes.Controls.belegdatacreation
 {
 	/// <summary>Interaction logic for BelegDataTypParam.xaml</summary>
 	public partial class BelegDataTypParam : Param

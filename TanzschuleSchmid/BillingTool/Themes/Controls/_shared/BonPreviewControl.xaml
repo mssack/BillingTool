@@ -48,7 +48,9 @@
 			</Param.Style>
 		</Param>
 		<Border Grid.Row="1">
-			<bonVisuals:BonVisual Item="{Binding Path=Item}" OutputFormat="{Binding Path=SelectedPreviewFormat}" />
+			<ScrollViewer Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+				<bonVisuals:BonVisual Item="{Binding Path=Item}" OutputFormat="{Binding Path=SelectedPreviewFormat}" />
+			</ScrollViewer>
 		</Border>
 	</Grid>
 </UserControl>

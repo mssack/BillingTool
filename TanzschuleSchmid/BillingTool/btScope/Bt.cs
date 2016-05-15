@@ -109,7 +109,7 @@ namespace BillingTool.btScope
 
 			Window window;
 			if (mode == StartupModes.BelegDataApprove)
-				window = new Window_BelegData_Approve {Item = Data.BelegData.New_FromConfiguration()};
+				window = new Window_BelegData_Creation(isApproval: true) {Item = Data.BelegData.New_FromConfiguration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)

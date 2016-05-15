@@ -19,7 +19,7 @@ using BillingTool.btScope;
 
 #pragma warning disable 1591
 
-namespace BillingTool.Themes.Controls.belegapproval
+namespace BillingTool.Themes.Controls.belegdatacreation
 {
 	/// <summary>Interaction logic for NewBelegPostenControl.xaml</summary>
 	public partial class NewBelegPostenControl : UserControl
