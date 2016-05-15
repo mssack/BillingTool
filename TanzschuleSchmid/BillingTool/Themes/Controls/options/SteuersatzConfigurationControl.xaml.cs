@@ -64,6 +64,7 @@ namespace BillingTool.Themes.Controls.options
 		private void HinzufügenClicked(object sender, RoutedEventArgs e)
 		{
 			var item = Bt.Data.Steuersatz.New();
+			Bt.Data.Steuersatz.Finalize(item);
 			SelectedItem = item;
 		}
 	}

@@ -79,9 +79,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				_defaultBetragSatzNormal = LoadThenFind(id);
 				if (_defaultBetragSatzNormal != null) return _defaultBetragSatzNormal;
 
+
+				DataSet.Configurations.LastSteuersatzKürzel = (char) (DataSet.Configurations.LastSteuersatzKürzel + 1);
+
 				_defaultBetragSatzNormal = NewRow();
 				_defaultBetragSatzNormal.Id = id;
 				_defaultBetragSatzNormal.CreationDate = DateTime.Now;
+				_defaultBetragSatzNormal.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
 				_defaultBetragSatzNormal.Name = "Normal";
 				_defaultBetragSatzNormal.Percent = 20;
 				_defaultBetragSatzNormal.Table.Add(_defaultBetragSatzNormal);
@@ -109,9 +113,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				_defaultBetragSatzErmäßigt1 = LoadThenFind(id);
 				if (_defaultBetragSatzErmäßigt1 != null) return _defaultBetragSatzErmäßigt1;
 
+				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
+
 				_defaultBetragSatzErmäßigt1 = NewRow();
 				_defaultBetragSatzErmäßigt1.Id = id;
 				_defaultBetragSatzErmäßigt1.CreationDate = DateTime.Now;
+				_defaultBetragSatzErmäßigt1.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
 				_defaultBetragSatzErmäßigt1.Name = "Ermäßigt 1";
 				_defaultBetragSatzErmäßigt1.Percent = 10;
 				_defaultBetragSatzErmäßigt1.Table.Add(_defaultBetragSatzErmäßigt1);
@@ -138,9 +145,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				_defaultBetragSatzErmäßigt2 = LoadThenFind(id);
 				if (_defaultBetragSatzErmäßigt2 != null) return _defaultBetragSatzErmäßigt2;
 
+				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
+
+
 				_defaultBetragSatzErmäßigt2 = NewRow();
 				_defaultBetragSatzErmäßigt2.Id = id;
 				_defaultBetragSatzErmäßigt2.CreationDate = DateTime.Now;
+				_defaultBetragSatzErmäßigt2.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
 				_defaultBetragSatzErmäßigt2.Name = "Ermäßigt 2";
 				_defaultBetragSatzErmäßigt2.Percent = 13;
 				_defaultBetragSatzErmäßigt2.Table.Add(_defaultBetragSatzErmäßigt2);
@@ -168,9 +179,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				_defaultBetragSatzNull = LoadThenFind(id);
 				if (_defaultBetragSatzNull != null) return _defaultBetragSatzNull;
 
+				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
+
+
 				_defaultBetragSatzNull = NewRow();
 				_defaultBetragSatzNull.Id = id;
 				_defaultBetragSatzNull.CreationDate = DateTime.Now;
+				_defaultBetragSatzNull.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
 				_defaultBetragSatzNull.Name = "Null";
 				_defaultBetragSatzNull.Percent = 0;
 				_defaultBetragSatzNull.Table.Add(_defaultBetragSatzNull);
@@ -198,9 +213,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				_defaultBetragSatzBesonders = LoadThenFind(id);
 				if (_defaultBetragSatzBesonders != null) return _defaultBetragSatzBesonders;
 
+				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
+
+
 				_defaultBetragSatzBesonders = NewRow();
 				_defaultBetragSatzBesonders.Id = id;
 				_defaultBetragSatzBesonders.CreationDate = DateTime.Now;
+				_defaultBetragSatzBesonders.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
 				_defaultBetragSatzBesonders.Name = "Besonders";
 				_defaultBetragSatzBesonders.Percent = 19;
 				_defaultBetragSatzBesonders.Table.Add(_defaultBetragSatzBesonders);

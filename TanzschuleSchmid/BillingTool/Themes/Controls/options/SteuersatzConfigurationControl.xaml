@@ -75,11 +75,13 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 						<ParamView Grid.Row="0" Header="{StaticResource Bez-Steuersatz-CreationDate}" Value="{Binding Path=CreationDate}" />
-						<StringParam Grid.Row="1" Header="{StaticResource Bez-Steuersatz-Name}" Value="{Binding Path=Name}" />
-						<StringParam Grid.Row="2" Header="{StaticResource Bez-Steuersatz-Percent}" Value="{Binding Path=Percent}" />
-						<StringParam Grid.Row="3" Header="{StaticResource Bez-Steuersatz-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
+						<ParamView Grid.Row="1" Header="{StaticResource Bez-Steuersatz-Kürzel}" Value="{Binding Path=Kürzel}" />
+						<StringParam Grid.Row="2" Header="{StaticResource Bez-Steuersatz-Name}" Value="{Binding Path=Name}" />
+						<StringParam Grid.Row="3" Header="{StaticResource Bez-Steuersatz-Percent}" Value="{Binding Path=Percent}" />
+						<StringParam Grid.Row="4" Header="{StaticResource Bez-Steuersatz-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
 					</Grid>
 				</GroupBox>
 			</Grid>
