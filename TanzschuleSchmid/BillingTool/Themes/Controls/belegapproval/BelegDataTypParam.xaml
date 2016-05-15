@@ -12,13 +12,13 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-			<x:Array x:Key="IgnoreAllNotNewValue" Type="system:Enum">
-				<x:Static MemberType="extensions:BelegDataTypes" Member="Undefined" />
-				<x:Static MemberType="extensions:BelegDataTypes" Member="Unknown" />
-				<x:Static MemberType="extensions:BelegDataTypes" Member="Storno" />
+			<x:Array x:Key="IncludedValues" Type="system:Enum">
+				<x:Static MemberType="extensions:BelegDataTypes" Member="Bar" />
+				<x:Static MemberType="extensions:BelegDataTypes" Member="Bankomat" />
+				<x:Static MemberType="extensions:BelegDataTypes" Member="Kreditkarte" />
 			</x:Array>
 		</ResourceDictionary>
 	</Param.Resources>
 	<ComboBox SelectedValue="{Binding ElementName=Uc, Path=Value}" SelectedValuePath="Value" DisplayMemberPath="Name"
-			ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}, IgnoredEnums={StaticResource IgnoreAllNotNewValue}}}" />
+			ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}, IncludedEnums={StaticResource IncludedValues}}}" />
 </Param>

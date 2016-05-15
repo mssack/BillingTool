@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.Linq;
@@ -39,7 +39,9 @@ namespace CsWpfBase.Themes.AttachedProperties
 		public override object ProvideValue(IServiceProvider serviceProvider)
 		{
 			var enumValues = Enum.GetValues(EnumType);
-			return enumValues.OfType<Enum>().Where(x => !IgnoredEnums.Contains(x)).Select(x => new EnumerationMember() {Value = x, Name = x.GetName(), Description = x.GetDescription()}).ToArray();
+			return enumValues.OfType<Enum>()
+				.Where(x => (IgnoredEnums == null || !IgnoredEnums.Contains(x)) && (IncludedEnums == null || IncludedEnums.Contains(x)))
+				.Select(x => new EnumerationMember {Value = x, Name = x.GetName(), Description = x.GetDescription()}).ToArray();
 		}
 		#endregion
 
@@ -61,6 +63,7 @@ namespace CsWpfBase.Themes.AttachedProperties
 			}
 		}
 		public Enum[] IgnoredEnums { get; set; }
+		public Enum[] IncludedEnums { get; set; }
 
 
 

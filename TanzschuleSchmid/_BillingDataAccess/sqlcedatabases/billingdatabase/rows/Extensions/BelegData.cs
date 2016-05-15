@@ -63,7 +63,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>returns true if all needed informations are present in this row.</summary>
 		[DependsOn(nameof(StateName))]
 		[DependsOn(nameof(TypName))]
-		public bool CanBeStorniert => Typ != BelegDataTypes.Storno && !IsStorniert;
+		public bool CanBeStorniert => Typ.CanBeStorniert() && !IsStorniert;
 
 		/// <summary>returns true if the <see cref="BelegData" /> has been storniert.</summary>
 		[DependsOn(nameof(StateName))]

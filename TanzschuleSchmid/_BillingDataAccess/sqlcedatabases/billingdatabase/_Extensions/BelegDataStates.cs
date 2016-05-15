@@ -2,10 +2,9 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-05-15</date>
 
 using System;
-using System.ComponentModel;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Attributes;
 
@@ -22,14 +21,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
 	public enum BelegDataStates
 	{
 		/// <summary>No state is applied.</summary>
-		[EnumDescription("Unbekannt")]
-		Unknown = 0,
+		[EnumDescription("Unbekannt")] Unknown = 0,
 		/// <summary>The <see cref="BelegData" /> was approved by an the user.</summary>
-		[EnumDescription("Bestätigt", "Dieser Beleg wurde durch den User bestätigt.")]
-		Approved = 1,
+		[EnumDescription("Bestätigt", "Dieser Beleg wurde durch den User bestätigt.")] Approved = 1,
 		/// <summary>The <see cref="BelegData" /> was storniert.</summary>
-		[EnumDescription("Storniert", "Der Beleg wurde storniert")]
-		Storniert = 2
+		[EnumDescription("Storniert", "Der Beleg wurde storniert")] Storniert = 2
 	}
 
 
