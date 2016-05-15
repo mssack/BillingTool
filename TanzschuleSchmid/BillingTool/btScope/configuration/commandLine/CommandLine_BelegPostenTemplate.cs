@@ -26,7 +26,7 @@ namespace BillingTool.btScope.configuration.commandLine
 	public class CommandLine_BelegPostenTemplate : Base
 	{
 		/// <summary>Parsing <see cref="Regex" />.</summary>
-		private static readonly Regex ParsingRegex = new Regex("([a-zA-Z].*?)[ \\r\\n]*=[ \\r\\n]*(.*?)[ \\r\\n]*?([,}]|$)");
+		private static readonly Regex ParsingRegex = new Regex("([a-zA-Z].*?)[ \\r\\n]*=[ \\r\\n]*(.*?)[ \\r\\n]*?([;}]|$)");
 		private static Dictionary<string, PropertyInfo> _reflectedProperties;
 		private static Dictionary<string, PropertyInfo> ReflectedProperties
 		{
@@ -99,6 +99,8 @@ namespace BillingTool.btScope.configuration.commandLine
 			object typedValue;
 			try
 			{
+				if (target.PropertyType == typeof(decimal))
+					value = value.Replace('.', ',');
 				typedValue = Convert.ChangeType(value, target.PropertyType);
 			}
 			catch (Exception exc)

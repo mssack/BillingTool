@@ -77,13 +77,13 @@
 											<ColumnDefinition Width="Auto" SharedSizeGroup="d" />
 											<ColumnDefinition Width="Auto" SharedSizeGroup="e" />
 										</Grid.ColumnDefinitions>
-										<TextBlock Grid.Column="0" Text="{Binding Path=Anzahl}" TextAlignment="Right" />
-										<TextBlock Grid.Column="1" Text="x" Margin="4,0,4,0" />
-										<TextBlock Grid.Column="2" Text="{Binding Path=Posten.PreisBrutto, StringFormat={}{0:0.00}}" TextAlignment="Right" />
+										<TextBlock Grid.Column="0" Text="{Binding Path=Anzahl}" TextAlignment="Right" VerticalAlignment="Top" />
+										<TextBlock Grid.Column="1" Text="x" Margin="4,0,4,0" VerticalAlignment="Top" />
+										<TextBlock Grid.Column="2" Text="{Binding Path=Posten.PreisBrutto, StringFormat={}{0:0.00}}" TextAlignment="Right" VerticalAlignment="Top" />
 
-										<TextBlock Grid.Column="3" Text="{Binding Path=Posten.Name}" Margin="5,0,5,0" />
-										<TextBlock Grid.Column="4" Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" TextAlignment="Right" />
-										<TextBlock Grid.Column="5" Text="{Binding Path=Steuersatz.Kürzel}" TextAlignment="Right" Margin="5,0,0,0" />
+										<TextBlock Grid.Column="3" Text="{Binding Path=Posten.Name}" Margin="5,0,5,0" TextWrapping="Wrap" />
+										<TextBlock Grid.Column="4" Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" TextAlignment="Right" VerticalAlignment="Top" />
+										<TextBlock Grid.Column="5" Text="{Binding Path=Steuersatz.Kürzel}" TextAlignment="Right" Margin="5,0,0,0" VerticalAlignment="Top" />
 									</Grid>
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>

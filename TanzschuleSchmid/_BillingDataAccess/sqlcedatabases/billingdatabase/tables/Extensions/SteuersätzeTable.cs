@@ -6,6 +6,7 @@
 
 using System;
 using System.Data;
+using System.Globalization;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using CsWpfBase.Db;
@@ -247,7 +248,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="percent"><see cref="Steuersatz.Percent" />.</param>
 		public Steuersatz LoadThenFind_By_Percent(decimal percent)
 		{
-			DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{PercentCol}] = '{percent}'", false);
+			DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{PercentCol}] = '{percent.ToString(Nfi)}'", false);
 			return Find_By_Percent(percent);
 		}
 
@@ -255,7 +256,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="percent"><see cref="Steuersatz.Percent" />.</param>
 		public Steuersatz Find_By_Percent(decimal percent)
 		{
-			var postens = Select($"{PercentCol} = '{percent}'");
+			var postens = Select($"{PercentCol} = '{percent.ToString(Nfi)}'");
 			return postens.Length == 0 ? null : postens[0];
 		}
 
@@ -270,5 +271,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			name = Default_BetragSatzNull.Name;
 			// ReSharper restore RedundantAssignment
 		}
+		private static NumberFormatInfo Nfi = new NumberFormatInfo { NumberDecimalSeparator = "." };
 	}
 }
