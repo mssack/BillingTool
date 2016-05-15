@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-11</date>
+// <date>2016-05-15</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -51,7 +51,7 @@ namespace BillingTool.btScope.functions.data
 				posten.Steuersatz.LastUsedDate = DateTime.Now;
 				posten.Posten.LastUsedDate = DateTime.Now;
 				Bt.Data.BelegPosten.TryFinalize(posten);
-				
+
 			}
 			foreach (var mailedBeleg in item.MailedBelege)
 			{
@@ -171,6 +171,17 @@ namespace BillingTool.btScope.functions.data
 
 			NonFinalized_Add(newItem);
 			return newItem;
+		}
+
+		/// <summary>Updates the <see cref="BelegData.BetragBrutto" /> field.</summary>
+		public void UpdateBetragData(BelegData data)
+		{
+			if (!data.Recalculate_BetragBrutto())
+				data.RaisePropertyChanged(nameof(BelegData.BetragBrutto));
+			if (!data.Recalculate_BetragNetto())
+				data.RaisePropertyChanged(nameof(BelegData.BetragNetto));
+
+			data.RaisePropertyChanged(nameof(BelegData.InvalidReason));
 		}
 	}
 }

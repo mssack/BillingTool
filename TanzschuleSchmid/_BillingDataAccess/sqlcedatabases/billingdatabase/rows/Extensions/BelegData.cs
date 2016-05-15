@@ -134,15 +134,21 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		}
 
 		/// <summary>Recalculates the <see cref="BetragBrutto" /> field.</summary>
-		public void Recalculate_BetragBrutto()
+		public bool Recalculate_BetragBrutto()
 		{
-			BetragBrutto = Postens.Sum(x => x.BetragBrutto);
+			var betragBrutto = Postens.Sum(x => x.BetragBrutto);
+			var b = betragBrutto != BetragBrutto;
+			BetragBrutto = betragBrutto;
+			return b;
 		}
 
 		/// <summary>Recalculates the <see cref="BetragNetto" /> field.</summary>
-		public void Recalculate_BetragNetto()
+		public bool Recalculate_BetragNetto()
 		{
-			BetragNetto = Postens.Sum(x => x.BetragNetto);
+			var betragNetto = Postens.Sum(x => x.BetragNetto);
+			var b = betragNetto != BetragNetto;
+			BetragNetto = betragNetto;
+			return b;
 		}
 
 		/// <summary>Recalculates the <see cref="MailCount" /> field.</summary>

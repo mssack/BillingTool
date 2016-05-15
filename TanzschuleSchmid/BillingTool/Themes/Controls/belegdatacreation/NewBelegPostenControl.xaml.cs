@@ -87,7 +87,14 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 		{
 			var item = Item.Postens.FirstOrDefault(x => x.Posten == Posten && x.Steuersatz == Steuersatz);
 			if (item != null)
+			{
 				item.Anzahl = item.Anzahl + Anzahl;
+				item.Posten.AnzahlGekauft = item.Posten.AnzahlGekauft + item.Anzahl;
+				item.Posten.LastUsedDate = DateTime.Now;
+				item.Steuersatz.LastUsedDate = DateTime.Now;
+
+				Bt.Data.BelegData.UpdateBetragData(Item);
+			}
 			else
 			{
 				var belegPosten = Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);

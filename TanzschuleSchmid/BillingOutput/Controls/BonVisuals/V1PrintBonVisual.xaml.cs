@@ -59,17 +59,23 @@ namespace BillingOutput.Controls.BonVisuals
 		private void ItemChanged(BelegData oldValue,BelegData newValue)
 		{
 			if (oldValue != null)
-				oldValue.Postens.CollectionChanged -= Postens_CollectionChanged;
+			{
+				oldValue.PropertyChanged -= Item_PropertyChanged;
+			}
 			if (newValue != null)
-				newValue.Postens.CollectionChanged += Postens_CollectionChanged;
+			{
+				newValue.PropertyChanged += Item_PropertyChanged;
+			}
 			ReloadSteuerschlüssel();
 
 		}
 
-		private void Postens_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			ReloadSteuerschlüssel();
+			if (e.PropertyName == nameof(BelegData.BetragBrutto))
+				ReloadSteuerschlüssel();
 		}
+		
 
 		private void ReloadSteuerschlüssel()
 		{
