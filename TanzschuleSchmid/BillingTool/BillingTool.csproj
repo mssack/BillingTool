@@ -124,6 +124,9 @@
     <Compile Include="Themes\Controls\BelegDataView.xaml.cs">
       <DependentUpon>BelegDataView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\belegview\BelegPostenListView.xaml.cs">
+      <DependentUpon>BelegPostenListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\options\DefaultSteuersatzConfigurationControl.xaml.cs">
       <DependentUpon>DefaultSteuersatzConfigurationControl.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
     <Page Include="Themes\Controls\BelegDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\belegview\BelegPostenListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Controls\options\DefaultSteuersatzConfigurationControl.xaml">
       <Generator>MSBuild:Compile</Generator>

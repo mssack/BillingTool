@@ -49,9 +49,11 @@ namespace CsWpfBase.Global.wpf.Storage
 				handle.ListView = listView;
 				if (handle.ColumnWidths == null)
 					return;
-				for (var i = 0; i < handle.ColumnWidths.Length; i++)
+				var columnCollection = ((GridView)handle.ListView.View).Columns;
+
+				for (var i = 0; i < handle.ColumnWidths.Length && i< columnCollection.Count; i++)
 				{
-					((GridView) handle.ListView.View).Columns[i].Width = handle.ColumnWidths[i];
+					columnCollection[i].Width = handle.ColumnWidths[i];
 				}
 			}
 			else

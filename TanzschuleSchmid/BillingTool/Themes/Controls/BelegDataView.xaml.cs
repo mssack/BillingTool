@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-08</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.Windows;
@@ -11,6 +11,7 @@ using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
 using BillingTool.Themes.Controls.belegview;
+using BillingTool.Themes.Controls._shared;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 
@@ -33,6 +34,7 @@ namespace BillingTool.Themes.Controls
 
 		private MailedBelegeListView _mailedBelegeListView;
 		private PrintedBelegeListView _printedBelegeListView;
+		private BelegPostenListView _belegPostenListView;
 		private RemailBelegControl _remailBelegControl;
 		private ReprintBelegControl _reprintBelegControl;
 		private Button _stornoButton;
@@ -42,7 +44,7 @@ namespace BillingTool.Themes.Controls
 		{
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(BelegDataView), new FrameworkPropertyMetadata(typeof(BelegDataView)));
 		}
-
+		
 
 		#region Overrides/Interfaces
 		/// <summary>
@@ -60,10 +62,12 @@ namespace BillingTool.Themes.Controls
 			PrintedBelegeListView = (PrintedBelegeListView) Template.FindName("PART_PrintedBelegeListView", this);
 			ReprintBelegControl = (ReprintBelegControl) Template.FindName("PART_ReprintBelegControl", this);
 
+			BelegPostenListView = (BelegPostenListView) Template.FindName("PART_BelegPostenListView", this);
+
 			MailedBelegeListView = (MailedBelegeListView) Template.FindName("PART_MailedBelegeListView", this);
 			RemailBelegControl = (RemailBelegControl) Template.FindName("PART_RemailBelegControl", this);
 
-			BonPreviewControl = (_shared.BonPreviewControl) Template.FindName("PART_BonPreviewControl", this);
+			BonPreviewControl = (BonPreviewControl) Template.FindName("PART_BonPreviewControl", this);
 		}
 		#endregion
 
@@ -75,7 +79,7 @@ namespace BillingTool.Themes.Controls
 			set { SetValue(ItemProperty, value); }
 		}
 
-		private _shared.BonPreviewControl BonPreviewControl { get; set; }
+		private BonPreviewControl BonPreviewControl { get; set; }
 
 
 		private Button StornoButton
@@ -101,7 +105,10 @@ namespace BillingTool.Themes.Controls
 					_printedBelegeListView.OutputFormatSelected -= NewOutputFormatSelectionRequest;
 				_printedBelegeListView = value;
 				if (_printedBelegeListView != null)
+				{
+					CsGlobal.Wpf.Storage.ListView.Handle(_printedBelegeListView, $"{nameof(BelegDataView)}.{nameof(PrintedBelegeListView)}");
 					_printedBelegeListView.OutputFormatSelected += NewOutputFormatSelectionRequest;
+				}
 			}
 		}
 		private MailedBelegeListView MailedBelegeListView
@@ -113,7 +120,23 @@ namespace BillingTool.Themes.Controls
 					_mailedBelegeListView.OutputFormatSelected -= NewOutputFormatSelectionRequest;
 				_mailedBelegeListView = value;
 				if (_mailedBelegeListView != null)
+				{
+					CsGlobal.Wpf.Storage.ListView.Handle(_mailedBelegeListView, $"{nameof(BelegDataView)}.{nameof(MailedBelegeListView)}");
 					_mailedBelegeListView.OutputFormatSelected += NewOutputFormatSelectionRequest;
+				}
+			}
+		}
+		private BelegPostenListView BelegPostenListView
+		{
+			get { return _belegPostenListView; }
+			set
+			{
+				if (_belegPostenListView != null && !Equals(_belegPostenListView, value)) {}
+				_belegPostenListView = value;
+				if (_belegPostenListView != null)
+				{
+					CsGlobal.Wpf.Storage.ListView.Handle(_belegPostenListView, $"{nameof(BelegDataView)}.{nameof(BelegPostenListView)}");
+				}
 			}
 		}
 		private RemailBelegControl RemailBelegControl

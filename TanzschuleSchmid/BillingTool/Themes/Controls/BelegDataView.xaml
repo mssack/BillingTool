@@ -135,7 +135,7 @@
 									</Grid>
 								</Grid>
 								<Expander Grid.Row="1" Header="Artikel" IsExpanded="True" Padding="0">
-									<ListView Margin="0" Padding="0" Style="{StaticResource CondensedListViewStyle}" ItemsSource="{Binding Path=Postens}">
+									<belegview:BelegPostenListView Item="{Binding}" x:Name="PART_BelegPostenListView">
 										<ListView.ItemContainerStyle>
 											<Style TargetType="ListViewItem" BasedOn="{StaticResource CondensedListViewItemStyle}">
 												<Setter Property="Focusable" Value="false" />
@@ -143,71 +143,55 @@
 										</ListView.ItemContainerStyle>
 										<ListView.View>
 											<GridView>
-												<GridViewColumn Header="Name">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
-															<TextBlock>
-																<TextBlock.Text>
-																	<MultiBinding StringFormat="{}{0} ({1:0.00} €)">
-																		<Binding Path="Posten.Name" />
-																		<Binding Path="Posten.PreisBrutto" />
-																	</MultiBinding>
-																</TextBlock.Text>
-															</TextBlock>
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Header="Anzahl">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
-															<TextBlock TextAlignment="Right">
-																<TextBlock.Text>
-																	<MultiBinding StringFormat="{}{0} {1}">
-																		<Binding Path="Anzahl" />
-																		<Binding Path="Posten.Dimension" />
-																	</MultiBinding>
-																</TextBlock.Text>
-															</TextBlock>
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Header="Steuersatz">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
-															<TextBlock TextAlignment="Right">
-																<TextBlock.Text>
-																	<MultiBinding StringFormat="{}{0:0.00} % ({1})">
-																		<Binding Path="Steuersatz.Percent" />
-																		<Binding Path="Steuersatz.Kürzel" />
-																	</MultiBinding>
-																</TextBlock.Text>
-															</TextBlock>
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Header="Brutto">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
-															<TextBlock TextAlignment="Right" Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00} €}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
-												<GridViewColumn Header="Netto">
-													<GridViewColumn.CellTemplate>
-														<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
-															<TextBlock TextAlignment="Right" Text="{Binding Path=BetragNetto, StringFormat={}{0:0.00} €}" />
-														</DataTemplate>
-													</GridViewColumn.CellTemplate>
-												</GridViewColumn>
 											</GridView>
 										</ListView.View>
-									</ListView>
+									</belegview:BelegPostenListView>
 								</Expander>
-								<Expander Grid.Row="2" Header="Mails" IsExpanded="False" Padding="0">
-									<belegview:MailedBelegeListView Item="{Binding}" x:Name="PART_MailedBelegeListView" /> 
-								</Expander>
-								<Expander Grid.Row="3" Header="Ausdrücke" IsExpanded="False" Padding="0">
+								<Expander Grid.Row="2" IsExpanded="False" Padding="0">
+									<Expander.Header>
+										<Grid >
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="Auto" />
+											</Grid.ColumnDefinitions>
+											<TextBlock Text="Ausdrücke" />
+
+
+											<PopupButton Grid.Column="2" Margin="0" Padding="5,1,5,1">
+												<PopupButton.Content>
+													<TextBlock Text="Erneut Drucken" TextAlignment="Center"/>
+												</PopupButton.Content>
+												<PopupButton.PopupContent>
+													<belegview:ReprintBelegControl Item="{Binding}" x:Name="PART_ReprintBelegControl"/>
+												</PopupButton.PopupContent>
+											</PopupButton>
+										</Grid>
+									</Expander.Header>
 									<belegview:PrintedBelegeListView Item="{Binding}" x:Name="PART_PrintedBelegeListView" />
+								</Expander>
+								<Expander Grid.Row="3" IsExpanded="False" Padding="0">
+									<Expander.Header>
+										<Grid >
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="Auto" />
+											</Grid.ColumnDefinitions>
+											<TextBlock Text="Mails" />
+
+
+											<PopupButton Grid.Column="2" Margin="0" Padding="5,1,5,1">
+												<PopupButton.Content>
+													<TextBlock Text="Erneut Senden" TextAlignment="Center"/>
+												</PopupButton.Content>
+												<PopupButton.PopupContent>
+													<belegview:RemailBelegControl Item="{Binding}" x:Name="PART_RemailBelegControl"/>
+												</PopupButton.PopupContent>
+											</PopupButton>
+										</Grid>
+									</Expander.Header>
+									<belegview:MailedBelegeListView Item="{Binding}" x:Name="PART_MailedBelegeListView" /> 
 								</Expander>
 							</Grid>
 
@@ -246,22 +230,6 @@
 								<UniformGrid Grid.Row="2">
 									<Button Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
 											Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" />
-									<PopupButton>
-										<PopupButton.Content>
-											<TextBlock Text="Erneut Senden" TextAlignment="Center"/>
-										</PopupButton.Content>
-										<PopupButton.PopupContent>
-											<belegview:RemailBelegControl Item="{Binding}" x:Name="PART_RemailBelegControl"/>
-										</PopupButton.PopupContent>
-									</PopupButton>
-									<PopupButton>
-										<PopupButton.Content>
-											<TextBlock Text="Erneut Drucken" TextAlignment="Center"/>
-										</PopupButton.Content>
-										<PopupButton.PopupContent>
-											<belegview:ReprintBelegControl Item="{Binding}" x:Name="PART_ReprintBelegControl"/>
-										</PopupButton.PopupContent>
-									</PopupButton>
 								</UniformGrid>
 							</Grid>
 						</Grid>
