@@ -83,7 +83,11 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 
 		private void ErstellenClick(object sender, RoutedEventArgs e)
 		{
-			Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
+			var item = Item.Postens.FirstOrDefault(x => x.Posten == Posten && x.Steuersatz == Steuersatz);
+			if (item != null)
+				item.Anzahl = item.Anzahl + Anzahl;
+			else
+				Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
 			Reset();
 		}
 	}
