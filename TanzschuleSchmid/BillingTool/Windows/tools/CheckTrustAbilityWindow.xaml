@@ -17,9 +17,8 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<TextBlock Text="Wichtige Nachricht!" />
 		<Border Grid.Row="0" Background="#DF3E3E" Padding="10" BorderThickness="0,0,0,1" BorderBrush="#DDDDDD">
-			<TextBlock Foreground="White" FontSize="14" Text="Wichtige Nachricht!" />
+			<TextBlock Foreground="White" FontSize="14" Text="{Binding Path=Title}" />
 		</Border>
 		<Border Grid.Row="1" BorderThickness="0,0,0,1" BorderBrush="#DDDDDD" Padding="10" Background="White">
 			<TextBlock Text="{Binding Path=Text}" TextWrapping="Wrap" />

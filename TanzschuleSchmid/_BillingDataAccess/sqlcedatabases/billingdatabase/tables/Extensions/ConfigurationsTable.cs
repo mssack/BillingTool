@@ -2,21 +2,20 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Public.Extensions;
+
+
+
+
+
+
 // ReSharper disable InconsistentNaming
-
-
-
-
-
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
@@ -55,7 +54,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
-
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
 		public Guid Default_MailOutputFormat
 		{
@@ -80,6 +78,58 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		public string Default_MailText
 		{
 			get { return GetValue("Sie finden Ihre Rechnung im Anhang."); }
+			set { SetValue(value); }
+		}
+
+
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Normal.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzNormal
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Ermäßigt-1.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzErmäßigt1
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Ermäßigt-2.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzErmäßigt2
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Null.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzNull
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Null.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzBesonders
+		{
+			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
 

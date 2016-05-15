@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.Data;
@@ -16,10 +16,19 @@ using CsWpfBase.Db.models.helper;
 
 
 
+// ReSharper disable InconsistentNaming
+
+//siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze
+
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
 	partial class SteuersätzeTable : ICanFilterByDate<Steuersatz>
 	{
+		private Steuersatz _defaultBetragSatzErmäßigt1;
+		private Steuersatz _defaultBetragSatzErmäßigt2;
+		private Steuersatz _defaultBetragSatzNormal;
+		private Steuersatz _defaultBetragSatzNull;
+		private Steuersatz _defaultBetragSatzBesonders;
 
 
 		#region Overrides/Interfaces
@@ -53,6 +62,161 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			return Get_Between(from, to);
 		}
 		#endregion
+
+
+		/// <summary>
+		///     Gets or sets the default <see cref="Steuersatz" /> which can be used as Betrag-Satz-Normal.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Steuersatz Default_BetragSatzNormal
+		{
+			get
+			{
+				if (_defaultBetragSatzNormal != null) return _defaultBetragSatzNormal;
+				var id = DataSet.Configurations.Default_BetragSatzNormal;
+
+				_defaultBetragSatzNormal = LoadThenFind(id);
+				if (_defaultBetragSatzNormal != null) return _defaultBetragSatzNormal;
+
+				_defaultBetragSatzNormal = NewRow();
+				_defaultBetragSatzNormal.Id = id;
+				_defaultBetragSatzNormal.CreationDate = DateTime.Now;
+				_defaultBetragSatzNormal.Name = "Normal";
+				_defaultBetragSatzNormal.Percent = 20;
+				_defaultBetragSatzNormal.Table.Add(_defaultBetragSatzNormal);
+				return _defaultBetragSatzNormal;
+			}
+			set
+			{
+				if (SetProperty(ref _defaultBetragSatzNormal, value))
+					DataSet.Configurations.Default_BetragSatzNormal = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
+		/// <summary>
+		///     Gets or sets the default <see cref="Steuersatz" /> which can be used as Betrag-Satz-Ermäßigt-1.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Steuersatz Default_BetragSatzErmäßigt1
+		{
+			get
+			{
+				if (_defaultBetragSatzErmäßigt1 != null) return _defaultBetragSatzErmäßigt1;
+				var id = DataSet.Configurations.Default_BetragSatzErmäßigt1;
+
+				_defaultBetragSatzErmäßigt1 = LoadThenFind(id);
+				if (_defaultBetragSatzErmäßigt1 != null) return _defaultBetragSatzErmäßigt1;
+
+				_defaultBetragSatzErmäßigt1 = NewRow();
+				_defaultBetragSatzErmäßigt1.Id = id;
+				_defaultBetragSatzErmäßigt1.CreationDate = DateTime.Now;
+				_defaultBetragSatzErmäßigt1.Name = "Ermäßigt 1";
+				_defaultBetragSatzErmäßigt1.Percent = 10;
+				_defaultBetragSatzErmäßigt1.Table.Add(_defaultBetragSatzErmäßigt1);
+				return _defaultBetragSatzErmäßigt1;
+			}
+			set
+			{
+				if (SetProperty(ref _defaultBetragSatzErmäßigt1, value))
+					DataSet.Configurations.Default_BetragSatzErmäßigt1 = value?.Id ?? Guid.NewGuid();
+			}
+		}
+		/// <summary>
+		///     Gets or sets the default <see cref="Steuersatz" /> which can be used as Betrag-Satz-Ermäßigt-2.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Steuersatz Default_BetragSatzErmäßigt2
+		{
+			get
+			{
+				if (_defaultBetragSatzErmäßigt2 != null) return _defaultBetragSatzErmäßigt2;
+				var id = DataSet.Configurations.Default_BetragSatzErmäßigt2;
+
+				_defaultBetragSatzErmäßigt2 = LoadThenFind(id);
+				if (_defaultBetragSatzErmäßigt2 != null) return _defaultBetragSatzErmäßigt2;
+
+				_defaultBetragSatzErmäßigt2 = NewRow();
+				_defaultBetragSatzErmäßigt2.Id = id;
+				_defaultBetragSatzErmäßigt2.CreationDate = DateTime.Now;
+				_defaultBetragSatzErmäßigt2.Name = "Ermäßigt 2";
+				_defaultBetragSatzErmäßigt2.Percent = 10;
+				_defaultBetragSatzErmäßigt2.Table.Add(_defaultBetragSatzErmäßigt2);
+				return _defaultBetragSatzErmäßigt2;
+			}
+			set
+			{
+				if (SetProperty(ref _defaultBetragSatzErmäßigt2, value))
+					DataSet.Configurations.Default_BetragSatzErmäßigt2 = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
+		/// <summary>
+		///     Gets or sets the default <see cref="Steuersatz" /> which can be used as Betrag-Satz-Null.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Steuersatz Default_BetragSatzNull
+		{
+			get
+			{
+				if (_defaultBetragSatzNull != null) return _defaultBetragSatzNull;
+				var id = DataSet.Configurations.Default_BetragSatzNull;
+
+				_defaultBetragSatzNull = LoadThenFind(id);
+				if (_defaultBetragSatzNull != null) return _defaultBetragSatzNull;
+
+				_defaultBetragSatzNull = NewRow();
+				_defaultBetragSatzNull.Id = id;
+				_defaultBetragSatzNull.CreationDate = DateTime.Now;
+				_defaultBetragSatzNull.Name = "Null";
+				_defaultBetragSatzNull.Percent = 0;
+				_defaultBetragSatzNull.Table.Add(_defaultBetragSatzNull);
+				return _defaultBetragSatzNull;
+			}
+			set
+			{
+				if (SetProperty(ref _defaultBetragSatzNull, value))
+					DataSet.Configurations.Default_BetragSatzNull = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
+		/// <summary>
+		///     Gets or sets the default <see cref="Steuersatz" /> which can be used as Betrag-Satz-Besonders.
+		///     <para>siehe Literatur "UStG 1994, Fassung vom 15.05.2016.pdf", §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Steuersatz Default_BetragSatzBesonders
+		{
+			get
+			{
+				if (_defaultBetragSatzBesonders != null) return _defaultBetragSatzBesonders;
+				var id = DataSet.Configurations.Default_BetragSatzBesonders;
+
+				_defaultBetragSatzBesonders = LoadThenFind(id);
+				if (_defaultBetragSatzBesonders != null) return _defaultBetragSatzBesonders;
+
+				_defaultBetragSatzBesonders = NewRow();
+				_defaultBetragSatzBesonders.Id = id;
+				_defaultBetragSatzBesonders.CreationDate = DateTime.Now;
+				_defaultBetragSatzBesonders.Name = "Besonders";
+				_defaultBetragSatzBesonders.Percent = 19;
+				_defaultBetragSatzBesonders.Table.Add(_defaultBetragSatzBesonders);
+				return _defaultBetragSatzBesonders;
+			}
+			set
+			{
+				if (SetProperty(ref _defaultBetragSatzBesonders, value))
+					DataSet.Configurations.Default_BetragSatzBesonders = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
+
+
+
+
 		/// <summary>Find or loads a <see cref="Steuersatz" /> where <see cref="Steuersatz.Percent" /> = <paramref name="percent" />.</summary>
 		/// <param name="percent"><see cref="Steuersatz.Percent" />.</param>
 		public Steuersatz FindOrLoad_By_Percent(decimal percent)
@@ -74,6 +238,18 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		{
 			var postens = Select($"{PercentCol} = '{percent}'");
 			return postens.Length == 0 ? null : postens[0];
+		}
+
+		/// <summary>Invokes the creation of the default <see cref="Steuersatz" /> rows.</summary>
+		public void EnsureDefaults()
+		{
+			// ReSharper disable once NotAccessedVariable
+			// ReSharper disable RedundantAssignment
+			var name = Default_BetragSatzNormal.Name;
+			name = Default_BetragSatzErmäßigt1.Name;
+			name = Default_BetragSatzErmäßigt2.Name;
+			name = Default_BetragSatzNull.Name;
+			// ReSharper restore RedundantAssignment
 		}
 	}
 }

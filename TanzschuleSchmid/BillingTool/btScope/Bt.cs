@@ -6,7 +6,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
 using BillingTool.btScope.configuration;
@@ -144,9 +143,19 @@ namespace BillingTool.btScope
 		{
 			Db.EnsureConnectivity();
 			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
+			{
 				Db.Billing.OutputFormats.DownloadRows();
+				Db.Billing.OutputFormats.EnsureDefaults();
+			}
+			if (Db.Billing.Steuersätze.HasBeenLoaded != true)
+			{
+				Db.Billing.Steuersätze.DownloadRows();
+				Db.Billing.Steuersätze.EnsureDefaults();
+			}
 			if (Db.Billing.Configurations.HasBeenLoaded != true)
+			{
 				Db.Billing.Configurations.DownloadRows();
+			}
 		}
 	}
 }
