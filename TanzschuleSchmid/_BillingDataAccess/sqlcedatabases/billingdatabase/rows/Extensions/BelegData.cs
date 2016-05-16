@@ -136,6 +136,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>Recalculates the <see cref="BetragBrutto" /> field.</summary>
 		public bool Recalculate_BetragBrutto()
 		{
+			if (Postens == null)
+			{
+				var b1 = 0 != BetragBrutto;
+				BetragBrutto = 0;
+				return b1;
+			}
 			var betragBrutto = Postens.Sum(x => x.BetragBrutto);
 			var b = betragBrutto != BetragBrutto;
 			BetragBrutto = betragBrutto;
@@ -145,6 +151,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>Recalculates the <see cref="BetragNetto" /> field.</summary>
 		public bool Recalculate_BetragNetto()
 		{
+			if (Postens == null)
+			{
+				var b1 = 0 != BetragNetto;
+				BetragNetto = 0;
+				return b1;
+			}
 			var betragNetto = Postens.Sum(x => x.BetragNetto);
 			var b = betragNetto != BetragNetto;
 			BetragNetto = betragNetto;

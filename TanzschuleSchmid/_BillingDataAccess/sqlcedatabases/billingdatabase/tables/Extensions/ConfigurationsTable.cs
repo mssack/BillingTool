@@ -37,7 +37,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		///     <see cref="Umsatzzähler" />.</summary>
 		public decimal Umsatzzähler
 		{
-			get { return GetValue(0); }
+			get { return GetValue<decimal>(0); }
 			set { SetValue(value); }
 		}
 
@@ -158,7 +158,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <summary>The application logo for this database instance.</summary>
 		public double HeaderSize
 		{
-			get { return GetValue(30); }
+			get { return GetValue<double>(30); }
 			set { SetValue(value); }
 		}
 

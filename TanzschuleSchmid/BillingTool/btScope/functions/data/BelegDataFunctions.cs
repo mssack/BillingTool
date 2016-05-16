@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-16</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -118,17 +118,17 @@ namespace BillingTool.btScope.functions.data
 			newItem.UmsatzZähler = 0;
 			db.BelegDaten.Add(newItem);
 
+			if (Bt.Config.CommandLine.NewBelegData.Postens != null)
+				foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
+				{
+					var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
+					var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
 
-			foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
-			{
-				var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
-				var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
+					Bt.Data.Steuersatz.TryFinalize(steuersatz);
+					Bt.Data.Posten.TryFinalize(posten);
 
-				Bt.Data.Steuersatz.TryFinalize(steuersatz);
-				Bt.Data.Posten.TryFinalize(posten);
-
-				Bt.Data.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
-			}
+					Bt.Data.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
+				}
 			newItem.Recalculate_BetragBrutto();
 			newItem.Recalculate_BetragNetto();
 

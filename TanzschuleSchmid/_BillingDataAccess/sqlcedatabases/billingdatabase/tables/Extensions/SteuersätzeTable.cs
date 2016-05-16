@@ -7,6 +7,7 @@
 using System;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using CsWpfBase.Db;
@@ -256,7 +257,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="percent"><see cref="Steuersatz.Percent" />.</param>
 		public Steuersatz Find_By_Percent(decimal percent)
 		{
-			var postens = Select($"{PercentCol} = '{percent.ToString(Nfi)}'");
+
+			var postens = Collection.Where(x => x.Percent == percent).ToArray();
 			return postens.Length == 0 ? null : postens[0];
 		}
 

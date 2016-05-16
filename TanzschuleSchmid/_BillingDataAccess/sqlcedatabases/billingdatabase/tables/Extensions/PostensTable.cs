@@ -7,6 +7,7 @@
 using System;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using CsWpfBase.Db;
@@ -90,7 +91,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="preis"><see cref="Posten.PreisBrutto" />.</param>
 		public Posten Find_By_NameAndPreis(string name, decimal preis)
 		{
-			var postens = Select($"{NameCol} = '{name}' AND {PreisBruttoCol} = '{preis.ToString(Nfi)}'");
+			var postens = Collection.Where(x=>x.Name == name && x.PreisBrutto == preis).ToArray();
 			return postens.Length == 0 ? null : postens[0];
 		}
 
@@ -105,7 +106,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		{
 			if (HasBeenLoaded == false)
 				DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{NameCol}] LIKE '{name}' AND [{PreisBruttoCol}] = {preis.ToString(Nfi)}", false);
-			return Select($"{NameCol} = '{name}' AND {PreisBruttoCol} = '{preis}'");
+			return Collection.Where(x => x.Name == name && x.PreisBrutto == preis).ToArray();
 		}
 	}
 }
