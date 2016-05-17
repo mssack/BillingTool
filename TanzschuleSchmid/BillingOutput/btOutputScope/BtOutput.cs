@@ -48,7 +48,14 @@ namespace BillingOutput.btOutputScope
 			var taskarray = tasks.ToArray();
 			var t = new Task<Task[]>(() =>
 			{
-				Task.WaitAll(taskarray);
+				try
+				{
+					Task.WaitAll(taskarray);
+				}
+				catch (Exception)
+				{
+					
+				}
 				return taskarray;
 			}, TaskCreationOptions.LongRunning);
 			t.Start(TaskScheduler.Default);

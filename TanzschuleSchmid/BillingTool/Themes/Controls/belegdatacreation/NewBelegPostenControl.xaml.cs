@@ -8,9 +8,11 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -19,7 +21,7 @@ using BillingTool.btScope;
 
 #pragma warning disable 1591
 
-namespace BillingTool.Themes.Controls.belegapproval
+namespace BillingTool.Themes.Controls.belegdatacreation
 {
 	/// <summary>Interaction logic for NewBelegPostenControl.xaml</summary>
 	public partial class NewBelegPostenControl : UserControl
@@ -37,7 +39,6 @@ namespace BillingTool.Themes.Controls.belegapproval
 		{
 			InitializeComponent();
 			Loaded += NewBelegPostenControl_Loaded;
-			Reset();
 		}
 
 		private void NewBelegPostenControl_Loaded(object sender, RoutedEventArgs e)
@@ -83,8 +84,24 @@ namespace BillingTool.Themes.Controls.belegapproval
 
 		private void ErstellenClick(object sender, RoutedEventArgs e)
 		{
-			Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
+			var item = Item.Postens.FirstOrDefault(x => x.Posten == Posten && x.Steuersatz == Steuersatz);
+			if (item != null)
+			{
+				item.Anzahl = item.Anzahl + Anzahl;
+				item.Posten.AnzahlGekauft = item.Posten.AnzahlGekauft + item.Anzahl;
+				item.Posten.LastUsedDate = DateTime.Now;
+				item.Steuersatz.LastUsedDate = DateTime.Now;
+
+				Bt.Data.BelegData.UpdateBetragData(Item);
+			}
+			else
+			{
+				var belegPosten = Bt.Data.BelegPosten.New(Item, Anzahl, Posten, Steuersatz);
+				Bt.Data.BelegPosten.Finalize(belegPosten);
+			}
 			Reset();
+
+			this.GetParentByCondition<Popup>(p => true).IsOpen = false;
 		}
 	}
 }

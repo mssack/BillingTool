@@ -361,6 +361,7 @@
     <Compile Include="Themes\Resources\Converters\Conv_PercentOf.cs" />
     <Compile Include="Themes\Resources\Converters\Conv_ShortSingleLine.cs" />
     <Compile Include="Themes\Resources\Converters\format\Conv_EnumToName.cs" />
+    <Compile Include="Themes\Resources\Converters\image\Conv_ImageClone.cs" />
     <Compile Include="Themes\Resources\Converters\image\Conv_PercentToQualityImage.cs" />
     <Compile Include="Themes\Resources\Converters\logic\Conv_IsNotOfTypeToVisibility.cs" />
     <Compile Include="Themes\Resources\Converters\logic\Conv_IsOfTypeToVisibility.cs" />

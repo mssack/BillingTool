@@ -63,7 +63,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>returns true if all needed informations are present in this row.</summary>
 		[DependsOn(nameof(StateName))]
 		[DependsOn(nameof(TypName))]
-		public bool CanBeStorniert => Typ != BelegDataTypes.Storno && !IsStorniert;
+		public bool CanBeStorniert => Typ.CanBeStorniert() && !IsStorniert;
 
 		/// <summary>returns true if the <see cref="BelegData" /> has been storniert.</summary>
 		[DependsOn(nameof(StateName))]
@@ -134,15 +134,33 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		}
 
 		/// <summary>Recalculates the <see cref="BetragBrutto" /> field.</summary>
-		public void Recalculate_BetragBrutto()
+		public bool Recalculate_BetragBrutto()
 		{
-			BetragBrutto = Postens.Sum(x => x.BetragBrutto);
+			if (Postens == null)
+			{
+				var b1 = 0 != BetragBrutto;
+				BetragBrutto = 0;
+				return b1;
+			}
+			var betragBrutto = Postens.Sum(x => x.BetragBrutto);
+			var b = betragBrutto != BetragBrutto;
+			BetragBrutto = betragBrutto;
+			return b;
 		}
 
 		/// <summary>Recalculates the <see cref="BetragNetto" /> field.</summary>
-		public void Recalculate_BetragNetto()
+		public bool Recalculate_BetragNetto()
 		{
-			BetragNetto = Postens.Sum(x => x.BetragNetto);
+			if (Postens == null)
+			{
+				var b1 = 0 != BetragNetto;
+				BetragNetto = 0;
+				return b1;
+			}
+			var betragNetto = Postens.Sum(x => x.BetragNetto);
+			var b = betragNetto != BetragNetto;
+			BetragNetto = betragNetto;
+			return b;
 		}
 
 		/// <summary>Recalculates the <see cref="MailCount" /> field.</summary>

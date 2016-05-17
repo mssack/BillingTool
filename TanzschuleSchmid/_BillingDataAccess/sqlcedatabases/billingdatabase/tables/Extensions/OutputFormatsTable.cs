@@ -112,5 +112,17 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		{
 			get { return _nonStornoFormate ?? (_nonStornoFormate = CreateContractCollection(format => !format.BonLayout.IsStornoLayout())); }
 		}
+
+
+		/// <summary>Invokes the creation of the default <see cref="OutputFormat" /> rows.</summary>
+		public void EnsureDefaults()
+		{
+			// ReSharper disable once NotAccessedVariable
+			// ReSharper disable RedundantAssignment
+			var name = Default_PrintFormat.Name;
+			name = Default_MailFormat.Name;
+			name = Default_StornoFormat.Name;
+			// ReSharper restore RedundantAssignment
+		}
 	}
 }

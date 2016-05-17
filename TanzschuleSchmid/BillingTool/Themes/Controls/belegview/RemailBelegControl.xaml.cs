@@ -5,12 +5,17 @@
 // <date>2016-05-08</date>
 
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
+using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 
 
@@ -76,7 +81,7 @@ namespace BillingTool.Themes.Controls.belegview
 			OutputFormat = (Item != null && Item.Typ == BelegDataTypes.Storno) ? Bt.Db.Billing.OutputFormats.Default_StornoFormat : Bt.Db.Billing.OutputFormats.Default_MailFormat;
 			Betreff = Bt.Db.Billing.Configurations.Default_MailBetreff;
 			Text = Bt.Db.Billing.Configurations.Default_MailText;
-			TargetMailAddress = "";
+			TargetMailAddress = Item?.MailedBelege.Union(Item?.StornoBeleg?.MailedBelege.ToList()??new List<MailedBeleg>()).OrderBy(x=>x.ProcessingDate).FirstOrDefault()?.TargetMailAddress;
 		}
 
 		private void Send()
@@ -100,6 +105,7 @@ namespace BillingTool.Themes.Controls.belegview
 		private void SendButtonClicked(object sender, RoutedEventArgs e)
 		{
 			Send();
+			((FrameworkElement)sender).GetParentByCondition<Popup>(ex => true).IsOpen = false;
 		}
 
 #pragma warning disable 1591

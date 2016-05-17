@@ -38,7 +38,6 @@ namespace BillingTool.Themes.Controls.options
 
 		private void Control_Loaded(object sender, RoutedEventArgs e)
 		{
-			Bt.EnsureInitialization();
 			if (!Bt.Db.Billing.Steuersätze.HasBeenLoaded)
 				Bt.Db.Billing.Steuersätze.DownloadRows();
 		}
@@ -64,6 +63,7 @@ namespace BillingTool.Themes.Controls.options
 		private void HinzufügenClicked(object sender, RoutedEventArgs e)
 		{
 			var item = Bt.Data.Steuersatz.New();
+			Bt.Data.Steuersatz.Finalize(item);
 			SelectedItem = item;
 		}
 	}

@@ -95,9 +95,9 @@
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
-						<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True"/>
-						<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True"/>
-						<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"/>
+						<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True" MaxHeight="60" />
+						<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True" MaxHeight="60" />
+						<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True" MaxHeight="60"/>
 					</Grid>
 				</GroupBox>
 				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Bilder">

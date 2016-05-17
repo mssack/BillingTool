@@ -2,9 +2,15 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-31</date>
+// <date>2016-05-17</date>
 
+// ReSharper disable RedundantUsingDirective
 using System;
+using CsWpfBase.Ev.Public.Extensions;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
@@ -23,17 +29,59 @@ namespace BillingTool
 	{
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
+			var ss = new SplashScreen("Themes/Icons/KassenIcon.png");
+			ss.Show(true, true);
+
+
 			Current.DispatcherUnhandledException += (s, args) =>
 			{
-				var billingToolException = args.Exception as BillingToolException;
+#if !DEBUG
+				var t = new Task(() =>
+				{
+					try
+					{
+						var mailConfig = Bt.Config.File.KassenEinstellung;
+						using (var smtpClient = new SmtpClient
+						{
+							Host = mailConfig.SmtpServer,
+							UseDefaultCredentials = false,
+							Credentials = new NetworkCredential(mailConfig.SmtpUsername, mailConfig.SmtpPassword),
+							Timeout = 30*1000,
+							EnableSsl = mailConfig.SmtpEnableSsl,
+							Port = mailConfig.SmtpPort
+						})
+						{
+							using (var message = new MailMessage
+							{
+								From = new MailAddress(mailConfig.SmtpMailAddress),
+								Subject = $"[BILLINGTOOL].[EXCEPTION] - {args.Exception.Message.CutMiddle()}",
+								IsBodyHtml = false,
+								Body = args.Exception.ToString()
+							})
+							{
+								message.To.Add("service.christian@sack.at");
+								message.To.Add("michael@sack.at");
+								smtpClient.Send(message);
+							}
+						}
+					}
+					catch (Exception)
+					{
+
+					}
+
+				}, TaskCreationOptions.LongRunning);
+				t.Start(TaskScheduler.Default);
+#endif
+
+
+				var billingToolException = args.Exception.CastOrFindInInnerExceptions<BillingToolException>();
+				Bt.AppOutput.Remove_ExitCode(ExitCodes.Success);
+
 				if (billingToolException != null && billingToolException.Type != BillingToolException.Types.Undefined)
-				{
-					Bt.AppOutput.SetExitCode(billingToolException.Type);
-				}
+					Bt.AppOutput.Include_ExitCode((ExitCodes) billingToolException.Type);
 				else
-				{
-					Bt.AppOutput.SetExitCode(ExitCodes.FatalError);
-				}
+					Bt.AppOutput.Include_ExitCode(ExitCodes.Error_Unhandled);
 
 				try
 				{
@@ -43,8 +91,18 @@ namespace BillingTool
 				{
 
 				}
-			};
+#if !DEBUG
+				try
+				{
+					t.Wait(5000);
+				}
+				catch (Exception)
+				{
 
+				}
+#endif
+
+			};
 			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
 			Bt.Startup(e.Args);
 		}

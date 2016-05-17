@@ -28,10 +28,8 @@ namespace BillingTool.btScope.configuration._interfaces
 
 		/// <summary>If true a new <see cref="PrintedBeleg" /> will be created and printed to a printer.</summary>
 		bool PrintBeleg { get; set; }
-		/// <summary>If true a new <see cref="MailedBeleg" /> will be created and sent per mail to the mail address specified in <see cref="SendBelegTarget" />.</summary>
-		bool SendBeleg { get; set; }
-		/// <summary>The mail target if <see cref="SendBeleg" /> is true.</summary>
-		string SendBelegTarget { get; set; }
+		/// <summary>The mail targets.</summary>
+		string[] SendBelegTargets { get; set; }
 		#endregion
 	}
 }

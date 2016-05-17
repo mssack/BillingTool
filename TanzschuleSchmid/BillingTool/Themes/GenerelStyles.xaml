@@ -15,7 +15,7 @@
 
 	<Style TargetType="{x:Type CsWindow}" x:Key="{x:Type CsWindow}">
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Mode=OneTime}" />
+		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Converter={StaticResource GConv-CloneImage}}" />
 		<Setter Property="Scale" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"/>
 		<Setter Property="HeaderTemplate">
 			<Setter.Value>
@@ -26,6 +26,7 @@
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition Width="*" />
+								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
 							<Image Source="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo}" Margin="0,0,10,0"
 									Width="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize}"
@@ -37,6 +38,7 @@
 								<TextBlock FontFamily="Segoe UI Light" Foreground="DimGray" Text="{Binding Path=Title}" />
 
 							</Viewbox>
+
 						</Grid>
 					</Border>
 				</DataTemplate>
@@ -45,14 +47,17 @@
 		<Setter Property="FooterTemplate">
 			<Setter.Value>
 				<DataTemplate DataType="{x:Type CsWindow}">
-					<Grid Margin="3">
+					<Grid Margin="5,3,5,3">
 						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
-						<TextBlock Grid.Column="0" Text="{Binding Source={x:Static btScope:Bt.Config}, Path=CommandLine.NewBelegData.KassenOperator, StringFormat={}Operator: {0}}" Foreground="DarkGray" />
-						<TextBlock Grid.Column="2" Text="powered by Christian Sack" Foreground="DarkGray" />
+						<TextBlock Grid.Column="0" Text="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.KassenId, StringFormat={}KassenID: {0}}"
+									Foreground="DimGray" />
+						<TextBlock Grid.Column="1" Text="{Binding Source={x:Static btScope:Bt.Config}, Path=CommandLine.NewBelegData.KassenOperator, StringFormat={}Operator: {0}}" Foreground="DimGray" Margin="5,0,0,0" />
+						<TextBlock Grid.Column="3" Text="powered by Christian Sack" Foreground="DimGray" />
 					</Grid>
 				</DataTemplate>
 			</Setter.Value>

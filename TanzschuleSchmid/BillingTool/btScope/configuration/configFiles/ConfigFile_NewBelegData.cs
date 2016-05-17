@@ -49,10 +49,10 @@ namespace BillingTool.btScope.configuration.configFiles
 		private string _empfängerId;
 		private string _kassenOperator;
 		private bool _printBeleg;
-		private bool _sendBeleg;
-		private string _sendBelegTarget;
+		private string[] _sendBelegTargets;
 		private string _typName = BelegDataTypes.Undefined.ToString();
 		private string _zusatzText;
+		private string _zahlungsReferenz;
 
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
@@ -180,6 +180,12 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
 		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
+		public string ZahlungsReferenz
+		{
+			get { return _zahlungsReferenz; }
+			set { SetProperty(ref _zahlungsReferenz, value); }
+		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Comment</c>]</summary>
 		public string Comment
 		{
@@ -192,20 +198,11 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _printBeleg; }
 			set { SetProperty(ref _printBeleg, value); }
 		}
-		/// <summary>
-		///     If true a new <see cref="MailedBeleg" /> will be created and sent per mail to the mail address specified in
-		///     <see cref="IConfig_NewBelegData.SendBelegTarget" />.
-		/// </summary>
-		public bool SendBeleg
+		/// <summary>The mail targets.</summary>
+		public string[] SendBelegTargets
 		{
-			get { return _sendBeleg; }
-			set { SetProperty(ref _sendBeleg, value); }
-		}
-		/// <summary>The mail target if <see cref="IConfig_NewBelegData.SendBeleg" /> is true.</summary>
-		public string SendBelegTarget
-		{
-			get { return _sendBelegTarget; }
-			set { SetProperty(ref _sendBelegTarget, value); }
+			get { return _sendBelegTargets; }
+			set { SetProperty(ref _sendBelegTargets, value); }
 		}
 		#endregion
 

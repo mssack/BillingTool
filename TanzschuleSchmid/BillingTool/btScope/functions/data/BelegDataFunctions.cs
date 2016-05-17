@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-11</date>
+// <date>2016-05-16</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -51,7 +51,7 @@ namespace BillingTool.btScope.functions.data
 				posten.Steuersatz.LastUsedDate = DateTime.Now;
 				posten.Posten.LastUsedDate = DateTime.Now;
 				Bt.Data.BelegPosten.TryFinalize(posten);
-				
+
 			}
 			foreach (var mailedBeleg in item.MailedBelege)
 			{
@@ -118,25 +118,30 @@ namespace BillingTool.btScope.functions.data
 			newItem.UmsatzZähler = 0;
 			db.BelegDaten.Add(newItem);
 
+			if (Bt.Config.CommandLine.NewBelegData.Postens != null)
+				foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
+				{
+					var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
+					var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
 
-			foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
-			{
-				var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
-				var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
+					Bt.Data.Steuersatz.TryFinalize(steuersatz);
+					Bt.Data.Posten.TryFinalize(posten);
 
-				Bt.Data.Steuersatz.TryFinalize(steuersatz);
-				Bt.Data.Posten.TryFinalize(posten);
-
-				Bt.Data.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
-			}
+					Bt.Data.BelegPosten.New(newItem, template.Anzahl, posten, steuersatz);
+				}
 			newItem.Recalculate_BetragBrutto();
 			newItem.Recalculate_BetragNetto();
 
 
 			if (Bt.Config.Merged.NewBelegData.PrintBeleg)
 				Bt.Data.PrintedBeleg.New(newItem);
-			if (Bt.Config.Merged.NewBelegData.SendBeleg)
-				Bt.Data.MailedBeleg.New(newItem, Bt.Config.CommandLine.NewBelegData.SendBelegTarget);
+			if (Bt.Config.Merged.NewBelegData.SendBelegTargets != null && Bt.Config.Merged.NewBelegData.SendBelegTargets.Length != 0)
+			{
+				foreach (var mailTargets in Bt.Config.Merged.NewBelegData.SendBelegTargets)
+				{
+					Bt.Data.MailedBeleg.New(newItem, mailTargets);
+				}
+			}
 
 
 			NonFinalized_Add(newItem);
@@ -171,6 +176,17 @@ namespace BillingTool.btScope.functions.data
 
 			NonFinalized_Add(newItem);
 			return newItem;
+		}
+
+		/// <summary>Updates the <see cref="BelegData.BetragBrutto" /> field.</summary>
+		public void UpdateBetragData(BelegData data)
+		{
+			if (!data.Recalculate_BetragBrutto())
+				data.RaisePropertyChanged(nameof(BelegData.BetragBrutto));
+			if (!data.Recalculate_BetragNetto())
+				data.RaisePropertyChanged(nameof(BelegData.BetragNetto));
+
+			data.RaisePropertyChanged(nameof(BelegData.InvalidReason));
 		}
 	}
 }

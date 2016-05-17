@@ -107,9 +107,10 @@ namespace BillingTool.btScope.db
 			Router = new SqlCeRouter(Bt.Config.File.KassenEinstellung.BillingDatabaseFilePath);
 			Router.Open();
 
-			Billing = new BillingDatabase();
-			Billing.Set_DbProxy(Router);
-			Billing.LoadSchema();
+			var billing = new BillingDatabase(); // Just loading the proxy before making it accessible for binding
+			billing.Set_DbProxy(Router);
+			billing.LoadSchema();
+			Billing = billing;
 		}
 
 		/// <summary>

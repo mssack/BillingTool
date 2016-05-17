@@ -7,10 +7,12 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
+using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 
 
@@ -83,6 +85,7 @@ namespace BillingTool.Themes.Controls.belegview
 		private void DruckenButtonClicked(object sender, RoutedEventArgs e)
 		{
 			Print();
+			((FrameworkElement)sender).GetParentByCondition<Popup>(ex => true).IsOpen = false;
 		}
 		private void ItemChanged()
 		{

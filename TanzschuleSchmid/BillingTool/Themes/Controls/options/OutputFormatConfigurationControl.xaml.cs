@@ -33,6 +33,12 @@ namespace BillingTool.Themes.Controls.options
 		public OutputFormatConfigurationControl()
 		{
 			InitializeComponent();
+			Loaded += Control_Loaded;
+		}
+		private void Control_Loaded(object sender, RoutedEventArgs e)
+		{
+			if (!Bt.Db.Billing.OutputFormats.HasBeenLoaded)
+				Bt.Db.Billing.OutputFormats.DownloadRows();
 		}
 
 
@@ -62,6 +68,7 @@ namespace BillingTool.Themes.Controls.options
 		private void HinzufügenClicked(object sender, RoutedEventArgs e)
 		{
 			var format = Bt.Data.OutputFormat.New();
+			Bt.Data.OutputFormat.Finalize(format);
 			SelectedItem = format;
 		}
 	}

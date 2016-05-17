@@ -6,6 +6,8 @@
 
 using System;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using CsWpfBase.Db;
@@ -20,6 +22,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
 	partial class PostensTable : ICanFilterByDate<Posten>
 	{
+
+		private static NumberFormatInfo Nfi = new NumberFormatInfo {NumberDecimalSeparator = "."};
+
 		#region Overrides/Interfaces
 		/// <summary>
 		///     Get all <see cref="Posten" />'s WHERE <see cref="LastUsedDateCol" /> is between <paramref name="from" /> to <paramref name="to" />. This
@@ -73,7 +78,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="preis"><see cref="Posten.PreisBrutto" />.</param>
 		public Posten LoadThenFind_By_NameAndPreis(string name, decimal preis)
 		{
-			DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{NameCol}] LIKE '{name}' AND [{PreisBruttoCol}] = {preis}", false);
+			DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{NameCol}] LIKE '{name}' AND [{PreisBruttoCol}] = {preis.ToString(Nfi)}", false);
 			return Find_By_NameAndPreis(name, preis);
 		}
 
@@ -86,8 +91,22 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <param name="preis"><see cref="Posten.PreisBrutto" />.</param>
 		public Posten Find_By_NameAndPreis(string name, decimal preis)
 		{
-			var postens = Select($"{NameCol} = '{name}' AND {PreisBruttoCol} = '{preis}'");
+			var postens = Collection.Where(x=>x.Name == name && x.PreisBrutto == preis).ToArray();
 			return postens.Length == 0 ? null : postens[0];
+		}
+
+
+		/// <summary>
+		///     Load then finds a <see cref="Posten" /> where <see cref="Posten.Name" /> = <paramref name="name" /> AND <see cref="Posten.PreisBrutto" /> =
+		///     <paramref name="preis" />.
+		/// </summary>
+		/// <param name="name"><see cref="Posten.Name" />.</param>
+		/// <param name="preis"><see cref="Posten.PreisBrutto" />.</param>
+		public Posten[] LoadThenFind_All_By_NameAndPreis(string name, decimal preis)
+		{
+			if (HasBeenLoaded == false)
+				DownloadRows($"SELECT {DefaultSqlSelector} FROM [{NativeName}] WHERE [{NameCol}] LIKE '{name}' AND [{PreisBruttoCol}] = {preis.ToString(Nfi)}", false);
+			return Collection.Where(x => x.Name == name && x.PreisBrutto == preis).ToArray();
 		}
 	}
 }

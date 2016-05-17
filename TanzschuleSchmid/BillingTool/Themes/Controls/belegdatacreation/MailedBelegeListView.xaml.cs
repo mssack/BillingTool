@@ -15,7 +15,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 
 
 
-namespace BillingTool.Themes.Controls.belegapproval
+namespace BillingTool.Themes.Controls.belegdatacreation
 {
 	/// <summary>Interaction logic for MailedBelegeListView.xaml</summary>
 	public partial class MailedBelegeListView : ListView

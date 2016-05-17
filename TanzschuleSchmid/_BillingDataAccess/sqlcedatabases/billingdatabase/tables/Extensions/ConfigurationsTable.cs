@@ -2,21 +2,20 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-15</date>
 
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Markup;
 using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Public.Extensions;
+
+
+
+
+
+
 // ReSharper disable InconsistentNaming
-
-
-
-
-
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
@@ -38,7 +37,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		///     <see cref="Umsatzzähler" />.</summary>
 		public decimal Umsatzzähler
 		{
-			get { return GetValue(0); }
+			get { return GetValue<decimal>(0); }
 			set { SetValue(value); }
 		}
 
@@ -55,7 +54,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
-
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
 		public Guid Default_MailOutputFormat
 		{
@@ -84,6 +82,58 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		}
 
 
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Normal.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzNormal
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Ermäßigt-1.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzErmäßigt1
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Ermäßigt-2.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzErmäßigt2
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Null.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzNull
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>
+		///     The default <see cref="Steuersatz" /> which should be used as Betrag-Satz-Null.
+		///     <para>siehe Literatur UStG 1994, Fassung vom 15.05.2016, §10 Steuersätze</para>
+		///     <para>siehe Literatur "Detailspezifikationen-RKS_e_recht_20150820.pdf"</para>
+		/// </summary>
+		public Guid Default_BetragSatzBesonders
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+
+
 
 		/// <summary>The application logo for this database instance.</summary>
 		public BitmapSource HeaderLogo
@@ -93,12 +143,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 				if (_headerLogo != null)
 					return _headerLogo;
 				_headerLogo = GetValue<string>().ConvertTo_Bytes().ConvertTo_Image();
+				_headerLogo?.Freeze();
 				return _headerLogo;
 			}
 			set
 			{
 				_headerLogo = value.ResizeToMaximum(100, 100);
-				Dispatcher.CurrentDispatcher.Invoke(DispatcherPriority.ApplicationIdle, new Action(() => { }));
+				_headerLogo?.Freeze();
 				SetValue(_headerLogo.ConvertTo_PngByteArray().ConvertTo_Base64());
 
 			}
@@ -107,7 +158,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <summary>The application logo for this database instance.</summary>
 		public double HeaderSize
 		{
-			get { return GetValue(30); }
+			get { return GetValue<double>(30); }
 			set { SetValue(value); }
 		}
 

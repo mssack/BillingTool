@@ -55,10 +55,8 @@ namespace CsWpfBase.Db.models
 					contract.EvaluateRow(row);
 				}
 			}
-			else if (e.Action == DataRowAction.Delete)
-			{
-				Collection.Remove(row);
-			}
+			else if (e.Action == DataRowAction.Delete || ( e.Action == DataRowAction.Rollback && row.RowState == DataRowState.Detached))
+				InternalRowDeletion(row);
 		}
 
 		/// <summary>Raises the <see cref="E:System.Data.DataTable.RowDeleted" /> event.</summary>
@@ -66,7 +64,11 @@ namespace CsWpfBase.Db.models
 		protected override void OnRowDeleted(DataRowChangeEventArgs e)
 		{
 			base.OnRowDeleted(e);
-			var row = (TRow) e.Row;
+			InternalRowDeletion((TRow)e.Row);
+		}
+
+		private void InternalRowDeletion(TRow row)
+		{
 			Collection.Remove(row);
 			foreach (var contract in Contracts)
 			{
