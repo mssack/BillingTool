@@ -5,6 +5,7 @@
 // <date>2016-05-08</date>
 
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -78,7 +79,7 @@ namespace BillingTool.Themes.Controls.belegview
 			OutputFormat = (Item != null && Item.Typ == BelegDataTypes.Storno) ? Bt.Db.Billing.OutputFormats.Default_StornoFormat : Bt.Db.Billing.OutputFormats.Default_MailFormat;
 			Betreff = Bt.Db.Billing.Configurations.Default_MailBetreff;
 			Text = Bt.Db.Billing.Configurations.Default_MailText;
-			TargetMailAddress = "";
+			TargetMailAddress = Item?.MailedBelege.OrderBy(x=>x.ProcessingDate).FirstOrDefault()?.TargetMailAddress;
 		}
 
 		private void Send()

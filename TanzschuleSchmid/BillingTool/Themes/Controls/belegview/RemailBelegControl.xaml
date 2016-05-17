@@ -3,9 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:btScope="clr-namespace:BillingTool.btScope"
-             xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
-             xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
              xmlns:belegview="clr-namespace:BillingTool.Themes.Controls.belegview"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc">
@@ -42,7 +39,7 @@
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<Button Grid.Column="1" Content="Senden" Click="SendButtonClicked"/>
+			<Button Grid.Column="1" Content="Senden" Click="SendButtonClicked" IsEnabled="{Binding Path=TargetMailAddress, Converter={StaticResource GConv-IsNotNullOrEmpty}}"/>
 		</Grid>
 	</Grid>
 </UserControl>

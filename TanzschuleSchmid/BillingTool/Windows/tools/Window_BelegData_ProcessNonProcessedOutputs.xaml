@@ -6,24 +6,30 @@
 		xmlns:BillingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
-		mc:Ignorable="d" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
-		FooterVisibility="Collapsed" HeaderVisibility="Collapsed"
-		Title="Window_BelegData_ProcessNonProcessedOutputs" Height="300" Width="300" Topmost="True" WindowStartupLocation="CenterOwner" x:Name="Uc" Padding="30,20,30,20"
-		CloseButtonVisibility="Collapsed">
-	<Grid IsSharedSizeScope="True">
-		<Grid.LayoutTransform>
-			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"
-							ScaleY="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}" />
-		</Grid.LayoutTransform>
+		mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{StaticResource {x:Type CsWindow}}"
+		Title="Exporte" Height="300" Width="300" Topmost="True" WindowStartupLocation="CenterOwner" x:Name="Uc"
+		CloseButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed">
+	<CsWindow.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/PrintedBeleg.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</CsWindow.Resources>
+	<Grid IsSharedSizeScope="True" DataContext="{Binding ElementName=Uc}">
 		<Grid.Resources>
 			<Style x:Key="EntryStyle" TargetType="Border">
 				<Setter Property="Padding" Value="3" />
 				<Setter Property="BorderBrush" Value="DimGray" />
-				<Setter Property="Background" Value="GhostWhite"/>
+				<Setter Property="Background" Value="GhostWhite" />
 				<Setter Property="BorderThickness" Value="1" />
 				<Setter Property="Margin" Value="2" />
 			</Style>
 		</Grid.Resources>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
 		<ItemsControl Focusable="False" ItemsSource="{Binding ElementName=Uc, Path=OpenedItems}">
 			<ItemsControl.Resources>
 				<DataTemplate DataType="{x:Type BillingDatabaseDb:PrintedBeleg}">
@@ -74,5 +80,47 @@
 				</DataTemplate>
 			</ItemsControl.Resources>
 		</ItemsControl>
+
+		<Border Grid.Row="1" Margin="0,10,0,0" Padding="0,10,0,0" BorderBrush="DimGray" BorderThickness="0,1,0,0" Visibility="{Binding Path=IsFinished, Converter={StaticResource GConv-BoolVisibility}}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-BoolVisibility}}">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<Border Style="{StaticResource RedBorder}" Padding="5,2,5,2">
+						<TextBlock Foreground="White">
+							Sie müssen diesen Bon ausdrucken, da keine der Mails gesendet werden konnten.
+						</TextBlock>
+					</Border>
+					
+					<Param Grid.Row="1" Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}" Margin="5,10,0,0" MaxWidth="200" HorizontalAlignment="Left">
+						<ComboBox ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}"
+							DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Path=ReprintPrinterDevice}" />
+					</Param>
+
+					<Param Grid.Row="2" Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Margin="5,1,1,1" MaxWidth="200" HorizontalAlignment="Left">
+						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
+							SelectedItem="{Binding Path=ReprintOutputFormat}" />
+					</Param>
+				</Grid>
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Column="1" Style="{StaticResource AcceptButton}" Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-BoolVisibility}}" Click="PrintAndCloseClicked" IsDefault="True" Content="Nachdrucken und Schließen" />
+					<Button Grid.Column="1" Style="{StaticResource AcceptButton}" Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-InvBoolVisibility}}" Click="CloseClicked" IsDefault="True" Content="Schließen" />
+				</Grid>
+			</Grid>
+		</Border>
 	</Grid>
 </CsWindow>
