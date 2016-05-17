@@ -68,7 +68,7 @@
 					<TextBlock Foreground="White" Margin="6,3,6,3" Text="Sie können diesen Posten nicht editieren, da er bereits verwendet wird." />
 				</Border>
 
-				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="0" Header="Statistik">
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Statistik">
 					<Grid IsSharedSizeScope="True">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
@@ -81,7 +81,7 @@
 						<ParamView Grid.Row="2" Header="{StaticResource Bez-Posten-AnzahlStorniert}" Value="{Binding Path=AnzahlStorniert}" />
 					</Grid>
 				</GroupBox>
-				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Details">
+				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Details">
 					<Grid IsSharedSizeScope="True">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />

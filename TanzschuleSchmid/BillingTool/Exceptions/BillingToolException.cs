@@ -37,15 +37,15 @@ namespace BillingTool.Exceptions
 
 
 		/// <summary>Billing tool exception types</summary>
-		[Serializable]
+		[Serializable] [Flags]
 		public enum Types
 		{
-			Undefined,
-			No_DatabaseAvailable = ExitCodes.No_DatabaseAvailable,
-			No_ValidConfiguration = ExitCodes.No_ValidConfiguration,
-			No_DatabaseConnectionPossible = ExitCodes.No_DatabaseConnectionPossible,
-			Invalid_StartupParam = ExitCodes.Invalid_StartupParam,
-			No_KassenOperator = ExitCodes.No_KassenOperator,
+			Undefined = ExitCodes.Error_Others,
+			No_DatabaseAvailable = ExitCodes.Error_No_DatabaseAvailable,
+			No_ValidConfiguration = ExitCodes.Error_No_ValidConfiguration,
+			No_DatabaseConnectionPossible = ExitCodes.Error_No_DatabaseConnectionPossible,
+			Invalid_StartupParam = ExitCodes.Error_Invalid_StartupParam,
+			No_KassenOperator = ExitCodes.Error_No_KassenOperator,
 		}
 	}
 }

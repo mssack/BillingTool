@@ -38,7 +38,10 @@ namespace BillingOutput.btOutputScope.PdfCreation
 
 			PdfDoc = new PdfDocument();
 			var page = PdfDoc.AddPage();
-			XGraphics.FromPdfPage(page).DrawImage(XImage.FromBitmapSource(image), new Point(100,100));
+			page.Width = new XUnit(image.PixelWidth/ image.DpiX, XGraphicsUnit.Inch);
+			page.Height = new XUnit(image.PixelHeight/ image.DpiY, XGraphicsUnit.Inch);
+			
+			XGraphics.FromPdfPage(page).DrawImage(XImage.FromBitmapSource(image), new Point(0,0));
 			PdfDoc.Save(File.FullName);
 			PdfDoc.Dispose();
 			File.Refresh();

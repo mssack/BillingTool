@@ -39,7 +39,6 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 		{
 			InitializeComponent();
 			Loaded += NewBelegPostenControl_Loaded;
-			Reset();
 		}
 
 		private void NewBelegPostenControl_Loaded(object sender, RoutedEventArgs e)

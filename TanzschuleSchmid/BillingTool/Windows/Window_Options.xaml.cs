@@ -34,6 +34,7 @@ namespace BillingTool.Windows
 		{
 			Bt.Data.Finalize_Or_Reject_All();
 			Bt.Data.SyncChanges();
+			Bt.AppOutput.Include_ExitCode(ExitCodes.Options_Saved);
 		}
 	}
 }

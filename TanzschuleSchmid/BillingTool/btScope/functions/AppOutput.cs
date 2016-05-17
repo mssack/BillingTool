@@ -37,18 +37,29 @@ namespace BillingTool.btScope.functions
 
 		private AppOutput()
 		{
+			SetExitCode(ExitCodes.Success);
 		}
 
 
 		/// <summary>Sets the application exit code by setting property <see cref="Environment.ExitCode" /> according.</summary>
-		public void SetExitCode(ExitCodes code)
+		public void Include_ExitCode(ExitCodes code)
 		{
-			Environment.ExitCode = (int) code;
+			SetExitCode(GetExitCode() | code);
 		}
-
-		internal void SetExitCode(BillingToolException.Types type)
+		/// <summary>Sets the application exit code by setting property <see cref="Environment.ExitCode" /> according.</summary>
+		public void Remove_ExitCode(ExitCodes code)
 		{
-			SetExitCode((ExitCodes) type);
+			SetExitCode(GetExitCode() & ~code);
+		}
+		/// <summary>Sets the application exit code by setting property <see cref="Environment.ExitCode" /> according.</summary>
+		private void SetExitCode(ExitCodes code)
+		{
+			Environment.ExitCode = (int)code;
+		}
+		/// <summary>Gets the application exit code by getting property <see cref="Environment.ExitCode" />.</summary>
+		private ExitCodes GetExitCode()
+		{
+			 return (ExitCodes)Environment.ExitCode;
 		}
 	}
 }

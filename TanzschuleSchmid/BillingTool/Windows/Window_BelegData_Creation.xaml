@@ -8,7 +8,7 @@
 		xmlns:belegdatacreation="clr-namespace:BillingTool.Themes.Controls.belegdatacreation"
 		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		CloseButtonVisibility="Collapsed" Style="{StaticResource {x:Type CsWindow}}"
-		Name="Uc" Width="730" SizeToContent="Height">
+		Name="Uc" Width="730" >
 	<CsWindow.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

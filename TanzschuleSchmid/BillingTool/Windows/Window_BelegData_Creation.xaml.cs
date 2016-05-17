@@ -66,10 +66,11 @@ namespace BillingTool.Windows
 			{
 				Bt.Data.BelegData.Finalize(Item);
 				Bt.Data.SyncAnabolicChanges();
+
+				Bt.AppOutput.Include_ExitCode(ExitCodes.BelegData_Created);
+
 				Bt.Ui.ProcessNonProcessedOutputs(Item);
 				Bt.Data.SyncAnabolicChanges();
-
-				Bt.AppOutput.SetExitCode(ExitCodes.NewBelegData_Created);
 
 				using (_managedClosingLock.Activate())
 					Close();
@@ -79,7 +80,8 @@ namespace BillingTool.Windows
 		private void Canceled()
 		{
 			Bt.Data.RejectAllChanges();
-			Bt.AppOutput.SetExitCode(ExitCodes.BelegDataCreation_Aborted);
+
+			Bt.AppOutput.Include_ExitCode(ExitCodes.BelegData_Creation_Aborted);
 
 			using (_managedClosingLock.Activate())
 				Close();

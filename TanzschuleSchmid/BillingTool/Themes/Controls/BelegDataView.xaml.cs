@@ -189,6 +189,7 @@ namespace BillingTool.Themes.Controls
 				stornoBeleg.Comment = approvalData.ReasonText;
 				Bt.Data.BelegData.Finalize(stornoBeleg);
 				Bt.Data.SyncAnabolicChanges();
+				Bt.AppOutput.Include_ExitCode(ExitCodes.BelegData_Storniert);
 			}
 		}
 	}

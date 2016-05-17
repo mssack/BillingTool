@@ -48,6 +48,13 @@ namespace BillingTool.btScope.output
 			return BtOutput.Process(data, Bt.Config.File.KassenEinstellung).ContinueWith(t =>
 			{
 				Bt.Data.SyncChanges();
+				foreach (var task in t.Result)
+				{
+					if (task is Task<MailedBeleg>)
+						Bt.AppOutput.Include_ExitCode(task.IsFaulted ? ExitCodes.BelegData_Mail_Error : ExitCodes.BelegData_Mail_Success);
+					else if (task is Task<PrintedBeleg>)
+						Bt.AppOutput.Include_ExitCode(task.IsFaulted ? ExitCodes.BelegData_Print_Error : ExitCodes.BelegData_Print_Success);
+				}
 				return t.Result;
 			}, TaskScheduler.FromCurrentSynchronizationContext());
 		}

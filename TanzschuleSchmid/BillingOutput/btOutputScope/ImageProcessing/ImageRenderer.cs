@@ -43,12 +43,14 @@ namespace BillingOutput.btOutputScope.ImageProcessing
 		}
 
 
-		public BitmapSource Render(BelegData data, OutputFormat format, double scalingFactor = 1.5)
+		public BitmapSource Render(BelegData data, OutputFormat format, double scalingFactor = 2)
 		{
 
 			var visual = new BonVisual {Item = data, OutputFormat = format};
 			ApplyScalingFactor(visual, scalingFactor);
-			return visual.ConvertTo_Image();
+			var image = visual.ConvertTo_Image();
+			image.Freeze();
+			return image;
 		}
 
 

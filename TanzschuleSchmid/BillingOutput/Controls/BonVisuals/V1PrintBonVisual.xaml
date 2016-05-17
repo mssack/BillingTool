@@ -100,13 +100,13 @@
 							<ColumnDefinition Width="Auto" SharedSizeGroup="d" />
 							<ColumnDefinition Width="Auto" SharedSizeGroup="e" />
 						</Grid.ColumnDefinitions>
-						<TextBlock Grid.Column="0" Grid.ColumnSpan="4" Text="Summe EUR" />
+						<TextBlock Grid.Column="0" Grid.ColumnSpan="4" Text="Summe EUR"/>
 						<TextBlock Grid.Column="4" Text="{Binding ElementName=Uc, Path=Item.BetragBrutto, StringFormat={}{0:0.00}}" HorizontalAlignment="Right" />
 					</Grid>
 				</Border>
 			</Grid>
 		</Border>
-		<Border Grid.Row="2">
+		<Border Grid.Row="2"  x:Name="Steueraufschlüsselung">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -125,7 +125,7 @@
 					<TextBlock Grid.Column="4" Text="Brutto" TextAlignment="Right" />
 				</Grid>
 
-				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc, Path=SteuerAufschlüsselung}" Focusable="False">
+				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc, Path=SteuerAufschlüsselung}" Focusable="False" >
 					<ItemsControl.ItemTemplate>
 						<DataTemplate DataType="{x:Type bonVisuals:V1PrintBonVisual+SteuerSchlüssel}">
 							<Grid>

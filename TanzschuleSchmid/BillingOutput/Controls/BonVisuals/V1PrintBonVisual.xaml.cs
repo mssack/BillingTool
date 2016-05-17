@@ -30,6 +30,7 @@ namespace BillingOutput.Controls.BonVisuals
 		public V1PrintBonVisual()
 		{
 			InitializeComponent();
+			this.Loaded += (sender, args) => Steueraufschlüsselung.BringIntoView();
 		}
 		
 
@@ -67,7 +68,7 @@ namespace BillingOutput.Controls.BonVisuals
 				newValue.PropertyChanged += Item_PropertyChanged;
 			}
 			ReloadSteuerschlüssel();
-
+			Steueraufschlüsselung.BringIntoView();
 		}
 
 		private void Item_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

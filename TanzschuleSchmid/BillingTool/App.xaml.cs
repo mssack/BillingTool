@@ -2,12 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-17</date>
 
 using System;
-using System.Net;
-using System.Net.Mail;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
@@ -69,15 +67,13 @@ namespace BillingTool
 #endif
 
 
-				var billingToolException = args.Exception as BillingToolException;
+				var billingToolException = args.Exception.CastOrFindInInnerExceptions<BillingToolException>();
+				Bt.AppOutput.Remove_ExitCode(ExitCodes.Success);
+
 				if (billingToolException != null && billingToolException.Type != BillingToolException.Types.Undefined)
-				{
-					Bt.AppOutput.SetExitCode(billingToolException.Type);
-				}
+					Bt.AppOutput.Include_ExitCode((ExitCodes) billingToolException.Type);
 				else
-				{
-					Bt.AppOutput.SetExitCode(ExitCodes.FatalError);
-				}
+					Bt.AppOutput.Include_ExitCode(ExitCodes.Error_Unhandled);
 
 				try
 				{
@@ -99,7 +95,6 @@ namespace BillingTool
 #endif
 
 			};
-
 			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
 			Bt.Startup(e.Args);
 		}
