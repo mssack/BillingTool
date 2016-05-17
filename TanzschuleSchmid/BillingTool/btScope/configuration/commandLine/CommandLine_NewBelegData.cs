@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
@@ -56,8 +55,7 @@ namespace BillingTool.btScope.configuration.commandLine
 		private string _comment;
 		private CommandLine_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
-		private bool _sendBeleg;
-		private string _sendBelegTarget;
+		private string[] _sendBelegTargets;
 		private string _typName;
 		private string _zusatzText;
 		private string _zahlungsReferenz;
@@ -193,20 +191,11 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { return _printBeleg; }
 			set { SetProperty(ref _printBeleg, value); }
 		}
-		/// <summary>
-		///     If true a new <see cref="MailedBeleg" /> will be created and sent per mail to the mail address specified in
-		///     <see cref="IConfig_NewBelegData.SendBelegTarget" />.
-		/// </summary>
-		public bool SendBeleg
+		/// <summary>The mail target if it is true.</summary>
+		public string[] SendBelegTargets
 		{
-			get { return _sendBeleg; }
-			set { SetProperty(ref _sendBeleg, value); }
-		}
-		/// <summary>The mail target if <see cref="IConfig_NewBelegData.SendBeleg" /> is true.</summary>
-		public string SendBelegTarget
-		{
-			get { return _sendBelegTarget; }
-			set { SetProperty(ref _sendBelegTarget, value); }
+			get { return _sendBelegTargets; }
+			set { SetProperty(ref _sendBelegTargets, value); }
 		}
 		#endregion
 
@@ -249,11 +238,8 @@ namespace BillingTool.btScope.configuration.commandLine
 				}
 				else if (param == $"{ParamPrefix}{nameof(PrintBeleg)}".ToLower())
 					PrintBeleg = Convert.ToBoolean(value);
-				else if (param == $"{ParamPrefix}{nameof(SendBeleg)}".ToLower())
-				{
-					SendBelegTarget = value;
-					SendBeleg = IsValidMailAddress(SendBelegTarget);
-				}
+				else if (param == $"{ParamPrefix}{nameof(SendBelegTargets)}".ToLower())
+					ParseTargetMails(nameof(SendBelegTargets), value);
 				else if (param == $"{ParamPrefix}{nameof(Postens)}".ToLower())
 				{
 					ParsePosten(nameof(Postens),value);
@@ -264,6 +250,16 @@ namespace BillingTool.btScope.configuration.commandLine
 			}
 		}
 
+		private void ParseTargetMails(string parameterName, string value)
+		{
+			if (value.Length < 2 || value[0] != '{' || value[value.Length - 1] != '}')
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Der parameter[{parameterName}] ist ungültig weil der Wert[{value}] falsch ist.");
+
+			value = value.Substring(1, value.Length - 2);
+			var first = new Regex("(.*?)[ ]*?(?:[,]|$)[ ]*");
+
+			SendBelegTargets = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value.ToString()).Where(x=> !string.IsNullOrEmpty(x) && IsValidMailAddress(x)).ToArray();
+		}
 		private void ParsePosten(string parameterName, string value)
 		{
 			// FOR TESTING see http://www.regextester.com/

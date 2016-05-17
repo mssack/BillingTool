@@ -178,19 +178,10 @@ namespace BillingTool.btScope.configuration.merged
 			get { return GetMergedValue(setting => setting.PrintBeleg); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>
-		///     If true a new <see cref="MailedBeleg" /> will be created and sent per mail to the mail address specified in
-		///     <see cref="IConfig_NewBelegData.SendBelegTarget" />.
-		/// </summary>
-		public bool SendBeleg
+		/// <summary>The mail targets.</summary>
+		public string[] SendBelegTargets
 		{
-			get { return GetMergedValue(setting => setting.SendBeleg); }
-			set { throw new InvalidOperationException(SetErrorMessage); }
-		}
-		/// <summary>The mail target if <see cref="IConfig_NewBelegData.SendBeleg" /> is true.</summary>
-		public string SendBelegTarget
-		{
-			get { return GetMergedValue(setting => setting.SendBelegTarget); }
+			get { return GetMergedValue(setting => setting.SendBelegTargets); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		#endregion

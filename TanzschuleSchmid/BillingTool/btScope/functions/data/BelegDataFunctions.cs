@@ -135,8 +135,13 @@ namespace BillingTool.btScope.functions.data
 
 			if (Bt.Config.Merged.NewBelegData.PrintBeleg)
 				Bt.Data.PrintedBeleg.New(newItem);
-			if (Bt.Config.Merged.NewBelegData.SendBeleg)
-				Bt.Data.MailedBeleg.New(newItem, Bt.Config.CommandLine.NewBelegData.SendBelegTarget);
+			if (Bt.Config.Merged.NewBelegData.SendBelegTargets != null && Bt.Config.Merged.NewBelegData.SendBelegTargets.Length != 0)
+			{
+				foreach (var mailTargets in Bt.Config.Merged.NewBelegData.SendBelegTargets)
+				{
+					Bt.Data.MailedBeleg.New(newItem, mailTargets);
+				}
+			}
 
 
 			NonFinalized_Add(newItem);

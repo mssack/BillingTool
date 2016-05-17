@@ -4,13 +4,17 @@
 // <website>christian.sack.at</website>
 // <date>2016-05-17</date>
 
+// ReSharper disable RedundantUsingDirective
 using System;
+using CsWpfBase.Ev.Public.Extensions;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
-using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 
 
@@ -25,10 +29,14 @@ namespace BillingTool
 	{
 		private void App_OnStartup(object sender, StartupEventArgs e)
 		{
+			var ss = new SplashScreen("Themes/Icons/KassenIcon.png");
+			ss.Show(true, true);
+
+
 			Current.DispatcherUnhandledException += (s, args) =>
 			{
 #if !DEBUG
-				Task t = new Task(() =>
+				var t = new Task(() =>
 				{
 					try
 					{
@@ -38,7 +46,7 @@ namespace BillingTool
 							Host = mailConfig.SmtpServer,
 							UseDefaultCredentials = false,
 							Credentials = new NetworkCredential(mailConfig.SmtpUsername, mailConfig.SmtpPassword),
-							Timeout = 30 * 1000,
+							Timeout = 30*1000,
 							EnableSsl = mailConfig.SmtpEnableSsl,
 							Port = mailConfig.SmtpPort
 						})
@@ -90,7 +98,7 @@ namespace BillingTool
 				}
 				catch (Exception)
 				{
-					
+
 				}
 #endif
 
