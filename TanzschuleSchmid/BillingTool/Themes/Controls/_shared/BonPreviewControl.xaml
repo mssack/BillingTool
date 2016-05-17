@@ -47,7 +47,7 @@
 				</Style>
 			</Param.Style>
 		</Param>
-		<Border Grid.Row="1">
+		<Border Grid.Row="1" >
 			<ScrollViewer Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 				<bonVisuals:BonVisual Item="{Binding Path=Item}" OutputFormat="{Binding Path=SelectedPreviewFormat}" />
 			</ScrollViewer>
