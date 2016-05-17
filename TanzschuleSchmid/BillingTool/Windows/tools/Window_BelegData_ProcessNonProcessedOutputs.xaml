@@ -101,12 +101,12 @@
 						</TextBlock>
 					</Border>
 					
-					<Param Grid.Row="1" Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}" Margin="5,10,0,0" MaxWidth="200" HorizontalAlignment="Left">
+					<Param Grid.Row="1" Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}" Margin="5,10,0,0" HorizontalAlignment="Left">
 						<ComboBox ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}"
 							DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Path=ReprintPrinterDevice}" />
 					</Param>
 
-					<Param Grid.Row="2" Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Margin="5,1,1,1" MaxWidth="200" HorizontalAlignment="Left">
+					<Param Grid.Row="2" Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Margin="5,1,1,1" HorizontalAlignment="Left">
 						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
 							SelectedItem="{Binding Path=ReprintOutputFormat}" />
 					</Param>
