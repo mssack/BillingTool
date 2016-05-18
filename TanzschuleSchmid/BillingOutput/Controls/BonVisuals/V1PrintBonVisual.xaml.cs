@@ -29,8 +29,7 @@ namespace BillingOutput.Controls.BonVisuals
 			InitializeComponent();
 			Loaded += (sender, args) => SteuersatzAufschlüsselungBorder.BringIntoView();
 		}
-
-
+		
 		/// <summary>The item for which the <see cref="V1PrintBonVisual" /> should be drawn.</summary>
 		public BelegData Item
 		{
@@ -55,7 +54,7 @@ namespace BillingOutput.Controls.BonVisuals
 		private void ItemChanged(BelegData oldValue, BelegData newValue)
 		{
 			SteuersatzAufschlüsselung?.Dispose();
-			SteuersatzAufschlüsselung = newValue==null?null: new SteuersatzAufschlüsselung(newValue);
+			SteuersatzAufschlüsselung = newValue == null ? null : new SteuersatzAufschlüsselung(newValue);
 
 			SteuersatzAufschlüsselungBorder.BringIntoView();
 		}

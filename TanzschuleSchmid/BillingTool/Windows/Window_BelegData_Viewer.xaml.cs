@@ -2,13 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingOutput.Controls.ZeitBelege;
 using BillingTool.btScope;
 using CsWpfBase.Db.models.helper;
 using CsWpfBase.Global;
@@ -89,6 +90,19 @@ namespace BillingTool.Windows
 				};
 				w.ShowDialog();
 			}
+		}
+
+		private void MonatsBonClicked(object sender, RoutedEventArgs e)
+		{
+			new CsWindow
+			{
+				SizeToContent = SizeToContent.WidthAndHeight,
+				Content = new ZeitVisual
+				{
+					Item = Bt.Data.BelegData.New_MonatsBeleg(),
+					OutputFormat = Bt.Db.Billing.OutputFormats.Default_MonatsBonFormat,
+				}
+			}.ShowDialog();
 		}
 
 

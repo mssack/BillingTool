@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-08</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Windows;
@@ -13,8 +13,9 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 
 
 
-#pragma warning disable 1591
 
+
+#pragma warning disable 1591
 
 namespace BillingOutput.Controls.BonVisuals
 {
@@ -25,11 +26,12 @@ namespace BillingOutput.Controls.BonVisuals
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1StornoBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(V1StornoBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
+
+
 		public V1StornoBonVisual()
 		{
 			InitializeComponent();
 		}
-
 		public BelegData Item
 		{
 			get { return (BelegData) GetValue(ItemProperty); }

@@ -91,7 +91,6 @@
     <Compile Include="btScope\configuration\merged\Merged_NewBelegData.cs" />
     <Compile Include="btScope\configuration\merged\_Merged.cs" />
     <Compile Include="btScope\configuration\_interfaces\IConfig_NewBelegData.cs" />
-    <Compile Include="btScope\configuration\_interfaces\IContainKassenEinstellungen.cs" />
     <Compile Include="btScope\functions\DataFunctions.cs" />
     <Compile Include="btScope\functions\data\basis\DataFunctionsBase.cs" />
     <Compile Include="btScope\functions\data\BelegDataFunctions.cs" />

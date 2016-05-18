@@ -106,6 +106,18 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerVon</c>]</summary>
+		public int? BonNummerVon
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerBis</c>]</summary>
+		public int? BonNummerBis
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Nummer</c>]</summary>
 		public int Nummer
 		{

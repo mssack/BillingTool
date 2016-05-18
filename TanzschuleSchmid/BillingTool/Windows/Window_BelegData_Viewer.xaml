@@ -5,7 +5,6 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Style="{StaticResource {x:Type CsWindow}}" >
@@ -19,10 +18,12 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Button Style="{StaticResource AcceptButton}" Content="Neuer Beleg" Click="NeuerBelegClicked"  Margin="0" Padding="7,2,7,2" Width="{Binding ElementName=lstView, Path=ActualWidth}"/>
-				<shared:FromToSelectorControl Grid.Column="1" x:Name="FromToSelector" HorizontalAlignment="Center" />
+				<Button Style="{StaticResource AcceptButton}" Content="Neuer Beleg" Click="NeuerBelegClicked"  Margin="0" Padding="7,2,7,2" Width="{Binding ElementName=LstView, Path=ActualWidth}"/>
+				<Button Grid.Column="1" Content="OpenMonatsBon" Click="MonatsBonClicked"  Margin="0" Padding="7,2,7,2" />
+				<shared:FromToSelectorControl Grid.Column="2" x:Name="FromToSelector" HorizontalAlignment="Center" />
 
 			</Grid>
 		</Border>
@@ -31,7 +32,7 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<ListView ItemsSource="{Binding Path=FilteredItems}" SelectedItem="{Binding Path=Item}" x:Name="lstView" MinWidth="180">
+			<ListView ItemsSource="{Binding Path=FilteredItems}" SelectedItem="{Binding Path=Item}" x:Name="LstView" MinWidth="180">
 				<ListView.ItemTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
 						<Grid>

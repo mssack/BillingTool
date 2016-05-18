@@ -111,6 +111,8 @@ namespace BillingTool.btScope.functions.data
 				BelegDatenTable.DatumCol,
 				BelegDatenTable.UmsatzZählerCol,
 				BelegDatenTable.StornoBelegIdCol,
+				BelegDatenTable.BonNummerVonCol,
+				BelegDatenTable.BonNummerBisCol,
 				BelegDatenTable.StateNameCol,
 				BelegDatenTable.NummerCol,
 				BelegDatenTable.BetragBruttoCol,
@@ -178,6 +180,27 @@ namespace BillingTool.btScope.functions.data
 
 			newItem.Recalculate_BetragBrutto();
 			newItem.Recalculate_BetragNetto();
+
+			NonFinalized_Add(newItem);
+			return newItem;
+		}
+
+		/// <summary>Creates a new <see cref="BelegData" /> for as an <see cref="BelegDataTypes.MonatsUmsatz"/>.</summary>
+		public BelegData New_MonatsBeleg()
+		{
+			if (HasNonFinalizedRows)
+				throw new NotFinalizedInstanceException();
+
+
+			var newItem = Bt.Db.Billing.BelegDaten.NewRow();
+
+			newItem.Typ = BelegDataTypes.MonatsUmsatz;
+			newItem.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
+			newItem.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
+			newItem.UmsatzZähler = 0;
+			newItem.BonNummerVon = Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastIncludedBon + 1;
+			newItem.BonNummerBis = Bt.Db.Billing.Configurations.DataIntegrity.LastBelegNummer;
+			newItem.Table.Add(newItem);
 
 			NonFinalized_Add(newItem);
 			return newItem;

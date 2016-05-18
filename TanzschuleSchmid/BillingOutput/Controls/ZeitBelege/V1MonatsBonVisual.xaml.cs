@@ -5,8 +5,6 @@
 // <date>2016-05-18</date>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -29,21 +27,19 @@ namespace BillingOutput.Controls.ZeitBelege
 			InitializeComponent();
 		}
 
-
-
 		/// <summary>The <see cref="Steuersatz" /> informations.</summary>
 		public SteuersatzAufschlüsselung SteuersatzAufschlüsselung
 		{
 			get { return (SteuersatzAufschlüsselung) GetValue(SteuersatzAufschlüsselungProperty); }
 			set { SetValue(SteuersatzAufschlüsselungProperty, value); }
 		}
-		/// <summary>The items to include.</summary>
-		public IEnumerable<BelegData> Items
+		/// <summary>Item to display.</summary>
+		public BelegData Item
 		{
-			get { return (IEnumerable<BelegData>) GetValue(ItemsProperty); }
-			set { SetValue(ItemsProperty, value); }
+			get { return (BelegData) GetValue(ItemProperty); }
+			set { SetValue(ItemProperty, value); }
 		}
-
+		/// <summary>The output format to use.</summary>
 		public OutputFormat OutputFormat
 		{
 			get { return (OutputFormat) GetValue(OutputFormatProperty); }
@@ -53,18 +49,12 @@ namespace BillingOutput.Controls.ZeitBelege
 		private void UpdateData()
 		{
 			SteuersatzAufschlüsselung?.Dispose();
-			SteuersatzAufschlüsselung = Items == null ? null : new SteuersatzAufschlüsselung(Items.ToArray());
-
-		}
-
-		private void ItemsChanged()
-		{
-			UpdateData();
+			SteuersatzAufschlüsselung = Item.IncludedBelegData == null ? null : new SteuersatzAufschlüsselung(Item.IncludedBelegData);
 		}
 #pragma warning disable 1591
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1MonatsBonVisual) o).UpdateData()});
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty SteuersatzAufschlüsselungProperty = DependencyProperty.Register("SteuersatzAufschlüsselung", typeof(SteuersatzAufschlüsselung), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(SteuersatzAufschlüsselung), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable<BelegData>), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(IEnumerable<BelegData>), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1MonatsBonVisual) o).ItemsChanged()});
 #pragma warning restore 1591
 	}
 }

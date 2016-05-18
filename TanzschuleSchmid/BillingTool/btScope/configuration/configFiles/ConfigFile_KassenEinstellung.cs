@@ -20,7 +20,7 @@ namespace BillingTool.btScope.configuration.configFiles
 {
 	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
 	// ReSharper disable once InconsistentNaming
-	public sealed class ConfigFile_KassenEinstellung : ConfigFileBase, IContainKassenEinstellungen, IContainMailConfiguration
+	public sealed class ConfigFile_KassenEinstellung : ConfigFileBase, IContainMailConfiguration
 	{
 		private static ConfigFile_KassenEinstellung _instance;
 		private static readonly object SingletonLock = new object();

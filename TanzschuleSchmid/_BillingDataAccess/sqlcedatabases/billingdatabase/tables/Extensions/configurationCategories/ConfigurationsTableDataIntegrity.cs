@@ -8,6 +8,7 @@ using System;
 using System.Runtime.CompilerServices;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
+// ReSharper disable InconsistentNaming
 
 
 
@@ -49,6 +50,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 		public char LastSteuersatzKürzel
 		{
 			get { return GetValue((char)('A' - 1)); }
+			set { SetValue(value); }
+		}
+
+		/// <summary>The last included <see cref="BelegData.Nummer"/> in a MonatsBon.</summary>
+		public int MonatsBon_LastIncludedBon
+		{
+			get { return GetValue(0); }
 			set { SetValue(value); }
 		}
 

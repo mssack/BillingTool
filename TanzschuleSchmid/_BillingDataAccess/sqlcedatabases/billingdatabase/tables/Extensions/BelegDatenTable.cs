@@ -59,7 +59,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		{
 			if (!HasBeenLoaded)
 			{
-				return DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>{DataSet.Configurations.DataIntegrity.LastBelegNummer - number}");
+				DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>{DataSet.Configurations.DataIntegrity.LastBelegNummer - number}", false);
 			}
 
 			return this.Where(x => x.Nummer > DataSet.Configurations.DataIntegrity.LastBelegNummer - number).ToArray();
@@ -70,7 +70,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		{
 			if (!HasBeenLoaded)
 			{
-				return DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>={from} AND {NummerCol}<={to} ");
+				DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>={from} AND {NummerCol}<={to}", false);
 			}
 
 			return this.Where(x => x.Nummer >= from && x.Nummer <= to).ToArray();

@@ -16,16 +16,16 @@
 							<Setter Property="ContentTemplate">
 								<Setter.Value>
 									<DataTemplate>
-										<zeitBelege:V1MonatsBonVisual Items="{Binding ElementName=Uc1,  Path=Items}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+										<zeitBelege:V1MonatsBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
 									</DataTemplate>
 								</Setter.Value>
 							</Setter>
 						</DataTrigger>
-						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static enumerations:BonLayouts.V1MailBon}">
+						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static enumerations:BonLayouts.V1MonatsBon}">
 							<Setter Property="ContentTemplate">
 								<Setter.Value>
 									<DataTemplate>
-										<zeitBelege:V1MonatsBonVisual Items="{Binding ElementName=Uc1,  Path=Items}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+										<zeitBelege:V1MonatsBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
 									</DataTemplate>
 								</Setter.Value>
 							</Setter>
@@ -34,12 +34,11 @@
 							<Setter Property="ContentTemplate">
 								<Setter.Value>
 									<DataTemplate>
-										<zeitBelege:V1MonatsBonVisual Items="{Binding ElementName=Uc1,  Path=Items}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+										<zeitBelege:V1MonatsBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
 									</DataTemplate>
 								</Setter.Value>
 							</Setter>
 						</DataTrigger>
-
 					</Style.Triggers>
 				</Style>
 			</ContentControl.Style>

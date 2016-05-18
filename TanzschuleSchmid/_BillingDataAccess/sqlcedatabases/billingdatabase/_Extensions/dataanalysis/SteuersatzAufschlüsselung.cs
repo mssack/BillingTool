@@ -30,6 +30,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 		private DateTime _firstBelegDataTime;
 		private int _lastBelegDataNummer;
 		private DateTime _lastBelegDataTime;
+		private PerTypEntry[] _perTypEntries;
 		private decimal _umsatzBrutto;
 		private decimal _umsatzNetto;
 
@@ -61,6 +62,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 		{
 			get { return _entries; }
 			private set { SetProperty(ref _entries, value); }
+		}
+		/// <summary>Gets or sets the PerTypEntries.</summary>
+		public PerTypEntry[] PerTypEntries
+		{
+			get { return _perTypEntries; }
+			set { SetProperty(ref _perTypEntries, value); }
 		}
 		/// <summary>Gets or sets the FirstBelegDataTime.</summary>
 		public DateTime FirstBelegDataTime
@@ -151,6 +158,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 			}
 
 			Entries = data.Values.ToArray();
+			PerTypEntries = Entries.GroupBy(x => x.Typ).Select(x => new PerTypEntry {Entries = x.ToArray(), Typ = x.Key, GesamtSummeBrutto = x.Sum(y=>y.BetragBrutto)}).ToArray();
 		}
 
 		private void BelegData_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -218,6 +226,34 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 			}
 			/// <summary>The difference between <see cref="BetragBrutto" /> and <see cref="BetragNetto" /></summary>
 			public decimal BetragDifferenz => BetragBrutto - BetragNetto;
+		}
+
+
+
+		/// <summary>entry's sorted per typ</summary>
+		public class PerTypEntry : Base
+		{
+			private Entry[] _entries;
+			private decimal _gesamtSummeBrutto;
+			private BelegDataTypes _typ;
+			/// <summary>Gets or sets the Typ.</summary>
+			public BelegDataTypes Typ
+			{
+				get { return _typ; }
+				set { SetProperty(ref _typ, value); }
+			}
+			/// <summary>Gets or sets the GesamtSummeBrutto.</summary>
+			public decimal GesamtSummeBrutto
+			{
+				get { return _gesamtSummeBrutto; }
+				set { SetProperty(ref _gesamtSummeBrutto, value); }
+			}
+			/// <summary>Gets or sets the Entries.</summary>
+			public Entry[] Entries
+			{
+				get { return _entries; }
+				set { SetProperty(ref _entries, value); }
+			}
 		}
 	}
 }

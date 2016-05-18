@@ -2,13 +2,12 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-06</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 
@@ -22,6 +21,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
 	partial class BelegData : IStoreComment
 	{
+		private BelegData[] _includedBelegDatas;
+
+
 		#region Overrides/Interfaces
 		/// <summary>sets the value of a column and notify property changed.</summary>
 		public override bool SetDbValue<T>(T m, string columnName, [CallerMemberName] string propName = "")
@@ -131,6 +133,30 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				if (StornierendeBelege.Count == 0)
 					return null;
 				return StornierendeBelege[0];
+			}
+		}
+
+		/// <summary>
+		///     Only useful if <see cref="Typ" /> == <see cref="BelegDataTypes.TagesUmsatz" /> || <see cref="BelegDataTypes.MonatsUmsatz" /> ||
+		///     <see cref="BelegDataTypes.JahresUmsatz" />.
+		/// </summary>
+		[DependsOn(nameof(Typ))]
+		[DependsOn(nameof(BonNummerVon))]
+		[DependsOn(nameof(BonNummerBis))]
+		public BelegData[] IncludedBelegData
+		{
+			get
+			{
+				if (!Typ.IsUmsatzNachricht())
+					return null;
+				if (BonNummerVon == null || BonNummerBis == null)
+					return null;
+				if (BonNummerVon > BonNummerBis)
+					return null;
+
+				
+				_includedBelegDatas = Table.LoadThenFind_Between(BonNummerVon.Value, BonNummerBis.Value);
+				return _includedBelegDatas;
 			}
 		}
 

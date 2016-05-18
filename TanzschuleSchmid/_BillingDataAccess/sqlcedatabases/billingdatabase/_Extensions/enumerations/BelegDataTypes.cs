@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-18</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -45,10 +45,18 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 		[EnumDescription("JahresUmsatz")] JahresUmsatz = 1003,
 	}
 
+
+
 	/// <summary>Contains enumeration extensions.</summary>
 	public static class BelegDataTypesExtensions
 	{
 		/// <summary>returns true if this type is can be storniert.</summary>
 		public static bool CanBeStorniert(this BelegDataTypes type) => type == BelegDataTypes.Bar || type == BelegDataTypes.Bankomat || type == BelegDataTypes.Kreditkarte;
+
+		/// <summary>
+		///     returns true if this type is one of the following: <see cref="BelegDataTypes.TagesUmsatz" />, <see cref="BelegDataTypes.MonatsUmsatz" />,
+		///     <see cref="BelegDataTypes.JahresUmsatz" />.
+		/// </summary>
+		public static bool IsUmsatzNachricht(this BelegDataTypes type) => type == BelegDataTypes.TagesUmsatz || type == BelegDataTypes.MonatsUmsatz || type == BelegDataTypes.JahresUmsatz;
 	}
 }
