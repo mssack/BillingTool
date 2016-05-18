@@ -8,6 +8,7 @@
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
+		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 		mc:Ignorable="d"
 		Title="Datenbank" Height="500" Width="900" x:Name="Uc" FooterVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		AWindowDragMove.IsActive="True">
@@ -280,16 +281,16 @@
 													<Style TargetType="Image">
 														<Style.Triggers>
 
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Information}">
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Information}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-Info}" />
 															</DataTrigger>
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Warning}">
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Warning}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-Warning}" />
 															</DataTrigger>
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Error}">
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Error}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-Error}" />
 															</DataTrigger>
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static extensions:LogTypes.Fatal}">
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Fatal}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-FatalError}" />
 															</DataTrigger>
 														</Style.Triggers>

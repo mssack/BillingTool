@@ -52,7 +52,7 @@ namespace BillingTool.Windows
 
 		private void WindowLoaded(object sender, RoutedEventArgs e)
 		{
-			var latestTen = Bt.Db.Billing.BelegDaten.Get_Latest(10);
+			var latestTen = Bt.Db.Billing.BelegDaten.LoadThenFind_Latest(10);
 			FromToSelector.From = latestTen.Any() ? latestTen.Min(x => x.Datum) : DateTime.Now;
 			FromToSelector.To = DateTime.Now;
 			Refilter();
@@ -69,7 +69,7 @@ namespace BillingTool.Windows
 			if (FilteredItems != null && Equals(FilteredItems.Tag, $"{FromToSelector.From.Date}{FromToSelector.To.Date}"))
 				return;
 			Bt.EnsureInitialization();
-			var collection = Bt.Db.Billing.BelegDaten.Get_Between(FromToSelector.From, FromToSelector.To);
+			var collection = Bt.Db.Billing.BelegDaten.LoadThenFind_Between(FromToSelector.From, FromToSelector.To);
 			collection.Tag = $"{FromToSelector.From.Date}{FromToSelector.To.Date}";
 			collection.SortDesc(x => x.Nummer);
 			FilteredItems = collection;

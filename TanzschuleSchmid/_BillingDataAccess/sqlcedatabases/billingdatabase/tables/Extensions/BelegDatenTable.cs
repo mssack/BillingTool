@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-05</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Data;
@@ -28,14 +28,14 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		public ContractCollection<BelegData> Get_Between(DateTime from, DateTime to)
+		public ContractCollection<BelegData> LoadThenFind_Between(DateTime from, DateTime to)
 		{
 			from = from.Subtract(from.TimeOfDay);
 			to = to.Add(new TimeSpan(0, 23 - to.Hour, 59 - to.Minute, 59 - to.Second, 999 - to.Millisecond));
 			if (!HasBeenLoaded)
 			{
 				var timeBetweenSelector = CsDb.Statements.SqlCe.GetTimeBetweenSelector(DatumCol, @from, to);
-				DownloadRows($"SELECT * FROM [{NativeName}] WHERE {timeBetweenSelector} ORDER BY [{DatumCol}] DESC",false);
+				DownloadRows($"SELECT * FROM [{NativeName}] WHERE {timeBetweenSelector} ORDER BY [{DatumCol}] DESC", false);
 			}
 
 			return CreateContractCollection(entry => entry.Datum >= @from && entry.Datum <= to);
@@ -47,23 +47,33 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		ContractCollection ICanFilterByDate.Get_Between(DateTime from, DateTime to)
+		ContractCollection ICanFilterByDate.LoadThenFind_Between(DateTime from, DateTime to)
 		{
-			return Get_Between(from, to);
+			return LoadThenFind_Between(from, to);
 		}
 		#endregion
 
-		
 
 		/// <summary>Gets the latest <see cref="BelegData" />'s by the <paramref name="number" />.</summary>
-		public BelegData[] Get_Latest(int number)
+		public BelegData[] LoadThenFind_Latest(int number)
 		{
 			if (!HasBeenLoaded)
 			{
-				return DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>{DataSet.Configurations.LastBelegNummer-number}");
+				return DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>{DataSet.Configurations.DataIntegrity.LastBelegNummer - number}");
 			}
 
-			return this.Where(x=>x.Nummer > DataSet.Configurations.LastBelegNummer-number).ToArray();
+			return this.Where(x => x.Nummer > DataSet.Configurations.DataIntegrity.LastBelegNummer - number).ToArray();
+		}
+
+		/// <summary>Gets the <see cref="BelegData" />'s by the <see cref="BelegData.Nummer" />.</summary>
+		public BelegData[] LoadThenFind_Between(int from, int to)
+		{
+			if (!HasBeenLoaded)
+			{
+				return DownloadRows($"SELECT * FROM [{NativeName}] WHERE {NummerCol}>={from} AND {NummerCol}<={to} ");
+			}
+
+			return this.Where(x => x.Nummer >= from && x.Nummer <= to).ToArray();
 		}
 	}
 }

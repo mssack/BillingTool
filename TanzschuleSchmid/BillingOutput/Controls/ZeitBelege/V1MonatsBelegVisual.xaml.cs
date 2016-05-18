@@ -2,12 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
 
 
@@ -20,12 +22,6 @@ namespace BillingOutput.Controls.ZeitBelege
 	/// <summary>Interaction logic for V1MonatsBelegVisual.xaml</summary>
 	public partial class V1MonatsBelegVisual : UserControl
 	{
-		#region DP Keys
-#pragma warning disable 1591
-		public static readonly DependencyProperty KopfProperty = DependencyProperty.Register("Kopf", typeof(KopfDaten), typeof(V1MonatsBelegVisual), new FrameworkPropertyMetadata {DefaultValue = default(KopfDaten), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty KategorienProperty = DependencyProperty.Register("Kategorien", typeof(Categorie), typeof(V1MonatsBelegVisual), new FrameworkPropertyMetadata {DefaultValue = default(Categorie), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-#pragma warning restore 1591
-		#endregion
 
 
 		/// <summary>ctor</summary>
@@ -35,6 +31,9 @@ namespace BillingOutput.Controls.ZeitBelege
 			Kategorien = new Categorie();
 			InitializeComponent();
 		}
+
+
+
 
 		/// <summary>The header of the document.</summary>
 		public KopfDaten Kopf
@@ -51,7 +50,14 @@ namespace BillingOutput.Controls.ZeitBelege
 		}
 
 
+		private void UpdateData(BillingDatabase db, int from, int to)
+		{
+			BelegData[] datas = db.BelegDaten.LoadThenFind_Between(@from, to);
+		}
 
+
+
+		/// <summary>collapses all informations which belongs to the header</summary>
 		public class KopfDaten : Base
 		{
 			private DateTime _kassenEnde;
@@ -74,6 +80,7 @@ namespace BillingOutput.Controls.ZeitBelege
 
 
 
+		/// <summary>collapses all informations which belongs to the content</summary>
 		public class Categorie : Base
 		{
 			private decimal _anzahl;
@@ -113,5 +120,9 @@ namespace BillingOutput.Controls.ZeitBelege
 				set { SetProperty(ref _brutto, value); }
 			}
 		}
+#pragma warning disable 1591
+		public static readonly DependencyProperty KopfProperty = DependencyProperty.Register("Kopf", typeof(KopfDaten), typeof(V1MonatsBelegVisual), new FrameworkPropertyMetadata {DefaultValue = default(KopfDaten), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty KategorienProperty = DependencyProperty.Register("Kategorien", typeof(Categorie), typeof(V1MonatsBelegVisual), new FrameworkPropertyMetadata {DefaultValue = default(Categorie), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+#pragma warning restore 1591
 	}
 }

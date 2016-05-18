@@ -15,7 +15,7 @@ using CsWpfBase.Ev.Attributes;
 
 // ReSharper disable InconsistentNaming
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations
 {
 	/// <summary>The reasons why an row of type <see cref="BelegData" /> can be invalid.</summary>
 	public enum BelegDataInvalidReasons

@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingOutput.btOutputScope.ImageProcessing;
 using BillingOutput.btOutputScope.PdfCreation;
 using BillingOutput.Interfaces;

@@ -3,7 +3,8 @@
 					xmlns:local="clr-namespace:BillingTool.Themes.Controls"
 					xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 					xmlns:belegview="clr-namespace:BillingTool.Themes.Controls.belegview"
-					xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared">
+					xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
+					xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
@@ -62,7 +63,7 @@
 										<Grid.Style>
 											<Style TargetType="{x:Type Grid}">
 												<Style.Triggers>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Storno}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
 														<Setter Property="Visibility" Value="Collapsed" />
 													</DataTrigger>
 												</Style.Triggers>
@@ -108,7 +109,7 @@
 											<Style TargetType="{x:Type Grid}">
 												<Setter Property="Visibility" Value="Collapsed" />
 												<Style.Triggers>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static extensions:BelegDataTypes.Storno}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
 														<Setter Property="Visibility" Value="Visible" />
 													</DataTrigger>
 												</Style.Triggers>

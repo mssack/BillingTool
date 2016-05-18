@@ -16,7 +16,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 
 // ReSharper disable InconsistentNaming
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations
 {
 	/// <summary>log titles.</summary>
 	public enum LogTitels

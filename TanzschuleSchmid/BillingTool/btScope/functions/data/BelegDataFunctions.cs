@@ -2,12 +2,13 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-16</date>
+// <date>2016-05-18</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.functions.data.basis;
 
 
@@ -66,11 +67,15 @@ namespace BillingTool.btScope.functions.data
 			item.Recalculate_BetragNetto();
 
 			item.State = BelegDataStates.Approved;
-			item.Nummer = item.DataSet.Configurations.LastBelegNummer + 1;
-			item.UmsatzZähler = item.DataSet.Configurations.Umsatzzähler + item.BetragBrutto;
 
-			item.DataSet.Configurations.Umsatzzähler = item.UmsatzZähler;
-			item.DataSet.Configurations.LastBelegNummer = item.Nummer;
+
+			var di = item.DataSet.Configurations.DataIntegrity;
+
+			item.Nummer = di.LastBelegNummer + 1;
+			item.UmsatzZähler = di.Umsatzzähler + item.BetragBrutto;
+
+			di.Umsatzzähler = item.UmsatzZähler;
+			di.LastBelegNummer = item.Nummer;
 
 			if (item.Typ == BelegDataTypes.Storno)
 				item.StornoBeleg.State = BelegDataStates.Storniert;

@@ -11,7 +11,7 @@ using System;
 
 
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations
 {
 	/// <summary>The possible log types.</summary>
 	public enum LogTypes

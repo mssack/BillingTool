@@ -12,7 +12,7 @@ using CsWpfBase.Ev.Attributes;
 
 
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations
 {
 	//!!!!!!!!!!!!!!!!!!!!!!!
 	//Important each Print layout have to be in Range between 10000 - 19999

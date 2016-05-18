@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-08</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Windows;
@@ -10,7 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
@@ -25,8 +25,6 @@ namespace BillingTool.Themes.Controls.belegview
 	/// <summary>Interaction logic for ReprintBelegControl.xaml</summary>
 	public partial class ReprintBelegControl : UserControl
 	{
-		#region DP Keys
-		#endregion
 
 
 		/// <summary>ctor</summary>
@@ -35,9 +33,8 @@ namespace BillingTool.Themes.Controls.belegview
 			InitializeComponent();
 			Reset();
 		}
-		/// <summary>
-		/// 
-		/// </summary>
+
+		/// <summary></summary>
 		public BelegData Item
 		{
 			get { return (BelegData) GetValue(ItemProperty); }
@@ -77,7 +74,7 @@ namespace BillingTool.Themes.Controls.belegview
 
 		private void Reset()
 		{
-			OutputFormat = (Item != null && Item.Typ == BelegDataTypes.Storno) ? Bt.Db.Billing.OutputFormats.Default_StornoFormat : Bt.Db.Billing.OutputFormats.Default_PrintFormat;
+			OutputFormat = Item != null && Item.Typ == BelegDataTypes.Storno ? Bt.Db.Billing.OutputFormats.Default_StornoFormat : Bt.Db.Billing.OutputFormats.Default_PrintFormat;
 
 			Device = Bt.Config.File.KassenEinstellung.Default_PrinterName;
 		}
@@ -85,14 +82,15 @@ namespace BillingTool.Themes.Controls.belegview
 		private void DruckenButtonClicked(object sender, RoutedEventArgs e)
 		{
 			Print();
-			((FrameworkElement)sender).GetParentByCondition<Popup>(ex => true).IsOpen = false;
+			((FrameworkElement) sender).GetParentByCondition<Popup>(ex => true).IsOpen = false;
 		}
+
 		private void ItemChanged()
 		{
 			Reset();
 		}
 #pragma warning disable 1591
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(ReprintBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((ReprintBelegControl)o).ItemChanged()});
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(ReprintBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((ReprintBelegControl) o).ItemChanged()});
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(ReprintBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty DeviceProperty = DependencyProperty.Register("Device", typeof(string), typeof(ReprintBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591

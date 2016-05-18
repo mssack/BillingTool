@@ -13,7 +13,7 @@ using CsWpfBase.Ev.Attributes;
 
 
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations
 {
 	/// <summary>The <see cref="ProcessingStates" /> for the <see cref="PrintedBeleg" /> row and the <see cref="MailedBeleg" /> row.</summary>
 	public enum ProcessingStates

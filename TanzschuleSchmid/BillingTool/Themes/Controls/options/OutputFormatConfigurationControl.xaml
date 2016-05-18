@@ -7,6 +7,7 @@
 			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 			xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 			xmlns:system="clr-namespace:System;assembly=mscorlib"
+			xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 			mc:Ignorable="d"
 			d:DesignHeight="300" d:DesignWidth="300" x:Name="Control">
 	<UserControl.Resources>
@@ -76,13 +77,13 @@
 						<Param Grid.Row="2" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" IsReadOnly="{Binding Path=HasBeenUsed}">
 							<Param.Resources>
 								<x:Array x:Key="IgnoredEnums" Type="system:Enum">
-									<x:Static MemberType="extensions:BonLayouts" Member="Unknown" />
-									<x:Static MemberType="extensions:BonLayouts" Member="V1StornoBon" />
+									<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
+									<x:Static MemberType="enumerations:BonLayouts" Member="V1StornoBon" />
 								</x:Array>
 							</Param.Resources>
 							<Param.Content>
 								<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
-										ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}" />
+										ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}" />
 							</Param.Content>
 						</Param>
 						<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />

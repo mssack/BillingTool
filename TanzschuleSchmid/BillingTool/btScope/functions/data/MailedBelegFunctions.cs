@@ -7,6 +7,7 @@
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.functions.data.basis;
 
 
@@ -62,8 +63,8 @@ namespace BillingTool.btScope.functions.data
 			var newItem = data.DataSet.MailedBelege.NewRow();
 			newItem.BelegData = data;
 			newItem.TargetMailAddress = targetMailAddress;
-			newItem.Betreff = data.DataSet.Configurations.Default_MailBetreff;
-			newItem.Text = data.DataSet.Configurations.Default_MailText;
+			newItem.Betreff = data.DataSet.Configurations.Default.MailBetreff;
+			newItem.Text = data.DataSet.Configurations.Default.MailText;
 			newItem.OutputFormat = newItem.DataSet.OutputFormats.Default_MailFormat;
 			newItem.Table.Add(newItem);
 			NonFinalized_Add(newItem);

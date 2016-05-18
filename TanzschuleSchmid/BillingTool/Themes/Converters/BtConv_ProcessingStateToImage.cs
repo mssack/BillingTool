@@ -8,6 +8,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Global;
 
 

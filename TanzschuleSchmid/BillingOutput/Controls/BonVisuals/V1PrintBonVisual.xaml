@@ -4,7 +4,7 @@
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-			xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals"
+			xmlns:dataanalysis="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanalysis;assembly=BillingDataAccess"
 			mc:Ignorable="d"
 			Padding="10" x:Name="Uc" Background="White" Width="250" FontFamily="Consolas" Focusable="False">
 	<UserControl.Resources>
@@ -106,7 +106,7 @@
 				</Border>
 			</Grid>
 		</Border>
-		<Border Grid.Row="2"  x:Name="Steueraufschlüsselung">
+		<Border Grid.Row="2"  x:Name="SteuersatzAufschlüsselungBorder">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -125,9 +125,9 @@
 					<TextBlock Grid.Column="4" Text="Brutto" TextAlignment="Right" />
 				</Grid>
 
-				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc, Path=SteuerAufschlüsselung}" Focusable="False" >
+				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc, Path=SteuersatzAufschlüsselung.Entries}" Focusable="False" >
 					<ItemsControl.ItemTemplate>
-						<DataTemplate DataType="{x:Type bonVisuals:V1PrintBonVisual+SteuerSchlüssel}">
+						<DataTemplate DataType="{x:Type dataanalysis:SteuersatzAufschlüsselung+Entry}">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" SharedSizeGroup="a" />

@@ -76,12 +76,12 @@ namespace BillingTool.Windows.privileged
 			Bt.EnsureInitialization();
 			if (BelegDataTab.IsSelected && (FilteredBelegDaten == null || !Equals(FilteredBelegDaten.Tag, $"{FromToSelector.From.Date}{FromToSelector.To.Date}")))
 			{
-				FilteredBelegDaten = Bt.Db.Billing.BelegDaten.Get_Between(FromToSelector.From, FromToSelector.To);
+				FilteredBelegDaten = Bt.Db.Billing.BelegDaten.LoadThenFind_Between(FromToSelector.From, FromToSelector.To);
 				FilteredBelegDaten.Tag = $"{FromToSelector.From.Date}{FromToSelector.To.Date}";
 			}
 			else if (LogsTab.IsSelected && (FilteredLogs == null || !Equals(FilteredLogs.Tag, $"{FromToSelector.From.Date}{FromToSelector.To.Date}")))
 			{
-				FilteredLogs = Bt.Db.Billing.Logs.Get_Between(FromToSelector.From, FromToSelector.To);
+				FilteredLogs = Bt.Db.Billing.Logs.LoadThenFind_Between(FromToSelector.From, FromToSelector.To);
 				FilteredLogs.Tag = $"{FromToSelector.From.Date}{FromToSelector.To.Date}";
 			}
 			else if (ConfigurationTab.IsSelected && !Bt.Db.Billing.Configurations.HasBeenLoaded)

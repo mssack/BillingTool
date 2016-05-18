@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Themes.Controls.Containers;
@@ -28,10 +29,12 @@ namespace BillingTool.Windows.tools
 	// ReSharper disable once InconsistentNaming
 	public partial class Window_BelegData_ProcessNonProcessedOutputs : CsWindow
 	{
+		private readonly bool _forceReprintIfFailed;
 
 		/// <summary>ctor</summary>
-		public Window_BelegData_ProcessNonProcessedOutputs(BelegData item)
+		public Window_BelegData_ProcessNonProcessedOutputs(BelegData item, bool forceReprintIfFailed)
 		{
+			_forceReprintIfFailed = forceReprintIfFailed;
 			Item = item;
 			IsFinished = false;
 			InitializeComponent();
@@ -93,17 +96,20 @@ namespace BillingTool.Windows.tools
 				return;
 			}
 
-			var anyPrints = false;
-			var allMailsFailed = true;
-			task.Result.ForEach(t =>
+			if (_forceReprintIfFailed)
 			{
-				if (t is Task<PrintedBeleg>)
-					anyPrints = true;
-				else if (t is Task<MailedBeleg> && !t.IsFaulted)
-					allMailsFailed = false;
-			});
-			if (allMailsFailed && !anyPrints)
-				IsReprintNecessary = true;
+				var anyPrints = false;
+				var allMailsFailed = true;
+				task.Result.ForEach(t =>
+				{
+					if (t is Task<PrintedBeleg>)
+						anyPrints = true;
+					else if (t is Task<MailedBeleg> && !t.IsFaulted)
+						allMailsFailed = false;
+				});
+				if (allMailsFailed && !anyPrints)
+					IsReprintNecessary = true;
+			}
 		}
 
 		private void PrintAndCloseClicked(object sender, RoutedEventArgs e)

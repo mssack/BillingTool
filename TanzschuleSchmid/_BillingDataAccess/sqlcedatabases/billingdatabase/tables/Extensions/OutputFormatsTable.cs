@@ -7,6 +7,7 @@
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Db.models.helper;
 using CsWpfBase.Ev.Public.Extensions;
 
@@ -34,11 +35,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			{
 				if (_defaultPrintFormat != null) return _defaultPrintFormat;
 
-				_defaultPrintFormat = LoadThenFind(DataSet.Configurations.Default_PrintOutputFormat);
+				_defaultPrintFormat = LoadThenFind(DataSet.Configurations.Default.PrintOutputFormat);
 				if (_defaultPrintFormat != null) return _defaultPrintFormat;
 
 				_defaultPrintFormat = NewRow();
-				_defaultPrintFormat.Id = DataSet.Configurations.Default_PrintOutputFormat;
+				_defaultPrintFormat.Id = DataSet.Configurations.Default.PrintOutputFormat;
 				_defaultPrintFormat.CreationDate = DateTime.Now;
 				_defaultPrintFormat.Name = $"{BonLayouts.V1PrintBon.GetName()} Vorlage";
 				_defaultPrintFormat.BonLayout = BonLayouts.V1PrintBon;
@@ -48,7 +49,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			set
 			{
 				if (SetProperty(ref _defaultPrintFormat, value))
-					DataSet.Configurations.Default_PrintOutputFormat = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.PrintOutputFormat = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
@@ -59,11 +60,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			{
 				if (_defaultMailFormat != null) return _defaultMailFormat;
 
-				_defaultMailFormat = LoadThenFind(DataSet.Configurations.Default_MailOutputFormat);
+				_defaultMailFormat = LoadThenFind(DataSet.Configurations.Default.MailOutputFormat);
 				if (_defaultMailFormat != null) return _defaultMailFormat;
 
 				_defaultMailFormat = NewRow();
-				_defaultMailFormat.Id = DataSet.Configurations.Default_MailOutputFormat;
+				_defaultMailFormat.Id = DataSet.Configurations.Default.MailOutputFormat;
 				_defaultMailFormat.CreationDate = DateTime.Now;
 				_defaultMailFormat.Name = $"{BonLayouts.V1MailBon.GetName()} Vorlage";
 				_defaultMailFormat.BonLayout = BonLayouts.V1MailBon;
@@ -73,7 +74,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			set
 			{
 				if (SetProperty(ref _defaultMailFormat, value))
-					DataSet.Configurations.Default_MailOutputFormat = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.MailOutputFormat = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
@@ -84,11 +85,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			{
 				if (_defaultStornoFormat != null) return _defaultStornoFormat;
 
-				_defaultStornoFormat = LoadThenFind(DataSet.Configurations.Default_StornoOutputFormat);
+				_defaultStornoFormat = LoadThenFind(DataSet.Configurations.Default.StornoOutputFormat);
 				if (_defaultStornoFormat != null) return _defaultStornoFormat;
 
 				_defaultStornoFormat = NewRow();
-				_defaultStornoFormat.Id = DataSet.Configurations.Default_StornoOutputFormat;
+				_defaultStornoFormat.Id = DataSet.Configurations.Default.StornoOutputFormat;
 				_defaultStornoFormat.CreationDate = DateTime.Now;
 				_defaultStornoFormat.Name = $"{BonLayouts.V1StornoBon.GetName()} Vorlage";
 				_defaultStornoFormat.BonLayout = BonLayouts.V1StornoBon;
@@ -98,7 +99,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			set
 			{
 				if (SetProperty(ref _defaultStornoFormat, value))
-					DataSet.Configurations.Default_StornoOutputFormat = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.StornoOutputFormat = value?.Id ?? Guid.NewGuid();
 			}
 		}
 

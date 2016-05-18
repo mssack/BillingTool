@@ -4,6 +4,7 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 					xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 					xmlns:btScope="clr-namespace:BillingTool.btScope"
+					xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 					mc:Ignorable="d">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
@@ -15,7 +16,7 @@
 
 	<Style TargetType="{x:Type CsWindow}" x:Key="{x:Type CsWindow}">
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Converter={StaticResource GConv-CloneImage}}" />
+		<Setter Property="Icon" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderLogo, Converter={StaticResource GConv-CloneImage}}" />
 		<Setter Property="Scale" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling}"/>
 		<Setter Property="HeaderTemplate">
 			<Setter.Value>
@@ -28,13 +29,13 @@
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<Image Source="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo}" Margin="0,0,10,0"
-									Width="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize}"
-									Height="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize}" 
-									Visibility="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderLogo, Converter={StaticResource GConv-NullToVisibility}}"
+							<Image Source="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderLogo}" Margin="0,0,10,0"
+									Width="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderSize}"
+									Height="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderSize}" 
+									Visibility="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderLogo, Converter={StaticResource GConv-NullToVisibility}}"
 								   />
 							<Viewbox Grid.Column="1" HorizontalAlignment="Left"
-									Height="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize, Converter={StaticResource GConv-PercentOf}, ConverterParameter=0.9}">
+									Height="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderSize, Converter={StaticResource GConv-PercentOf}, ConverterParameter=0.9}">
 								<TextBlock FontFamily="Segoe UI Light" Foreground="DimGray" Text="{Binding Path=Title}" />
 
 							</Viewbox>
@@ -148,7 +149,7 @@
 		<Setter Property="BorderBrush" Value="#AA0000" />
 	</Style>
 
-	<Style x:Key="ProcessingStateIcon" TargetType="{x:Type Image}" d:DataContext="{d:DesignInstance extensions:ProcessingStates}">
+	<Style x:Key="ProcessingStateIcon" TargetType="{x:Type Image}" d:DataContext="{d:DesignInstance enumerations:ProcessingStates}">
 		<Setter Property="Width" Value="14" />
 		<Setter Property="Height" Value="14" />
 		<Setter Property="Margin" Value="2" />

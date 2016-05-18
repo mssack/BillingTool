@@ -13,7 +13,7 @@ using CsWpfBase.Ev.Attributes;
 
 
 
-namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions
+namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations
 {
 	/// <summary>Describes the <see cref="BelegData" /> types.</summary>
 	[Serializable]

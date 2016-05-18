@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 
 
 
@@ -40,7 +41,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>On row creation this method will be executed. So a new row will always have the highest reference number</summary>
 		public override void ApplyExtendedDefaults()
 		{
-			Nummer = DataSet.Configurations.LastBelegNummer + 1;
+			Nummer = DataSet.Configurations.DataIntegrity.LastBelegNummer + 1;
 		}
 
 		/// <summary>Returns an identifier for the database row.</summary>

@@ -8,6 +8,7 @@ using System;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Utilitys;
 

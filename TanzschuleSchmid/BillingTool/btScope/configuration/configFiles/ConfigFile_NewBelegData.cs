@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
 using CsWpfBase.Utilitys.templates;

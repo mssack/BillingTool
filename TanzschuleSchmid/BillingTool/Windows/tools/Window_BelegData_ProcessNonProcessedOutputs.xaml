@@ -4,8 +4,8 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:BillingDatabaseDb="SqlCeDatabases.BillingDatabase"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 		mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{StaticResource {x:Type CsWindow}}"
 		Title="Exporte" Height="300" Width="300" Topmost="True" WindowStartupLocation="CenterOwner" x:Name="Uc"
 		CloseButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed">
@@ -37,7 +37,7 @@
 						<Border.Style>
 							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource EntryStyle}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static extensions:ProcessingStates.Failed}">
+									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Failed}">
 										<Setter Property="ToolTip" Value="{Binding Path=ProcessingException}" />
 									</DataTrigger>
 								</Style.Triggers>
@@ -60,7 +60,7 @@
 						<Border.Style>
 							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource EntryStyle}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static extensions:ProcessingStates.Failed}">
+									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Failed}">
 										<Setter Property="ToolTip" Value="{Binding Path=ProcessingException}" />
 									</DataTrigger>
 								</Style.Triggers>

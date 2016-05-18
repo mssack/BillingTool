@@ -5,6 +5,7 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 			xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals"
+			xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 			mc:Ignorable="d"
 			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc1">
 	<Grid >
@@ -12,7 +13,7 @@
 			<ContentControl.Style>
 				<Style TargetType="{x:Type ContentControl}" >
 					<Style.Triggers>
-						<DataTrigger Binding="{Binding ElementName=Uc1, Path=DisplayFormat.BonLayout}" Value="{x:Static extensions:BonLayouts.V1PrintBon}">
+						<DataTrigger Binding="{Binding ElementName=Uc1, Path=DisplayFormat.BonLayout}" Value="{x:Static enumerations:BonLayouts.V1PrintBon}">
 							<Setter Property="ContentTemplate">
 								<Setter.Value>
 									<DataTemplate>
@@ -21,7 +22,7 @@
 								</Setter.Value>
 							</Setter>
 						</DataTrigger>
-						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static extensions:BonLayouts.V1MailBon}">
+						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static enumerations:BonLayouts.V1MailBon}">
 							<Setter Property="ContentTemplate">
 								<Setter.Value>
 									<DataTemplate>
@@ -30,7 +31,7 @@
 								</Setter.Value>
 							</Setter>
 						</DataTrigger>
-						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static extensions:BonLayouts.V1StornoBon}">
+						<DataTrigger Binding="{Binding ElementName=Uc1,  Path=DisplayFormat.BonLayout}" Value="{x:Static enumerations:BonLayouts.V1StornoBon}">
 							<Setter Property="ContentTemplate">
 								<Setter.Value>
 									<DataTemplate>

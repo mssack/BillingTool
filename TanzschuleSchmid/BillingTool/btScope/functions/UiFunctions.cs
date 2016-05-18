@@ -57,9 +57,9 @@ namespace BillingTool.btScope.functions
 		}
 
 		/// <summary>Processes all unprocessed <see cref="MailedBeleg" /> or <see cref="PrintedBeleg" /> for a specific <paramref name="data" /> object.</summary>
-		public void ProcessNonProcessedOutputs(BelegData data)
+		public void ProcessNonProcessedOutputs(BelegData data, bool forceReprintIfFailed = false)
 		{
-			var outputWindow = new Window_BelegData_ProcessNonProcessedOutputs(data) {Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive)};
+			var outputWindow = new Window_BelegData_ProcessNonProcessedOutputs(data, forceReprintIfFailed) {Owner = Application.Current.Windows.OfType<Window>().FirstOrDefault(x => x.IsActive)};
 			outputWindow.ShowDialog();
 		}
 	}

@@ -12,6 +12,7 @@ using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
@@ -69,7 +70,7 @@ namespace BillingTool.Windows
 
 				Bt.AppOutput.Include_ExitCode(ExitCodes.BelegData_Created);
 
-				Bt.Ui.ProcessNonProcessedOutputs(Item);
+				Bt.Ui.ProcessNonProcessedOutputs(Item, true);
 				Bt.Data.SyncAnabolicChanges();
 
 				using (_managedClosingLock.Activate())

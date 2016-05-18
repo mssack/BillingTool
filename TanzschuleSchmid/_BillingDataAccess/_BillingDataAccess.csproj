@@ -77,10 +77,14 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\OutputFormats.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Steuersatz.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDataIntegrity.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDefaults.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDesign.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\OutputFormatsTable.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataInvalidReasons.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\dataanalysis\SteuersatzAufschlüsselung.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\BelegDataInvalidReasons.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\ICanBeFilteredByDate.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IOutputBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IStoreZuletztGeändert.cs" />
@@ -121,10 +125,10 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegDaten.txt" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\MailedBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\PrintedBeleg.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataStates.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTitels.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\LogTypes.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BelegDataTypes.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\BelegDataStates.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\LogTitels.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\LogTypes.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\BelegDataTypes.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\BelegPosten.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\BelegData.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Log.cs" />
@@ -147,8 +151,8 @@
     <Compile Include="sqlcedatabases\billingdatabase\views\JustForNamespacePurpose.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\BonLayouts.cs" />
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\ProcessingStates.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\BonLayouts.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\ProcessingStates.cs" />
     <Compile Include="sqlcedatabases\Router\SqlCeRouter.cs" />
   </ItemGroup>
   <ItemGroup>

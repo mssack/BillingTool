@@ -13,6 +13,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
 using CsWpfBase.Global;
