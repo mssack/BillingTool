@@ -31,7 +31,7 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<ListView ItemsSource="{Binding Path=FilteredItems}" SelectedItem="{Binding Path=Item}" x:Name="lstView">
+			<ListView ItemsSource="{Binding Path=FilteredItems}" SelectedItem="{Binding Path=Item}" x:Name="lstView" MinWidth="180">
 				<ListView.ItemTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
 						<Grid>

@@ -142,20 +142,7 @@ namespace BillingTool.btScope
 		private static void InitDb()
 		{
 			Db.EnsureConnectivity();
-			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
-			{
-				Db.Billing.OutputFormats.DownloadRows();
-				Db.Billing.OutputFormats.EnsureDefaults();
-			}
-			if (Db.Billing.Steuersätze.HasBeenLoaded != true)
-			{
-				Db.Billing.Steuersätze.DownloadRows();
-				Db.Billing.Steuersätze.EnsureDefaults();
-			}
-			if (Db.Billing.Configurations.HasBeenLoaded != true)
-			{
-				Db.Billing.Configurations.DownloadRows();
-			}
+			Db.Billing.Init();
 		}
 	}
 }

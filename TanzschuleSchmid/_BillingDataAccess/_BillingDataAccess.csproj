@@ -75,6 +75,9 @@
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Relations\AllRelations.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\MailedBelege.txt" />
     <EmbeddedResource Include="DatabaseCreation\SqlCeScripts\Tables\BelegPostens.txt" />
+    <Compile Include="sqlcedatabases\billingdatabase\dataset\Extensions\BillingDatabase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\OutputFormats.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Steuersatz.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDataIntegrity.cs" />

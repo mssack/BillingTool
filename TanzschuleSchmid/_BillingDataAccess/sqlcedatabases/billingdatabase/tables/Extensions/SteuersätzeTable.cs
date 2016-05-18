@@ -167,29 +167,19 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			var postens = Collection.Where(x => x.Percent == percent).ToArray();
 			return postens.Length == 0 ? null : postens[0];
 		}
-
-		/// <summary>Invokes the creation of the default <see cref="Steuersatz" /> rows.</summary>
-		public void EnsureDefaults()
-		{
-			// ReSharper disable once NotAccessedVariable
-			// ReSharper disable RedundantAssignment
-			var name = Default_BetragSatzNormal.Name;
-			name = Default_BetragSatzErmäßigt1.Name;
-			name = Default_BetragSatzErmäßigt2.Name;
-			name = Default_BetragSatzNull.Name;
-			// ReSharper restore RedundantAssignment
-		}
+		
 
 		private Steuersatz GetOrCreate_DefaultBetragSatz(ref Steuersatz field, Guid id, string name, decimal percent)
 		{
 			if (field != null) return field;
-			field = LoadThenFind(id);
+			field = HasBeenLoaded ? Find(id) : FindOrLoad(id);
 			if (field != null) return field;
 			DataSet.Configurations.DataIntegrity.LastSteuersatzKürzel = (char) (DataSet.Configurations.DataIntegrity.LastSteuersatzKürzel + 1);
 
 			field = NewRow();
 			field.Id = id;
 			field.CreationDate = DateTime.Now;
+			field.LastUsedDate = field.CreationDate; //Makes it unchangeable
 			field.Kürzel = DataSet.Configurations.DataIntegrity.LastSteuersatzKürzel.ToString();
 			field.Name = name;
 			field.Percent = percent;

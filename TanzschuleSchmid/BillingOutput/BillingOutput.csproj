@@ -86,17 +86,14 @@
     <Compile Include="Controls\BonVisuals\V1StornoBonVisual.xaml.cs">
       <DependentUpon>V1StornoBonVisual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Monatsumsatz.xaml.cs">
-      <DependentUpon>Monatsumsatz.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Tagesumsatz.xaml.cs">
-      <DependentUpon>Tagesumsatz.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\BonVisuals\V1PrintBonVisual.xaml.cs">
       <DependentUpon>V1PrintBonVisual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ZeitBelege\V1MonatsBelegVisual.xaml.cs">
-      <DependentUpon>V1MonatsBelegVisual.xaml</DependentUpon>
+    <Compile Include="Controls\ZeitBelege\V1MonatsBonVisual.xaml.cs">
+      <DependentUpon>V1MonatsBonVisual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ZeitBelege\ZeitVisual.xaml.cs">
+      <DependentUpon>ZeitVisual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IContainMailConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -144,19 +141,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Monatsumsatz.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Tagesumsatz.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\BonVisuals\V1PrintBonVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ZeitBelege\V1MonatsBelegVisual.xaml">
+    <Page Include="Controls\ZeitBelege\V1MonatsBonVisual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ZeitBelege\ZeitVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

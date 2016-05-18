@@ -6,10 +6,8 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationCategories;
-using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -22,11 +20,16 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
 	partial class ConfigurationsTable
 	{
+		private ConfigurationsTableDataIntegrity _dataIntegrity;
 		private ConfigurationsTableDefaults _defaults;
 		private ConfigurationsTableDesign _design;
-		private ConfigurationsTableDataIntegrity _dataIntegrity;
 
-
+		/// <summary>If <see cref="IsInstalled" /> is true, all the default items are currently installed.</summary>
+		public bool IsInstalled
+		{
+			get { return GetValue(false); }
+			internal set { SetValue(value); }
+		}
 
 		/// <summary>Contains all default values for different database wide properties.</summary>
 		public ConfigurationsTableDefaults Default => _defaults ?? (_defaults = new ConfigurationsTableDefaults(this));

@@ -2,11 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-08</date>
+// <date>2016-05-18</date>
 
 using System;
+using System.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Db.models.helper;
 using CsWpfBase.Ev.Public.Extensions;
@@ -25,83 +25,78 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		private OutputFormat _defaultMailFormat;
 		private OutputFormat _defaultPrintFormat;
 		private OutputFormat _defaultStornoFormat;
-		private ContractCollection<OutputFormat> _nonStornoFormate;
+		private OutputFormat _defaultTagesBonFormat;
+		private OutputFormat _defaultMonatsBonFormat;
+		private OutputFormat _defaultJahresBonFormat;
+		private ContractCollection<OutputFormat> _mailOrPrintFormate;
 		private ContractCollection<OutputFormat> _stornoFormate;
 
 		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for printing.</summary>
 		public OutputFormat Default_PrintFormat
 		{
-			get
-			{
-				if (_defaultPrintFormat != null) return _defaultPrintFormat;
-
-				_defaultPrintFormat = LoadThenFind(DataSet.Configurations.Default.PrintOutputFormat);
-				if (_defaultPrintFormat != null) return _defaultPrintFormat;
-
-				_defaultPrintFormat = NewRow();
-				_defaultPrintFormat.Id = DataSet.Configurations.Default.PrintOutputFormat;
-				_defaultPrintFormat.CreationDate = DateTime.Now;
-				_defaultPrintFormat.Name = $"{BonLayouts.V1PrintBon.GetName()} Vorlage";
-				_defaultPrintFormat.BonLayout = BonLayouts.V1PrintBon;
-				_defaultPrintFormat.Table.Add(_defaultPrintFormat);
-				return _defaultPrintFormat;
-			}
+			get { return GetDefaultFormat(ref _defaultPrintFormat, DataSet.Configurations.Default.PrintOutputFormatId, BonLayouts.Unknown.Default_Print()); }
 			set
 			{
 				if (SetProperty(ref _defaultPrintFormat, value))
-					DataSet.Configurations.Default.PrintOutputFormat = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.PrintOutputFormatId = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
 		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for mailing.</summary>
 		public OutputFormat Default_MailFormat
 		{
-			get
-			{
-				if (_defaultMailFormat != null) return _defaultMailFormat;
-
-				_defaultMailFormat = LoadThenFind(DataSet.Configurations.Default.MailOutputFormat);
-				if (_defaultMailFormat != null) return _defaultMailFormat;
-
-				_defaultMailFormat = NewRow();
-				_defaultMailFormat.Id = DataSet.Configurations.Default.MailOutputFormat;
-				_defaultMailFormat.CreationDate = DateTime.Now;
-				_defaultMailFormat.Name = $"{BonLayouts.V1MailBon.GetName()} Vorlage";
-				_defaultMailFormat.BonLayout = BonLayouts.V1MailBon;
-				_defaultMailFormat.Table.Add(_defaultMailFormat);
-				return _defaultMailFormat;
-			}
+			get { return GetDefaultFormat(ref _defaultMailFormat, DataSet.Configurations.Default.MailOutputFormatId, BonLayouts.Unknown.Default_Mail()); }
 			set
 			{
 				if (SetProperty(ref _defaultMailFormat, value))
-					DataSet.Configurations.Default.MailOutputFormat = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.MailOutputFormatId = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
 		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for Storno.</summary>
 		public OutputFormat Default_StornoFormat
 		{
-			get
-			{
-				if (_defaultStornoFormat != null) return _defaultStornoFormat;
-
-				_defaultStornoFormat = LoadThenFind(DataSet.Configurations.Default.StornoOutputFormat);
-				if (_defaultStornoFormat != null) return _defaultStornoFormat;
-
-				_defaultStornoFormat = NewRow();
-				_defaultStornoFormat.Id = DataSet.Configurations.Default.StornoOutputFormat;
-				_defaultStornoFormat.CreationDate = DateTime.Now;
-				_defaultStornoFormat.Name = $"{BonLayouts.V1StornoBon.GetName()} Vorlage";
-				_defaultStornoFormat.BonLayout = BonLayouts.V1StornoBon;
-				_defaultStornoFormat.Table.Add(_defaultStornoFormat);
-				return _defaultStornoFormat;
-			}
+			get { return GetDefaultFormat(ref _defaultStornoFormat, DataSet.Configurations.Default.StornoOutputFormatId, BonLayouts.Unknown.Default_Storno()); }
 			set
 			{
 				if (SetProperty(ref _defaultStornoFormat, value))
-					DataSet.Configurations.Default.StornoOutputFormat = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.StornoOutputFormatId = value?.Id ?? Guid.NewGuid();
 			}
 		}
+
+		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for the Tagesbon.</summary>
+		public OutputFormat Default_TagesBonFormat
+		{
+			get { return GetDefaultFormat(ref _defaultTagesBonFormat, DataSet.Configurations.Default.TagesBonOutputFormatId, BonLayouts.Unknown.Default_Tag()); }
+			set
+			{
+				if (SetProperty(ref _defaultTagesBonFormat, value))
+					DataSet.Configurations.Default.TagesBonOutputFormatId = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
+		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for the Monatsbon.</summary>
+		public OutputFormat Default_MonatsBonFormat
+		{
+			get { return GetDefaultFormat(ref _defaultMonatsBonFormat, DataSet.Configurations.Default.MonatsBonOutputFormatId, BonLayouts.Unknown.Default_Monat()); }
+			set
+			{
+				if (SetProperty(ref _defaultMonatsBonFormat, value))
+					DataSet.Configurations.Default.MonatsBonOutputFormatId = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
+		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for the Jahresbon.</summary>
+		public OutputFormat Default_JahresBonFormat
+		{
+			get { return GetDefaultFormat(ref _defaultJahresBonFormat, DataSet.Configurations.Default.JahresBonOutputFormatId, BonLayouts.Unknown.Default_Jahr()); }
+			set
+			{
+				if (SetProperty(ref _defaultJahresBonFormat, value))
+					DataSet.Configurations.Default.JahresBonOutputFormatId = value?.Id ?? Guid.NewGuid();
+			}
+		}
+
 
 		/// <summary>returns a collection with only Storno formats</summary>
 		public ContractCollection<OutputFormat> StornoFormate
@@ -109,21 +104,26 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			get { return _stornoFormate ?? (_stornoFormate = CreateContractCollection(format => format.BonLayout.IsStornoLayout())); }
 		}
 		/// <summary>returns a collection with only non-Storno formats</summary>
-		public ContractCollection<OutputFormat> NonStornoFormate
+		public ContractCollection<OutputFormat> MailOrPrintFormate
 		{
-			get { return _nonStornoFormate ?? (_nonStornoFormate = CreateContractCollection(format => !format.BonLayout.IsStornoLayout())); }
+			get { return _mailOrPrintFormate ?? (_mailOrPrintFormate = CreateContractCollection(format => format.BonLayout.IsPrintLayout() || format.BonLayout.IsMailLayout())); }
 		}
+		
 
-
-		/// <summary>Invokes the creation of the default <see cref="OutputFormat" /> rows.</summary>
-		public void EnsureDefaults()
+		private OutputFormat GetDefaultFormat(ref OutputFormat field, Guid id, BonLayouts layout)
 		{
-			// ReSharper disable once NotAccessedVariable
-			// ReSharper disable RedundantAssignment
-			var name = Default_PrintFormat.Name;
-			name = Default_MailFormat.Name;
-			name = Default_StornoFormat.Name;
-			// ReSharper restore RedundantAssignment
+			if (field != null) return field;
+			field = HasBeenLoaded ? Find(id) : FindOrLoad(id);
+			if (field != null) return field;
+
+			field = NewRow();
+			field.Id = id;
+			field.CreationDate = DateTime.Now;
+			field.LastUsedDate = field.CreationDate; //Makes it unchangeable
+			field.Name = $"{layout.GetName()} Vorlage";
+			field.BonLayout = layout;
+			field.Table.Add(field);
+			return field;
 		}
 	}
 }

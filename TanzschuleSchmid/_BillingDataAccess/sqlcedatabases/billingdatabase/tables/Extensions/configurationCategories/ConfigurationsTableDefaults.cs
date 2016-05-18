@@ -28,19 +28,38 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 
 
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for printing.</summary>
-		public Guid PrintOutputFormat
+		public Guid PrintOutputFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
-		public Guid MailOutputFormat
+		public Guid MailOutputFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
-		public Guid StornoOutputFormat
+		public Guid StornoOutputFormatId
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+
+		/// <summary>The <see cref="OutputFormat" /> which should be used as default for the Tagesbon.</summary>
+		public Guid TagesBonOutputFormatId
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>The <see cref="OutputFormat" /> which should be used as default for the Monatsbon.</summary>
+		public Guid MonatsBonOutputFormatId
+		{
+			get { return GetValue(Guid.NewGuid()); }
+			set { SetValue(value); }
+		}
+		/// <summary>The <see cref="OutputFormat" /> which should be used as default for the Jahresbon.</summary>
+		public Guid JahresBonOutputFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
 			set { SetValue(value); }

@@ -26,6 +26,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 		private readonly BelegData[] _belegDatas;
 
 		private Entry[] _entries;
+		private int _firstBelegDataNummer;
+		private DateTime _firstBelegDataTime;
+		private int _lastBelegDataNummer;
+		private DateTime _lastBelegDataTime;
+		private decimal _umsatzBrutto;
+		private decimal _umsatzNetto;
 
 		/// <summary>ctor</summary>
 		public SteuersatzAufschlüsselung(params BelegData[] belegDatas)
@@ -56,6 +62,43 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 			get { return _entries; }
 			private set { SetProperty(ref _entries, value); }
 		}
+		/// <summary>Gets or sets the FirstBelegDataTime.</summary>
+		public DateTime FirstBelegDataTime
+		{
+			get { return _firstBelegDataTime; }
+			private set { SetProperty(ref _firstBelegDataTime, value); }
+		}
+		/// <summary>Gets or sets the LastBelegDataTime.</summary>
+		public DateTime LastBelegDataTime
+		{
+			get { return _lastBelegDataTime; }
+			private set { SetProperty(ref _lastBelegDataTime, value); }
+		}
+		/// <summary>Gets or sets the FirstBelegDataNummer.</summary>
+		public int FirstBelegDataNummer
+		{
+			get { return _firstBelegDataNummer; }
+			private set { SetProperty(ref _firstBelegDataNummer, value); }
+		}
+		/// <summary>Gets or sets the LastBelegDataNummer.</summary>
+		public int LastBelegDataNummer
+		{
+			get { return _lastBelegDataNummer; }
+			private set { SetProperty(ref _lastBelegDataNummer, value); }
+		}
+
+		/// <summary>Gets or sets the UmsatzBrutto.</summary>
+		public decimal UmsatzBrutto
+		{
+			get { return _umsatzBrutto; }
+			private set { SetProperty(ref _umsatzBrutto, value); }
+		}
+		/// <summary>Gets or sets the UmsatzNetto.</summary>
+		public decimal UmsatzNetto
+		{
+			get { return _umsatzNetto; }
+			private set { SetProperty(ref _umsatzNetto, value); }
+		}
 
 		private void AttachEventHandlers()
 		{
@@ -71,6 +114,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 		{
 			var data = new Dictionary<string, Entry>();
 
+			UmsatzBrutto = 0;
+			UmsatzNetto = 0;
+			FirstBelegDataTime = DateTime.MaxValue;
+			LastBelegDataTime = DateTime.MinValue;
+			FirstBelegDataNummer = int.MaxValue;
+			LastBelegDataNummer = int.MinValue;
+
 			foreach (var belegData in _belegDatas)
 			{
 				foreach (var posten in belegData.Postens)
@@ -82,6 +132,21 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 						data.Add($"{belegData.Typ}.{posten.Steuersatz.Id}", entry);
 					}
 					entry.BetragBrutto += posten.BetragBrutto;
+					entry.BetragNetto += posten.BetragNetto;
+					UmsatzBrutto += posten.BetragBrutto;
+					UmsatzNetto += posten.BetragNetto;
+					entry.Anzahl += posten.Anzahl;
+				}
+				if (belegData.Nummer < FirstBelegDataNummer)
+				{
+					FirstBelegDataNummer = belegData.Nummer;
+					FirstBelegDataTime = belegData.Datum;
+				}
+
+				if (belegData.Nummer > LastBelegDataNummer)
+				{
+					LastBelegDataNummer = belegData.Nummer;
+					LastBelegDataTime = belegData.Datum;
 				}
 			}
 
@@ -99,8 +164,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 		/// <summary>one entry</summary>
 		public class Entry : Base
 		{
+			private int _anzahl;
 
 			private decimal _betragBrutto;
+			private decimal _betragNetto;
 			private Steuersatz _steuersatz;
 			private BelegDataTypes _typ;
 
@@ -123,7 +190,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 				get { return _steuersatz; }
 				private set { SetProperty(ref _steuersatz, value); }
 			}
-
+			/// <summary>Gets or sets the Artikel.</summary>
+			public int Anzahl
+			{
+				get { return _anzahl; }
+				set { SetProperty(ref _anzahl, value); }
+			}
 			/// <summary>Gets or sets the BetragBrutto.</summary>
 			public decimal BetragBrutto
 			{
@@ -131,14 +203,19 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 				internal set
 				{
 					if (SetProperty(ref _betragBrutto, value))
-					{
-						OnPropertyChanged(nameof(BetragNetto));
 						OnPropertyChanged(nameof(BetragDifferenz));
-					}
 				}
 			}
 			/// <summary>Gets or sets the BetragNetto.</summary>
-			public decimal BetragNetto => BetragBrutto/(1 + Steuersatz.Percent/100);
+			public decimal BetragNetto
+			{
+				get { return _betragNetto; }
+				internal set
+				{
+					if (SetProperty(ref _betragNetto, value))
+						OnPropertyChanged(nameof(BetragDifferenz));
+				}
+			}
 			/// <summary>The difference between <see cref="BetragBrutto" /> and <see cref="BetragNetto" /></summary>
 			public decimal BetragDifferenz => BetragBrutto - BetragNetto;
 		}
