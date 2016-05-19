@@ -2,12 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-05-19</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.functions.data.basis;
 
@@ -63,22 +62,32 @@ namespace BillingTool.btScope.functions.data
 				Bt.Data.PrintedBeleg.TryFinalize(printedBeleg);
 			}
 
-			item.Recalculate_BetragBrutto();
-			item.Recalculate_BetragNetto();
 
 			item.State = BelegDataStates.Approved;
 
 
 			var di = item.DataSet.Configurations.DataIntegrity;
+			item.Recalculate_BetragBrutto();
+			item.Recalculate_BetragNetto();
 
-			item.Nummer = di.LastBelegNummer + 1;
-			item.UmsatzZähler = di.Umsatzzähler + item.BetragBrutto;
 
-			di.Umsatzzähler = item.UmsatzZähler;
-			di.LastBelegNummer = item.Nummer;
 
+			if (!item.Typ.IsUmsatzNachricht())
+			{
+				item.UmsatzZähler = di.Umsatzzähler + item.BetragBrutto;
+				di.Umsatzzähler = item.UmsatzZähler;
+			}
+			if (item.Typ == BelegDataTypes.MonatsUmsatz)
+			{
+				di.MonatsBon_LastUsedBelegDataNumber = item.BonNummerBis;
+				di.MonatsBon_LastTimeCreated = DateTime.Now;
+			}
 			if (item.Typ == BelegDataTypes.Storno)
 				item.StornoBeleg.State = BelegDataStates.Storniert;
+
+
+			item.Nummer = di.LastBelegNummer + 1;
+			di.LastBelegNummer = item.Nummer;
 		}
 
 		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
@@ -185,7 +194,7 @@ namespace BillingTool.btScope.functions.data
 			return newItem;
 		}
 
-		/// <summary>Creates a new <see cref="BelegData" /> for as an <see cref="BelegDataTypes.MonatsUmsatz"/>.</summary>
+		/// <summary>Creates a new <see cref="BelegData" /> for as an <see cref="BelegDataTypes.MonatsUmsatz" />.</summary>
 		public BelegData New_MonatsBeleg()
 		{
 			if (HasNonFinalizedRows)
@@ -198,7 +207,7 @@ namespace BillingTool.btScope.functions.data
 			newItem.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
 			newItem.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
 			newItem.UmsatzZähler = 0;
-			newItem.BonNummerVon = Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastIncludedBon + 1;
+			newItem.BonNummerVon = Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastUsedBelegDataNumber == null ? 1 : Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastUsedBelegDataNumber + 1;
 			newItem.BonNummerBis = Bt.Db.Billing.Configurations.DataIntegrity.LastBelegNummer;
 			newItem.Table.Add(newItem);
 
@@ -207,7 +216,7 @@ namespace BillingTool.btScope.functions.data
 		}
 
 		/// <summary>Updates the <see cref="BelegData.BetragBrutto" /> field.</summary>
-		public void UpdateBetragData(BelegData data)
+		public void UpdateBetrag_Of_BelegData(BelegData data)
 		{
 			if (!data.Recalculate_BetragBrutto())
 				data.RaisePropertyChanged(nameof(BelegData.BetragBrutto));

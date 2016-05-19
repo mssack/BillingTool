@@ -143,7 +143,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		[DependsOn(nameof(Typ))]
 		[DependsOn(nameof(BonNummerVon))]
 		[DependsOn(nameof(BonNummerBis))]
-		public BelegData[] IncludedBelegData
+		// ReSharper disable once InconsistentNaming
+		public BelegData[] VonBis_BelegData
 		{
 			get
 			{

@@ -11,17 +11,6 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
 			</ResourceDictionary.MergedDictionaries>
-			<Style TargetType="{x:Type TextBlock}" x:Key="TableHeader">
-				<Setter Property="HorizontalAlignment" Value="Right"/>
-				<Setter Property="Padding" Value="0" />
-				<Setter Property="Margin" Value="1,1,10,1" />
-				<Setter Property="FontSize" Value="11" />
-			</Style>
-			<Style TargetType="{x:Type TextBlock}" x:Key="TableValue">
-				<Setter Property="HorizontalAlignment" Value="Right"/>
-				<Setter Property="Padding" Value="0" />
-				<Setter Property="Margin" Value="1,1,10,1" />
-			</Style>
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid>
@@ -30,46 +19,125 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<Border>
-			<Grid>
+		<Image Grid.Row="0" Source="{Binding ElementName=Uc2, Path=OutputFormat.FirstImage}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.FirstImage, Converter={StaticResource GConv-NullToVisibility}}"/>
+		<TextBlock Grid.Row="1" Text="{Binding ElementName=Uc2, Path=OutputFormat.FirstText}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.FirstText, Converter={StaticResource GConv-NullToVisibility}}"/>
+		<TextBlock Grid.Row="2" TextAlignment="Right" Text="{Binding ElementName=Uc2, Path=Item.Datum}" />
+		<TextBlock Grid.Row="3" TextAlignment="Right" Text="{Binding ElementName=Uc2, Path=Item.Nummer, StringFormat={}Bon: {0:0}}" />
+		<TextBlock Grid.Row="4" TextAlignment="Right" Text="{Binding ElementName=Uc2, Path=Item.KassenId, StringFormat={}Kassen ID: {0}}"/>
+
+
+		<TextBlock Grid.Row="5" Text="Monatszusammenfassung"  FontSize="18" Margin="0,15,0,15"/>
+		<Grid Grid.Row="6" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<TextBlock Grid.Row="0" Text="{Binding ElementName=Uc2, Path=BelegDataAnalysis.GrößterUmsatzZähler, StringFormat={}Umsatzzähler: {0:0.00} €}" Margin="0,0,0,5"/>
+			<TextBlock Grid.Row="1" Text="{Binding ElementName=Uc2, Path=BelegDataAnalysis.FirstBelegDataTime, StringFormat={}Vom: {0}}"/>
+			<TextBlock Grid.Row="2" Text="{Binding ElementName=Uc2, Path=BelegDataAnalysis.LastBelegDataTime, StringFormat={}Bis: {0}}"/>
+			<TextBlock Grid.Row="3" Margin="0,5,0,0">
+				<TextBlock.Text>
+					<MultiBinding StringFormat="{}Bon nummer: {0} bis {1}">
+						<Binding ElementName="Uc2" Path="BelegDataAnalysis.FirstBelegDataNummer"/>
+						<Binding ElementName="Uc2" Path="BelegDataAnalysis.LastBelegDataNummer"/>
+					</MultiBinding>
+				</TextBlock.Text>
+			</TextBlock>
+			<TextBlock Grid.Row="4" Text="{Binding ElementName=Uc2, Path=BelegDataAnalysis.BetragBrutto, StringFormat={}Gesamtumsatz Brutto: {0:0.00} €}" Margin="0,5,0,0" />
+			<TextBlock Grid.Row="5" Text="{Binding ElementName=Uc2, Path=BelegDataAnalysis.BetragNetto, StringFormat={}Gesamtumsatz Netto:  {0:0.00} €}" />
+		</Grid>
+
+		<TextBlock Grid.Row="7" Text="Aufschlüsselung nach Posten" Margin="0,15,0,5"/>
+		<Border Grid.Row="8" Grid.IsSharedSizeScope="True" Margin="15,0,0,0">
+			<Border.Resources>
+				<Style TargetType="{x:Type TextBlock}" x:Key="TableHeader">
+					<Setter Property="TextAlignment" Value="Right"/>
+					<Setter Property="VerticalAlignment" Value="Top" />
+					<Setter Property="Padding" Value="0" />
+					<Setter Property="Margin" Value="1,1,10,1" />
+					<Setter Property="FontSize" Value="11" />
+				</Style>
+				<Style TargetType="{x:Type TextBlock}" x:Key="TableValue">
+					<Setter Property="TextAlignment" Value="Right"/>
+					<Setter Property="VerticalAlignment" Value="Top" />
+					<Setter Property="Padding" Value="0" />
+					<Setter Property="Margin" Value="1,1,10,1" />
+				</Style>
+			</Border.Resources>
+			<Grid >
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
 				</Grid.RowDefinitions>
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="Kassenid: " Margin="0,0,6,0"/>
-					<TextBlock Text="{Binding ElementName=Uc2, Path=Item.KassenId}"/>
-				</StackPanel>
-				<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0">
-					<TextBlock VerticalAlignment="Top" Text="Bon#: "/>
-					<TextBlock >
-						<TextBlock.Text>
-							<MultiBinding StringFormat="{}{0} bis {1}">
-								<Binding ElementName="Uc2" Path="SteuersatzAufschlüsselung.FirstBelegDataNummer"/>
-								<Binding ElementName="Uc2" Path="SteuersatzAufschlüsselung.LastBelegDataNummer"/>
-							</MultiBinding>
-						</TextBlock.Text>
-					</TextBlock>
-				</StackPanel>
-				<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,5,0,0">
-					<TextBlock VerticalAlignment="Top" Text="Vom: "/>
-					<TextBlock Text="{Binding ElementName=Uc2, Path=SteuersatzAufschlüsselung.FirstBelegDataTime}"/>
-				</StackPanel>
-				<StackPanel Grid.Row="3" Orientation="Horizontal">
-					<TextBlock VerticalAlignment="Top" Text="Bis: "/>
-					<TextBlock Text="{Binding ElementName=Uc2, Path=SteuersatzAufschlüsselung.LastBelegDataTime}"/>
-				</StackPanel>
-				
+				<Border Grid.Row="0"  BorderThickness="0,0,0,1" BorderBrush="DimGray" Margin="0,0,0,1" Padding="0,0,0,1" >
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" SharedSizeGroup="C"/>
+							<ColumnDefinition Width="Auto" SharedSizeGroup="D"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Style="{StaticResource TableHeader}" Text="Anzahl"/>
+						<TextBlock Grid.Column="1" Style="{StaticResource TableHeader}" Text="Posten" TextAlignment="Left"/>
+						<TextBlock Grid.Column="2" Style="{StaticResource TableHeader}" Text="Netto"/>
+						<TextBlock Grid.Column="3" Style="{StaticResource TableHeader}" Text="Brutto"/>
+					</Grid>
+				</Border>
+				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc2, Path=BelegDataAnalysis.PerPostenEntries}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate DataType="{x:Type dataanalysis:BelegDataAnalysis+PerPostenEntry}">
+							<Grid Margin="0,0,0,0">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" SharedSizeGroup="C"/>
+									<ColumnDefinition Width="Auto" SharedSizeGroup="D"/>
+								</Grid.ColumnDefinitions>
+								<TextBlock Grid.Column="0" Style="{StaticResource TableValue}" Text="{Binding Path=Anzahl, StringFormat={}{0:0}x}" />
+								<TextBlock Grid.Column="1" Style="{StaticResource TableValue}" Text="{Binding Path=Posten.Name}" TextAlignment="Left" TextWrapping="Wrap" />
+								<TextBlock Grid.Column="2" Style="{StaticResource TableValue}" Text="{Binding Path=BetragNetto, StringFormat={}{0:0.00}}" />
+								<TextBlock Grid.Column="3" Style="{StaticResource TableValue}" Text="{Binding Path=BetragBrutto, StringFormat={}{0:0.00}}" />
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 			</Grid>
+
 		</Border>
-		<Border Grid.Row="1" Grid.IsSharedSizeScope="True">
-			<ItemsControl  ItemsSource="{Binding ElementName=Uc2, Path=SteuersatzAufschlüsselung.PerTypEntries}">
+
+		<TextBlock Grid.Row="9" Text="Aufschlüsselung nach Steuer" Margin="0,15,0,5"/>
+		<Border Grid.Row="10" Grid.IsSharedSizeScope="True" Margin="15,0,0,-15">
+			<Border.Resources>
+				<Style TargetType="{x:Type TextBlock}" x:Key="TableHeader">
+					<Setter Property="HorizontalAlignment" Value="Right"/>
+					<Setter Property="Padding" Value="0" />
+					<Setter Property="Margin" Value="1,1,10,1" />
+					<Setter Property="FontSize" Value="11" />
+				</Style>
+				<Style TargetType="{x:Type TextBlock}" x:Key="TableValue">
+					<Setter Property="HorizontalAlignment" Value="Right"/>
+					<Setter Property="Padding" Value="0" />
+					<Setter Property="Margin" Value="1,1,10,1" />
+				</Style>
+			</Border.Resources>
+			<ItemsControl  ItemsSource="{Binding ElementName=Uc2, Path=BelegDataAnalysis.PerTypEntries}">
 				<ItemsControl.ItemTemplate>
-					<DataTemplate DataType="{x:Type dataanalysis:SteuersatzAufschlüsselung+PerTypEntry}">
-						<Grid Margin="0,15,0,0">
+					<DataTemplate DataType="{x:Type dataanalysis:BelegDataAnalysis+PerTypEntry}">
+						<Grid Margin="0,0,0,15">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto"/>
 								<RowDefinition Height="Auto"/>
@@ -96,12 +164,12 @@
 									<ColumnDefinition Width="Auto" SharedSizeGroup="D"/>
 								</Grid.ColumnDefinitions>
 								<TextBlock Grid.Column="0" Style="{StaticResource TableValue}" Text="{Binding Path=Typ, Converter={StaticResource GConv-GetEnumName}}"
-												HorizontalAlignment="Left" FontWeight="Bold" FontSize="14"/>
+												HorizontalAlignment="Left" FontWeight="Bold" Grid.ColumnSpan="4"/>
 								<TextBlock Grid.Column="3" Style="{StaticResource TableValue}" Text="{Binding Path=GesamtSummeBrutto, StringFormat={}{0:0.00}}" FontWeight="Bold" />
 							</Grid>
-							<ItemsControl Grid.Row="2" ItemsSource="{Binding Path=Entries}" Margin="8,0,0,0">
+							<ItemsControl Grid.Row="2" ItemsSource="{Binding Path=PerSteuersatzEntries}" Margin="8,0,0,0">
 								<ItemsControl.ItemTemplate>
-									<DataTemplate DataType="{x:Type dataanalysis:SteuersatzAufschlüsselung+Entry}">
+									<DataTemplate DataType="{x:Type dataanalysis:BelegDataAnalysis+PerSteuersatzEntry}">
 										<Grid Margin="0,0,-10,0">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="*" />
@@ -131,6 +199,10 @@
 			</ItemsControl>
 
 		</Border>
+
+
+		<Image Grid.Row="11" Source="{Binding ElementName=Uc2, Path=OutputFormat.SecondImage}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.SecondImage, Converter={StaticResource GConv-NullToVisibility}}"/>
+		<TextBlock Grid.Row="12" Text="{Binding ElementName=Uc2, Path=OutputFormat.SecondText}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.SecondText, Converter={StaticResource GConv-NullToVisibility}}"/>
 
 	</Grid>
 </UserControl>

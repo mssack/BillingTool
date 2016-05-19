@@ -119,47 +119,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			}
 		}
 
-
-
-		/// <summary>The cashed image.</summary>
-		[DependsOn(nameof(FirstImageBinary))]
-		public BitmapSource FirstImageThreadSafe
-		{
-			get
-			{
-				if (_firstImageCash == null)
-					_firstImageCash = new ImageHandler(() => FirstImageBinary, val => FirstImageBinary = val, () => FirstImageHash, val => FirstImageHash = val);
-
-				return _firstImageCash.GetThreadSafeValue();
-			}
-		}
-
-		/// <summary>The cashed image.</summary>
-		[DependsOn(nameof(SecondImageBinary))]
-		public BitmapSource SecondImageThreadSafe
-		{
-			get
-			{
-				if (_secondImageCash == null)
-					_secondImageCash = new ImageHandler(() => SecondImageBinary, val => SecondImageBinary = val, () => SecondImageHash, val => SecondImageHash = val);
-
-				return _secondImageCash.GetThreadSafeValue();
-			}
-		}
-
-		/// <summary>The cashed image.</summary>
-		[DependsOn(nameof(ThirdImageBinary))]
-		public BitmapSource ThirdImageThreadSafe
-		{
-			get
-			{
-				if (_thirdImageCash == null)
-					_thirdImageCash = new ImageHandler(() => ThirdImageBinary, val => ThirdImageBinary = val, () => ThirdImageHash, val => ThirdImageHash = val);
-
-				return _thirdImageCash.GetThreadSafeValue();
-			}
-		}
-
+		
 		/// <summary>returns true if this element has been used before.</summary>
 		[DependsOn(nameof(LastUsedDate))]
 		public bool HasBeenUsed => LastUsedDate != null;
@@ -169,6 +129,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 		private class ImageHandler
 		{
+			private BitmapSource _value;
 
 			public ImageHandler(Func<byte[]> getDbValue, Action<byte[]> setDbValue, Func<string> getDbHash, Action<string> setDbHash)
 			{
@@ -179,7 +140,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 			}
 
-			private BitmapSource Value { get; set; }
+			private BitmapSource Value
+			{
+				get { return _value; }
+				set { _value = value; value?.Freeze(); }
+			}
 			private string Hash { get; set; }
 
 			private Func<byte[]> GetDbValue { get; }
@@ -215,13 +180,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				Value = DbValue.ConvertTo_Image();
 				return Value;
 			}
-			public BitmapSource GetThreadSafeValue()
-			{
-				if (string.IsNullOrEmpty(DbHash))
-					return null;
-				return DbValue.ConvertTo_Image();
-			}
-
 			public void SetValue(BitmapSource value)
 			{
 				if (value == null)

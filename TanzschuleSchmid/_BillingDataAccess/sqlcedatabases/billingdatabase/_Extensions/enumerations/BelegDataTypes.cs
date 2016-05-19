@@ -38,11 +38,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 
 
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[EnumDescription("TagesUmsatz")] TagesUmsatz = 1001,
+		[EnumDescription("Tagesbon")] TagesUmsatz = 1001,
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[EnumDescription("MonatsUmsatz")] MonatsUmsatz = 1002,
+		[EnumDescription("Monatsbon")] MonatsUmsatz = 1002,
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[EnumDescription("JahresUmsatz")] JahresUmsatz = 1003,
+		[EnumDescription("Jahresbon")] JahresUmsatz = 1003,
 	}
 
 

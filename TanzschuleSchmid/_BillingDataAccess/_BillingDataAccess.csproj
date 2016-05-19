@@ -86,7 +86,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\OutputFormatsTable.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\dataanalysis\SteuersatzAufschlüsselung.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\dataanalysis\BelegDataAnalysis.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\BelegDataInvalidReasons.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\ICanBeFilteredByDate.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IOutputBeleg.cs" />

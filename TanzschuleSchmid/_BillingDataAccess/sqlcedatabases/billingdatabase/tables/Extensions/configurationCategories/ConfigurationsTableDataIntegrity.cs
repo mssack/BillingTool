@@ -2,18 +2,20 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-05-19</date>
 
 using System;
 using System.Runtime.CompilerServices;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Objects;
+
+
+
+
+
+
 // ReSharper disable InconsistentNaming
-
-
-
-
-
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationCategories
 {
@@ -49,16 +51,29 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 		/// <summary>The last used <see cref="Steuersatz.Kürzel" />. Each time a new <see cref="Steuersatz" /> is added increment this value by one.</summary>
 		public char LastSteuersatzKürzel
 		{
-			get { return GetValue((char)('A' - 1)); }
+			get { return GetValue((char) ('A' - 1)); }
 			set { SetValue(value); }
 		}
 
-		/// <summary>The last included <see cref="BelegData.Nummer"/> in a MonatsBon.</summary>
-		public int MonatsBon_LastIncludedBon
+
+		/// <summary>Time of the latest created <see cref="BelegData" /> with type <see cref="BelegDataTypes.MonatsUmsatz" />.</summary>
+		public DateTime? MonatsBon_LastTimeCreated
 		{
-			get { return GetValue(0); }
+			get { return GetValue<DateTime?>(null); }
 			set { SetValue(value); }
 		}
+
+		/// <summary>
+		///     The <see cref="BelegData.Nummer" /> which was the last <see cref="BelegData" /> which was inserted in a <see cref="BelegData" /> with type
+		///     <see cref="BelegDataTypes.MonatsUmsatz" />.
+		/// </summary>
+		public int? MonatsBon_LastUsedBelegDataNumber
+		{
+			get { return GetValue<int?>(null); }
+			set { SetValue(value); }
+		}
+
+
 
 		/// <summary>Gets or sets the Owner.</summary>
 		private ConfigurationsTable Owner

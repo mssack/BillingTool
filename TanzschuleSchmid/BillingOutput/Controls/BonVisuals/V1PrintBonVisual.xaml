@@ -35,7 +35,7 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<Image Grid.Row="0" Source="{Binding ElementName=Uc, Path=OutputFormat.FirstImageThreadSafe}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.FirstImageThreadSafe, Converter={StaticResource GConv-NullToVisibility}}"/>
+				<Image Grid.Row="0" Source="{Binding ElementName=Uc, Path=OutputFormat.FirstImage}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.FirstImage, Converter={StaticResource GConv-NullToVisibility}}"/>
 				<TextBlock Grid.Row="1" Text="{Binding ElementName=Uc, Path=OutputFormat.FirstText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.FirstText, Converter={StaticResource GConv-NullToVisibility}}"/>
 				<TextBlock Grid.Row="2" TextAlignment="Right" Text="{Binding ElementName=Uc, Path=Item.Datum}" />
 				<TextBlock Grid.Row="3" TextAlignment="Right" Text="{Binding ElementName=Uc, Path=Item.Nummer, StringFormat={}Bon: {0:0}}" />
@@ -125,9 +125,9 @@
 					<TextBlock Grid.Column="4" Text="Brutto" TextAlignment="Right" />
 				</Grid>
 
-				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc, Path=SteuersatzAufschlüsselung.Entries}" Focusable="False" >
+				<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Uc, Path=BelegDataAnalysis.PerSteuersatzEntries}" Focusable="False" >
 					<ItemsControl.ItemTemplate>
-						<DataTemplate DataType="{x:Type dataanalysis:SteuersatzAufschlüsselung+Entry}">
+						<DataTemplate DataType="{x:Type dataanalysis:BelegDataAnalysis+PerSteuersatzEntry}">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="Auto" SharedSizeGroup="a" />
@@ -162,7 +162,7 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 				<TextBlock Text="{Binding ElementName=Uc, Path=OutputFormat.SecondText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondText, Converter={StaticResource GConv-NullToVisibility}}" />
-				<Image Grid.Row="1" Source="{Binding ElementName=Uc, Path=OutputFormat.SecondImageThreadSafe}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondImageThreadSafe, Converter={StaticResource GConv-NullToVisibility}}"/>
+				<Image Grid.Row="1" Source="{Binding ElementName=Uc, Path=OutputFormat.SecondImage}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondImage, Converter={StaticResource GConv-NullToVisibility}}"/>
 			</Grid>
 		</Border>
 	</Grid>

@@ -28,10 +28,10 @@ namespace BillingOutput.Controls.ZeitBelege
 		}
 
 		/// <summary>The <see cref="Steuersatz" /> informations.</summary>
-		public SteuersatzAufschlüsselung SteuersatzAufschlüsselung
+		public BelegDataAnalysis BelegDataAnalysis
 		{
-			get { return (SteuersatzAufschlüsselung) GetValue(SteuersatzAufschlüsselungProperty); }
-			set { SetValue(SteuersatzAufschlüsselungProperty, value); }
+			get { return (BelegDataAnalysis) GetValue(BelegDataAnalysisProperty); }
+			set { SetValue(BelegDataAnalysisProperty, value); }
 		}
 		/// <summary>Item to display.</summary>
 		public BelegData Item
@@ -48,13 +48,13 @@ namespace BillingOutput.Controls.ZeitBelege
 
 		private void UpdateData()
 		{
-			SteuersatzAufschlüsselung?.Dispose();
-			SteuersatzAufschlüsselung = Item.IncludedBelegData == null ? null : new SteuersatzAufschlüsselung(Item.IncludedBelegData);
+			BelegDataAnalysis?.Dispose();
+			BelegDataAnalysis = Item.VonBis_BelegData == null ? null : new BelegDataAnalysis(Item.VonBis_BelegData);
 		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1MonatsBonVisual) o).UpdateData()});
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty SteuersatzAufschlüsselungProperty = DependencyProperty.Register("SteuersatzAufschlüsselung", typeof(SteuersatzAufschlüsselung), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(SteuersatzAufschlüsselung), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty BelegDataAnalysisProperty = DependencyProperty.Register("BelegDataAnalysis", typeof(BelegDataAnalysis), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegDataAnalysis), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
 	}
 }

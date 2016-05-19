@@ -44,17 +44,17 @@ namespace BillingOutput.Controls.BonVisuals
 			set { SetValue(OutputFormatProperty, value); }
 		}
 		/// <summary>Contains information about the <see cref="Steuersatz" /> which were used in this <see cref="BelegData" />.</summary>
-		public SteuersatzAufschlüsselung SteuersatzAufschlüsselung
+		public BelegDataAnalysis BelegDataAnalysis
 		{
-			get { return (SteuersatzAufschlüsselung) GetValue(SteuersatzAufschlüsselungProperty); }
-			set { SetValue(SteuersatzAufschlüsselungProperty, value); }
+			get { return (BelegDataAnalysis) GetValue(BelegDataAnalysisProperty); }
+			set { SetValue(BelegDataAnalysisProperty, value); }
 		}
 
 
 		private void ItemChanged(BelegData oldValue, BelegData newValue)
 		{
-			SteuersatzAufschlüsselung?.Dispose();
-			SteuersatzAufschlüsselung = newValue == null ? null : new SteuersatzAufschlüsselung(newValue);
+			BelegDataAnalysis?.Dispose();
+			BelegDataAnalysis = newValue == null ? null : new BelegDataAnalysis(newValue);
 
 			SteuersatzAufschlüsselungBorder.BringIntoView();
 		}
@@ -62,7 +62,7 @@ namespace BillingOutput.Controls.BonVisuals
 
 
 #pragma warning disable 1591
-		public static readonly DependencyProperty SteuersatzAufschlüsselungProperty = DependencyProperty.Register("SteuersatzAufschlüsselung", typeof(SteuersatzAufschlüsselung), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(SteuersatzAufschlüsselung), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty BelegDataAnalysisProperty = DependencyProperty.Register("BelegDataAnalysis", typeof(BelegDataAnalysis), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegDataAnalysis), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1PrintBonVisual) o).ItemChanged(args.OldValue as BelegData, args.NewValue as BelegData)});
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(V1PrintBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
