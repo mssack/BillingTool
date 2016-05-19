@@ -72,12 +72,12 @@ namespace BillingTool.btScope.functions.data
 
 
 
-			if (!item.Typ.IsUmsatzNachricht())
+			if (!item.Typ.IsZeitBon())
 			{
 				item.UmsatzZähler = di.Umsatzzähler + item.BetragBrutto;
 				di.Umsatzzähler = item.UmsatzZähler;
 			}
-			if (item.Typ == BelegDataTypes.MonatsUmsatz)
+			if (item.Typ == BelegDataTypes.MonatsBon)
 			{
 				di.MonatsBon_LastUsedBelegDataNumber = item.BonNummerBis;
 				di.MonatsBon_LastTimeCreated = DateTime.Now;
@@ -194,7 +194,7 @@ namespace BillingTool.btScope.functions.data
 			return newItem;
 		}
 
-		/// <summary>Creates a new <see cref="BelegData" /> for as an <see cref="BelegDataTypes.MonatsUmsatz" />.</summary>
+		/// <summary>Creates a new <see cref="BelegData" /> for as an <see cref="BelegDataTypes.MonatsBon" />.</summary>
 		public BelegData New_MonatsBeleg()
 		{
 			if (HasNonFinalizedRows)
@@ -203,7 +203,7 @@ namespace BillingTool.btScope.functions.data
 
 			var newItem = Bt.Db.Billing.BelegDaten.NewRow();
 
-			newItem.Typ = BelegDataTypes.MonatsUmsatz;
+			newItem.Typ = BelegDataTypes.MonatsBon;
 			newItem.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
 			newItem.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
 			newItem.UmsatzZähler = 0;

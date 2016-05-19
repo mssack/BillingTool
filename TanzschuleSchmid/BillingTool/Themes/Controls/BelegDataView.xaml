@@ -66,6 +66,15 @@
 													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
 														<Setter Property="Visibility" Value="Collapsed" />
 													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+														<Setter Property="Visibility" Value="Collapsed" />
+													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+														<Setter Property="Visibility" Value="Collapsed" />
+													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+														<Setter Property="Visibility" Value="Collapsed" />
+													</DataTrigger>
 												</Style.Triggers>
 											</Style>
 										</Grid.Style>
@@ -135,8 +144,65 @@
 											</Border>
 										</Expander>
 									</Grid>
+									<Grid Grid.Column="1" Margin="10,0,0,0">
+										<Grid.Style>
+											<Style TargetType="{x:Type Grid}">
+												<Setter Property="Visibility" Value="Collapsed" />
+												<Style.Triggers>
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+														<Setter Property="Visibility" Value="Visible" />
+													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+														<Setter Property="Visibility" Value="Visible" />
+													</DataTrigger>
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+														<Setter Property="Visibility" Value="Visible" />
+													</DataTrigger>
+												</Style.Triggers>
+											</Style>
+										</Grid.Style>
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Expander Header="Umsatznachricht" IsExpanded="True">
+											<Border>
+												<Grid>
+													<Grid.RowDefinitions>
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+														<RowDefinition Height="Auto" />
+													</Grid.RowDefinitions>
+													<ParamView Grid.Row="0" Header="Bon:">
+														<ParamView.Value>
+															<MultiBinding Converter="{StaticResource GConv-MultiBindingStringFormat}" ConverterParameter="{}{0} bis {1}" >
+																<Binding Path="BonNummerVon"/>
+																<Binding Path="BonNummerBis"/>
+															</MultiBinding>
+														</ParamView.Value>
+													</ParamView>
+												</Grid>
+											</Border>
+										</Expander>
+									</Grid>
 								</Grid>
 								<Expander Grid.Row="1" Header="Artikel" IsExpanded="True" Padding="0">
+									<Expander.Style>
+										<Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+													<Setter Property="Visibility" Value="Collapsed" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+													<Setter Property="Visibility" Value="Collapsed" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+													<Setter Property="Visibility" Value="Collapsed" />
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</Expander.Style>
 									<belegview:BelegPostenListView Item="{Binding}" x:Name="PART_BelegPostenListView">
 										<ListView.ItemContainerStyle>
 											<Style TargetType="ListViewItem" BasedOn="{StaticResource CondensedListViewItemStyle}">

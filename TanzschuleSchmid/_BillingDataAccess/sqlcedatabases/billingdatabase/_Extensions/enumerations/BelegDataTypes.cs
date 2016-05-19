@@ -2,9 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-05-19</date>
 
 using System;
+using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Attributes;
 
@@ -38,11 +39,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 
 
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[EnumDescription("Tagesbon")] TagesUmsatz = 1001,
+		[EnumDescription("Tagesbon")] TagesBon = 1001,
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[EnumDescription("Monatsbon")] MonatsUmsatz = 1002,
+		[EnumDescription("Monatsbon")] MonatsBon = 1002,
 		/// <summary>Money exchanged with cash dispenser.</summary>
-		[EnumDescription("Jahresbon")] JahresUmsatz = 1003,
+		[EnumDescription("Jahresbon")] JahresBon = 1003,
 	}
 
 
@@ -54,9 +55,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 		public static bool CanBeStorniert(this BelegDataTypes type) => type == BelegDataTypes.Bar || type == BelegDataTypes.Bankomat || type == BelegDataTypes.Kreditkarte;
 
 		/// <summary>
-		///     returns true if this type is one of the following: <see cref="BelegDataTypes.TagesUmsatz" />, <see cref="BelegDataTypes.MonatsUmsatz" />,
-		///     <see cref="BelegDataTypes.JahresUmsatz" />.
+		///     returns true if this type is one of the following: <see cref="BelegDataTypes.TagesBon" />, <see cref="BelegDataTypes.MonatsBon" />,
+		///     <see cref="BelegDataTypes.JahresBon" />.
 		/// </summary>
-		public static bool IsUmsatzNachricht(this BelegDataTypes type) => type == BelegDataTypes.TagesUmsatz || type == BelegDataTypes.MonatsUmsatz || type == BelegDataTypes.JahresUmsatz;
+		public static bool IsZeitBon(this BelegDataTypes type) => type == BelegDataTypes.TagesBon || type == BelegDataTypes.MonatsBon || type == BelegDataTypes.JahresBon;
+		
+
 	}
 }

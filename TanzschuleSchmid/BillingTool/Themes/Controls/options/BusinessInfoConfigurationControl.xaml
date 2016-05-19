@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="BillingTool.Themes.Controls.options.BusinessInfoConfigurationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:btScope="clr-namespace:BillingTool.btScope"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Business}" IsSharedSizeScope="True">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<StringParam Grid.Row="0" Header="Name" Value="{Binding Path=Name}" AcceptsReturn="True" VerticalContentAlignment="Top" />
+		<StringParam Grid.Row="1" Header="Anschrift" Value="{Binding Path=Anschrift}" AcceptsReturn="True" VerticalContentAlignment="Top" />
+		<StringParam Grid.Row="2" Header="Mail Address" Value="{Binding Path=Mail}" />
+		<StringParam Grid.Row="3" Header="Telefon" Value="{Binding Path=Telefon}" />
+		<ImageParam Grid.Row="4" Header="Logo" Value="{Binding Path=Logo}" />
+	</Grid>
+</UserControl>

@@ -6,7 +6,7 @@
 			xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals"
 			xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc1">
+			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc1" Width="250">
 	<Grid >
 		<ContentControl>
 			<ContentControl.Style>

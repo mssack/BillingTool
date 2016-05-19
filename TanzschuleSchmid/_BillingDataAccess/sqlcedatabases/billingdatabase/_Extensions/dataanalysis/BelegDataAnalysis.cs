@@ -187,6 +187,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 					Load_PerPostenEntry_Into(perPostenEntries, belegPosten);
 				}
 			}
+
 			PerSteuersatzEntries = perSteuersatzEntries.Values.ToArray();
 			PerTypEntries = perTypEntries.Select(x => new PerTypEntry
 			{
@@ -216,10 +217,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 			PerPostenEntry perPostenEntry;
 			if (!data.TryGetValue(belegPosten.Posten, out perPostenEntry))
 			{
-				perPostenEntry = new PerPostenEntry() { Posten = belegPosten.Posten };
+				perPostenEntry = new PerPostenEntry { Posten = belegPosten.Posten };
 				data.Add(belegPosten.Posten, perPostenEntry);
 			}
-			perPostenEntry.Anzahl++;
+			perPostenEntry.Anzahl += belegPosten.Anzahl;
 			perPostenEntry.BetragBrutto += belegPosten.BetragBrutto;
 			perPostenEntry.BetragNetto += belegPosten.BetragNetto;
 		}

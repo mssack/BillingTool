@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-19</date>
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
 using BillingTool.btScope.configuration;
@@ -17,6 +18,7 @@ using BillingTool.btScope.output;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
 using BillingTool.Windows.privileged;
+using BillingTool.Windows.tools;
 using CsWpfBase.Global;
 
 
@@ -107,15 +109,32 @@ namespace BillingTool.btScope
 			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
+
 			Window window;
 			if (mode == StartupModes.BelegDataApprove)
-				window = new Window_BelegData_Creation(isApproval: true) {Item = Data.BelegData.New_FromConfiguration()};
+				window = new Window_BelegData_Creation(true) {Item = Data.BelegData.New_FromConfiguration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)
 				window = new Window_Options();
 			else if (mode == StartupModes.Database)
 				window = new Window_DatabaseViewer();
+			else if (mode == StartupModes.SilentMonatsBonPrint)
+			{
+				window = new Window_MonatsBon_PrintFailure();
+				EnsureInitialization();
+				var newMonatsBeleg = Data.BelegData.New_MonatsBeleg();
+				var printedBeleg = Data.PrintedBeleg.New(newMonatsBeleg);
+				printedBeleg.OutputFormat = Db.Billing.OutputFormats.Default_MonatsBonFormat;
+				Data.BelegData.Finalize(newMonatsBeleg);
+				Data.SyncAnabolicChanges();
+				Output.DoOpenedExportsAsync(newMonatsBeleg).ContinueWith(t =>
+				{
+					window.Close();
+				}, TaskScheduler.FromCurrentSynchronizationContext());
+				return;
+
+			}
 			else
 				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Fehlender {nameof(StartupModes)} siehe enumeration[{nameof(StartupModes)}].");
 
@@ -143,6 +162,14 @@ namespace BillingTool.btScope
 		{
 			Db.EnsureConnectivity();
 			Db.Billing.Init();
+			if (!Db.Billing.Configurations.Business.IsValid)
+			{
+				var window = new Window_DatabaseConfiguration();
+				window.ShowDialog();
+				if (!Db.Billing.Configurations.Business.IsValid)
+					throw new BillingToolException(BillingToolException.Types.No_BusinessName, $"Fehlender Unternehmensnamen, öffnen Sie das Programm ein weiteres mal mit dem {nameof(StartupModes)}.{nameof(StartupModes.Options)} modifier.");
+			}
+			
 		}
 	}
 }

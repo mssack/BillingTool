@@ -20,7 +20,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 	/// <summary>Collapses all design configurations.</summary>
 	public sealed class ConfigurationsTableDesign : Base
 	{
-		private BitmapSource _headerLogo;
 		private ConfigurationsTable _owner;
 
 		internal ConfigurationsTableDesign(ConfigurationsTable owner)
@@ -28,24 +27,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 			_owner = owner;
 		}
 
-		/// <summary>The application logo for this database instance.</summary>
-		public BitmapSource HeaderLogo
-		{
-			get
-			{
-				if (_headerLogo != null)
-					return _headerLogo;
-				_headerLogo = GetValue<string>().ConvertTo_Bytes().ConvertTo_Image();
-				_headerLogo?.Freeze();
-				return _headerLogo;
-			}
-			set
-			{
-				_headerLogo = value.ResizeToMaximum(100, 100);
-				_headerLogo?.Freeze();
-				SetValue(_headerLogo.ConvertTo_PngByteArray().ConvertTo_Base64());
-			}
-		}
 
 		/// <summary>The application logo for this database instance.</summary>
 		public double HeaderSize

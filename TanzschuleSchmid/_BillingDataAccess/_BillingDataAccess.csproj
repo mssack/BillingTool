@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\OutputFormats.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\rows\Extensions\Steuersatz.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableBusiness.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDataIntegrity.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDefaults.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\tables\Extensions\configurationCategories\ConfigurationsTableDesign.cs" />

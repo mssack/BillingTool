@@ -8,7 +8,6 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
-using CsWpfBase.Global;
 
 
 
@@ -17,24 +16,16 @@ using CsWpfBase.Global;
 
 namespace BillingTool.Themes.Converters
 {
+
 #pragma warning disable 1591
 	// ReSharper disable InconsistentNaming
-	public class BtConv_ProcessingStateToImage : IValueConverter
+	public class BtConv_TypIsUmsatzNachricht : IValueConverter
 	{
 		#region Overrides/Interfaces
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var val = (ProcessingStates) value;
-			if (val == ProcessingStates.NotProcessed)
-				return CsGlobal.Storage.Resource.Dictionary.Standard["GIco-State-NotStarted"];
-			if (val == ProcessingStates.Processing)
-				return CsGlobal.Storage.Resource.Dictionary.Standard["GIco-State-Loading"];
-			if (val == ProcessingStates.Processed)
-				return CsGlobal.Storage.Resource.Dictionary.Standard["GIco-State-Success"];
-			if (val == ProcessingStates.Failed)
-				return CsGlobal.Storage.Resource.Dictionary.Standard["GIco-State-Faulted"];
-
-			return CsGlobal.Storage.Resource.Dictionary.Standard["GIco-State-NotStarted"];
+			var val = (BelegDataTypes) value;
+			return val.IsZeitBon();
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -43,5 +34,4 @@ namespace BillingTool.Themes.Converters
 		}
 		#endregion
 	}
-
 }

@@ -50,9 +50,9 @@
 							</Grid.RowDefinitions>
 							<belegdatacreation:BelegDataTypParam Grid.Row="1" Header="{StaticResource Bez-BelegData-Typ}" Help="{StaticResource Help-BelegData-Typ}"
 															Value="{Binding Path=Typ}" Width="190" HorizontalAlignment="Left" />
-							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
+							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" MaxHeight="90"/>
 							<StringParam Grid.Row="3" Style="{StaticResource ParamZahlungsreferenz}" Value="{Binding Path=ZahlungsReferenz}" />
-							<StringParam Grid.Row="4" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
+							<StringParam Grid.Row="4" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" MaxHeight="90"/>
 						</Grid>
 					</Expander>
 					<Expander Grid.Row="1" IsExpanded="True" Padding="0" Visibility="{Binding ElementName=Uc, Path=IsApproval, Converter={StaticResource GConv-InvBoolVisibility}}">

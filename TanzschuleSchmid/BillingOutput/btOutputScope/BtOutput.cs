@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Printing;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -138,7 +139,12 @@ namespace BillingOutput.btOutputScope
 
 			var t = new Task(() =>
 			{
-				var image = new Image {Source = ProcessFormat(data.BelegData, data.OutputFormat)};
+				var processFormat = ProcessFormat(data.BelegData, data.OutputFormat);
+				var image = new Image {Source = processFormat, Width = processFormat.PixelWidth, Height = processFormat.PixelHeight};
+				image.Measure(new Size(image.Width, image.Height));
+				image.Arrange(new Rect(new Size(image.Width, image.Height)));
+				image.UpdateLayout();
+
 				new PrintDialog {PrintQueue = new PrintQueue(new PrintServer(), data.PrinterDevice)}.PrintVisual(image, $"{data.BelegData}");
 			}, TaskCreationOptions.LongRunning);
 			var continuationTask = t.ContinueWith(task =>
@@ -156,6 +162,7 @@ namespace BillingOutput.btOutputScope
 				data.ProcessingState = ProcessingStates.Processed;
 				data.ProcessingException = null;
 				return data;
+
 			}, context);
 			t.Start(StaPrinterScheduler);
 			return continuationTask;

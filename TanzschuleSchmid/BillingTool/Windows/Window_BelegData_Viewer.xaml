@@ -7,7 +7,7 @@
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
-		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Style="{StaticResource {x:Type CsWindow}}" >
+		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Style="{StaticResource {x:Type CsWindow}}">
 	<Grid DataContext="{Binding ElementName=Wc}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -17,17 +17,17 @@
 		<Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="0,0,0,10" Margin="0,0,0,10">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Button Style="{StaticResource AcceptButton}" Content="Neuer Beleg" Click="NeuerBelegClicked"  Margin="0" Padding="7,2,7,2" Width="{Binding ElementName=LstView, Path=ActualWidth}"/>
-				<Button Grid.Column="1" Content="OpenMonatsBon" Click="MonatsBonClicked"  Margin="0" Padding="7,2,7,2" />
+				<Button Style="{StaticResource AcceptButton}" Content="Neuer Beleg" Click="NeuerBelegClicked" Margin="0" Padding="7,2,7,2"
+						Width="{Binding ElementName=LstView, Path=ActualWidth}" />
 				<shared:FromToSelectorControl Grid.Column="2" x:Name="FromToSelector" HorizontalAlignment="Center" />
 
 			</Grid>
 		</Border>
-		<Grid Grid.Row="1" >
+		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
@@ -37,42 +37,57 @@
 					<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
 						<Grid>
 							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
-								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<TextBlock Text="{Binding Path=Datum}" FontWeight="Bold"/>
+							<TextBlock Text="{Binding Path=Datum}" FontWeight="Bold" />
 							<Grid Grid.Row="1" Margin="8,0,0,0">
 								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto"/>
-									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="*"/>
-									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
 								<TextBlock>
 									<TextBlock.Text>
 										<MultiBinding StringFormat="{}{0} ({1})">
-											<Binding Path="Nummer"/>
-											<Binding Path="KassenOperator"/>
+											<Binding Path="Nummer" />
+											<Binding Path="KassenOperator" />
 										</MultiBinding>
 									</TextBlock.Text>
 								</TextBlock>
-								<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Text="{Binding Path=Typ, Converter={StaticResource GConv-GetEnumName}}" >
+								<TextBlock Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0">
 									<TextBlock.Style>
 										<Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+											<Setter Property="Text" Value="{Binding Path=Typ, Converter={StaticResource GConv-GetEnumName}}" />
 											<Style.Triggers>
 												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
-													<Setter Property="Foreground" Value="Red"/>
+													<Setter Property="Foreground" Value="Red" />
+												</DataTrigger>
+												<DataTrigger Binding="{Binding Path=Typ, Converter={StaticResource BtConv-TypIsZeitBon}}" Value="True">
+													<Setter Property="Foreground" Value="RoyalBlue" />
+													<Setter Property="FontWeight" Value="Bold" />
+													<Setter Property="Text">
+														<Setter.Value>
+															<MultiBinding StringFormat="{}{0} ({1} bis {2})">
+																<Binding Path="Typ" Converter="{StaticResource GConv-GetEnumName}" />
+																<Binding Path="BonNummerVon" />
+																<Binding Path="BonNummerBis" />
+															</MultiBinding>
+														</Setter.Value>
+													</Setter>
 												</DataTrigger>
 											</Style.Triggers>
 										</Style>
 									</TextBlock.Style>
 								</TextBlock>
-								
-								<Border Grid.Row="0" Grid.Column="1" Style="{StaticResource RedBorder}" Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="1,0,1,1">
-									<TextBlock Text="{Binding Path=StornierenderBeleg.Nummer, StringFormat={}ST({0})}" Foreground="White" Padding="0" Margin="0" FontSize="10"/>
+
+								<Border Grid.Row="0" Grid.Column="1" Style="{StaticResource RedBorder}"
+										Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="1,0,1,1">
+									<TextBlock Text="{Binding Path=StornierenderBeleg.Nummer, StringFormat={}ST({0})}" Foreground="White" Padding="0" Margin="0" FontSize="10" />
 								</Border>
 							</Grid>
 						</Grid>
@@ -80,9 +95,9 @@
 				</ListView.ItemTemplate>
 			</ListView>
 
-			<controls:BelegDataView Grid.Column="1" Item="{Binding Path=Item}" Visibility="{Binding Item, Converter={StaticResource GConv-NullToVisibility}}"/>
+			<controls:BelegDataView Grid.Column="1" Item="{Binding Path=Item}" Visibility="{Binding Item, Converter={StaticResource GConv-NullToVisibility}}" />
 			<Border Grid.Column="1" Visibility="{Binding Item, Converter={StaticResource GConv-InvNullToVisibility}}">
-				<TextBlock Text="kein Beleg ausgewählt" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+				<TextBlock Text="kein Beleg ausgewählt" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
 			</Border>
 		</Grid>
 

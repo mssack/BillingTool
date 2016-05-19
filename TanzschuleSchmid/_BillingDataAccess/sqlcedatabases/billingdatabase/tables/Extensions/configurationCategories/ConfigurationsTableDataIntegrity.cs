@@ -56,7 +56,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 		}
 
 
-		/// <summary>Time of the latest created <see cref="BelegData" /> with type <see cref="BelegDataTypes.MonatsUmsatz" />.</summary>
+		/// <summary>Time of the latest created <see cref="BelegData" /> with type <see cref="BelegDataTypes.MonatsBon" />.</summary>
 		public DateTime? MonatsBon_LastTimeCreated
 		{
 			get { return GetValue<DateTime?>(null); }
@@ -65,7 +65,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 
 		/// <summary>
 		///     The <see cref="BelegData.Nummer" /> which was the last <see cref="BelegData" /> which was inserted in a <see cref="BelegData" /> with type
-		///     <see cref="BelegDataTypes.MonatsUmsatz" />.
+		///     <see cref="BelegDataTypes.MonatsBon" />.
 		/// </summary>
 		public int? MonatsBon_LastUsedBelegDataNumber
 		{

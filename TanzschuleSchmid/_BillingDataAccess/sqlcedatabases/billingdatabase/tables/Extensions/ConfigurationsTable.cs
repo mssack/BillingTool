@@ -8,6 +8,7 @@ using System;
 using System.Runtime.CompilerServices;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationCategories;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -23,6 +24,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		private ConfigurationsTableDataIntegrity _dataIntegrity;
 		private ConfigurationsTableDefaults _defaults;
 		private ConfigurationsTableDesign _design;
+		private ConfigurationsTableBusiness _business;
 
 		/// <summary>If <see cref="IsInstalled" /> is true, all the default items are currently installed.</summary>
 		public bool IsInstalled
@@ -39,6 +41,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 
 		/// <summary>Contains all data integrity values for different database wide properties.</summary>
 		public ConfigurationsTableDataIntegrity DataIntegrity => _dataIntegrity ?? (_dataIntegrity = new ConfigurationsTableDataIntegrity(this));
+
+		/// <summary>Contains all business values for different database wide properties.</summary>
+		public ConfigurationsTableBusiness Business => _business ?? (_business = new ConfigurationsTableBusiness(this));
 
 
 
@@ -60,7 +65,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			if (typeof(T) == typeof(Guid))
 				return (T) (object) Guid.Parse(config.Value);
 
-			return (T) Convert.ChangeType(config.Value, typeof(T));
+			Type underlayingType;
+			if (typeof(T).IsNullable(out underlayingType))
+				return (T) Convert.ChangeType(config.Value, underlayingType);
+
+			return (T)Convert.ChangeType(config.Value, typeof(T));
 		}
 
 		internal void SetValue(object value, [CallerMemberName] string name = null)

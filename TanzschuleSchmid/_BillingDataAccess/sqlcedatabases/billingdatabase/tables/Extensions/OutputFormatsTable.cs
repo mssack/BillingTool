@@ -30,6 +30,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		private OutputFormat _defaultJahresBonFormat;
 		private ContractCollection<OutputFormat> _mailOrPrintFormate;
 		private ContractCollection<OutputFormat> _stornoFormate;
+		private ContractCollection<OutputFormat> _monatsBonFormate;
+		private ContractCollection<OutputFormat> _tagesBonFormate;
+		private ContractCollection<OutputFormat> _jahresBonFormate;
 
 		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for printing.</summary>
 		public OutputFormat Default_PrintFormat
@@ -102,6 +105,21 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		public ContractCollection<OutputFormat> StornoFormate
 		{
 			get { return _stornoFormate ?? (_stornoFormate = CreateContractCollection(format => format.BonLayout.IsStornoLayout())); }
+		}
+		/// <summary>returns a collection with only Tagesbon formats</summary>
+		public ContractCollection<OutputFormat> TagesBonFormate
+		{
+			get { return _tagesBonFormate ?? (_tagesBonFormate = CreateContractCollection(format => format.BonLayout.IsTagesBonLayout())); }
+		}
+		/// <summary>returns a collection with only Monatsbon formats</summary>
+		public ContractCollection<OutputFormat> MonatsBonFormate
+		{
+			get { return _monatsBonFormate ?? (_monatsBonFormate = CreateContractCollection(format => format.BonLayout.IsMonatsBonLayout())); }
+		}
+		/// <summary>returns a collection with only Jahresbon formats</summary>
+		public ContractCollection<OutputFormat> JahresBonFormate
+		{
+			get { return _jahresBonFormate ?? (_jahresBonFormate = CreateContractCollection(format => format.BonLayout.IsJahresBonLayout())); }
 		}
 		/// <summary>returns a collection with only non-Storno formats</summary>
 		public ContractCollection<OutputFormat> MailOrPrintFormate

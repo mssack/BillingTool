@@ -126,6 +126,9 @@
     <Compile Include="Themes\Controls\belegview\BelegPostenListView.xaml.cs">
       <DependentUpon>BelegPostenListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\options\BusinessInfoConfigurationControl.xaml.cs">
+      <DependentUpon>BusinessInfoConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\options\DefaultSteuersatzConfigurationControl.xaml.cs">
       <DependentUpon>DefaultSteuersatzConfigurationControl.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,13 @@
       <DependentUpon>StornoApprovalControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
+    <Compile Include="Themes\Converters\BtConv_TypIsUmsatzNachricht.cs" />
+    <Compile Include="Windows\privileged\Window_DatabaseConfiguration.xaml.cs">
+      <DependentUpon>Window_DatabaseConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\tools\Window_MonatsBon_PrintFailure.xaml.cs">
+      <DependentUpon>Window_MonatsBon_PrintFailure.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Window_BelegData_Creation.xaml.cs">
       <DependentUpon>Window_BelegData_Creation.xaml</DependentUpon>
     </Compile>
@@ -241,6 +251,10 @@
     <Page Include="Themes\Controls\belegview\BelegPostenListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\options\BusinessInfoConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\options\DefaultSteuersatzConfigurationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -359,6 +373,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Styles\uitext\Steuersatz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\privileged\Window_DatabaseConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\tools\Window_MonatsBon_PrintFailure.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

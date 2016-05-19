@@ -95,6 +95,9 @@
     <Compile Include="Controls\ZeitBelege\ZeitVisual.xaml.cs">
       <DependentUpon>ZeitVisual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\_shared\V1Header.xaml.cs">
+      <DependentUpon>V1Header.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IContainMailConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -150,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ZeitBelege\ZeitVisual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\_shared\V1Header.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

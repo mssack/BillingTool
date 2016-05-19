@@ -22,6 +22,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 	partial class BelegData : IStoreComment
 	{
 		private BelegData[] _includedBelegDatas;
+		private string _includedBelegDatasTag;
 
 
 		#region Overrides/Interfaces
@@ -87,7 +88,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 					return BelegDataInvalidReasons.Missing_Kassenoperator;
 				if (Typ == BelegDataTypes.Storno && StornoBeleg == null)
 					return BelegDataInvalidReasons.Missing_StornoBeleg;
-				if (Postens.Count == 0)
+				if (!Typ.IsZeitBon() && Postens.Count == 0)
 					return BelegDataInvalidReasons.Missing_BelegPosten;
 				return BelegDataInvalidReasons.Valid;
 			}
@@ -137,8 +138,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		}
 
 		/// <summary>
-		///     Only useful if <see cref="Typ" /> == <see cref="BelegDataTypes.TagesUmsatz" /> || <see cref="BelegDataTypes.MonatsUmsatz" /> ||
-		///     <see cref="BelegDataTypes.JahresUmsatz" />.
+		///     Only useful if <see cref="Typ" /> == <see cref="BelegDataTypes.TagesBon" /> || <see cref="BelegDataTypes.MonatsBon" /> ||
+		///     <see cref="BelegDataTypes.JahresBon" />.
 		/// </summary>
 		[DependsOn(nameof(Typ))]
 		[DependsOn(nameof(BonNummerVon))]
@@ -148,15 +149,17 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			get
 			{
-				if (!Typ.IsUmsatzNachricht())
+				if (!Typ.IsZeitBon())
 					return null;
 				if (BonNummerVon == null || BonNummerBis == null)
 					return null;
 				if (BonNummerVon > BonNummerBis)
 					return null;
-
+				if (_includedBelegDatasTag == $"{BonNummerVon.Value}.{BonNummerBis.Value}")
+					return _includedBelegDatas;
 				
 				_includedBelegDatas = Table.LoadThenFind_Between(BonNummerVon.Value, BonNummerBis.Value);
+				_includedBelegDatasTag = $"{BonNummerVon.Value}.{BonNummerBis.Value}";
 				return _includedBelegDatas;
 			}
 		}

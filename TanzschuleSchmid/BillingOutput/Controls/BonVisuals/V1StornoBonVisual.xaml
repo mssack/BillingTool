@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals"
-             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300" 
-			x:Name="Uc" Focusable="False" Background="White">
+             mc:Ignorable="d" x:Name="Uc" Focusable="False" Background="White">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

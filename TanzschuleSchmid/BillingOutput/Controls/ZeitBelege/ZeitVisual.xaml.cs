@@ -54,7 +54,7 @@ namespace BillingOutput.Controls.ZeitBelege
 			if (OutputFormat != null)
 				DisplayFormat = OutputFormat;
 			else
-				DisplayFormat = null;
+				DisplayFormat = Item?.DataSet.OutputFormats.Default_MonatsBonFormat;
 		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(ZeitVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((ZeitVisual) o).SomethingChanged()});

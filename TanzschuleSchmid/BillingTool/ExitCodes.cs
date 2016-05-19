@@ -58,6 +58,8 @@ namespace BillingTool
 		Error_Invalid_StartupParam = 1 << 19,
 		/// <summary>Occurs if no Kassenoperator is defined.</summary>
 		Error_No_KassenOperator = 1 << 20,
+		/// <summary>Occurs if no business-name is defined.</summary>
+		Error_No_BusinessName = 1 << 20,
 
 		/// <summary>Occurs if some other non described error occurs.</summary>
 		Error_Others = 1 << 32,

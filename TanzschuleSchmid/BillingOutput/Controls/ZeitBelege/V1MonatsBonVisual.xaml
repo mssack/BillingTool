@@ -4,8 +4,9 @@
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:dataanalysis="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanalysis;assembly=BillingDataAccess"
+			xmlns:shared="clr-namespace:BillingOutput.Controls._shared"
 			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc2" Background="White" Width="250" FontFamily="Consolas" Focusable="False" Padding="10">
+			x:Name="Uc2" FontFamily="Consolas" Focusable="False" Padding="10">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -28,16 +29,16 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<Image Grid.Row="0" Source="{Binding ElementName=Uc2, Path=OutputFormat.FirstImage}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.FirstImage, Converter={StaticResource GConv-NullToVisibility}}"/>
-		<TextBlock Grid.Row="1" Text="{Binding ElementName=Uc2, Path=OutputFormat.FirstText}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.FirstText, Converter={StaticResource GConv-NullToVisibility}}"/>
-		<TextBlock Grid.Row="2" TextAlignment="Right" Text="{Binding ElementName=Uc2, Path=Item.Datum}" />
-		<TextBlock Grid.Row="3" TextAlignment="Right" Text="{Binding ElementName=Uc2, Path=Item.Nummer, StringFormat={}Bon: {0:0}}" />
-		<TextBlock Grid.Row="4" TextAlignment="Right" Text="{Binding ElementName=Uc2, Path=Item.KassenId, StringFormat={}Kassen ID: {0}}"/>
-
-
-		<TextBlock Grid.Row="5" Text="Monatszusammenfassung"  FontSize="18" Margin="0,15,0,15"/>
-		<Grid Grid.Row="6" >
+		<shared:V1Header OutputFormat="{Binding ElementName=Uc2, Path=OutputFormat}" Item="{Binding ElementName=Uc2, Path=Item}" />
+		
+		<TextBlock Grid.Row="8" Text="Monatsbon"  FontSize="18" Margin="0,15,0,15"/>
+		<Grid Grid.Row="9" >
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
@@ -61,8 +62,8 @@
 			<TextBlock Grid.Row="5" Text="{Binding ElementName=Uc2, Path=BelegDataAnalysis.BetragNetto, StringFormat={}Gesamtumsatz Netto:  {0:0.00} €}" />
 		</Grid>
 
-		<TextBlock Grid.Row="7" Text="Aufschlüsselung nach Posten" Margin="0,15,0,5"/>
-		<Border Grid.Row="8" Grid.IsSharedSizeScope="True" Margin="15,0,0,0">
+		<TextBlock Grid.Row="10" Text="Aufschlüsselung nach Posten" Margin="0,15,0,5"/>
+		<Border Grid.Row="11" Grid.IsSharedSizeScope="True" Margin="15,0,0,0">
 			<Border.Resources>
 				<Style TargetType="{x:Type TextBlock}" x:Key="TableHeader">
 					<Setter Property="TextAlignment" Value="Right"/>
@@ -119,8 +120,8 @@
 
 		</Border>
 
-		<TextBlock Grid.Row="9" Text="Aufschlüsselung nach Steuer" Margin="0,15,0,5"/>
-		<Border Grid.Row="10" Grid.IsSharedSizeScope="True" Margin="15,0,0,-15">
+		<TextBlock Grid.Row="12" Text="Aufschlüsselung nach Steuer" Margin="0,15,0,5"/>
+		<Border Grid.Row="13" Grid.IsSharedSizeScope="True" Margin="15,0,0,-15">
 			<Border.Resources>
 				<Style TargetType="{x:Type TextBlock}" x:Key="TableHeader">
 					<Setter Property="HorizontalAlignment" Value="Right"/>
@@ -201,8 +202,7 @@
 		</Border>
 
 
-		<Image Grid.Row="11" Source="{Binding ElementName=Uc2, Path=OutputFormat.SecondImage}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.SecondImage, Converter={StaticResource GConv-NullToVisibility}}"/>
-		<TextBlock Grid.Row="12" Text="{Binding ElementName=Uc2, Path=OutputFormat.SecondText}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.SecondText, Converter={StaticResource GConv-NullToVisibility}}"/>
-
+		<TextBlock TextWrapping="Wrap" Grid.Row="14" Text="{Binding ElementName=Uc2, Path=OutputFormat.ThirdText}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.ThirdText, Converter={StaticResource GConv-NullToVisibility}}"/>
+		<Image Grid.Row="15" Source="{Binding ElementName=Uc2, Path=OutputFormat.ThirdImage}" Visibility="{Binding  ElementName=Uc2, Path=OutputFormat.ThirdImage, Converter={StaticResource GConv-NullToVisibility}}"/>
 	</Grid>
 </UserControl>

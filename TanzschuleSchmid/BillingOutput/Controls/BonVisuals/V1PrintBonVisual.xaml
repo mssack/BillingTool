@@ -5,8 +5,9 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 			xmlns:dataanalysis="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanalysis;assembly=BillingDataAccess"
+			xmlns:shared="clr-namespace:BillingOutput.Controls._shared"
 			mc:Ignorable="d"
-			Padding="10" x:Name="Uc" Background="White" Width="250" FontFamily="Consolas" Focusable="False">
+			Padding="10" x:Name="Uc" Background="White" FontFamily="Consolas" Focusable="False">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -24,25 +25,12 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
-		<Border Grid.Row="0">
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<Image Grid.Row="0" Source="{Binding ElementName=Uc, Path=OutputFormat.FirstImage}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.FirstImage, Converter={StaticResource GConv-NullToVisibility}}"/>
-				<TextBlock Grid.Row="1" Text="{Binding ElementName=Uc, Path=OutputFormat.FirstText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.FirstText, Converter={StaticResource GConv-NullToVisibility}}"/>
-				<TextBlock Grid.Row="2" TextAlignment="Right" Text="{Binding ElementName=Uc, Path=Item.Datum}" />
-				<TextBlock Grid.Row="3" TextAlignment="Right" Text="{Binding ElementName=Uc, Path=Item.Nummer, StringFormat={}Bon: {0:0}}" />
-				<TextBlock Grid.Row="4" TextAlignment="Left" Text="{Binding ElementName=Uc, Path=Item.KassenOperator, StringFormat={}Es bediente Sie: {0:0}}" />
-			</Grid>
-		</Border>
-		<Border Grid.Row="1" Margin="0,10,0,20">
+		<shared:V1Header OutputFormat="{Binding ElementName=Uc, Path=OutputFormat}" Item="{Binding ElementName=Uc, Path=Item}" />
+		<TextBlock Grid.Row="1" TextAlignment="Left" Text="{Binding ElementName=Uc, Path=Item.KassenOperator, StringFormat={}Es bediente Sie: {0:0}}" />
+		<Border Grid.Row="2" Margin="0,10,0,20">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -106,7 +94,7 @@
 				</Border>
 			</Grid>
 		</Border>
-		<Border Grid.Row="2"  x:Name="SteuersatzAufschlüsselungBorder">
+		<Border Grid.Row="3"  x:Name="SteuersatzAufschlüsselungBorder">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -147,21 +135,21 @@
 				</ItemsControl>
 			</Grid>
 		</Border>
-		<Border Grid.Row="3">
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
-				<TextBlock Text="{Binding ElementName=Uc, Path=Item.ZusatzText}" Visibility="{Binding  ElementName=Uc, Path=Item.ZusatzText, Converter={StaticResource GConv-NullToVisibility}}"/>
-			</Grid>
-		</Border>
 		<Border Grid.Row="4">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<TextBlock Text="{Binding ElementName=Uc, Path=Item.ZusatzText}" TextWrapping="Wrap" Visibility="{Binding  ElementName=Uc, Path=Item.ZusatzText, Converter={StaticResource GConv-NullToVisibility}}"/>
+			</Grid>
+		</Border>
+		<Border Grid.Row="5">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<TextBlock Text="{Binding ElementName=Uc, Path=OutputFormat.SecondText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondText, Converter={StaticResource GConv-NullToVisibility}}" />
+				<TextBlock TextWrapping="Wrap" Text="{Binding ElementName=Uc, Path=OutputFormat.SecondText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondText, Converter={StaticResource GConv-NullToVisibility}}" />
 				<Image Grid.Row="1" Source="{Binding ElementName=Uc, Path=OutputFormat.SecondImage}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondImage, Converter={StaticResource GConv-NullToVisibility}}"/>
 			</Grid>
 		</Border>

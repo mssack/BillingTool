@@ -74,7 +74,18 @@ namespace BillingTool.Themes.Controls.belegview
 
 		private void Reset()
 		{
-			OutputFormat = Item != null && Item.Typ == BelegDataTypes.Storno ? Bt.Db.Billing.OutputFormats.Default_StornoFormat : Bt.Db.Billing.OutputFormats.Default_PrintFormat;
+			if (Item == null)
+				OutputFormat = null;
+			else if (Item.Typ == BelegDataTypes.Storno)
+				OutputFormat = Bt.Db.Billing.OutputFormats.Default_StornoFormat;
+			else if (Item.Typ == BelegDataTypes.TagesBon)
+				OutputFormat = Bt.Db.Billing.OutputFormats.Default_TagesBonFormat;
+			else if (Item.Typ == BelegDataTypes.MonatsBon)
+				OutputFormat = Bt.Db.Billing.OutputFormats.Default_MonatsBonFormat;
+			else if (Item.Typ == BelegDataTypes.JahresBon)
+				OutputFormat = Bt.Db.Billing.OutputFormats.Default_JahresBonFormat;
+			else
+				OutputFormat = Bt.Db.Billing.OutputFormats.Default_PrintFormat;
 
 			Device = Bt.Config.File.KassenEinstellung.Default_PrinterName;
 		}

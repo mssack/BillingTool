@@ -153,4 +153,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 			OnPropertyChanged(name);
 		}
 	}
+
+
+
 }

@@ -15,6 +15,15 @@
 					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
 						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.StornoFormate}" />
 					</DataTrigger>
+					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.TagesBonFormate}" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MonatsBonFormate}" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.JahresBonFormate}" />
+					</DataTrigger>
 				</Style.Triggers>
 			</Style>
 		</ComboBox.Style>

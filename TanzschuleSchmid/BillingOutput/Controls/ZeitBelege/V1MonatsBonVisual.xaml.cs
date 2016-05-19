@@ -49,7 +49,7 @@ namespace BillingOutput.Controls.ZeitBelege
 		private void UpdateData()
 		{
 			BelegDataAnalysis?.Dispose();
-			BelegDataAnalysis = Item.VonBis_BelegData == null ? null : new BelegDataAnalysis(Item.VonBis_BelegData);
+			BelegDataAnalysis = Item?.VonBis_BelegData == null ? null : new BelegDataAnalysis(Item.VonBis_BelegData);
 		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(V1MonatsBonVisual), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((V1MonatsBonVisual) o).UpdateData()});
