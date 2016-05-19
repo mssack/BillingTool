@@ -4,7 +4,8 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-		mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300" Style="{StaticResource CondensedListViewStyle}">
+		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
+		mc:Ignorable="d" Style="{StaticResource CondensedListViewStyle}">
 	<ListView.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -16,7 +17,7 @@
 		<Style TargetType="ListViewItem" BasedOn="{StaticResource CondensedListViewItemStyle}">
 			<Setter Property="Focusable" Value="false" />
 			<Setter Property="Cursor" Value="{x:Static Cursors.Hand}" />
-			<EventSetter Event="MouseLeftButtonUp" Handler="ListViewItemClicked"/>
+			<EventSetter Event="MouseLeftButtonUp" Handler="ListViewItemClicked" />
 		</Style>
 	</ListView.ItemContainerStyle>
 	<ListView.View>
@@ -29,7 +30,7 @@
 								<ColumnDefinition Width="Auto" />
 								<ColumnDefinition Width="Auto" />
 							</Grid.ColumnDefinitions>
-							<Image DataContext="{Binding Path=ProcessingState}" Style="{StaticResource ProcessingStateIcon}" />
+							<shared:ProcessingStateIcon ProcessingState="{Binding Path=ProcessingState}" />
 							<TextBlock Grid.Column="1" Text="{Binding Path=ProcessingState, Converter={StaticResource GConv-GetEnumName}}" />
 						</Grid>
 					</DataTemplate>

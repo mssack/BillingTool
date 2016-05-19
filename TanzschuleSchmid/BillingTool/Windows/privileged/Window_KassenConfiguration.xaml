@@ -21,7 +21,7 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<GroupBox Grid.Column="0" Style="{StaticResource DefaultGroup}" Header="Allgemein">
+		<GroupBox Grid.Column="0" Style="{StaticResource ParamGroup}" Header="Allgemein">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -35,7 +35,7 @@
 				<StringParam Grid.Row="2" Header="Skalierung" Value="{Binding Path=Scaling, UpdateSourceTrigger=LostFocus}" />
 			</Grid>
 		</GroupBox>
-		<GroupBox Grid.Row="1" Style="{StaticResource DefaultGroup}" Header="Mail Konfiguration (SMTP)">
+		<GroupBox Grid.Row="1" Style="{StaticResource ParamGroup}" Header="Mail Konfiguration (SMTP)">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />
@@ -53,7 +53,7 @@
 				<StringParam Grid.Row="5" Header="Password" Value="{Binding Path=SmtpPassword}" />
 			</Grid>
 		</GroupBox>
-		<GroupBox Grid.Row="2" Style="{StaticResource DefaultGroup}" Header="Printer Konfiguration">
+		<GroupBox Grid.Row="2" Style="{StaticResource ParamGroup}" Header="Printer Konfiguration">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto" />

@@ -17,6 +17,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
 using CsWpfBase.Global;
+using CsWpfBase.Global.message;
 
 
 
@@ -92,6 +93,15 @@ namespace BillingTool
 				{
 
 				}
+				try
+				{
+					CsGlobal.Message.Push(args.Exception, CsMessage.Types.FatalError);
+				}
+				catch (Exception)
+				{
+					
+					throw;
+				}
 #if !DEBUG
 				try
 				{
@@ -102,9 +112,11 @@ namespace BillingTool
 
 				}
 #endif
+				args.Handled = true;
+				Application.Current.Shutdown();
 
 			};
-			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
+			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture); //Provides some needed functionality. DO NOT REMOVE.
 			Bt.Startup(e.Args);
 		}
 	}

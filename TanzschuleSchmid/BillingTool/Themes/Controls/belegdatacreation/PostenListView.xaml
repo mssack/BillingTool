@@ -5,8 +5,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		mc:Ignorable="d" Style="{StaticResource CondensedListViewStyle}"
-		ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=Item.Postens}"
-		d:DesignHeight="300" d:DesignWidth="300">
+		ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=Item.Postens}">
 	<ListView.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -21,7 +20,7 @@
 			<GridViewColumn Header="{StaticResource Bez-BelegPosten-Anzahl}">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:BelegPosten}">
-						<TextBlock Text="{Binding Path=Anzahl}" TextAlignment="Right"/>
+						<TextBlock Text="{Binding Path=Anzahl}" TextAlignment="Right" />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>
@@ -31,8 +30,8 @@
 						<TextBlock>
 							<TextBlock.Text>
 								<MultiBinding StringFormat="{}{0} ({1:0.00} €)">
-									<Binding Path="Posten.Name"/>
-									<Binding Path="Posten.PreisBrutto"/>
+									<Binding Path="Posten.Name" />
+									<Binding Path="Posten.PreisBrutto" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>
@@ -45,8 +44,8 @@
 						<TextBlock TextAlignment="Right">
 							<TextBlock.Text>
 								<MultiBinding StringFormat="{}({0}) {1:0.00} %">
-									<Binding Path="Steuersatz.Kürzel"/>
-									<Binding Path="Steuersatz.Percent"/>
+									<Binding Path="Steuersatz.Kürzel" />
+									<Binding Path="Steuersatz.Percent" />
 								</MultiBinding>
 							</TextBlock.Text>
 						</TextBlock>

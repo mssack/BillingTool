@@ -5,8 +5,7 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals;assembly=BillingOutput"
 			xmlns:zeitBelege="clr-namespace:BillingOutput.Controls.ZeitBelege;assembly=BillingOutput"
-			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc">
+			mc:Ignorable="d" x:Name="Uc">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

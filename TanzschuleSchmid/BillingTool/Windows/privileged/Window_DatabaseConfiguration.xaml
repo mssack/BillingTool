@@ -1,19 +1,21 @@
 ﻿<CsWindow x:Class="BillingTool.Windows.privileged.Window_DatabaseConfiguration"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:btScope="clr-namespace:BillingTool.btScope"
-        mc:Ignorable="d"
-        Title="Unternehmens Konfiguration" Padding="20" CloseButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed"
-		Style="{StaticResource {x:Type CsWindow}}" Width="550" Height="550" FooterVisibility="Collapsed" AWindowDragMove.IsActive="True" ResizeMode="NoResize"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		mc:Ignorable="d"
+		Title="Unternehmens Konfiguration" Padding="20" CloseButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
+		MaximizeButtonVisibility="Collapsed"
+		Style="{StaticResource {x:Type CsWindow}}" Width="550" Height="550" FooterVisibility="Collapsed" AWindowDragMove.IsActive="True"
+		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen" SizeToContent="Height">
 	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Business}" IsSharedSizeScope="True">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<Grid >
+		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
@@ -24,15 +26,15 @@
 			</Grid.RowDefinitions>
 			<StringParam Grid.Row="0" Header="Name" Value="{Binding Path=Name}" AcceptsReturn="True" VerticalContentAlignment="Top" />
 			<StringParam Grid.Row="1" Header="Anschrift" Value="{Binding Path=Anschrift}" AcceptsReturn="True" VerticalContentAlignment="Top" />
-			<StringParam Grid.Row="2" Header="Mail Address" Value="{Binding Path=Mail}"  />
+			<StringParam Grid.Row="2" Header="Mail Address" Value="{Binding Path=Mail}" />
 			<StringParam Grid.Row="3" Header="Telefon" Value="{Binding Path=Telefon}" />
 			<ImageParam Grid.Row="4" Header="Logo" Value="{Binding Path=Logo}" />
 		</Grid>
 		<Border Grid.Row="1" Margin="0,10,0,0" Padding="0,10,0,0" BorderThickness="0,1,0,0" BorderBrush="DimGray">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"/>
-					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 
 				<Button Grid.Column="1" x:Name="NextButton" Padding="15,3,15,3" Click="NextClick">
@@ -40,10 +42,10 @@
 						<Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
 							<Style.Triggers>
 								<DataTrigger Binding="{Binding Path=IsValid}" Value="True">
-									<Setter Property="Content" Value="Speichern und Fortfahren"/>
+									<Setter Property="Content" Value="Speichern und Fortfahren" />
 								</DataTrigger>
 								<DataTrigger Binding="{Binding Path=IsValid}" Value="False">
-									<Setter Property="Content" Value="Schließen und Abbrechen"/>
+									<Setter Property="Content" Value="Schließen und Abbrechen" />
 								</DataTrigger>
 								<MultiDataTrigger>
 									<MultiDataTrigger.Conditions>

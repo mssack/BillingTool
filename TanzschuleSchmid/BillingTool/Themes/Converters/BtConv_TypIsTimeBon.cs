@@ -19,7 +19,7 @@ namespace BillingTool.Themes.Converters
 
 #pragma warning disable 1591
 	// ReSharper disable InconsistentNaming
-	public class BtConv_TypIsUmsatzNachricht : IValueConverter
+	public class BtConv_TypIsTimeBon : IValueConverter
 	{
 		#region Overrides/Interfaces
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

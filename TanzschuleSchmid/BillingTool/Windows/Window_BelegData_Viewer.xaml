@@ -7,6 +7,7 @@
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
 		mc:Ignorable="d" Title="Belegdaten" Height="600" Width="900" x:Name="Wc" Style="{StaticResource {x:Type CsWindow}}">
 	<Grid DataContext="{Binding ElementName=Wc}">
 		<Grid.RowDefinitions>
@@ -21,8 +22,8 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<Button Style="{StaticResource AcceptButton}" Content="Neuer Beleg" Click="NeuerBelegClicked" Margin="0" Padding="7,2,7,2"
-						Width="{Binding ElementName=LstView, Path=ActualWidth}" />
+				<designElements:AcceptButton Content="Neuer Beleg" Click="NeuerBelegClicked" Margin="0" Padding="7,2,7,2"
+											Width="{Binding ElementName=LstView, Path=ActualWidth}" />
 				<shared:FromToSelectorControl Grid.Column="2" x:Name="FromToSelector" HorizontalAlignment="Center" />
 
 			</Grid>
@@ -84,11 +85,9 @@
 										</Style>
 									</TextBlock.Style>
 								</TextBlock>
-
-								<Border Grid.Row="0" Grid.Column="1" Style="{StaticResource RedBorder}"
-										Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="1,0,1,1">
-									<TextBlock Text="{Binding Path=StornierenderBeleg.Nummer, StringFormat={}ST({0})}" Foreground="White" Padding="0" Margin="0" FontSize="10" />
-								</Border>
+								<designElements:RedBorderBox Grid.Row="0" Grid.Column="1" Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="2,0,2,0" TextBlock.FontSize="10"
+															Content="{Binding Path=StornierenderBeleg.Nummer, Converter={StaticResource GConv-BindingStringFormat}, ConverterParameter={}ST({0})}"
+															VerticalAlignment="Center" />
 							</Grid>
 						</Grid>
 					</DataTemplate>

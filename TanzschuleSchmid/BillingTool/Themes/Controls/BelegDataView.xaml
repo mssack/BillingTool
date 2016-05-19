@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:local="clr-namespace:BillingTool.Themes.Controls"
-					xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 					xmlns:belegview="clr-namespace:BillingTool.Themes.Controls.belegview"
 					xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
-					xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess">
+					xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+					xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
@@ -176,9 +176,9 @@
 													</Grid.RowDefinitions>
 													<ParamView Grid.Row="0" Header="Bon:">
 														<ParamView.Value>
-															<MultiBinding Converter="{StaticResource GConv-MultiBindingStringFormat}" ConverterParameter="{}{0} bis {1}" >
-																<Binding Path="BonNummerVon"/>
-																<Binding Path="BonNummerBis"/>
+															<MultiBinding Converter="{StaticResource GConv-MultiBindingStringFormat}" ConverterParameter="{}{0} bis {1}">
+																<Binding Path="BonNummerVon" />
+																<Binding Path="BonNummerBis" />
 															</MultiBinding>
 														</ParamView.Value>
 													</ParamView>
@@ -214,7 +214,8 @@
 										</ListView.View>
 									</belegview:BelegPostenListView>
 								</Expander>
-								<Expander Grid.Row="2" IsExpanded="{Binding Path=PrintedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneWay}" Padding="0">
+								<Expander Grid.Row="2" IsExpanded="{Binding Path=PrintedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneWay}"
+										Padding="0">
 									<Expander.Header>
 										<Grid>
 											<Grid.ColumnDefinitions>
@@ -237,7 +238,8 @@
 									</Expander.Header>
 									<belegview:PrintedBelegeListView Item="{Binding}" x:Name="PART_PrintedBelegeListView" />
 								</Expander>
-								<Expander Grid.Row="3" IsExpanded="{Binding Path=MailedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneTime}" Padding="0">
+								<Expander Grid.Row="3" IsExpanded="{Binding Path=MailedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneTime}"
+										Padding="0">
 									<Expander.Header>
 										<Grid>
 											<Grid.ColumnDefinitions>
@@ -268,8 +270,7 @@
 									<RowDefinition Height="*" />
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
-								<Border Style="{StaticResource RedBorder}" Padding="3" Margin="0,0,0,10"
-										Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}">
+								<designElements:RedBorderBox Margin="0,0,0,10" Visibility="{Binding Path=IsStorniert, Converter={StaticResource GConv-BoolVisibility}}">
 									<Grid>
 										<Grid.RowDefinitions>
 											<RowDefinition Height="Auto" />
@@ -290,9 +291,9 @@
 											</TextBlock>
 										</Border>
 									</Grid>
-								</Border>
-								<Button Grid.Row="0" Style="{StaticResource CancleButton}" Content="Stornieren" x:Name="PART_StornoButton"
-											Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="7,2,7,2" Margin="0,0,10,10" />
+								</designElements:RedBorderBox>
+								<designElements:CancleButton Grid.Row="0" Content="Stornieren" x:Name="PART_StornoButton"
+															Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="7,2,7,2" Margin="0,0,10,10" />
 								<Expander Grid.Row="1" Header="Rechnungsansicht" IsExpanded="True" Padding="0">
 									<shared:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl" />
 								</Expander>

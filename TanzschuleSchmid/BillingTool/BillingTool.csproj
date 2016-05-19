@@ -130,6 +130,12 @@
     <Compile Include="Themes\Controls\options\SteuersatzConfigurationControl.xaml.cs">
       <DependentUpon>SteuersatzConfigurationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\_designElements\AcceptButton.xaml.cs">
+      <DependentUpon>AcceptButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\_designElements\CancleButton.xaml.cs">
+      <DependentUpon>CancleButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\_shared\BonPreviewControl.xaml.cs">
       <DependentUpon>BonPreviewControl.xaml</DependentUpon>
     </Compile>
@@ -144,9 +150,6 @@
     </Compile>
     <Compile Include="Themes\Controls\_shared\FromToSelectorControl.xaml.cs">
       <DependentUpon>FromToSelectorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
-      <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\options\ApperanceConfigurationControl.xaml.cs">
       <DependentUpon>ApperanceConfigurationControl.xaml</DependentUpon>
@@ -175,8 +178,13 @@
     <Compile Include="Themes\Controls\belegview\StornoApprovalControl.xaml.cs">
       <DependentUpon>StornoApprovalControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
-    <Compile Include="Themes\Converters\BtConv_TypIsUmsatzNachricht.cs" />
+    <Compile Include="Themes\Controls\_shared\ProcessingStateIcon.xaml.cs">
+      <DependentUpon>ProcessingStateIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs">
+      <DependentUpon>RedBorderBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Converters\BtConv_TypIsTimeBon.cs" />
     <Compile Include="Windows\privileged\Window_DatabaseConfiguration.xaml.cs">
       <DependentUpon>Window_DatabaseConfiguration.xaml</DependentUpon>
     </Compile>
@@ -260,6 +268,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\_designElements\AcceptButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_designElements\CancleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\_shared\BonPreviewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -277,10 +293,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\_shared\FromToSelectorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Controls\HeaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -317,6 +329,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\belegview\StornoApprovalControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_shared\ProcessingStateIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_designElements\RedBorderBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

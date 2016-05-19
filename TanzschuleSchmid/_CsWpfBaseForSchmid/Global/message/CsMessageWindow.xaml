@@ -311,7 +311,7 @@
 								</Paragraph>
 							</FlowDocument>
 						</RichTextBox>
-						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top" Margin="15,1,0,0">
+						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top" Margin="15,10,10,0">
 							<TextBox IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=StackTrace, Mode=OneWay}" TextWrapping="Wrap" />
 						</Expander>
 					</Grid>

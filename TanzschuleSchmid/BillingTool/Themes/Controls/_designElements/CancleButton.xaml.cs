@@ -2,23 +2,22 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-01</date>
+// <date>2016-05-19</date>
 
 using System;
-using System.Windows.Controls;
 
 
 
 
 
 
-namespace BillingTool.Themes.Controls
+namespace BillingTool.Themes.Controls._designElements
 {
-	/// <summary>Interaction logic for HeaderControl.xaml</summary>
-	public partial class HeaderControl : UserControl
+	/// <summary>Interaction logic for CancleButton.xaml</summary>
+	public partial class CancleButton
 	{
 		/// <summary>ctor</summary>
-		public HeaderControl()
+		public CancleButton()
 		{
 			InitializeComponent();
 		}

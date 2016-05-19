@@ -4,9 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
-		xmlns:controls="clr-namespace:BillingTool.Themes.Controls"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 		mc:Ignorable="d"
@@ -35,7 +33,7 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<shared:FromToSelectorControl x:Name="FromToSelector" SelectionChanged="FromToSelectorControl_OnSelectionChanged"></shared:FromToSelectorControl>
+				<shared:FromToSelectorControl x:Name="FromToSelector" SelectionChanged="FromToSelectorControl_OnSelectionChanged" />
 				<Button Grid.Column="1" Content="Änderungen verwerfen" Click="ÄnderungenVerwerfenClicked" Margin="10,0,0,0" Padding="10,3,10,3"
 						Foreground="#DF3E3E" />
 				<Button Grid.Column="2" Content="Exportieren" Margin="10,0,0,0" Padding="10,3,10,3" />

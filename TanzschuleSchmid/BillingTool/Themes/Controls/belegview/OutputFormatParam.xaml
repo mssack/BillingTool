@@ -5,24 +5,23 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
-		mc:Ignorable="d"
-		d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc">
-	<ComboBox SelectedItem="{Binding ElementName=Uc, Path=OutputFormat}">
+		mc:Ignorable="d" x:Name="Uc">
+	<ComboBox SelectedItem="{Binding ElementName=Uc, Path=OutputFormat}" DataContext="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats}">
 		<ComboBox.Style>
 			<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-				<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MailOrPrintFormate}" />
+				<Setter Property="ItemsSource" Value="{Binding Path=MailOrPrintFormate}" />
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
-						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.StornoFormate}" />
+						<Setter Property="ItemsSource" Value="{Binding Path=StornoFormate}" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
-						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.TagesBonFormate}" />
+						<Setter Property="ItemsSource" Value="{Binding Path=TagesBonFormate}" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
-						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MonatsBonFormate}" />
+						<Setter Property="ItemsSource" Value="{Binding Path=MonatsBonFormate}" />
 					</DataTrigger>
 					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
-						<Setter Property="ItemsSource" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.JahresBonFormate}" />
+						<Setter Property="ItemsSource" Value="{Binding Path=JahresBonFormate}" />
 					</DataTrigger>
 				</Style.Triggers>
 			</Style>
