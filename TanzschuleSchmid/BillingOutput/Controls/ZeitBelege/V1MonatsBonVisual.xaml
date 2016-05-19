@@ -37,7 +37,7 @@
 		</Grid.RowDefinitions>
 		<shared:V1Header OutputFormat="{Binding ElementName=Uc2, Path=OutputFormat}" Item="{Binding ElementName=Uc2, Path=Item}" />
 		
-		<TextBlock Grid.Row="8" Text="Monatsbon"  FontSize="18" Margin="0,15,0,15"/>
+		<TextBlock Grid.Row="8" Text="*** Monatsbon ***"  FontSize="20" Margin="0,15,0,15" TextAlignment="Center"/>
 		<Grid Grid.Row="9" >
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>

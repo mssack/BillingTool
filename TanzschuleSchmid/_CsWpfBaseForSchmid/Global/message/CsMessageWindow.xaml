@@ -143,7 +143,7 @@
 													<Setter Property="Visibility" Value="Collapsed" />
 												</Style>
 											</StackPanel.Resources>
-											<Button Content="No" Tag="{x:Static c:CsMessage+MessageResults.No}">
+											<Button Content="Nein" Tag="{x:Static c:CsMessage+MessageResults.No}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -157,7 +157,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Cancel" Tag="{x:Static c:CsMessage+MessageResults.Cancel}">
+											<Button Content="Abbrechen" Tag="{x:Static c:CsMessage+MessageResults.Cancel}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -171,7 +171,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Yes" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesButtonEnabled}">
+											<Button Content="Ja" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesButtonEnabled}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
