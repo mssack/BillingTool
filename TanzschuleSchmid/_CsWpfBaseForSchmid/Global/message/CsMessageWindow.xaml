@@ -143,7 +143,7 @@
 													<Setter Property="Visibility" Value="Collapsed" />
 												</Style>
 											</StackPanel.Resources>
-											<Button Content="Nein" Tag="{x:Static c:CsMessage+MessageResults.No}">
+											<Button Content="Nein" Tag="{x:Static c:CsMessage+MessageResults.No}" IsCancel="True">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -157,7 +157,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Abbrechen" Tag="{x:Static c:CsMessage+MessageResults.Cancel}">
+											<Button Content="Abbrechen" Tag="{x:Static c:CsMessage+MessageResults.Cancel}" IsCancel="True">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -332,8 +332,7 @@
 								</Paragraph>
 							</FlowDocument>
 						</RichTextBox>
-						<ItemsControl Grid.Row="1" ItemsSource="{Binding Converter={StaticResource GConv-ExceptionToExceptionList}}" ItemTemplate="{StaticResource ExceptionContent}">
-						</ItemsControl>
+						<ItemsControl Grid.Row="1" ItemsSource="{Binding Converter={StaticResource GConv-ExceptionToExceptionList}}" ItemTemplate="{StaticResource ExceptionContent}" />
 					</Grid>
 				</DataTemplate>
 			</ContentControl.Resources>

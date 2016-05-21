@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-19</date>
+// <date>2016-05-21</date>
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Markup;
 using CsWpfBase.Ev.Public.Extensions;
@@ -17,38 +18,30 @@ using CsWpfBase.Ev.Public.Extensions;
 
 namespace BillingTool.Themes.Controls._designElements
 {
-	/// <summary>Interaction logic for RedBorderBox.xaml</summary>
+	/// <summary>Used as a warning message.</summary>
 	[ContentProperty("Content")]
-	public partial class RedBorderBox
+	public class RedBorderBox : Control
 	{
 		#region DP Keys
-		public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(RedBorderBox), new FrameworkPropertyMetadata
-		{
-			DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback =  (o, args) => ((RedBorderBox)o).OnContentChanged()
-		});
+		public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(RedBorderBox), new FrameworkPropertyMetadata {DefaultValue = default(object), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((RedBorderBox) o).OnContentChanged()});
 		#endregion
 
 
-		/// <summary>ctor</summary>
-		public RedBorderBox()
+		static RedBorderBox()
 		{
-			InitializeComponent();
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(RedBorderBox), new FrameworkPropertyMetadata(typeof(RedBorderBox)));
 		}
-
-
-		#region Overrides/Interfaces
-		private void OnContentChanged()
-		{
-			if (Content != null && Content is DependencyObject)
-				NameScope.SetNameScope((DependencyObject)Content, Parent.GetContainingNameScope());
-		}
-		#endregion
-
 
 		public object Content
 		{
 			get { return (object) GetValue(ContentProperty); }
 			set { SetValue(ContentProperty, value); }
+		}
+
+		private void OnContentChanged()
+		{
+			if (Content != null && Content is DependencyObject)
+				NameScope.SetNameScope((DependencyObject) Content, Parent.GetContainingNameScope());
 		}
 	}
 }

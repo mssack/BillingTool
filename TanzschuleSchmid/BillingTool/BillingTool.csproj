@@ -136,6 +136,7 @@
     <Compile Include="Themes\Controls\_designElements\CancleButton.xaml.cs">
       <DependentUpon>CancleButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs" />
     <Compile Include="Themes\Controls\_shared\BonPreviewControl.xaml.cs">
       <DependentUpon>BonPreviewControl.xaml</DependentUpon>
     </Compile>
@@ -180,9 +181,6 @@
     </Compile>
     <Compile Include="Themes\Controls\_shared\ProcessingStateIcon.xaml.cs">
       <DependentUpon>ProcessingStateIcon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs">
-      <DependentUpon>RedBorderBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Converters\BtConv_TypIsTimeBon.cs" />
     <Compile Include="Windows\privileged\Window_DatabaseConfiguration.xaml.cs">
@@ -276,6 +274,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\_designElements\RedBorderBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\_shared\BonPreviewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -333,10 +335,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\_shared\ProcessingStateIcon.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Controls\_designElements\RedBorderBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

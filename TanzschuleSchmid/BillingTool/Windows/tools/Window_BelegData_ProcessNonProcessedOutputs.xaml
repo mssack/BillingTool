@@ -10,7 +10,7 @@
 		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
 		mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{StaticResource {x:Type CsWindow}}"
 		Title="Exporte" Height="300" Width="300" Topmost="True" WindowStartupLocation="CenterOwner" x:Name="Uc"
-		CloseButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed">
+		CloseButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed" ShowInTaskbar="False">
 	<CsWindow.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

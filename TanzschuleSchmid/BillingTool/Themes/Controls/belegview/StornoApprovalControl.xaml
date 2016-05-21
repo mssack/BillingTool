@@ -3,7 +3,7 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			mc:Ignorable="d" x:Name="Control">
+			mc:Ignorable="d" x:Name="Control" Focusable="False">
 	<Grid DataContext="{Binding ElementName=Control}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -11,8 +11,8 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<TextBlock TextWrapping="Wrap"
-					Text="Sind Sie sich sicher das sie diesen Beleg stornieren wollen? Sie können diesen Schritt nicht rückgängig machen." />
-		<TextBlock Grid.Row="1" Text="Wenn Ja geben Sie bitte einen Grund an." />
-		<TextBox Grid.Row="2" Text="{Binding Path=ReasonText, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,5" Padding="3" AcceptsReturn="True" />
+					Text="Das Stornieren eines Belegs kann nicht mehr rückgängig gemacht werden." />
+		<TextBlock Grid.Row="1" Text=" Wenn Sie sich sicher sind, dass Sie diesen Beleg stornieren möchten, geben Sie bitte einen Grund an." />
+		<TextBox Grid.Row="2" x:Name="ReasonTextBox" Text="{Binding Path=ReasonText, UpdateSourceTrigger=PropertyChanged}" Margin="10,5,0,5" Padding="3" AcceptsReturn="True" />
 	</Grid>
 </UserControl>

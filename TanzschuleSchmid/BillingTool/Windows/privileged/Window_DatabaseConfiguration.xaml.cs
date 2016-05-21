@@ -2,11 +2,12 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-19</date>
+// <date>2016-05-21</date>
 
 using System;
 using System.ComponentModel;
 using System.Windows;
+using BillingTool.btScope;
 using CsWpfBase.Themes.Controls.Containers;
 using CsWpfBase.Utilitys;
 
@@ -35,6 +36,7 @@ namespace BillingTool.Windows.privileged
 			if (_managedClose.Active)
 				return;
 
+			Bt.Data.SyncChanges();
 			e.Cancel = true;
 		}
 
