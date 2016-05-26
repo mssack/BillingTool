@@ -40,23 +40,27 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
 				<TextBlock Grid.Row="1" TextWrapping="Wrap" FontWeight="Bold" FontSize="14" TextAlignment="Center"
-							Text="{Binding ElementName=HeaderControl, Path=Item.DataSet.Configurations.Business.Name}"
+							Text="{Binding ElementName=HeaderControl, Path=OutputFormat.BusinessName}"
 							Visibility="{Binding ElementName=HeaderControl, Path=OutputFormat.IsBusinessNameVisible, Converter={StaticResource GConv-BoolVisibility}}" />
 				<TextBlock Grid.Row="2" TextWrapping="Wrap" TextAlignment="Center"
-							Text="{Binding ElementName=HeaderControl, Path=Item.DataSet.Configurations.Business.Anschrift}"
+							Text="{Binding ElementName=HeaderControl, Path=OutputFormat.BusinessAnschrift}"
 							Visibility="{Binding ElementName=HeaderControl, Path=OutputFormat.IsBusinessAnschriftVisible, Converter={StaticResource GConv-BoolVisibility}}" />
 				<TextBlock Grid.Row="3" TextWrapping="Wrap" TextAlignment="Center"
-							Text="{Binding ElementName=HeaderControl, Path=Item.DataSet.Configurations.Business.Telefon}"
+							Text="{Binding ElementName=HeaderControl, Path=OutputFormat.BusinessTelefon}"
 							Visibility="{Binding ElementName=HeaderControl, Path=OutputFormat.IsBusinessTelefonVisible, Converter={StaticResource GConv-BoolVisibility}}" />
 				<TextBlock Grid.Row="4" TextWrapping="Wrap" TextAlignment="Center"
-							Text="{Binding ElementName=HeaderControl, Path=Item.DataSet.Configurations.Business.Mail}"
+							Text="{Binding ElementName=HeaderControl, Path=OutputFormat.BusinessMail}"
 							Visibility="{Binding ElementName=HeaderControl, Path=OutputFormat.IsBusinessMailVisible, Converter={StaticResource GConv-BoolVisibility}}" />
 				<TextBlock Grid.Row="5" TextWrapping="Wrap" TextAlignment="Center"
-							Text="{Binding ElementName=HeaderControl, Path=Item.DataSet.Configurations.Business.Website}"
+							Text="{Binding ElementName=HeaderControl, Path=OutputFormat.BusinessWebsite}"
 							Visibility="{Binding ElementName=HeaderControl, Path=OutputFormat.IsBusinessWebsiteVisible, Converter={StaticResource GConv-BoolVisibility}}" />
+				<TextBlock Grid.Row="6" TextWrapping="Wrap" TextAlignment="Center"
+							Text="{Binding ElementName=HeaderControl, Path=OutputFormat.BusinessUid}"
+							Visibility="{Binding ElementName=HeaderControl, Path=OutputFormat.IsBusinessUidVisible, Converter={StaticResource GConv-BoolVisibility}}" />
 			</Grid>
 
 

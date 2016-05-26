@@ -21,7 +21,14 @@
 	[ThirdImageHash]		ntext			,
 	[ThirdText]				ntext			,
 
+	[BusinessUid]			ntext,
+	[BusinessName]			ntext,
+	[BusinessAnschrift]		ntext,
+	[BusinessMail]			ntext,
+	[BusinessTelefon]		ntext,
+	[BusinessWebsite]		ntext,
 
+	[IsBusinessUidVisible]			bit		NOT NULL DEFAULT(1),
 	[IsBusinessNameVisible]			bit		NOT NULL DEFAULT(1),
 	[IsBusinessAnschriftVisible]	bit		NOT NULL DEFAULT(1),
 	[IsBusinessMailVisible]			bit		NOT NULL DEFAULT(1),

@@ -68,7 +68,7 @@
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Grid IsEnabled="{Binding Path=CanBeModified}">
+				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
@@ -106,8 +106,20 @@
 											<ColumnDefinition Width="Auto" />
 										</Grid.ColumnDefinitions>
 										<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
-												ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}"
-												IsEnabled="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolInverter}}" />
+												ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}">
+											<ComboBox.Style>
+												<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+													<Style.Triggers>
+														<DataTrigger Binding="{Binding Path=CanBeModified}" Value="False">
+															<Setter Property="IsEnabled" Value="False" />
+														</DataTrigger>
+														<DataTrigger Binding="{Binding Path=IsDefault}" Value="True">
+															<Setter Property="IsEnabled" Value="False" />
+														</DataTrigger>
+													</Style.Triggers>
+												</Style>
+											</ComboBox.Style>
+										</ComboBox>
 
 										<designElements:AcceptButton Grid.Column="1" Click="SetAsStandardButtonClicked"
 																	Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-InvBoolVisibility}}" Padding="5,0,5,0" Margin="5,0,0,0">
@@ -125,40 +137,84 @@
 							<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
 						</Grid>
 					</GroupBox>
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Sichtbarkeiten">
-						<Grid>
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Sichtbarkeiten" IsEnabled="{Binding Path=CanBeModified}">
+						<Grid  >
 							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
-							<Grid IsSharedSizeScope="True" HorizontalAlignment="Center" Margin="0,0,20,0">
+							<Grid IsSharedSizeScope="True">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
-								<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessNameVisible}" Value="{Binding Path=IsBusinessNameVisible}" />
-								<BoolParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-IsBusinessAnschriftVisible}"
-											Value="{Binding Path=IsBusinessAnschriftVisible}" />
-								<BoolParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-IsBusinessMailVisible}" Value="{Binding Path=IsBusinessMailVisible}" />
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
+								<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessUidVisible}" Value="{Binding Path=IsBusinessUidVisible}" />
+								<BoolParam Grid.Row="1" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessNameVisible}"
+												Value="{Binding Path=IsBusinessNameVisible}" />
+								<BoolParam Grid.Row="2" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessTelefonVisible}"
+												Value="{Binding Path=IsBusinessTelefonVisible}" />
+
+								<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessUid, StringFormat={}{0}}" />
+								<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=BusinessName, StringFormat={}{0}}" />
+								<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=BusinessTelefon, StringFormat={}{0}}" />
+
 							</Grid>
-							<Grid Grid.Column="1" IsSharedSizeScope="True" HorizontalAlignment="Center" Margin="0,0,20,0">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessTelefonVisible}" Value="{Binding Path=IsBusinessTelefonVisible}" />
-								<BoolParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-IsBusinessWebsiteVisible}" Value="{Binding Path=IsBusinessWebsiteVisible}" />
-								<BoolParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-IsKassenoperatorVisible}" Value="{Binding Path=IsKassenoperatorVisible}" />
-							</Grid>
+							<Border Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Padding="10,0,0,0" BorderThickness="1,0,0,0" BorderBrush="LightGray">
+
+								<Grid IsSharedSizeScope="True">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+
+									<BoolParam Grid.Row="0" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessMailVisible}"
+												Value="{Binding Path=IsBusinessMailVisible}" x:Name="MailBoolParam"/>
+									<BoolParam Grid.Row="1" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessWebsiteVisible}"
+												Value="{Binding Path=IsBusinessWebsiteVisible}" />
+									<BoolParam Grid.Row="2" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsKassenoperatorVisible}"
+												Value="{Binding Path=IsKassenoperatorVisible}" />
+
+									<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessMail, StringFormat={}{0}}" AKeyboardFocusRedirection.Target="{Binding ElementName=MailBoolParam}" />
+									<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=BusinessWebsite, StringFormat={}{0}}" />
+
+								</Grid>
+							</Border>
+							<Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,0" Padding="0,5,0,0" BorderThickness="0,1,0,0" BorderBrush="LightGray">
+								<Grid IsSharedSizeScope="True">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<BoolParam Grid.Row="0" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessAnschriftVisible}"
+													Value="{Binding Path=IsBusinessAnschriftVisible}" />
+									<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessAnschrift, StringFormat={}{0}}" />
+								</Grid>
+
+							</Border>
+
 						</Grid>
 					</GroupBox>
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Texte">
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Texte" IsEnabled="{Binding Path=CanBeModified}">
 						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
@@ -173,7 +229,7 @@
 										MaxHeight="60" />
 						</Grid>
 					</GroupBox>
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="4" Header="Bilder">
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="4" Header="Bilder" IsEnabled="{Binding Path=CanBeModified}">
 						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />

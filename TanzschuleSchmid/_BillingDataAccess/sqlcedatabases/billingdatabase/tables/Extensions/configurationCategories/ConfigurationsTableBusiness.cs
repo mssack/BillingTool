@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-19</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -48,6 +48,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 			}
 		}
 
+		/// <summary>Gets or sets the Uid.</summary>
+		public string Uid
+		{
+			get { return GetValue(""); }
+			set { SetValue(value); }
+		}
 		/// <summary>The name of the business.</summary>
 		public string Name
 		{
@@ -75,7 +81,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 			get { return GetValue(""); }
 			set { SetValue(value); }
 		}
-		///<summary>The website of the business.</summary>
+		/// <summary>The website of the business.</summary>
 		public string Website
 		{
 			get { return GetValue(""); }

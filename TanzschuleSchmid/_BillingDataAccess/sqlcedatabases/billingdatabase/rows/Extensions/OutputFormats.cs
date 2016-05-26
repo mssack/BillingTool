@@ -28,6 +28,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 
 		#region Overrides/Interfaces
+		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
+		public override void ApplyExtendedDefaults()
+		{
+			base.ApplyExtendedDefaults();
+			ApplyBusinessInfos();
+		}
+
 		/// <summary>sets the value of a column and notify property changed.</summary>
 		public override bool SetDbValue<T>(T m, string columnName, string propName = "")
 		{
@@ -132,7 +139,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 		/// <summary>
 		///     returns true if this <see cref="OutputFormat" /> is a default format.
-		///     <remarks>OnPropertyChanged will be invoked from table <see cref="OutputFormatsTable"/>.</remarks>
+		///     <remarks>OnPropertyChanged will be invoked from table <see cref="OutputFormatsTable" />.</remarks>
 		/// </summary>
 		public bool IsDefault => new[]
 		{
@@ -143,7 +150,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			IsDefault_MonatsbonFormat(),
 			IsDefault_JahresbonFormat()
 		}.Any(x => x);
-		
+
 
 		/// <summary>returns true if this <see cref="OutputFormat" /> can be modified.</summary>
 		[DependsOn(nameof(HasBeenUsed))]
@@ -188,6 +195,18 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				Table.Default_MonatsBonFormat = this;
 			else if (BonLayout.IsJahresBonLayout())
 				Table.Default_JahresBonFormat = this;
+		}
+
+
+		/// <summary>Applys the business informations.</summary>
+		public void ApplyBusinessInfos()
+		{
+			BusinessUid = DataSet.Configurations.Business.Uid;
+			BusinessName = DataSet.Configurations.Business.Name;
+			BusinessAnschrift = DataSet.Configurations.Business.Anschrift;
+			BusinessMail = DataSet.Configurations.Business.Mail;
+			BusinessTelefon = DataSet.Configurations.Business.Telefon;
+			BusinessWebsite = DataSet.Configurations.Business.Website;
 		}
 
 

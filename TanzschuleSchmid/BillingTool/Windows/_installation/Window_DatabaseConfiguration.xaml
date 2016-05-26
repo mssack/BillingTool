@@ -23,13 +23,15 @@
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<StringParam Grid.Row="0" Header="Name" Value="{Binding Path=Name}" AcceptsReturn="True" VerticalContentAlignment="Top" />
-			<StringParam Grid.Row="1" Header="Anschrift" Value="{Binding Path=Anschrift}" AcceptsReturn="True" VerticalContentAlignment="Top" />
-			<StringParam Grid.Row="2" Header="Telefon" Value="{Binding Path=Telefon}" />
-			<StringParam Grid.Row="3" Header="Mail Address" Value="{Binding Path=Mail}" />
-			<StringParam Grid.Row="4" Header="Website" Value="{Binding Path=Website}" />
-			<ImageParam Grid.Row="5" Header="Logo" Value="{Binding Path=Logo}" />
+			<StringParam Grid.Row="0" Header="Uid" Value="{Binding Path=Uid}" />
+			<StringParam Grid.Row="1" Header="Name" Value="{Binding Path=Name}" AcceptsReturn="True" VerticalContentAlignment="Top" />
+			<StringParam Grid.Row="2" Header="Anschrift" Value="{Binding Path=Anschrift}" AcceptsReturn="True" VerticalContentAlignment="Top" />
+			<StringParam Grid.Row="3" Header="Telefon" Value="{Binding Path=Telefon}" />
+			<StringParam Grid.Row="4" Header="Mail Address" Value="{Binding Path=Mail}" />
+			<StringParam Grid.Row="5" Header="Website" Value="{Binding Path=Website}" />
+			<ImageParam Grid.Row="6" Header="Logo" Value="{Binding Path=Logo}" />
 		</Grid>
 		<Border Grid.Row="1" Margin="0,10,0,0" Padding="0,10,0,0" BorderThickness="0,1,0,0" BorderBrush="DimGray">
 			<Grid>

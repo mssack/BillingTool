@@ -34,9 +34,19 @@ namespace BillingTool.Windows._installation
 		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			if (_managedClose.Active)
+			{
+				if (Bt.Db.Billing.Configurations.Business.IsValid)
+				{
+					foreach (var outputFormat in Bt.Db.Billing.OutputFormats)
+					{
+						outputFormat.ApplyBusinessInfos();
+					}
+				}
+				Bt.Data.SyncChanges();
 				return;
+			}
 
-			Bt.Data.SyncChanges();
+
 			e.Cancel = true;
 		}
 

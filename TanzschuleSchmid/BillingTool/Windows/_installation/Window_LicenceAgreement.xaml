@@ -17,7 +17,7 @@
 				<RowDefinition Height="*" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
-			<TextBlock Text="Lizenzvereinbarung" FontWeight="Bold" FontSize="16" />
+			<TextBlock Text="Lizenzvereinbarung" FontWeight="Bold" FontSize="18" />
 			<TextBox Grid.Row="1" IsReadOnly="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Source={x:Static btScope:Bt.Administrator}, Path=License, Mode=OneWay}" Margin="10,5,10,5" />
 			<Grid Grid.Row="2">
 
@@ -27,8 +27,8 @@
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 
-				<designElements:CancleButton Grid.Column="0" Click="CancleClicked" Content="Abbrechen" FontSize="14" />
-				<designElements:AcceptButton Grid.Column="2" Click="AcceptClicked" Content="Akzeptieren" FontSize="14"/>
+				<designElements:CancleButton Grid.Column="0" Click="CancleClicked" Content="Abbrechen" FontSize="15" />
+				<designElements:AcceptButton Grid.Column="2" Click="AcceptClicked" Content="Akzeptieren" FontSize="15"/>
 			</Grid>
 		</Grid>
 	</Border>

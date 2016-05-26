@@ -55,7 +55,9 @@ namespace BillingTool.Themes.Controls.options
 
 		private void SelectedItemChanged()
 		{
-			if (SelectedItem.BonLayoutType == BonLayoutTypes.Print || SelectedItem.BonLayoutType == BonLayoutTypes.Mail)
+			if (SelectedItem == null)
+				SampleBelegData = null;
+			else if (SelectedItem.BonLayoutType == BonLayoutTypes.Print || SelectedItem.BonLayoutType == BonLayoutTypes.Mail)
 				SampleBelegData = SelectedItem.DataSet.BelegDaten.SampleFor.PrintOrMail;
 			else if (SelectedItem.BonLayoutType == BonLayoutTypes.Storno)
 				SampleBelegData = SelectedItem.DataSet.BelegDaten.SampleFor.Storno;

@@ -52,7 +52,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// <summary>Gets or sets the default <see cref="OutputFormat" /> which can be used for Storno.</summary>
 		public OutputFormat Default_StornoFormat
 		{
-			get { return GetDefaultFormat(ref _defaultStornoFormat, DataSet.Configurations.Default.StornoFormatId, BonLayouts.Unknown.Default_Storno()); }
+			get { return GetDefaultFormat(ref _defaultStornoFormat, DataSet.Configurations.Default.StornoFormatId, BonLayouts.Unknown.Default_Storno(), true); }
 			set { SetDefaultFormat(ref _defaultStornoFormat, value, (confDefaults, id) => confDefaults.StornoFormatId = id); }
 		}
 
