@@ -29,7 +29,7 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<shared:V1Header OutputFormat="{Binding ElementName=Uc, Path=OutputFormat}" Item="{Binding ElementName=Uc, Path=Item}" />
-		<TextBlock Grid.Row="1" TextAlignment="Left" Text="{Binding ElementName=Uc, Path=Item.KassenOperator, StringFormat={}Es bediente Sie: {0:0}}" />
+		<TextBlock Grid.Row="1" TextAlignment="Left" Text="{Binding ElementName=Uc, Path=Item.KassenOperator, StringFormat={}Es bediente Sie: {0:0}}" Visibility="{Binding ElementName=Uc, Path=OutputFormat.IsKassenoperatorVisible, Converter={StaticResource GConv-BoolVisibility}}" />
 		<Border Grid.Row="2" Margin="0,10,0,20">
 			<Grid IsSharedSizeScope="True">
 				<Grid.RowDefinitions>
@@ -51,7 +51,7 @@
 									Text="{Binding ElementName=Uc, Path=Item.Typ, Converter={StaticResource GConv-GetEnumName}}" HorizontalAlignment="Center" />
 					</Grid>
 				</Border>
-				<Border Grid.Row="1" BorderThickness="0,1,0,1" BorderBrush="DarkGray" Margin="0,5,0,5" Padding="0,5,0,5">
+				<Border Grid.Row="1" BorderThickness="0,2,0,2" BorderBrush="DarkGray" Margin="0,5,0,5" Padding="0,5,0,5">
 					<Grid>
 						<ItemsControl ItemsSource="{Binding ElementName=Uc, Path=Item.Postens}" Padding="0" SnapsToDevicePixels="False" Focusable="False">
 							<ItemsControl.ItemTemplate>
@@ -149,8 +149,8 @@
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
-				<TextBlock TextWrapping="Wrap" Text="{Binding ElementName=Uc, Path=OutputFormat.SecondText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondText, Converter={StaticResource GConv-NullToVisibility}}" />
-				<Image Grid.Row="1" Source="{Binding ElementName=Uc, Path=OutputFormat.SecondImage}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.SecondImage, Converter={StaticResource GConv-NullToVisibility}}"/>
+				<TextBlock TextWrapping="Wrap" Text="{Binding ElementName=Uc, Path=OutputFormat.ThirdText}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.ThirdText, Converter={StaticResource GConv-NullToVisibility}}" />
+				<Image Grid.Row="1" Source="{Binding ElementName=Uc, Path=OutputFormat.ThirdImage}" Visibility="{Binding  ElementName=Uc, Path=OutputFormat.ThirdImage, Converter={StaticResource GConv-NullToVisibility}}"/>
 			</Grid>
 		</Border>
 	</Grid>

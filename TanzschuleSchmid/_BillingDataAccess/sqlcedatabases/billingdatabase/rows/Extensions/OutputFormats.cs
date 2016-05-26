@@ -2,12 +2,13 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-26</date>
 
 using System;
+using System.Linq;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Utilitys;
@@ -58,6 +59,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			}
 			set { BonLayoutName = value.ToString(); }
 		}
+
+		/// <summary>The wrapper property for column property <see cref="BonLayoutName" />.</summary>
+		[DependsOn(nameof(BonLayoutName))]
+		public BonLayoutTypes BonLayoutType => BonLayout.GetBonLayoutType();
 
 		/// <summary>The cashed image.</summary>
 		[DependsOn(nameof(FirstImageBinary))]
@@ -119,11 +124,71 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			}
 		}
 
-		
+
+
 		/// <summary>returns true if this element has been used before.</summary>
 		[DependsOn(nameof(LastUsedDate))]
 		public bool HasBeenUsed => LastUsedDate != null;
+
+		/// <summary>
+		///     returns true if this <see cref="OutputFormat" /> is a default format.
+		///     <remarks>OnPropertyChanged will be invoked from table <see cref="OutputFormatsTable"/>.</remarks>
+		/// </summary>
+		public bool IsDefault => new[]
+		{
+			IsDefault_PrintFormat(),
+			IsDefault_MailFormat(),
+			IsDefault_StornoFormat(),
+			IsDefault_TagesbonFormat(),
+			IsDefault_MonatsbonFormat(),
+			IsDefault_JahresbonFormat()
+		}.Any(x => x);
 		
+
+		/// <summary>returns true if this <see cref="OutputFormat" /> can be modified.</summary>
+		[DependsOn(nameof(HasBeenUsed))]
+		public bool CanBeModified => !HasBeenUsed;
+
+		/// <summary>returns true if this <see cref="OutputFormat" /> can be deleted.</summary>
+		[DependsOn(nameof(HasBeenUsed))]
+		[DependsOn(nameof(IsDefault))]
+		public bool CanBeDeleted => !HasBeenUsed && !IsDefault;
+
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_PrintFormat" />.</summary>
+		public bool IsDefault_PrintFormat() => Table.Default_PrintFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_MailFormat" />.</summary>
+		public bool IsDefault_MailFormat() => Table.Default_MailFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_StornoFormat" />.</summary>
+		public bool IsDefault_StornoFormat() => Table.Default_StornoFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_TagesBonFormat" />.</summary>
+		public bool IsDefault_TagesbonFormat() => Table.Default_TagesBonFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_MonatsBonFormat" />.</summary>
+		public bool IsDefault_MonatsbonFormat() => Table.Default_MonatsBonFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_JahresBonFormat" />.</summary>
+		public bool IsDefault_JahresbonFormat() => Table.Default_JahresBonFormat == this;
+
+		/// <summary>sets the <see cref="OutputFormat" /> as the associated default in the <see cref="OutputFormatsTable" />.</summary>
+		public void SetAsDbStandard()
+		{
+			if (BonLayout.IsPrintLayout())
+				Table.Default_PrintFormat = this;
+			else if (BonLayout.IsMailLayout())
+				Table.Default_MailFormat = this;
+			else if (BonLayout.IsStornoLayout())
+				Table.Default_StornoFormat = this;
+			else if (BonLayout.IsTagesBonLayout())
+				Table.Default_TagesBonFormat = this;
+			else if (BonLayout.IsMonatsBonLayout())
+				Table.Default_MonatsBonFormat = this;
+			else if (BonLayout.IsJahresBonLayout())
+				Table.Default_JahresBonFormat = this;
+		}
 
 
 
@@ -143,7 +208,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			private BitmapSource Value
 			{
 				get { return _value; }
-				set { _value = value; value?.Freeze(); }
+				set
+				{
+					_value = value;
+					value?.Freeze();
+				}
 			}
 			private string Hash { get; set; }
 
@@ -180,6 +249,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				Value = DbValue.ConvertTo_Image();
 				return Value;
 			}
+
 			public void SetValue(BitmapSource value)
 			{
 				if (value == null)

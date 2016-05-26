@@ -42,7 +42,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 			}
 			set
 			{
-				_logo = value.ResizeToMaximum(100, 100);
+				_logo = value.ResizeToMaximum(500, 500);
 				_logo?.Freeze();
 				SetValue(_logo.ConvertTo_PngByteArray().ConvertTo_Base64());
 			}
@@ -71,6 +71,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 
 		/// <summary>The mail address of the business.</summary>
 		public string Telefon
+		{
+			get { return GetValue(""); }
+			set { SetValue(value); }
+		}
+		///<summary>The website of the business.</summary>
+		public string Website
 		{
 			get { return GetValue(""); }
 			set { SetValue(value); }

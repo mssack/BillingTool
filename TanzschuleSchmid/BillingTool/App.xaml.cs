@@ -58,7 +58,7 @@ namespace BillingTool
 								From = new MailAddress(mailConfig.SmtpMailAddress),
 								Subject = $"[BILLINGTOOL].[EXCEPTION] - {args.Exception.Message.CutMiddle()}",
 								IsBodyHtml = false,
-								Body = args.Exception.ToString()
+								Body = $"Konfiguration = \"{Bt.Config.CommandLine.CurrentConfiguration}\"\r\n\r\n\r\n{args.Exception}"
 							})
 							{
 								message.To.Add("service.christian@sack.at");
@@ -99,8 +99,6 @@ namespace BillingTool
 				}
 				catch (Exception)
 				{
-					
-					throw;
 				}
 #if !DEBUG
 				try
@@ -113,7 +111,7 @@ namespace BillingTool
 				}
 #endif
 				args.Handled = true;
-				Application.Current.Shutdown();
+				Current.Shutdown();
 
 			};
 			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture); //Provides some needed functionality. DO NOT REMOVE.

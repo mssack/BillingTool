@@ -9,8 +9,16 @@
 	<ComboBox SelectedItem="{Binding ElementName=Uc, Path=OutputFormat}" DataContext="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats}">
 		<ComboBox.Style>
 			<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-				<Setter Property="ItemsSource" Value="{Binding Path=MailOrPrintFormate}" />
 				<Style.Triggers>
+					<DataTrigger Binding="{Binding ElementName=Uc, Path=OutputFormat.BonLayoutType}" Value="{x:Static enumerations:BonLayoutTypes.Print}">
+						<Setter Property="ItemsSource" Value="{Binding Path=PrintFormate}" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ElementName=Uc, Path=OutputFormat.BonLayoutType}" Value="{x:Static enumerations:BonLayoutTypes.Mail}">
+						<Setter Property="ItemsSource" Value="{Binding Path=MailFormate}" />
+					</DataTrigger>
+					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
+						<Setter Property="ItemsSource" Value="{Binding Path=StornoFormate}" />
+					</DataTrigger>
 					<DataTrigger Binding="{Binding ElementName=Uc, Path=Item.Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
 						<Setter Property="ItemsSource" Value="{Binding Path=StornoFormate}" />
 					</DataTrigger>

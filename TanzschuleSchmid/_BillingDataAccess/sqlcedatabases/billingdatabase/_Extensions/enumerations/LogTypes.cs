@@ -22,9 +22,5 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 		Fatal,
 		/// <summary>An normal error occurred but the application is still alive.</summary>
 		Error,
-		/// <summary>A warning.</summary>
-		Warning,
-		/// <summary>An normal information.</summary>
-		Information,
 	}
 }

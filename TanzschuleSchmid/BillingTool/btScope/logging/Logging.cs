@@ -52,27 +52,14 @@ namespace BillingTool.btScope.logging
 		/// <param name="logType">The type of the log.</param>
 		/// <param name="filePath">!!!DO NOT PASS PARAMETER!!!</param>
 		/// <param name="method">!!!DO NOT PASS PARAMETER!!!</param>
-		public void New(string titel, string content, LogTypes logType = LogTypes.Information, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
+		public void New(string titel, string content, LogTypes logType = LogTypes.Undefined, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
 		{
 			Debug.Assert(filePath != null, "filePath != null");
-
-
-			var fileInfo = new FileInfo(filePath);
 
 			if (logType == LogTypes.Fatal && !Bt.IsInitialized())
 			{
 				return;
 			}
-			Bt.EnsureInitialization();
-			var log = Bt.Db.Billing.Logs.NewRow();
-			log.Type = logType;
-			log.Title = titel;
-			log.CodePosition = fileInfo.Name.Replace(".xaml", "").Replace(".cs", "").Replace(fileInfo.Extension, "") + "." + method + "(~)";
-			log.CommandLine = Environment.GetCommandLineArgs().Skip(1).Join(" ");
-			log.Content = content;
-			Bt.Db.Billing.Logs.Add(log);
-			Bt.Db.Billing.Logs.SaveChanges();
-			Bt.Db.Billing.Logs.AcceptChanges();
 		}
 
 		/// <summary>Creates a new <see cref="Log" /> in the database.</summary>
@@ -81,9 +68,12 @@ namespace BillingTool.btScope.logging
 		/// <param name="logType">The type of the log.</param>
 		/// <param name="filePath">!!!DO NOT PASS PARAMETER!!!</param>
 		/// <param name="method">!!!DO NOT PASS PARAMETER!!!</param>
-		public void New(LogTitels titel, string content, LogTypes logType = LogTypes.Information, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
+		public void New(LogTitels titel, string content, LogTypes logType = LogTypes.Undefined, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
 		{
 			New(titel.GetDescription(), content, logType, filePath, method);
 		}
+
+
+
 	}
 }

@@ -105,7 +105,7 @@
 					</Param>
 
 					<Param Grid.Row="2" Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Margin="5,1,1,1" HorizontalAlignment="Left">
-						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MailOrPrintFormate}"
+						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.PrintFormate}"
 							SelectedItem="{Binding Path=ReprintOutputFormat}" />
 					</Param>
 				</Grid>

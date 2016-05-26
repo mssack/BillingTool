@@ -167,7 +167,7 @@ namespace BillingTool.btScope
 				var window = new Window_DatabaseConfiguration();
 				window.ShowDialog();
 				if (!Db.Billing.Configurations.Business.IsValid)
-					throw new BillingToolException(BillingToolException.Types.No_BusinessName, $"Fehlender Unternehmensnamen, öffnen Sie das Programm ein weiteres mal mit dem {nameof(StartupModes)}.{nameof(StartupModes.Options)} modifier.");
+					throw new BillingToolException(BillingToolException.Types.No_BusinessName, $"Fehlende Unternehmensbeschreibung");
 			}
 			
 		}

@@ -114,6 +114,11 @@ namespace CsWpfBase.Db.models.bases
 			if (_propertyDependencys.TryGetValue(propertyName, out dependingPropertys))
 				dependingPropertys.ForEach(x => _propertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
 		}
+		/// <summary>Invokes the property changed event for a property.</summary>
+		public virtual void RaisePropertyChanged(string propertyName)
+		{
+			OnPropertyChanged(propertyName);
+		}
 
 
 		/// <summary>Occurs whenever a property changes inside a row.</summary>

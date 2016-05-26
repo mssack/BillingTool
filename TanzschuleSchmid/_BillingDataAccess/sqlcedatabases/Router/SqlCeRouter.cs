@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-05-22</date>
 
 using System;
 using System.Data;
@@ -22,6 +22,7 @@ namespace BillingDataAccess.sqlcedatabases.Router
 	{
 		private readonly string _databaseFilePath;
 
+		/// <summary>ctor</summary>
 		public SqlCeRouter(string databaseFilePath)
 		{
 			_databaseFilePath = databaseFilePath;
@@ -49,7 +50,7 @@ namespace BillingDataAccess.sqlcedatabases.Router
 		/// <summary>Creates a new <see cref="DbDataAdapter" /> of the specific type using the command. Do not change any settings of the data adapter.</summary>
 		public override DbDataAdapter GetAdapter(DbCommand cmd)
 		{
-			return new SqlCeDataAdapter((SqlCeCommand) cmd);
+			return new SqlCeDataAdapter((SqlCeCommand) cmd) {};
 		}
 
 		/// <summary>Returns a complete new instance of type <see cref="DbCommand" />.</summary>

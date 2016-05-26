@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -28,41 +28,65 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.configurationC
 
 
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for printing.</summary>
-		public Guid PrintOutputFormatId
+		public Guid PrintFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
-			set { SetValue(value); }
+			set
+			{
+				SetValue(value);
+				Owner.DataSet.OutputFormats.RaisePropertyChanged(nameof(OutputFormatsTable.Default_PrintFormat));
+			}
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
-		public Guid MailOutputFormatId
+		public Guid MailFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
-			set { SetValue(value); }
+			set
+			{
+				SetValue(value);
+				Owner.DataSet.OutputFormats.RaisePropertyChanged(nameof(OutputFormatsTable.Default_MailFormat));
+			}
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for mailing.</summary>
-		public Guid StornoOutputFormatId
+		public Guid StornoFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
-			set { SetValue(value); }
+			set
+			{
+				SetValue(value);
+				Owner.DataSet.OutputFormats.RaisePropertyChanged(nameof(OutputFormatsTable.Default_StornoFormat));
+			}
 		}
 
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for the Tagesbon.</summary>
-		public Guid TagesBonOutputFormatId
+		public Guid TagesBonFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
-			set { SetValue(value); }
+			set
+			{
+				SetValue(value);
+				Owner.DataSet.OutputFormats.RaisePropertyChanged(nameof(OutputFormatsTable.Default_TagesBonFormat));
+			}
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for the Monatsbon.</summary>
-		public Guid MonatsBonOutputFormatId
+		public Guid MonatsBonFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
-			set { SetValue(value); }
+			set
+			{
+				SetValue(value);
+				Owner.DataSet.OutputFormats.RaisePropertyChanged(nameof(OutputFormatsTable.Default_MonatsBonFormat));
+			}
 		}
 		/// <summary>The <see cref="OutputFormat" /> which should be used as default for the Jahresbon.</summary>
-		public Guid JahresBonOutputFormatId
+		public Guid JahresBonFormatId
 		{
 			get { return GetValue(Guid.NewGuid()); }
-			set { SetValue(value); }
+			set
+			{
+				SetValue(value);
+				Owner.DataSet.OutputFormats.RaisePropertyChanged(nameof(OutputFormatsTable.Default_JahresBonFormat));
+			}
 		}
 
 

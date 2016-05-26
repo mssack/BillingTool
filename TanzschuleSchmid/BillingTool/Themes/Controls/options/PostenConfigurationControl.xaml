@@ -6,7 +6,6 @@
 			xmlns:btScope="clr-namespace:BillingTool.btScope"
 			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 			xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
-			xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 			mc:Ignorable="d" x:Name="Control">
 	<UserControl.Resources>
 		<ResourceDictionary>

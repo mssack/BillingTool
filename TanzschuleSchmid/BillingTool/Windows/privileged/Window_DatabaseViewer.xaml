@@ -278,13 +278,6 @@
 												<Image.Style>
 													<Style TargetType="Image">
 														<Style.Triggers>
-
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Information}">
-																<Setter Property="Source" Value="{StaticResource GIco-Message-Info}" />
-															</DataTrigger>
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Warning}">
-																<Setter Property="Source" Value="{StaticResource GIco-Message-Warning}" />
-															</DataTrigger>
 															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Error}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-Error}" />
 															</DataTrigger>

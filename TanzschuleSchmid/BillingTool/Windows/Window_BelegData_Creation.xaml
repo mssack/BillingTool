@@ -67,8 +67,8 @@
 								</Grid.ColumnDefinitions>
 								<TextBlock Text="Artikel" />
 								<designElements:CancleButton Grid.Column="2" Click="DeleteBelegPostenClicked" Content="Entfernen"
-															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
-								<PopupButton Grid.Column="3" Content="Neuer Artikel" Padding="6,1,6,1" Margin="0">
+															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False" />
+								<PopupButton Grid.Column="3" Content="Neuer Artikel" Padding="6,1,6,1" Margin="0" Focusable="False">
 									<PopupButton.PopupContent>
 										<belegdatacreation:NewBelegPostenControl Item="{Binding ElementName=Uc, Path=Item}" />
 									</PopupButton.PopupContent>
@@ -91,8 +91,8 @@
 
 
 								<designElements:CancleButton Grid.Column="2" Click="DeletePrintClicked" Content="Entfernen"
-															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
-								<designElements:AcceptButton Grid.Column="3" Click="NewPrintClicked" Content="Neuer Ausdruck" Margin="0" />
+															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False"/>
+								<designElements:AcceptButton Grid.Column="3" Click="NewPrintClicked" Content="Neuer Ausdruck" Margin="0" Focusable="False"/>
 							</Grid>
 						</Expander.Header>
 						<belegdatacreation:PrintedBelegeListView Item="{Binding}" Padding="0,0,0,10" SomeOutputFormatChanged="SomeOutputFormatChanged"
@@ -112,8 +112,8 @@
 
 
 								<designElements:CancleButton Grid.Column="2" Click="DeleteMailClicked" Content="Entfernen"
-															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
-								<designElements:AcceptButton Grid.Column="3" Click="NewMailClicked" Content="Neue Mail" Margin="0" />
+															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False"/>
+								<designElements:AcceptButton Grid.Column="3" Click="NewMailClicked" Content="Neue Mail" Margin="0" Focusable="False"/>
 							</Grid>
 						</Expander.Header>
 						<belegdatacreation:MailedBelegeListView Item="{Binding}" Padding="0,0,0,10" SomeOutputFormatChanged="SomeOutputFormatChanged"

@@ -57,7 +57,7 @@
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
 						<ComboBox Style="{StaticResource StdComboBox}"
-								ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MailOrPrintFormate}"
+								ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MailFormate}"
 								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>

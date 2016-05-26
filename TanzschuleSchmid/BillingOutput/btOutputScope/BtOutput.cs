@@ -144,7 +144,13 @@ namespace BillingOutput.btOutputScope
 				image.Arrange(new Rect(new Size(image.Width, image.Height)));
 				image.UpdateLayout();
 
-				new PrintDialog {PrintQueue = new PrintQueue(new PrintServer(), data.PrinterDevice)}.PrintVisual(image, $"{data.BelegData}");
+				var printServer = new PrintServer();
+				var printDialog = new PrintDialog
+				{
+					PrintQueue = new PrintQueue(printServer,data.PrinterDevice)
+				};
+				printDialog.PrintVisual(image, $"{data.BelegData}");
+
 			}, TaskCreationOptions.LongRunning);
 			var continuationTask = t.ContinueWith(task =>
 			{
@@ -166,7 +172,7 @@ namespace BillingOutput.btOutputScope
 			t.Start(StaPrinterScheduler);
 			return continuationTask;
 		}
-
+		
 
 		private static BitmapSource ProcessFormat(BelegData data, OutputFormat format)
 		{
@@ -175,4 +181,9 @@ namespace BillingOutput.btOutputScope
 			return ImageRenderer.Render(data, format);
 		}
 	}
+
+
+
+
+
 }

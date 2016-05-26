@@ -15,6 +15,15 @@
 	<system:String x:Key="Bez-OutputFormat-SecondText">Text 2</system:String>
 	<system:String x:Key="Bez-OutputFormat-ThirdImageBinary">Bild 3</system:String>
 	<system:String x:Key="Bez-OutputFormat-ThirdText">Text 3</system:String>
+
+	<system:String x:Key="Bez-OutputFormat-IsBusinessLogoVisible">Logo</system:String>
+	<system:String x:Key="Bez-OutputFormat-IsBusinessNameVisible">Bezeichnung</system:String>
+	<system:String x:Key="Bez-OutputFormat-IsBusinessAnschriftVisible">Anschrift</system:String>
+	<system:String x:Key="Bez-OutputFormat-IsBusinessMailVisible">E-Mail</system:String>
+	<system:String x:Key="Bez-OutputFormat-IsBusinessTelefonVisible">Telefon</system:String>
+	<system:String x:Key="Bez-OutputFormat-IsBusinessWebsiteVisible">Website</system:String>
+	<system:String x:Key="Bez-OutputFormat-IsKassenoperatorVisible">Kassenoperator</system:String>
+
 	<system:String x:Key="Bez-OutputFormat-Comment">Kommentar</system:String>
 	<system:String x:Key="Bez-OutputFormat-CommentLastChanged">Kommentar zuletzt geändert</system:String>
 </ResourceDictionary>
