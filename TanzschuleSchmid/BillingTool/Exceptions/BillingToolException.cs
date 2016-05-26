@@ -47,6 +47,7 @@ namespace BillingTool.Exceptions
 			Invalid_StartupParam = ExitCodes.Error_Invalid_StartupParam,
 			No_KassenOperator = ExitCodes.Error_No_KassenOperator,
 			No_BusinessName = ExitCodes.Error_No_BusinessName,
+			LicenseAgreement_NotAccepted = ExitCodes.Error_LicenseAgreement_NotAccepted,
 		}
 	}
 }

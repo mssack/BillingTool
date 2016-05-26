@@ -1,0 +1,35 @@
+﻿<CsWindow x:Class="BillingTool.Windows._installation.Window_LicenceAgreement"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+		mc:Ignorable="d"
+		Title="Window_LicenceAgreement" WindowStartupLocation="CenterScreen" Width="500" Height="500" CloseButtonVisibility="Collapsed"
+		MinimizeButtonVisibility="Collapsed"
+		MaximizeButtonVisibility="Collapsed" Topmost="True" FooterVisibility="Collapsed" HeaderVisibility="Collapsed">
+	<Border Background="Transparent" AWindowDragMove.IsActive="True" Padding="15">
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<TextBlock Text="Lizenzvereinbarung" FontWeight="Bold" FontSize="16" />
+			<TextBox Grid.Row="1" IsReadOnly="True" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Text="{Binding Source={x:Static btScope:Bt.Administrator}, Path=License, Mode=OneWay}" Margin="10,5,10,5" />
+			<Grid Grid.Row="2">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+
+				<designElements:CancleButton Grid.Column="0" Click="CancleClicked" Content="Abbrechen" FontSize="14" />
+				<designElements:AcceptButton Grid.Column="2" Click="AcceptClicked" Content="Akzeptieren" FontSize="14"/>
+			</Grid>
+		</Grid>
+	</Border>
+</CsWindow>

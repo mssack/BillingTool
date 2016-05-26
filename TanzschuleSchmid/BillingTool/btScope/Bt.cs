@@ -2,13 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-19</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
+using BillingTool.btScope.administrator;
 using BillingTool.btScope.configuration;
 using BillingTool.btScope.configuration._enums;
 using BillingTool.btScope.db;
@@ -19,9 +20,8 @@ using BillingTool.Exceptions;
 using BillingTool.Windows;
 using BillingTool.Windows.privileged;
 using BillingTool.Windows.tools;
+using BillingTool.Windows._installation;
 using CsWpfBase.Global;
-using Window_DatabaseConfiguration = BillingTool.Windows._installation.Window_DatabaseConfiguration;
-using Window_KassenConfiguration = BillingTool.Windows._installation.Window_KassenConfiguration;
 
 
 
@@ -36,6 +36,8 @@ namespace BillingTool.btScope
 	/// </summary>
 	public static class Bt
 	{
+		/// <summary>The administrative functions.</summary>
+		public static Administrator Administrator => Administrator.I;
 		/// <summary>
 		///     The configuration of the current application lifeline. This can be modified by simple modifying the configuration file or passing parameters to
 		///     the program.
@@ -62,6 +64,10 @@ namespace BillingTool.btScope
 		{
 			if (!Config.File.KassenEinstellung.Path.Exists || !Config.File.KassenEinstellung.IsValid)
 			{
+				if (!Administrator.AskForLicenseAgreement())
+					throw new BillingToolException(BillingToolException.Types.LicenseAgreement_NotAccepted, $"Die Lizenzvereinbarungen wurden nicht akzeptiert.");
+
+
 				var window = new Window_KassenConfiguration();
 				window.ShowDialog();
 				if (!Config.File.KassenEinstellung.IsValid)
@@ -130,10 +136,7 @@ namespace BillingTool.btScope
 				printedBeleg.OutputFormat = Db.Billing.OutputFormats.Default_MonatsBonFormat;
 				Data.BelegData.Finalize(newMonatsBeleg);
 				Data.SyncAnabolicChanges();
-				Output.DoOpenedExportsAsync(newMonatsBeleg).ContinueWith(t =>
-				{
-					window.Close();
-				}, TaskScheduler.FromCurrentSynchronizationContext());
+				Output.DoOpenedExportsAsync(newMonatsBeleg).ContinueWith(t => { window.Close(); }, TaskScheduler.FromCurrentSynchronizationContext());
 				return;
 
 			}
@@ -171,7 +174,7 @@ namespace BillingTool.btScope
 				if (!Db.Billing.Configurations.Business.IsValid)
 					throw new BillingToolException(BillingToolException.Types.No_BusinessName, $"Fehlende Unternehmensbeschreibung");
 			}
-			
+
 		}
 	}
 }

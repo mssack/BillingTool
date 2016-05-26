@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="btScope\administrator\licence\EULAGerman.cs" />
     <Compile Include="btScope\Bt.cs" />
     <Compile Include="btScope\configuration\commandLine\CommandLine_BelegPostenTemplate.cs" />
     <Compile Include="btScope\configuration\commandLine\CommandLine_GeneralSetting.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="btScope\functions\data\SteuersatzFunctions.cs" />
     <Compile Include="btScope\functions\AppOutput.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
+    <Compile Include="btScope\administrator\Administrator.cs" />
     <Compile Include="btScope\output\Output.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="ExitCodes.cs" />
@@ -216,6 +218,9 @@
     </Compile>
     <Compile Include="Windows\Window_Options.xaml.cs">
       <DependentUpon>Window_Options.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\_installation\Window_LicenceAgreement.xaml.cs">
+      <DependentUpon>Window_LicenceAgreement.xaml</DependentUpon>
     </Compile>
     <Page Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml">
       <SubType>Designer</SubType>
@@ -425,6 +430,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\_installation\Window_LicenceAgreement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -469,6 +478,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Themes\Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="btScope\administrator\licence\EULAGerman.cs.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

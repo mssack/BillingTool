@@ -2,12 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.IO;
 using BillingOutput.Interfaces;
-using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
 using CsWpfBase.Utilitys.templates;
 
@@ -40,8 +39,8 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 
 		private string _billingDatabaseFilePath;
-		private string _kassenId;
 		private string _defaultPrinterName;
+		private string _kassenId;
 		private double _scaling = 1.3;
 		private bool _smtpEnableSsl;
 
@@ -66,26 +65,6 @@ namespace BillingTool.btScope.configuration.configFiles
 
 
 		#region Overrides/Interfaces
-		/// <summary>The file path to the billing database.</summary>
-		[Key]
-		public string BillingDatabaseFilePath
-		{
-			get { return _billingDatabaseFilePath; }
-			set
-			{
-				if (SetProperty(ref _billingDatabaseFilePath, value)) OnPropertyChanged(nameof(IsValid));
-			}
-		}
-		/// <summary>The unique id of the current Kassa.</summary>
-		[Key]
-		public string KassenId
-		{
-			get { return _kassenId; }
-			set
-			{
-				if (SetProperty(ref _kassenId, value)) OnPropertyChanged(nameof(IsValid));
-			}
-		}
 		/// <summary>Gets or sets the mail address from which the mail should be send.</summary>
 		[Key]
 		public string SmtpMailAddress
@@ -128,11 +107,29 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _smtpPassword; }
 			set { SetProperty(ref _smtpPassword, value); }
 		}
+		#endregion
 
 
-
-
-
+		/// <summary>The file path to the billing database.</summary>
+		[Key]
+		public string BillingDatabaseFilePath
+		{
+			get { return _billingDatabaseFilePath; }
+			set
+			{
+				if (SetProperty(ref _billingDatabaseFilePath, value)) OnPropertyChanged(nameof(IsValid));
+			}
+		}
+		/// <summary>The unique id of the current Kassa.</summary>
+		[Key]
+		public string KassenId
+		{
+			get { return _kassenId; }
+			set
+			{
+				if (SetProperty(ref _kassenId, value)) OnPropertyChanged(nameof(IsValid));
+			}
+		}
 		/// <summary>Gets or sets the Scaling.</summary>
 		[Key]
 		public double Scaling
@@ -140,9 +137,6 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _scaling; }
 			set { SetProperty(ref _scaling, value); }
 		}
-		#endregion
-
-
 		/// <summary>Gets or sets the Default_PrinterName.</summary>
 		[Key]
 		public string Default_PrinterName

@@ -60,6 +60,8 @@ namespace BillingTool
 		Error_No_KassenOperator = 1 << 20,
 		/// <summary>Occurs if no business-name is defined.</summary>
 		Error_No_BusinessName = 1 << 21,
+		/// <summary>Occurs when the license agreement was not accepted.</summary>
+		Error_LicenseAgreement_NotAccepted = 1 << 22,
 
 		/// <summary>Occurs if some other non described error occurs.</summary>
 		Error_Others = 1 << 32,
