@@ -76,20 +76,17 @@
     <Compile Include="btOutputScope\ImageProcessing\ImageRenderer.cs" />
     <Compile Include="btOutputScope\PdfCreation\PdfCreator.cs" />
     <Compile Include="btOutputScope\PdfCreation\PdfLifeLine.cs" />
-    <Compile Include="Controls\BonVisuals\BonVisual.xaml.cs">
-      <DependentUpon>BonVisual.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\BonVisuals\V1StornoBonVisual.xaml.cs">
       <DependentUpon>V1StornoBonVisual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\BonVisuals\V1PrintBonVisual.xaml.cs">
       <DependentUpon>V1PrintBonVisual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ZeitBelege\V1MonatsBonVisual.xaml.cs">
+    <Compile Include="Controls\RecapBelege\V1MonatsBonVisual.xaml.cs">
       <DependentUpon>V1MonatsBonVisual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ZeitBelege\ZeitVisual.xaml.cs">
-      <DependentUpon>ZeitVisual.xaml</DependentUpon>
+    <Compile Include="Controls\_shared\AnyBonVisual.xaml.cs">
+      <DependentUpon>AnyBonVisual.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\_shared\V1Header.xaml.cs">
       <DependentUpon>V1Header.xaml</DependentUpon>
@@ -130,12 +127,10 @@
       <Name>_CsWpfBaseForSchmid</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Page Include="Controls\BonVisuals\BonVisual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Folder Include="Controls\_converters\" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Include="Controls\BonVisuals\V1StornoBonVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,11 +139,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ZeitBelege\V1MonatsBonVisual.xaml">
+    <Page Include="Controls\RecapBelege\V1MonatsBonVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ZeitBelege\ZeitVisual.xaml">
+    <Page Include="Controls\_shared\AnyBonVisual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

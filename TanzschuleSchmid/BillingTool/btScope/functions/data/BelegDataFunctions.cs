@@ -72,7 +72,7 @@ namespace BillingTool.btScope.functions.data
 
 
 
-			if (!item.Typ.IsZeitBon())
+			if (!item.Typ.IsRecapBon())
 			{
 				item.UmsatzZähler = di.Umsatzzähler + item.BetragBrutto;
 				di.Umsatzzähler = item.UmsatzZähler;

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.Linq;
@@ -88,7 +88,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 					return BelegDataInvalidReasons.Missing_Kassenoperator;
 				if (Typ == BelegDataTypes.Storno && StornoBeleg == null)
 					return BelegDataInvalidReasons.Missing_StornoBeleg;
-				if (!Typ.IsZeitBon() && Postens.Count == 0)
+				if (!Typ.IsRecapBon() && Postens.Count == 0)
 					return BelegDataInvalidReasons.Missing_BelegPosten;
 				return BelegDataInvalidReasons.Valid;
 			}
@@ -108,6 +108,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			}
 			set { TypName = value.ToString(); }
 		}
+
+		/// <summary>
+		///     true if bon is of <see cref="Typ" /> <see cref="BelegDataTypes.TagesBon" /> or <see cref="BelegDataTypes.MonatsBon" /> or
+		///     <see cref="BelegDataTypes.JahresBon" />.
+		/// </summary>
+		[DependsOn(nameof(TypName))]
+		public bool IsRecapBon => Typ.IsRecapBon();
 
 		/// <summary>The wrapper property for column property <see cref="StateName" />.</summary>
 		[DependsOn(nameof(StateName))]
@@ -149,7 +156,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			get
 			{
-				if (!Typ.IsZeitBon())
+				if (!Typ.IsRecapBon())
 					return null;
 				if (BonNummerVon == null || BonNummerBis == null)
 					return null;
@@ -157,7 +164,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 					return null;
 				if (_includedBelegDatasTag == $"{BonNummerVon.Value}.{BonNummerBis.Value}")
 					return _includedBelegDatas;
-				
+
 				_includedBelegDatas = Table.LoadThenFind_Between(BonNummerVon.Value, BonNummerBis.Value);
 				_includedBelegDatasTag = $"{BonNummerVon.Value}.{BonNummerBis.Value}";
 				return _includedBelegDatas;

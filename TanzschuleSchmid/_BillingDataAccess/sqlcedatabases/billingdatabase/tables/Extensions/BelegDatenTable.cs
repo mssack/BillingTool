@@ -2,25 +2,33 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.Data;
 using System.Linq;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingDataAccess.sqlcedatabases.billingdatabase.tables.belegDataCategories;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Db;
 using CsWpfBase.Db.models.helper;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
 
 
+
+// ReSharper disable InconsistentNaming
 
 namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
 	partial class BelegDatenTable : ICanFilterByDate<BelegData>
 	{
+		private BelegDatenTableSampleDataFor _sampleFor;
+
+
 		#region Overrides/Interfaces
 		/// <summary>
 		///     Get all <see cref="BelegData" />'s between <paramref name="from" /> to <paramref name="to" />. This <see cref="ContractCollection{TRow}" />
@@ -53,6 +61,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		}
 		#endregion
 
+		/// <summary>
+		/// Contains sample beleg datas.
+		/// </summary>
+		public BelegDatenTableSampleDataFor SampleFor => _sampleFor??(_sampleFor = new BelegDatenTableSampleDataFor(this));
 
 		/// <summary>Gets the latest <see cref="BelegData" />'s by the <paramref name="number" />.</summary>
 		public BelegData[] LoadThenFind_Latest(int number)
@@ -75,5 +87,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 
 			return this.Where(x => x.Nummer >= from && x.Nummer <= to).ToArray();
 		}
+
 	}
 }

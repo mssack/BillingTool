@@ -2,12 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-11</date>
+// <date>2016-05-21</date>
 
 using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using BillingTool.btScope;
 using CsWpfBase.Themes.Controls.Containers;
 using CsWpfBase.Utilitys;
@@ -17,34 +16,33 @@ using CsWpfBase.Utilitys;
 
 
 
-namespace BillingTool.Windows.privileged
+namespace BillingTool.Windows._installation
 {
-	/// <summary>Interaction logic for Window_KassenConfiguration.xaml</summary>
+	/// <summary>Interaction logic for Window_DatabaseConfiguration.xaml</summary>
 	// ReSharper disable once InconsistentNaming
-	public partial class Window_KassenConfiguration : CsWindow
+	public partial class Window_DatabaseConfiguration : CsWindow
 	{
 		readonly ProcessLock _managedClose = new ProcessLock();
 
 		/// <summary>ctor</summary>
-		public Window_KassenConfiguration()
+		public Window_DatabaseConfiguration()
 		{
 			InitializeComponent();
-			Closing += KassenConfiguratorWindow_Closing;
+			Closing += Window_Closing;
 		}
 
-		private void KassenConfiguratorWindow_Closing(object sender, CancelEventArgs e)
+		private void Window_Closing(object sender, CancelEventArgs e)
 		{
 			if (_managedClose.Active)
 				return;
 
+			Bt.Data.SyncChanges();
 			e.Cancel = true;
 		}
 
+
 		private void NextClick(object sender, RoutedEventArgs e)
 		{
-			if (Bt.Config.File.KassenEinstellung.IsValid)
-				Bt.Config.File.KassenEinstellung.Save();
-
 			using (_managedClose.Activate())
 			{
 				Close();

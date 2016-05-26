@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingOutput.Controls.BonVisuals;
-using BillingOutput.Controls.ZeitBelege;
+using BillingOutput.Controls._shared;
 using CsWpfBase.Ev.Public.Extensions;
 
 
@@ -48,16 +48,7 @@ namespace BillingOutput.btOutputScope.ImageProcessing
 
 		public BitmapSource Render(BelegData data, OutputFormat format, double scalingFactor = 4)
 		{
-			if (data.Typ.IsZeitBon())
-			{
-				var zvisual = new ZeitVisual() { Item = data, OutputFormat = format };
-				ApplyScalingFactor(zvisual, scalingFactor);
-				var zimage = zvisual.ConvertTo_Image();
-				zimage.Freeze();
-				return zimage;
-			}
-
-			var visual = new BonVisual {Item = data, OutputFormat = format};
+			var visual = new AnyBonVisual { Item = data, OutputFormat = format };
 			ApplyScalingFactor(visual, scalingFactor);
 			var image = visual.ConvertTo_Image();
 			image.Freeze();

@@ -16,7 +16,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanalysis;
 
 
 
-namespace BillingOutput.Controls.ZeitBelege
+namespace BillingOutput.Controls.RecapBelege
 {
 	/// <summary>Interaction logic for V1MonatsBonVisual.xaml</summary>
 	public partial class V1MonatsBonVisual : UserControl

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BillingOutput.Controls.ZeitBelege.V1MonatsBonVisual"
+﻿<UserControl x:Class="BillingOutput.Controls.RecapBelege.V1MonatsBonVisual"
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,7 +6,7 @@
 			xmlns:dataanalysis="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanalysis;assembly=BillingDataAccess"
 			xmlns:shared="clr-namespace:BillingOutput.Controls._shared"
 			mc:Ignorable="d"
-			x:Name="Uc2" FontFamily="Consolas" Focusable="False" Padding="10">
+			x:Name="Uc2" FontFamily="Consolas" Padding="10">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

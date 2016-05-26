@@ -20,6 +20,8 @@ using BillingTool.Windows;
 using BillingTool.Windows.privileged;
 using BillingTool.Windows.tools;
 using CsWpfBase.Global;
+using Window_DatabaseConfiguration = BillingTool.Windows._installation.Window_DatabaseConfiguration;
+using Window_KassenConfiguration = BillingTool.Windows._installation.Window_KassenConfiguration;
 
 
 

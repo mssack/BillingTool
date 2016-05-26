@@ -224,7 +224,7 @@ namespace CsWpfBase.Db.models
 		///     value set this param to false.
 		/// </param>
 		/// <param name="preserveChanges">Specify whether the current changes should be preserved. If you specify false, all changes will be overwritten.</param>
-		protected virtual internal TRow[] DownloadRows(string sqlcommand, bool createCollection = true, bool preserveChanges = true)
+		public virtual TRow[] DownloadRows(string sqlcommand, bool createCollection = true, bool preserveChanges = true)
 		{
 			var table = DbProxy.ExecuteCommand(sqlcommand);
 

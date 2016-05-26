@@ -170,7 +170,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanaly
 					LastBelegDataTime = belegData.Datum;
 					GrößterUmsatzZähler = belegData.UmsatzZähler;
 				}
-				if (belegData.Typ.IsZeitBon())
+				if (belegData.Typ.IsRecapBon())
 					continue;
 				Dictionary<Guid, PerSteuersatzEntry> perTypPerSteuersatzEntries;
 				if (!perTypEntries.TryGetValue(belegData.Typ, out perTypPerSteuersatzEntries))

@@ -8,6 +8,7 @@
 			xmlns:system="clr-namespace:System;assembly=mscorlib"
 			xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 			xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+			xmlns:shared="clr-namespace:BillingOutput.Controls._shared;assembly=BillingOutput"
 			mc:Ignorable="d" x:Name="Control">
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -40,7 +41,8 @@
 					<DataTemplate DataType="{x:Type billingDatabaseDb:OutputFormat}">
 						<StackPanel Orientation="Horizontal">
 							<TextBlock Text="{Binding Path=Name}" />
-							<TextBlock Text="(Standard)" Foreground="RoyalBlue" Margin="4,0,0,0" Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolVisibility}}"/>
+							<TextBlock Text="(Standard)" Foreground="RoyalBlue" Margin="4,0,0,0"
+										Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolVisibility}}" />
 						</StackPanel>
 					</DataTemplate>
 				</ListView.ItemTemplate>
@@ -61,123 +63,147 @@
 
 		<Border Grid.Column="1" Margin="10,0,0,0" DataContext="{Binding Path=SelectedItem}"
 				Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}">
-			<Grid IsEnabled="{Binding Path=CanBeModified}">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-					<RowDefinition Height="Auto" />
-				</Grid.RowDefinitions>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
+				<Grid IsEnabled="{Binding Path=CanBeModified}">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 
 
-				<designElements:RedBorderBox Visibility="{Binding Path=CanBeModified, Converter={StaticResource GConv-InvBoolVisibility}}"
-											Content="Sie können dieses Layout nicht editieren, da es bereits verwendet wird." />
+					<designElements:RedBorderBox Visibility="{Binding Path=CanBeModified, Converter={StaticResource GConv-InvBoolVisibility}}"
+												Content="Sie können dieses Layout nicht editieren, da es bereits verwendet wird." />
 
-				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Details">
-					<Grid IsSharedSizeScope="True">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<ParamView Grid.Row="0" Header="{StaticResource Bez-OutputFormat-CreationDate}" Value="{Binding Path=CreationDate}" />
-						<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-Name}" Value="{Binding Path=Name}" />
-						<Param Grid.Row="2" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" IsReadOnly="{Binding Path=HasBeenUsed}">
-							<Param.Resources>
-								<x:Array x:Key="IgnoredEnums" Type="system:Enum">
-									<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
-									<x:Static MemberType="enumerations:BonLayouts" Member="V1StornoBon" />
-								</x:Array>
-							</Param.Resources>
-							<Param.Content>
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-									<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
-											ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}"
-											IsEnabled="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolInverter}}" />
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Details">
+						<Grid IsSharedSizeScope="True">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<ParamView Grid.Row="0" Header="{StaticResource Bez-OutputFormat-CreationDate}" Value="{Binding Path=CreationDate}" />
+							<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-Name}" Value="{Binding Path=Name}" />
+							<Param Grid.Row="2" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" IsReadOnly="{Binding Path=HasBeenUsed}">
+								<Param.Resources>
+									<x:Array x:Key="IgnoredEnums" Type="system:Enum">
+										<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
+										<x:Static MemberType="enumerations:BonLayouts" Member="V1StornoBon" />
+									</x:Array>
+								</Param.Resources>
+								<Param.Content>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="*" />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+										<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
+												ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}"
+												IsEnabled="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolInverter}}" />
 
-									<designElements:AcceptButton Grid.Column="1" Click="SetAsStandardButtonClicked"
-												Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-InvBoolVisibility}}" Padding="5,0,5,0" Margin="5,0,0,0">
-										<designElements:AcceptButton.Content>
-											<TextBlock Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Als {0} Standard setzen}"/>
-										</designElements:AcceptButton.Content>
-									</designElements:AcceptButton>
-									<TextBlock Grid.Column="1" Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Aktueller {0} Standard}"
-																Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolVisibility}}" Padding="0" Margin="5,0,0,0" Foreground="RoyalBlue" />
-								</Grid>
-							</Param.Content>
-						</Param>
-						<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
-					</Grid>
-				</GroupBox>
-				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Sichtbarkeiten">
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="Auto" />
-							<ColumnDefinition Width="Auto" />
-						</Grid.ColumnDefinitions>
-						<Grid IsSharedSizeScope="True" HorizontalAlignment="Center" Margin="0,0,20,0">
+										<designElements:AcceptButton Grid.Column="1" Click="SetAsStandardButtonClicked"
+																	Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-InvBoolVisibility}}" Padding="5,0,5,0" Margin="5,0,0,0">
+											<designElements:AcceptButton.Content>
+												<TextBlock Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Als {0} Standard setzen}" />
+											</designElements:AcceptButton.Content>
+										</designElements:AcceptButton>
+										<TextBlock Grid.Column="1"
+													Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Aktueller {0} Standard}"
+													Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolVisibility}}" Padding="0" Margin="5,0,0,0"
+													Foreground="RoyalBlue" />
+									</Grid>
+								</Param.Content>
+							</Param>
+							<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
+						</Grid>
+					</GroupBox>
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Sichtbarkeiten">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<Grid IsSharedSizeScope="True" HorizontalAlignment="Center" Margin="0,0,20,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessNameVisible}" Value="{Binding Path=IsBusinessNameVisible}" />
+								<BoolParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-IsBusinessAnschriftVisible}"
+											Value="{Binding Path=IsBusinessAnschriftVisible}" />
+								<BoolParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-IsBusinessMailVisible}" Value="{Binding Path=IsBusinessMailVisible}" />
+							</Grid>
+							<Grid Grid.Column="1" IsSharedSizeScope="True" HorizontalAlignment="Center" Margin="0,0,20,0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+									<RowDefinition Height="Auto" />
+								</Grid.RowDefinitions>
+								<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessTelefonVisible}" Value="{Binding Path=IsBusinessTelefonVisible}" />
+								<BoolParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-IsBusinessWebsiteVisible}" Value="{Binding Path=IsBusinessWebsiteVisible}" />
+								<BoolParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-IsKassenoperatorVisible}" Value="{Binding Path=IsKassenoperatorVisible}" />
+							</Grid>
+						</Grid>
+					</GroupBox>
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Texte">
+						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessNameVisible}" Value="{Binding Path=IsBusinessNameVisible}" />
-							<BoolParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-IsBusinessAnschriftVisible}"
-										Value="{Binding Path=IsBusinessAnschriftVisible}" />
-							<BoolParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-IsBusinessMailVisible}" Value="{Binding Path=IsBusinessMailVisible}" />
+							<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True"
+										MaxHeight="60" />
+							<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True"
+										MaxHeight="60" />
+							<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"
+										MaxHeight="60" />
 						</Grid>
-						<Grid Grid.Column="1" IsSharedSizeScope="True" HorizontalAlignment="Center" Margin="0,0,20,0">
+					</GroupBox>
+					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="4" Header="Bilder">
+						<Grid>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessTelefonVisible}" Value="{Binding Path=IsBusinessTelefonVisible}" />
-							<BoolParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-IsBusinessWebsiteVisible}" Value="{Binding Path=IsBusinessWebsiteVisible}" />
-							<BoolParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-IsKassenoperatorVisible}" Value="{Binding Path=IsKassenoperatorVisible}" />
+							<ImageParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstImageBinary}" Value="{Binding Path=FirstImage}" />
+							<ImageParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondImageBinary}" Value="{Binding Path=SecondImage}" />
+							<ImageParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdImageBinary}" Value="{Binding Path=ThirdImage}" />
 						</Grid>
-					</Grid>
-				</GroupBox>
-				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Texte">
+					</GroupBox>
+
+
+				</Grid>
+
+				<Border Grid.Column="1" Margin="10,0,0,0" BorderThickness="1" BorderBrush="DimGray"
+						Visibility="{Binding ElementName=Control, Path=SampleBelegData, Converter={StaticResource GConv-NullToVisibility}}">
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
-						<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True"
-									MaxHeight="60" />
-						<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True"
-									MaxHeight="60" />
-						<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"
-									MaxHeight="60" />
+						<Border Background="LightGray" Padding="5,3,5,3">
+							<TextBlock Text="Vorschau" />
+						</Border>
+						<ScrollViewer Grid.Row="1" Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+							<shared:AnyBonVisual Item="{Binding ElementName=Control, Path=SampleBelegData}" OutputFormat="{Binding}" />
+						</ScrollViewer>
 					</Grid>
-				</GroupBox>
-				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="4" Header="Bilder">
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-						<ImageParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstImageBinary}" Value="{Binding Path=FirstImage}" />
-						<ImageParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondImageBinary}" Value="{Binding Path=SecondImage}" />
-						<ImageParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdImageBinary}" Value="{Binding Path=ThirdImage}" />
-					</Grid>
-				</GroupBox>
-
-
+				</Border>
 			</Grid>
 		</Border>
 

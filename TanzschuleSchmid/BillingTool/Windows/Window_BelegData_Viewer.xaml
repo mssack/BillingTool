@@ -68,7 +68,7 @@
 												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
 													<Setter Property="Foreground" Value="Red" />
 												</DataTrigger>
-												<DataTrigger Binding="{Binding Path=Typ, Converter={StaticResource BtConv-TypIsZeitBon}}" Value="True">
+												<DataTrigger Binding="{Binding Path=IsRecapBon}" Value="True">
 													<Setter Property="Foreground" Value="RoyalBlue" />
 													<Setter Property="FontWeight" Value="Bold" />
 													<Setter Property="Text">
