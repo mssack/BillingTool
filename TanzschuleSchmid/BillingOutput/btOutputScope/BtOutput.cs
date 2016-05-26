@@ -12,6 +12,7 @@ using System.Net.Mail;
 using System.Printing;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Annotations;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -149,6 +150,7 @@ namespace BillingOutput.btOutputScope
 				{
 					PrintQueue = new PrintQueue(printServer,data.PrinterDevice)
 				};
+				//printDialog.PrintableAreaHeight could be exceeded what should i do if that happens multiple pages would be great
 				printDialog.PrintVisual(image, $"{data.BelegData}");
 
 			}, TaskCreationOptions.LongRunning);

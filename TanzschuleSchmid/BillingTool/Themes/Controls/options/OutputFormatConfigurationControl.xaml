@@ -134,7 +134,7 @@
 									</Grid>
 								</Param.Content>
 							</Param>
-							<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" />
+							<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" MaxHeight="80" />
 						</Grid>
 					</GroupBox>
 					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Sichtbarkeiten" IsEnabled="{Binding Path=CanBeModified}">

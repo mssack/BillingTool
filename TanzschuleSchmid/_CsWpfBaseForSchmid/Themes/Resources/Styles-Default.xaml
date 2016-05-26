@@ -115,6 +115,11 @@
                 <Setter Property="Cursor" Value="{x:Static Cursors.Arrow}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-Normal}" />
             </Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Cursor" Value="{x:Static Cursors.Arrow}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-Normal}" />
+				<Setter Property="Background" Value="#F9F9F9" />
+            </Trigger>
 		</Style.Triggers>
 	</Style>
 	<Style TargetType="{x:Type CheckBox}">
@@ -165,6 +170,9 @@
 			</Trigger>
 			<Trigger Property="IsKeyboardFocusWithin" Value="True">
 				<Setter Property="BorderBrush" Value="{StaticResource GBrush-Border-KeyboardFocusWithin}" />
+			</Trigger>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Foreground" Value="Gray" />
 			</Trigger>
 		</Style.Triggers>
 	</Style>
