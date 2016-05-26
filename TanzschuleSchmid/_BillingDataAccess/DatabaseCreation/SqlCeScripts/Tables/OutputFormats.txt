@@ -3,7 +3,7 @@
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 
 	[CreationDate]		datetime		NOT NULL DEFAULT getdate(),
-	[LastUsedDate]			datetime		,
+	[LastUsedDate]		datetime		,
 	
 
 	[Name]				ntext			NOT NULL,
@@ -21,6 +21,20 @@
 	[ThirdImageHash]		ntext			,
 	[ThirdText]				ntext			,
 
+	[BusinessUid]			ntext,
+	[BusinessName]			ntext,
+	[BusinessAnschrift]		ntext,
+	[BusinessMail]			ntext,
+	[BusinessTelefon]		ntext,
+	[BusinessWebsite]		ntext,
+
+	[IsBusinessUidVisible]			bit		NOT NULL DEFAULT(1),
+	[IsBusinessNameVisible]			bit		NOT NULL DEFAULT(1),
+	[IsBusinessAnschriftVisible]	bit		NOT NULL DEFAULT(1),
+	[IsBusinessMailVisible]			bit		NOT NULL DEFAULT(1),
+	[IsBusinessTelefonVisible]		bit		NOT NULL DEFAULT(1),
+	[IsBusinessWebsiteVisible]		bit		NOT NULL DEFAULT(1),
+	[IsKassenoperatorVisible]		bit		NOT NULL DEFAULT(1),
 
 
 	[Comment]				ntext,

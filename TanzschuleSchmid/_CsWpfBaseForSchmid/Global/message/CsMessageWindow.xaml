@@ -143,7 +143,7 @@
 													<Setter Property="Visibility" Value="Collapsed" />
 												</Style>
 											</StackPanel.Resources>
-											<Button Content="No" Tag="{x:Static c:CsMessage+MessageResults.No}">
+											<Button Content="Nein" Tag="{x:Static c:CsMessage+MessageResults.No}" IsCancel="True">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -157,7 +157,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Cancel" Tag="{x:Static c:CsMessage+MessageResults.Cancel}">
+											<Button Content="Abbrechen" Tag="{x:Static c:CsMessage+MessageResults.Cancel}" IsCancel="True">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -171,7 +171,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Yes" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesButtonEnabled}">
+											<Button Content="Ja" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesButtonEnabled}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -311,7 +311,7 @@
 								</Paragraph>
 							</FlowDocument>
 						</RichTextBox>
-						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top" Margin="15,1,0,0">
+						<Expander Focusable="False" Grid.Row="1" Header="Details" IsExpanded="False" VerticalAlignment="Top" VerticalContentAlignment="Top" Margin="15,10,10,0">
 							<TextBox IsReadOnly="True" BorderThickness="0" BorderBrush="Transparent" Text="{Binding Path=StackTrace, Mode=OneWay}" TextWrapping="Wrap" />
 						</Expander>
 					</Grid>
@@ -332,8 +332,7 @@
 								</Paragraph>
 							</FlowDocument>
 						</RichTextBox>
-						<ItemsControl Grid.Row="1" ItemsSource="{Binding Converter={StaticResource GConv-ExceptionToExceptionList}}" ItemTemplate="{StaticResource ExceptionContent}">
-						</ItemsControl>
+						<ItemsControl Grid.Row="1" ItemsSource="{Binding Converter={StaticResource GConv-ExceptionToExceptionList}}" ItemTemplate="{StaticResource ExceptionContent}" />
 					</Grid>
 				</DataTemplate>
 			</ContentControl.Resources>

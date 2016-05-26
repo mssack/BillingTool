@@ -56,16 +56,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_BillingDataAccess\_Assemblys\SqlCe - x86 - 3.5.8080.0\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -79,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="btScope\administrator\licence\EULAGerman.cs" />
     <Compile Include="btScope\Bt.cs" />
     <Compile Include="btScope\configuration\commandLine\CommandLine_BelegPostenTemplate.cs" />
     <Compile Include="btScope\configuration\commandLine\CommandLine_GeneralSetting.cs" />
@@ -91,7 +84,6 @@
     <Compile Include="btScope\configuration\merged\Merged_NewBelegData.cs" />
     <Compile Include="btScope\configuration\merged\_Merged.cs" />
     <Compile Include="btScope\configuration\_interfaces\IConfig_NewBelegData.cs" />
-    <Compile Include="btScope\configuration\_interfaces\IContainKassenEinstellungen.cs" />
     <Compile Include="btScope\functions\DataFunctions.cs" />
     <Compile Include="btScope\functions\data\basis\DataFunctionsBase.cs" />
     <Compile Include="btScope\functions\data\BelegDataFunctions.cs" />
@@ -103,6 +95,7 @@
     <Compile Include="btScope\functions\data\SteuersatzFunctions.cs" />
     <Compile Include="btScope\functions\AppOutput.cs" />
     <Compile Include="btScope\functions\UiFunctions.cs" />
+    <Compile Include="btScope\administrator\Administrator.cs" />
     <Compile Include="btScope\output\Output.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="ExitCodes.cs" />
@@ -127,6 +120,9 @@
     <Compile Include="Themes\Controls\belegview\BelegPostenListView.xaml.cs">
       <DependentUpon>BelegPostenListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\options\BusinessInfoConfigurationControl.xaml.cs">
+      <DependentUpon>BusinessInfoConfigurationControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\options\DefaultSteuersatzConfigurationControl.xaml.cs">
       <DependentUpon>DefaultSteuersatzConfigurationControl.xaml</DependentUpon>
     </Compile>
@@ -136,6 +132,13 @@
     <Compile Include="Themes\Controls\options\SteuersatzConfigurationControl.xaml.cs">
       <DependentUpon>SteuersatzConfigurationControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Themes\Controls\_designElements\AcceptButton.xaml.cs">
+      <DependentUpon>AcceptButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\_designElements\CancleButton.xaml.cs">
+      <DependentUpon>CancleButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs" />
     <Compile Include="Themes\Controls\_shared\BonPreviewControl.xaml.cs">
       <DependentUpon>BonPreviewControl.xaml</DependentUpon>
     </Compile>
@@ -150,9 +153,6 @@
     </Compile>
     <Compile Include="Themes\Controls\_shared\FromToSelectorControl.xaml.cs">
       <DependentUpon>FromToSelectorControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Themes\Controls\HeaderControl.xaml.cs">
-      <DependentUpon>HeaderControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Themes\Controls\options\ApperanceConfigurationControl.xaml.cs">
       <DependentUpon>ApperanceConfigurationControl.xaml</DependentUpon>
@@ -181,7 +181,15 @@
     <Compile Include="Themes\Controls\belegview\StornoApprovalControl.xaml.cs">
       <DependentUpon>StornoApprovalControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Converters\BtConv_ProcessingStateToImage.cs" />
+    <Compile Include="Themes\Controls\_shared\ProcessingStateIcon.xaml.cs">
+      <DependentUpon>ProcessingStateIcon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\_installation\Window_DatabaseConfiguration.xaml.cs">
+      <DependentUpon>Window_DatabaseConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\tools\Window_MonatsBon_PrintFailure.xaml.cs">
+      <DependentUpon>Window_MonatsBon_PrintFailure.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Window_BelegData_Creation.xaml.cs">
       <DependentUpon>Window_BelegData_Creation.xaml</DependentUpon>
     </Compile>
@@ -194,7 +202,7 @@
     <Compile Include="Windows\Window_BelegData_Viewer.xaml.cs">
       <DependentUpon>Window_BelegData_Viewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\privileged\Window_KassenConfiguration.xaml.cs">
+    <Compile Include="Windows\_installation\Window_KassenConfiguration.xaml.cs">
       <DependentUpon>Window_KassenConfiguration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\privileged\Window_DatabaseViewer.xaml.cs">
@@ -210,6 +218,9 @@
     </Compile>
     <Compile Include="Windows\Window_Options.xaml.cs">
       <DependentUpon>Window_Options.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\_installation\Window_LicenceAgreement.xaml.cs">
+      <DependentUpon>Window_LicenceAgreement.xaml</DependentUpon>
     </Compile>
     <Page Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml">
       <SubType>Designer</SubType>
@@ -243,6 +254,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Controls\options\BusinessInfoConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\options\DefaultSteuersatzConfigurationControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -252,6 +267,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Controls\options\SteuersatzConfigurationControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_designElements\AcceptButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_designElements\CancleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_designElements\RedBorderBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,10 +299,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\_shared\FromToSelectorControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Controls\HeaderControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -312,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\belegview\StornoApprovalControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\_shared\ProcessingStateIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -363,6 +390,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\_installation\Window_DatabaseConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\tools\Window_MonatsBon_PrintFailure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Window_BelegData_Creation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -379,7 +414,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\privileged\Window_KassenConfiguration.xaml">
+    <Page Include="Windows\_installation\Window_KassenConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -392,6 +427,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\Window_Options.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\_installation\Window_LicenceAgreement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -436,6 +475,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Icons\KassenIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="btScope\administrator\licence\EULAGerman.cs.txt">
+      <DependentUpon>EULAGerman.cs</DependentUpon>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

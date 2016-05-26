@@ -2,12 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.DatabaseCreation;
+using BillingTool.btScope.administrator;
 using BillingTool.btScope.configuration;
 using BillingTool.btScope.configuration._enums;
 using BillingTool.btScope.db;
@@ -17,6 +19,8 @@ using BillingTool.btScope.output;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
 using BillingTool.Windows.privileged;
+using BillingTool.Windows.tools;
+using BillingTool.Windows._installation;
 using CsWpfBase.Global;
 
 
@@ -32,6 +36,8 @@ namespace BillingTool.btScope
 	/// </summary>
 	public static class Bt
 	{
+		/// <summary>The administrative functions.</summary>
+		public static Administrator Administrator => Administrator.I;
 		/// <summary>
 		///     The configuration of the current application lifeline. This can be modified by simple modifying the configuration file or passing parameters to
 		///     the program.
@@ -58,6 +64,10 @@ namespace BillingTool.btScope
 		{
 			if (!Config.File.KassenEinstellung.Path.Exists || !Config.File.KassenEinstellung.IsValid)
 			{
+				if (!Administrator.AskForLicenseAgreement())
+					throw new BillingToolException(BillingToolException.Types.LicenseAgreement_NotAccepted, $"Die Lizenzvereinbarungen wurden nicht akzeptiert.");
+
+
 				var window = new Window_KassenConfiguration();
 				window.ShowDialog();
 				if (!Config.File.KassenEinstellung.IsValid)
@@ -107,15 +117,29 @@ namespace BillingTool.btScope
 			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
+
 			Window window;
 			if (mode == StartupModes.BelegDataApprove)
-				window = new Window_BelegData_Creation(isApproval: true) {Item = Data.BelegData.New_FromConfiguration()};
+				window = new Window_BelegData_Creation(true) {Item = Data.BelegData.New_FromConfiguration()};
 			else if (mode == StartupModes.BelegDataViewer)
 				window = new Window_BelegData_Viewer();
 			else if (mode == StartupModes.Options)
 				window = new Window_Options();
 			else if (mode == StartupModes.Database)
 				window = new Window_DatabaseViewer();
+			else if (mode == StartupModes.SilentMonatsBonPrint)
+			{
+				window = new Window_MonatsBon_PrintFailure();
+				EnsureInitialization();
+				var newMonatsBeleg = Data.BelegData.New_MonatsBeleg();
+				var printedBeleg = Data.PrintedBeleg.New(newMonatsBeleg);
+				printedBeleg.OutputFormat = Db.Billing.OutputFormats.Default_MonatsBonFormat;
+				Data.BelegData.Finalize(newMonatsBeleg);
+				Data.SyncAnabolicChanges();
+				Output.DoOpenedExportsAsync(newMonatsBeleg).ContinueWith(t => { window.Close(); }, TaskScheduler.FromCurrentSynchronizationContext());
+				return;
+
+			}
 			else
 				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Fehlender {nameof(StartupModes)} siehe enumeration[{nameof(StartupModes)}].");
 
@@ -142,20 +166,15 @@ namespace BillingTool.btScope
 		private static void InitDb()
 		{
 			Db.EnsureConnectivity();
-			if (Db.Billing.OutputFormats.HasBeenLoaded != true)
+			Db.Billing.Init();
+			if (!Db.Billing.Configurations.Business.IsValid)
 			{
-				Db.Billing.OutputFormats.DownloadRows();
-				Db.Billing.OutputFormats.EnsureDefaults();
+				var window = new Window_DatabaseConfiguration();
+				window.ShowDialog();
+				if (!Db.Billing.Configurations.Business.IsValid)
+					throw new BillingToolException(BillingToolException.Types.No_BusinessName, $"Fehlende Unternehmensbeschreibung");
 			}
-			if (Db.Billing.Steuersätze.HasBeenLoaded != true)
-			{
-				Db.Billing.Steuersätze.DownloadRows();
-				Db.Billing.Steuersätze.EnsureDefaults();
-			}
-			if (Db.Billing.Configurations.HasBeenLoaded != true)
-			{
-				Db.Billing.Configurations.DownloadRows();
-			}
+
 		}
 	}
 }

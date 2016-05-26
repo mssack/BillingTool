@@ -3,12 +3,14 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:BillingDatabaseDb="SqlCeDatabases.BillingDatabase"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
+		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
+		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
 		mc:Ignorable="d" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{StaticResource {x:Type CsWindow}}"
 		Title="Exporte" Height="300" Width="300" Topmost="True" WindowStartupLocation="CenterOwner" x:Name="Uc"
-		CloseButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed">
+		CloseButtonVisibility="Collapsed" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed" FooterVisibility="Collapsed" ShowInTaskbar="False">
 	<CsWindow.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -32,12 +34,12 @@
 		</Grid.RowDefinitions>
 		<ItemsControl Focusable="False" ItemsSource="{Binding ElementName=Uc, Path=OpenedItems}">
 			<ItemsControl.Resources>
-				<DataTemplate DataType="{x:Type BillingDatabaseDb:PrintedBeleg}">
+				<DataTemplate DataType="{x:Type billingDatabaseDb:PrintedBeleg}">
 					<Border>
 						<Border.Style>
 							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource EntryStyle}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static extensions:ProcessingStates.Failed}">
+									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Failed}">
 										<Setter Property="ToolTip" Value="{Binding Path=ProcessingException}" />
 									</DataTrigger>
 								</Style.Triggers>
@@ -49,18 +51,18 @@
 								<ColumnDefinition Width="Auto" SharedSizeGroup="b" />
 								<ColumnDefinition Width="Auto" SharedSizeGroup="c" />
 							</Grid.ColumnDefinitions>
-							<Image Style="{StaticResource ProcessingStateIcon}" DataContext="{Binding Path=ProcessingState}" />
+							<shared:ProcessingStateIcon ProcessingState="{Binding Path=ProcessingState}" />
 							<TextBlock Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" Text="Ausdruck" />
 							<TextBlock Grid.Column="2" Margin="0,0,5,0" VerticalAlignment="Center" Text="{Binding Path=PrinterDevice}" />
 						</Grid>
 					</Border>
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type BillingDatabaseDb:MailedBeleg}">
+				<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
 					<Border>
 						<Border.Style>
 							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource EntryStyle}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static extensions:ProcessingStates.Failed}">
+									<DataTrigger Binding="{Binding Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Failed}">
 										<Setter Property="ToolTip" Value="{Binding Path=ProcessingException}" />
 									</DataTrigger>
 								</Style.Triggers>
@@ -72,7 +74,7 @@
 								<ColumnDefinition Width="Auto" SharedSizeGroup="b" />
 								<ColumnDefinition Width="Auto" SharedSizeGroup="c" />
 							</Grid.ColumnDefinitions>
-							<Image Style="{StaticResource ProcessingStateIcon}" DataContext="{Binding Path=ProcessingState}" />
+							<shared:ProcessingStateIcon ProcessingState="{Binding Path=ProcessingState}" />
 							<TextBlock Grid.Column="1" Margin="5,0,5,0" VerticalAlignment="Center" Text="E-Mail" />
 							<TextBlock Grid.Column="2" Margin="0,0,5,0" VerticalAlignment="Center" Text="{Binding Path=TargetMailAddress}" />
 						</Grid>
@@ -95,19 +97,15 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
-					<Border Style="{StaticResource RedBorder}" Padding="5,2,5,2">
-						<TextBlock Foreground="White">
-							Sie müssen diesen Bon ausdrucken, da keine der Mails gesendet werden konnten.
-						</TextBlock>
-					</Border>
-					
+					<designElements:RedBorderBox Content="Sie müssen diesen Bon ausdrucken, da keine der Mails gesendet werden konnten." />
+
 					<Param Grid.Row="1" Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}" Margin="5,10,0,0" HorizontalAlignment="Left">
 						<ComboBox ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}"
 							DisplayMemberPath="Name" SelectedValuePath="Name" SelectedValue="{Binding Path=ReprintPrinterDevice}" />
 					</Param>
 
 					<Param Grid.Row="2" Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Margin="5,1,1,1" HorizontalAlignment="Left">
-						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
+						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.PrintFormate}"
 							SelectedItem="{Binding Path=ReprintOutputFormat}" />
 					</Param>
 				</Grid>
@@ -117,8 +115,8 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
-					<Button Grid.Column="1" Style="{StaticResource AcceptButton}" Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-BoolVisibility}}" Click="PrintAndCloseClicked" IsDefault="True" Content="Nachdrucken und Schließen" />
-					<Button Grid.Column="1" Style="{StaticResource AcceptButton}" Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-InvBoolVisibility}}" Click="CloseClicked" IsDefault="True" Content="Schließen" />
+					<designElements:AcceptButton Grid.Column="1" Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-BoolVisibility}}" Click="PrintAndCloseClicked" IsDefault="True" Content="Nachdrucken und Schließen" />
+					<designElements:AcceptButton Grid.Column="1" Visibility="{Binding Path=IsReprintNecessary, Converter={StaticResource GConv-InvBoolVisibility}}" Click="CloseClicked" IsDefault="True" Content="Schließen" />
 				</Grid>
 			</Grid>
 		</Border>

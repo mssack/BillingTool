@@ -11,10 +11,12 @@ using System.Net;
 using System.Net.Mail;
 using System.Printing;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Annotations;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingOutput.btOutputScope.ImageProcessing;
 using BillingOutput.btOutputScope.PdfCreation;
 using BillingOutput.Interfaces;
@@ -137,8 +139,20 @@ namespace BillingOutput.btOutputScope
 
 			var t = new Task(() =>
 			{
-				var image = new Image {Source = ProcessFormat(data.BelegData, data.OutputFormat)};
-				new PrintDialog {PrintQueue = new PrintQueue(new PrintServer(), data.PrinterDevice)}.PrintVisual(image, $"{data.BelegData}");
+				var processFormat = ProcessFormat(data.BelegData, data.OutputFormat);
+				var image = new Image {Source = processFormat, Width = processFormat.PixelWidth, Height = processFormat.PixelHeight};
+				image.Measure(new Size(image.Width, image.Height));
+				image.Arrange(new Rect(new Size(image.Width, image.Height)));
+				image.UpdateLayout();
+
+				var printServer = new PrintServer();
+				var printDialog = new PrintDialog
+				{
+					PrintQueue = new PrintQueue(printServer,data.PrinterDevice)
+				};
+				//printDialog.PrintableAreaHeight could be exceeded what should i do if that happens multiple pages would be great
+				printDialog.PrintVisual(image, $"{data.BelegData}");
+
 			}, TaskCreationOptions.LongRunning);
 			var continuationTask = t.ContinueWith(task =>
 			{
@@ -155,11 +169,12 @@ namespace BillingOutput.btOutputScope
 				data.ProcessingState = ProcessingStates.Processed;
 				data.ProcessingException = null;
 				return data;
+
 			}, context);
 			t.Start(StaPrinterScheduler);
 			return continuationTask;
 		}
-
+		
 
 		private static BitmapSource ProcessFormat(BelegData data, OutputFormat format)
 		{
@@ -168,4 +183,9 @@ namespace BillingOutput.btOutputScope
 			return ImageRenderer.Render(data, format);
 		}
 	}
+
+
+
+
+
 }

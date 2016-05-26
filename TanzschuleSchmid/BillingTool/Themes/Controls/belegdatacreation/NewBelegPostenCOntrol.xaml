@@ -5,8 +5,8 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:btScope="clr-namespace:BillingTool.btScope"
 			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc1">
+			xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+			mc:Ignorable="d" x:Name="Uc1">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -63,7 +63,7 @@
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<Button Content="Erstellen" Style="{StaticResource AcceptButton}" Click="ErstellenClick"/>
+			<designElements:AcceptButton Content="Erstellen" Click="ErstellenClick" />
 		</Grid>
 	</Grid>
 </UserControl>

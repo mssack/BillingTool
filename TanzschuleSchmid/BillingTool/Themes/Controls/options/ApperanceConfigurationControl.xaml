@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:btScope="clr-namespace:BillingTool.btScope"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" >
 	<Grid IsSharedSizeScope="True">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -13,7 +12,6 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<StringParam Grid.Row="0" Header="Skalierung" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling, UpdateSourceTrigger=LostFocus}" />
-		<ImageParam Grid.Row="1" Header="Logo" Value="{Binding Source={x:Static btScope:Bt.Db},  Path=Billing.Configurations.HeaderLogo}" />
-		<DoubleParam Grid.Row="2" Header="Logo Größe" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.HeaderSize}" />
+		<DoubleParam Grid.Row="2" Header="Logo Größe" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderSize}" />
 	</Grid>
 </UserControl>

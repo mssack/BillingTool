@@ -8,6 +8,7 @@ using System;
 using System.IO;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
 using CsWpfBase.Utilitys.templates;
@@ -101,6 +102,18 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StornoBelegId</c>]</summary>
 		public Guid? StornoBelegId
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerVon</c>]</summary>
+		public int? BonNummerVon
+		{
+			get { throw new InvalidOperationException(GetErrorMessage); }
+			set { throw new InvalidOperationException(SetErrorMessage); }
+		}
+		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerBis</c>]</summary>
+		public int? BonNummerBis
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }

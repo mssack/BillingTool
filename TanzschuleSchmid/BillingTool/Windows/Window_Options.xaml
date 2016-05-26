@@ -6,7 +6,7 @@
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:options="clr-namespace:BillingTool.Themes.Controls.options"
 		mc:Ignorable="d" Style="{StaticResource {x:Type CsWindow}}"
-		Title="Options" Height="600" Width="800">
+		Title="Optionen" Height="600" Width="800">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="*" />
@@ -23,7 +23,7 @@
 					<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}}" Grid.Row="0">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" MinWidth="200"/>
 						</Grid.ColumnDefinitions>
 
 						<Grid Grid.Column="0">
@@ -34,11 +34,8 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="*" />
 							</Grid.RowDefinitions>
-							<Expander Grid.Row="0" Header="Darstellung" IsExpanded="True">
-								<options:ApperanceConfigurationControl />
-							</Expander>
-							<Expander Grid.Row="1" Header="Geräte Konfiguration" IsExpanded="True">
-								<options:DeviceConfigurationControl />
+							<Expander Grid.Row="0" Header="Unternehmen" IsExpanded="True">
+								<options:BusinessInfoConfigurationControl />
 							</Expander>
 						</Grid>
 						<Grid Grid.Column="1">
@@ -49,8 +46,8 @@
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="*" />
 							</Grid.RowDefinitions>
-							<Expander Grid.Row="0" Header="E-Mail Konfiguration" IsExpanded="True">
-								<options:MailConfigurationControl Grid.IsSharedSizeScope="True" />
+							<Expander Grid.Row="0" Header="Darstellung" IsExpanded="True">
+								<options:ApperanceConfigurationControl />
 							</Expander>
 						</Grid>
 
@@ -62,22 +59,44 @@
 					</Grid>
 				</Grid>
 			</TabItem>
-			<TabItem Header="Standardwerte" Padding="10">
-				<Grid>
+			<TabItem Header="Konfiguration" Padding="10">
+				<Grid Margin="0,0,-10,0">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="Auto" MinWidth="200"/>
 					</Grid.ColumnDefinitions>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
-						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
-					<Expander Grid.Row="0" Header="Layouts" IsExpanded="True">
-						<options:DefaultLayoutConfigurationControl  Grid.IsSharedSizeScope="True" />
-					</Expander>
-					<Expander Grid.Row="1" Header="Steuersatz" IsExpanded="True">
-						<options:DefaultSteuersatzConfigurationControl  Grid.IsSharedSizeScope="True" />
-					</Expander>
+					<Grid Grid.Row="0" Grid.Column="0">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Expander Grid.Row="0" Header="Standard Layouts" IsExpanded="True">
+							<options:DefaultLayoutConfigurationControl Grid.IsSharedSizeScope="True" />
+						</Expander>
+						<Expander Grid.Row="1" Header="Standard Steuersatz" IsExpanded="True">
+							<options:DefaultSteuersatzConfigurationControl Grid.IsSharedSizeScope="True" />
+						</Expander>
+					</Grid>
+					<Grid Grid.Row="0" Grid.Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<Expander Grid.Row="0" Header="E-Mail Konfiguration" IsExpanded="True">
+							<options:MailConfigurationControl Grid.IsSharedSizeScope="True" />
+						</Expander>
+						<Expander Grid.Row="1" Header="Geräte Konfiguration" IsExpanded="True">
+							<options:DeviceConfigurationControl Grid.IsSharedSizeScope="True"/>
+						</Expander>
+					</Grid>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Steuersätze" Padding="10">
@@ -86,7 +105,7 @@
 			<TabItem Header="Posten" Padding="10">
 				<Grid>
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 					<options:PostenConfigurationControl />
 				</Grid>

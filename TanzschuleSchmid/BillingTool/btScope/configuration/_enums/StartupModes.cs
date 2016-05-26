@@ -31,5 +31,8 @@ namespace BillingTool.btScope.configuration._enums
 		[Description("Beleg Bestätigung")] BelegDataApprove,
 		/// <summary>Allows modifying the options of the program.</summary>
 		[Description("Optionen")] Options,
+
+		/// <summary>Allows modifying the options of the program.</summary>
+		[Description("Stiller druck des Monatsbon")] SilentMonatsBonPrint,
 	}
 }

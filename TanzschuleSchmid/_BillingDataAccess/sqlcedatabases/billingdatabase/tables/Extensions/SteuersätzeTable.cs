@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-05-18</date>
 
 using System;
 using System.Data;
@@ -26,11 +26,12 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 {
 	partial class SteuersätzeTable : ICanFilterByDate<Steuersatz>
 	{
+		private static readonly NumberFormatInfo Nfi = new NumberFormatInfo {NumberDecimalSeparator = "."};
+		private Steuersatz _defaultBetragSatzBesonders;
 		private Steuersatz _defaultBetragSatzErmäßigt1;
 		private Steuersatz _defaultBetragSatzErmäßigt2;
 		private Steuersatz _defaultBetragSatzNormal;
 		private Steuersatz _defaultBetragSatzNull;
-		private Steuersatz _defaultBetragSatzBesonders;
 
 
 		#region Overrides/Interfaces
@@ -40,7 +41,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		public ContractCollection<Steuersatz> Get_Between(DateTime from, DateTime to)
+		public ContractCollection<Steuersatz> LoadThenFind_Between(DateTime from, DateTime to)
 		{
 			from = from.Subtract(from.TimeOfDay);
 			to = to.Add(new TimeSpan(0, 23 - to.Hour, 59 - to.Minute, 59 - to.Second, 999 - to.Millisecond));
@@ -59,9 +60,9 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		ContractCollection ICanFilterByDate.Get_Between(DateTime from, DateTime to)
+		ContractCollection ICanFilterByDate.LoadThenFind_Between(DateTime from, DateTime to)
 		{
-			return Get_Between(from, to);
+			return LoadThenFind_Between(from, to);
 		}
 		#endregion
 
@@ -73,30 +74,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		public Steuersatz Default_BetragSatzNormal
 		{
-			get
-			{
-				if (_defaultBetragSatzNormal != null) return _defaultBetragSatzNormal;
-				var id = DataSet.Configurations.Default_BetragSatzNormal;
-
-				_defaultBetragSatzNormal = LoadThenFind(id);
-				if (_defaultBetragSatzNormal != null) return _defaultBetragSatzNormal;
-
-
-				DataSet.Configurations.LastSteuersatzKürzel = (char) (DataSet.Configurations.LastSteuersatzKürzel + 1);
-
-				_defaultBetragSatzNormal = NewRow();
-				_defaultBetragSatzNormal.Id = id;
-				_defaultBetragSatzNormal.CreationDate = DateTime.Now;
-				_defaultBetragSatzNormal.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
-				_defaultBetragSatzNormal.Name = "Normal";
-				_defaultBetragSatzNormal.Percent = 20;
-				_defaultBetragSatzNormal.Table.Add(_defaultBetragSatzNormal);
-				return _defaultBetragSatzNormal;
-			}
+			get { return GetOrCreate_DefaultBetragSatz(ref _defaultBetragSatzNormal, DataSet.Configurations.Default.BetragSatzNormal, "Normal", 20); }
 			set
 			{
 				if (SetProperty(ref _defaultBetragSatzNormal, value))
-					DataSet.Configurations.Default_BetragSatzNormal = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.BetragSatzNormal = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
@@ -107,29 +89,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		public Steuersatz Default_BetragSatzErmäßigt1
 		{
-			get
-			{
-				if (_defaultBetragSatzErmäßigt1 != null) return _defaultBetragSatzErmäßigt1;
-				var id = DataSet.Configurations.Default_BetragSatzErmäßigt1;
-
-				_defaultBetragSatzErmäßigt1 = LoadThenFind(id);
-				if (_defaultBetragSatzErmäßigt1 != null) return _defaultBetragSatzErmäßigt1;
-
-				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
-
-				_defaultBetragSatzErmäßigt1 = NewRow();
-				_defaultBetragSatzErmäßigt1.Id = id;
-				_defaultBetragSatzErmäßigt1.CreationDate = DateTime.Now;
-				_defaultBetragSatzErmäßigt1.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
-				_defaultBetragSatzErmäßigt1.Name = "Ermäßigt 1";
-				_defaultBetragSatzErmäßigt1.Percent = 10;
-				_defaultBetragSatzErmäßigt1.Table.Add(_defaultBetragSatzErmäßigt1);
-				return _defaultBetragSatzErmäßigt1;
-			}
+			get { return GetOrCreate_DefaultBetragSatz(ref _defaultBetragSatzErmäßigt1, DataSet.Configurations.Default.BetragSatzErmäßigt1, "Ermäßigt 1", 10); }
 			set
 			{
 				if (SetProperty(ref _defaultBetragSatzErmäßigt1, value))
-					DataSet.Configurations.Default_BetragSatzErmäßigt1 = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.BetragSatzErmäßigt1 = value?.Id ?? Guid.NewGuid();
 			}
 		}
 		/// <summary>
@@ -139,30 +103,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		public Steuersatz Default_BetragSatzErmäßigt2
 		{
-			get
-			{
-				if (_defaultBetragSatzErmäßigt2 != null) return _defaultBetragSatzErmäßigt2;
-				var id = DataSet.Configurations.Default_BetragSatzErmäßigt2;
-
-				_defaultBetragSatzErmäßigt2 = LoadThenFind(id);
-				if (_defaultBetragSatzErmäßigt2 != null) return _defaultBetragSatzErmäßigt2;
-
-				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
-
-
-				_defaultBetragSatzErmäßigt2 = NewRow();
-				_defaultBetragSatzErmäßigt2.Id = id;
-				_defaultBetragSatzErmäßigt2.CreationDate = DateTime.Now;
-				_defaultBetragSatzErmäßigt2.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
-				_defaultBetragSatzErmäßigt2.Name = "Ermäßigt 2";
-				_defaultBetragSatzErmäßigt2.Percent = 13;
-				_defaultBetragSatzErmäßigt2.Table.Add(_defaultBetragSatzErmäßigt2);
-				return _defaultBetragSatzErmäßigt2;
-			}
+			get { return GetOrCreate_DefaultBetragSatz(ref _defaultBetragSatzErmäßigt2, DataSet.Configurations.Default.BetragSatzErmäßigt2, "Ermäßigt 2", 13); }
 			set
 			{
 				if (SetProperty(ref _defaultBetragSatzErmäßigt2, value))
-					DataSet.Configurations.Default_BetragSatzErmäßigt2 = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.BetragSatzErmäßigt2 = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
@@ -173,30 +118,11 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		public Steuersatz Default_BetragSatzNull
 		{
-			get
-			{
-				if (_defaultBetragSatzNull != null) return _defaultBetragSatzNull;
-				var id = DataSet.Configurations.Default_BetragSatzNull;
-
-				_defaultBetragSatzNull = LoadThenFind(id);
-				if (_defaultBetragSatzNull != null) return _defaultBetragSatzNull;
-
-				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
-
-
-				_defaultBetragSatzNull = NewRow();
-				_defaultBetragSatzNull.Id = id;
-				_defaultBetragSatzNull.CreationDate = DateTime.Now;
-				_defaultBetragSatzNull.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
-				_defaultBetragSatzNull.Name = "Null";
-				_defaultBetragSatzNull.Percent = 0;
-				_defaultBetragSatzNull.Table.Add(_defaultBetragSatzNull);
-				return _defaultBetragSatzNull;
-			}
+			get { return GetOrCreate_DefaultBetragSatz(ref _defaultBetragSatzNull, DataSet.Configurations.Default.BetragSatzNull, "Null", 0); }
 			set
 			{
 				if (SetProperty(ref _defaultBetragSatzNull, value))
-					DataSet.Configurations.Default_BetragSatzNull = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.BetragSatzNull = value?.Id ?? Guid.NewGuid();
 			}
 		}
 
@@ -207,33 +133,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 		/// </summary>
 		public Steuersatz Default_BetragSatzBesonders
 		{
-			get
-			{
-				if (_defaultBetragSatzBesonders != null) return _defaultBetragSatzBesonders;
-				var id = DataSet.Configurations.Default_BetragSatzBesonders;
-
-				_defaultBetragSatzBesonders = LoadThenFind(id);
-				if (_defaultBetragSatzBesonders != null) return _defaultBetragSatzBesonders;
-
-				DataSet.Configurations.LastSteuersatzKürzel = (char)(DataSet.Configurations.LastSteuersatzKürzel + 1);
-
-
-				_defaultBetragSatzBesonders = NewRow();
-				_defaultBetragSatzBesonders.Id = id;
-				_defaultBetragSatzBesonders.CreationDate = DateTime.Now;
-				_defaultBetragSatzBesonders.Kürzel = DataSet.Configurations.LastSteuersatzKürzel.ToString();
-				_defaultBetragSatzBesonders.Name = "Besonders";
-				_defaultBetragSatzBesonders.Percent = 19;
-				_defaultBetragSatzBesonders.Table.Add(_defaultBetragSatzBesonders);
-				return _defaultBetragSatzBesonders;
-			}
+			get { return GetOrCreate_DefaultBetragSatz(ref _defaultBetragSatzBesonders, DataSet.Configurations.Default.BetragSatzBesonders, "Besonders", 19); }
 			set
 			{
 				if (SetProperty(ref _defaultBetragSatzBesonders, value))
-					DataSet.Configurations.Default_BetragSatzBesonders = value?.Id ?? Guid.NewGuid();
+					DataSet.Configurations.Default.BetragSatzBesonders = value?.Id ?? Guid.NewGuid();
 			}
 		}
-
 
 
 
@@ -261,18 +167,25 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables
 			var postens = Collection.Where(x => x.Percent == percent).ToArray();
 			return postens.Length == 0 ? null : postens[0];
 		}
+		
 
-		/// <summary>Invokes the creation of the default <see cref="Steuersatz" /> rows.</summary>
-		public void EnsureDefaults()
+		private Steuersatz GetOrCreate_DefaultBetragSatz(ref Steuersatz field, Guid id, string name, decimal percent)
 		{
-			// ReSharper disable once NotAccessedVariable
-			// ReSharper disable RedundantAssignment
-			var name = Default_BetragSatzNormal.Name;
-			name = Default_BetragSatzErmäßigt1.Name;
-			name = Default_BetragSatzErmäßigt2.Name;
-			name = Default_BetragSatzNull.Name;
-			// ReSharper restore RedundantAssignment
+			if (field != null) return field;
+			field = HasBeenLoaded ? Find(id) : FindOrLoad(id);
+			if (field != null) return field;
+			DataSet.Configurations.DataIntegrity.LastSteuersatzKürzel = (char) (DataSet.Configurations.DataIntegrity.LastSteuersatzKürzel + 1);
+
+			field = NewRow();
+			field.Id = id;
+			field.CreationDate = DateTime.Now;
+			field.LastUsedDate = field.CreationDate; //Makes it unchangeable
+			field.Kürzel = DataSet.Configurations.DataIntegrity.LastSteuersatzKürzel.ToString();
+			field.Name = name;
+			field.Percent = percent;
+			field.Table.Add(field);
+
+			return field;
 		}
-		private static NumberFormatInfo Nfi = new NumberFormatInfo { NumberDecimalSeparator = "." };
 	}
 }

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-05-22</date>
 
 using System;
 using System.Linq;
@@ -39,8 +39,17 @@ namespace BillingTool.btScope.configuration.commandLine
 			}
 		}
 
+		private string _currentConfiguration;
+
 		private CommandLines()
 		{
+		}
+
+		/// <summary>Gets or sets the CurrentConfiguration.</summary>
+		public string CurrentConfiguration
+		{
+			get { return _currentConfiguration; }
+			set { SetProperty(ref _currentConfiguration, value); }
 		}
 
 		/// <summary>
@@ -60,7 +69,8 @@ namespace BillingTool.btScope.configuration.commandLine
 		/// </summary>
 		public void Interpret(string[] startParams)
 		{
-			var concanatedParams = startParams.Join(" ").Replace("//", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "//")).Where(x => !string.IsNullOrEmpty(x)).ToList();
+			CurrentConfiguration = startParams.Join(" ");
+			var concanatedParams = CurrentConfiguration.Replace("//", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "//")).Where(x => !string.IsNullOrEmpty(x)).ToList();
 			General.Interpret(concanatedParams);
 			NewBelegData.Interpret(concanatedParams);
 		}

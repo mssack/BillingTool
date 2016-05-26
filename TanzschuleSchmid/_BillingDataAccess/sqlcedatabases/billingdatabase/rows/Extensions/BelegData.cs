@@ -2,14 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-06</date>
+// <date>2016-05-26</date>
 
 using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 
 
 
@@ -21,6 +21,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 {
 	partial class BelegData : IStoreComment
 	{
+		private BelegData[] _includedBelegDatas;
+		private string _includedBelegDatasTag;
+
+
 		#region Overrides/Interfaces
 		/// <summary>sets the value of a column and notify property changed.</summary>
 		public override bool SetDbValue<T>(T m, string columnName, [CallerMemberName] string propName = "")
@@ -40,7 +44,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		/// <summary>On row creation this method will be executed. So a new row will always have the highest reference number</summary>
 		public override void ApplyExtendedDefaults()
 		{
-			Nummer = DataSet.Configurations.LastBelegNummer + 1;
+			Nummer = DataSet.Configurations.DataIntegrity.LastBelegNummer + 1;
 		}
 
 		/// <summary>Returns an identifier for the database row.</summary>
@@ -84,7 +88,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 					return BelegDataInvalidReasons.Missing_Kassenoperator;
 				if (Typ == BelegDataTypes.Storno && StornoBeleg == null)
 					return BelegDataInvalidReasons.Missing_StornoBeleg;
-				if (Postens.Count == 0)
+				if (!Typ.IsRecapBon() && Postens.Count == 0)
 					return BelegDataInvalidReasons.Missing_BelegPosten;
 				return BelegDataInvalidReasons.Valid;
 			}
@@ -104,6 +108,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			}
 			set { TypName = value.ToString(); }
 		}
+
+		/// <summary>
+		///     true if bon is of <see cref="Typ" /> <see cref="BelegDataTypes.TagesBon" /> or <see cref="BelegDataTypes.MonatsBon" /> or
+		///     <see cref="BelegDataTypes.JahresBon" />.
+		/// </summary>
+		[DependsOn(nameof(TypName))]
+		public bool IsRecapBon => Typ.IsRecapBon();
 
 		/// <summary>The wrapper property for column property <see cref="StateName" />.</summary>
 		[DependsOn(nameof(StateName))]
@@ -130,6 +141,33 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				if (StornierendeBelege.Count == 0)
 					return null;
 				return StornierendeBelege[0];
+			}
+		}
+
+		/// <summary>
+		///     Only useful if <see cref="Typ" /> == <see cref="BelegDataTypes.TagesBon" /> || <see cref="BelegDataTypes.MonatsBon" /> ||
+		///     <see cref="BelegDataTypes.JahresBon" />.
+		/// </summary>
+		[DependsOn(nameof(Typ))]
+		[DependsOn(nameof(BonNummerVon))]
+		[DependsOn(nameof(BonNummerBis))]
+		// ReSharper disable once InconsistentNaming
+		public BelegData[] VonBis_BelegData
+		{
+			get
+			{
+				if (!Typ.IsRecapBon())
+					return null;
+				if (BonNummerVon == null || BonNummerBis == null)
+					return null;
+				if (BonNummerVon > BonNummerBis)
+					return null;
+				if (_includedBelegDatasTag == $"{BonNummerVon.Value}.{BonNummerBis.Value}")
+					return _includedBelegDatas;
+
+				_includedBelegDatas = Table.LoadThenFind_Between(BonNummerVon.Value, BonNummerBis.Value);
+				_includedBelegDatasTag = $"{BonNummerVon.Value}.{BonNummerBis.Value}";
+				return _includedBelegDatas;
 			}
 		}
 

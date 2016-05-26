@@ -11,6 +11,8 @@
 	[UmsatzZähler]		money			NOT NULL,
 
 	[StornoBelegId]		uniqueidentifier,
+	[BonNummerVon]		int,
+	[BonNummerBis]		int,
 
 	[BetragBrutto]		money	NOT NULL DEFAULT(0),
 	[BetragNetto]		money	NOT NULL DEFAULT(0),

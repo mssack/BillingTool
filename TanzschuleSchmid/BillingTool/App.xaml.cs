@@ -13,9 +13,11 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
 using CsWpfBase.Global;
+using CsWpfBase.Global.message;
 
 
 
@@ -56,7 +58,7 @@ namespace BillingTool
 								From = new MailAddress(mailConfig.SmtpMailAddress),
 								Subject = $"[BILLINGTOOL].[EXCEPTION] - {args.Exception.Message.CutMiddle()}",
 								IsBodyHtml = false,
-								Body = args.Exception.ToString()
+								Body = $"Konfiguration = \"{Bt.Config.CommandLine.CurrentConfiguration}\"\r\n\r\n\r\n{args.Exception}"
 							})
 							{
 								message.To.Add("service.christian@sack.at");
@@ -91,6 +93,13 @@ namespace BillingTool
 				{
 
 				}
+				try
+				{
+					CsGlobal.Message.Push(args.Exception, CsMessage.Types.FatalError);
+				}
+				catch (Exception)
+				{
+				}
 #if !DEBUG
 				try
 				{
@@ -101,9 +110,11 @@ namespace BillingTool
 
 				}
 #endif
+				args.Handled = true;
+				Current.Shutdown();
 
 			};
-			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture | GlobalFunctions.RedirectUnhandledExceptions); //Provides some needed functionality. DO NOT REMOVE.
+			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture); //Provides some needed functionality. DO NOT REMOVE.
 			Bt.Startup(e.Args);
 		}
 	}

@@ -5,8 +5,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
-		mc:Ignorable="d"
-		d:DesignHeight="300" d:DesignWidth="300" Style="{StaticResource CondensedListViewStyle}"
+		mc:Ignorable="d" Style="{StaticResource CondensedListViewStyle}"
 		ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=Item.PrintedBelege}">
 	<ListView.Resources>
 		<ResourceDictionary>
@@ -37,8 +36,9 @@
 			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Width="150">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
-						<ComboBox Style="{StaticResource StdComboBox}" ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}"
-								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable"  />
+						<ComboBox Style="{StaticResource StdComboBox}"
+								ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.PrintFormate}"
+								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>

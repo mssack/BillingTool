@@ -6,6 +6,7 @@
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 
 
 

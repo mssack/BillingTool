@@ -2,14 +2,12 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-18</date>
 
 using System;
-using System.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope.configuration.commandLine;
 using BillingTool.btScope.functions.data.basis;
-using CsWpfBase.Ev.Objects;
 
 
 
@@ -42,6 +40,22 @@ namespace BillingTool.btScope.functions.data
 		{
 		}
 
+
+		#region Overrides/Interfaces
+		/// <summary>The action occurs when an <paramref name="item" /> needs finalization after checking if the item is valid. Should be recursive</summary>
+		protected override void FinalizeAction(Steuersatz item)
+		{
+			Bt.Db.Billing.Configurations.DataIntegrity.LastSteuersatzKürzel = Convert.ToChar(item.Kürzel);
+		}
+
+		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
+		protected override void ValidationAction(Steuersatz item)
+		{
+
+		}
+		#endregion
+
+
 		/// <summary>Get or creates a <see cref="Steuersatz" />.</summary>
 		public Steuersatz New()
 		{
@@ -51,13 +65,14 @@ namespace BillingTool.btScope.functions.data
 
 			var newItem = Bt.Db.Billing.Steuersätze.NewRow();
 			newItem.CreationDate = DateTime.Now;
-			newItem.Kürzel = ((char)(Bt.Db.Billing.Configurations.LastSteuersatzKürzel + 1)).ToString();
+			newItem.Kürzel = ((char) (Bt.Db.Billing.Configurations.DataIntegrity.LastSteuersatzKürzel + 1)).ToString();
 			newItem.Table.Add(newItem);
 
 
 			NonFinalized_Add(newItem);
 			return newItem;
 		}
+
 		/// <summary>Get or creates a <see cref="Steuersatz" /> from the database specified by a template.</summary>
 		public Steuersatz GetOrNew_FromTemplate(CommandLine_BelegPostenTemplate template)
 		{
@@ -70,25 +85,12 @@ namespace BillingTool.btScope.functions.data
 				newItem = Bt.Db.Billing.Steuersätze.NewRow();
 				newItem.CreationDate = DateTime.Now;
 				newItem.Percent = template.Steuer;
-				newItem.Kürzel = ((char) (Bt.Db.Billing.Configurations.LastSteuersatzKürzel + 1)).ToString();
+				newItem.Kürzel = ((char) (Bt.Db.Billing.Configurations.DataIntegrity.LastSteuersatzKürzel + 1)).ToString();
 				newItem.Table.Add(newItem);
 
 				NonFinalized_Add(newItem);
 			}
 			return newItem;
 		}
-
-		/// <summary>The action occurs when an <paramref name="item" /> needs finalization after checking if the item is valid. Should be recursive</summary>
-		protected override void FinalizeAction(Steuersatz item)
-		{
-			Bt.Db.Billing.Configurations.LastSteuersatzKürzel = Convert.ToChar(item.Kürzel);
-		}
-
-		/// <summary>The action occurs before the item gets finalized. This action should throw exception on invalid States.</summary>
-		protected override void ValidationAction(Steuersatz item)
-		{
-
-		}
-
 	}
 }

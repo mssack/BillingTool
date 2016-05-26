@@ -88,7 +88,7 @@ namespace BillingTool.btScope.functions.data
 			newItem.Steuersatz = steuersatz;
 			newItem.Table.Add(newItem);
 
-			Bt.Data.BelegData.UpdateBetragData(item);
+			Bt.Data.BelegData.UpdateBetrag_Of_BelegData(item);
 
 			NonFinalized_Add(newItem);
 			return newItem;
@@ -102,7 +102,7 @@ namespace BillingTool.btScope.functions.data
 
 			item.Delete();
 
-			Bt.Data.BelegData.UpdateBetragData(belegData);
+			Bt.Data.BelegData.UpdateBetrag_Of_BelegData(belegData);
 			NonFinalized_TryRemove(item);
 		}
 

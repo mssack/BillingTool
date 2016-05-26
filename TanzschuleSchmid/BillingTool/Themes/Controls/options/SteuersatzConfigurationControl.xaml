@@ -5,8 +5,9 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:btScope="clr-namespace:BillingTool.btScope"
 			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="UcScc">
+			xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+			xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
+			mc:Ignorable="d" x:Name="UcScc">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -16,15 +17,15 @@
 				<TextBlock>
 					<TextBlock.Text>
 						<MultiBinding StringFormat="{}{0} ({1:0.00} %)">
-							<Binding Path="Name"/>
-							<Binding Path="Percent"/>
+							<Binding Path="Name" />
+							<Binding Path="Percent" />
 						</MultiBinding>
 					</TextBlock.Text>
 				</TextBlock>
 			</DataTemplate>
 		</ResourceDictionary>
 	</UserControl.Resources>
-	
+
 	<Grid DataContext="{Binding ElementName=UcScc}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" />
@@ -45,9 +46,9 @@
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
-						<Button Grid.Column="1" Style="{StaticResource CancleButton}" Click="LöschenClicked" Content="Löschen"
-								IsEnabled="{Binding Path=SelectedItem.HasBeenUsed, Converter={StaticResource GConv-BoolInverter}}" />
-						<Button Grid.Column="2" Style="{StaticResource AcceptButton}" Click="HinzufügenClicked" Content="Neuer Steuersatz" />
+						<designElements:CancleButton Grid.Column="1" Click="LöschenClicked" Content="Löschen"
+													IsEnabled="{Binding Path=SelectedItem.HasBeenUsed, Converter={StaticResource GConv-BoolInverter}}" />
+						<designElements:AcceptButton Grid.Column="2" Click="HinzufügenClicked" Content="Neuer Steuersatz" />
 					</Grid>
 				</Border>
 			</Grid>
@@ -63,10 +64,8 @@
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<Border Style="{StaticResource RedBorder}" Visibility="{Binding Path=HasBeenUsed, Converter={StaticResource GConv-BoolVisibility}}">
-					<TextBlock Foreground="White" Margin="6,3,6,3" Text="Sie können diesen Steuersatz nicht editieren, da er bereits verwendet wird." />
-				</Border>
-
+				<designElements:RedBorderBox Visibility="{Binding Path=HasBeenUsed, Converter={StaticResource GConv-BoolVisibility}}"
+									Content="Sie können diesen Steuersatz nicht editieren, da er bereits verwendet wird." />
 
 				<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Details">
 					<Grid IsSharedSizeScope="True">

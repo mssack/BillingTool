@@ -4,21 +4,20 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:system="clr-namespace:System;assembly=mscorlib"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
-		mc:Ignorable="d"
-		d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc">
+		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+		mc:Ignorable="d" x:Name="Uc">
 	<Param.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 			<x:Array x:Key="IncludedValues" Type="system:Enum">
-				<x:Static MemberType="extensions:BelegDataTypes" Member="Bar" />
-				<x:Static MemberType="extensions:BelegDataTypes" Member="Bankomat" />
-				<x:Static MemberType="extensions:BelegDataTypes" Member="Kreditkarte" />
+				<x:Static MemberType="enumerations:BelegDataTypes" Member="Bar" />
+				<x:Static MemberType="enumerations:BelegDataTypes" Member="Bankomat" />
+				<x:Static MemberType="enumerations:BelegDataTypes" Member="Kreditkarte" />
 			</x:Array>
 		</ResourceDictionary>
 	</Param.Resources>
 	<ComboBox SelectedValue="{Binding ElementName=Uc, Path=Value}" SelectedValuePath="Value" DisplayMemberPath="Name"
-			ItemsSource="{Binding Source={EnumerationExtension {x:Type extensions:BelegDataTypes}, IncludedEnums={StaticResource IncludedValues}}}" />
+			ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BelegDataTypes}, IncludedEnums={StaticResource IncludedValues}}}" />
 </Param>

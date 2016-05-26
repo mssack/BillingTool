@@ -92,7 +92,7 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 				item.Posten.LastUsedDate = DateTime.Now;
 				item.Steuersatz.LastUsedDate = DateTime.Now;
 
-				Bt.Data.BelegData.UpdateBetragData(Item);
+				Bt.Data.BelegData.UpdateBetrag_Of_BelegData(Item);
 			}
 			else
 			{

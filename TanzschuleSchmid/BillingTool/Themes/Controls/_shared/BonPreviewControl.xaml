@@ -4,8 +4,8 @@
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals;assembly=BillingOutput"
-			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc">
+			xmlns:shared="clr-namespace:BillingOutput.Controls._shared;assembly=BillingOutput"
+			mc:Ignorable="d" x:Name="Uc">
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -49,7 +49,7 @@
 		</Param>
 		<Border Grid.Row="1" >
 			<ScrollViewer Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-				<bonVisuals:BonVisual Item="{Binding Path=Item}" OutputFormat="{Binding Path=SelectedPreviewFormat}" />
+				<shared:AnyBonVisual Item="{Binding ElementName=Uc, Path=Item}" OutputFormat="{Binding ElementName=Uc, Path=SelectedPreviewFormat}" />
 			</ScrollViewer>
 		</Border>
 	</Grid>

@@ -85,7 +85,7 @@ namespace CsWpfBase.Db.models.bases
 
 
 		/// <summary>The default sql column selector used by the generated properties. (SELECT {DefaultSqlSelector} FROM ...</summary>
-		protected virtual string DefaultSqlSelector => "*";
+		public virtual string DefaultSqlSelector => "*";
 
 		/// <summary>Sets the property and calls on property changed if anything have changed.</summary>
 		protected virtual bool SetProperty<T>(ref T field, T value, [CallerMemberName] string propName = "")
@@ -113,6 +113,11 @@ namespace CsWpfBase.Db.models.bases
 			string[] dependingPropertys;
 			if (_propertyDependencys.TryGetValue(propertyName, out dependingPropertys))
 				dependingPropertys.ForEach(x => _propertyChanged.Invoke(this, new PropertyChangedEventArgs(x)));
+		}
+		/// <summary>Invokes the property changed event for a property.</summary>
+		public virtual void RaisePropertyChanged(string propertyName)
+		{
+			OnPropertyChanged(propertyName);
 		}
 
 

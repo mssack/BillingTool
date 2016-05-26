@@ -21,7 +21,7 @@
 							TextWrapping="{Binding Path=TextWrapping}" AcceptsReturn="{Binding Path=AcceptsReturn}" Margin="0"
 							Padding="{Binding Path=Padding}" IsReadOnly="{Binding Path=IsReadOnly}" attachedProperties:ATextBox.AutoSelection="{Binding Path=AutoSelect}"
 							MinHeight="{Binding Path=ExtensionMinHeight}" MinWidth="{Binding Path=ExtensionMinWidth}"
-							VerticalContentAlignment="{Binding Path=ExtensionVerticalAlignment}" TextAlignment="{Binding Path=TextAlignment}" />
+							VerticalContentAlignment="{Binding Path=ExtensionVerticalAlignment}" TextAlignment="{Binding Path=TextAlignment}" VerticalScrollBarVisibility="Auto" />
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>

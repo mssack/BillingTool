@@ -2,12 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-07</date>
+// <date>2016-05-26</date>
 
 using System;
+using System.Linq;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Utilitys;
 
@@ -26,6 +28,13 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 
 		#region Overrides/Interfaces
+		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
+		public override void ApplyExtendedDefaults()
+		{
+			base.ApplyExtendedDefaults();
+			ApplyBusinessInfos();
+		}
+
 		/// <summary>sets the value of a column and notify property changed.</summary>
 		public override bool SetDbValue<T>(T m, string columnName, string propName = "")
 		{
@@ -57,6 +66,10 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 			}
 			set { BonLayoutName = value.ToString(); }
 		}
+
+		/// <summary>The wrapper property for column property <see cref="BonLayoutName" />.</summary>
+		[DependsOn(nameof(BonLayoutName))]
+		public BonLayoutTypes BonLayoutType => BonLayout.GetBonLayoutType();
 
 		/// <summary>The cashed image.</summary>
 		[DependsOn(nameof(FirstImageBinary))]
@@ -120,54 +133,87 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 
 
-		/// <summary>The cashed image.</summary>
-		[DependsOn(nameof(FirstImageBinary))]
-		public BitmapSource FirstImageThreadSafe
-		{
-			get
-			{
-				if (_firstImageCash == null)
-					_firstImageCash = new ImageHandler(() => FirstImageBinary, val => FirstImageBinary = val, () => FirstImageHash, val => FirstImageHash = val);
-
-				return _firstImageCash.GetThreadSafeValue();
-			}
-		}
-
-		/// <summary>The cashed image.</summary>
-		[DependsOn(nameof(SecondImageBinary))]
-		public BitmapSource SecondImageThreadSafe
-		{
-			get
-			{
-				if (_secondImageCash == null)
-					_secondImageCash = new ImageHandler(() => SecondImageBinary, val => SecondImageBinary = val, () => SecondImageHash, val => SecondImageHash = val);
-
-				return _secondImageCash.GetThreadSafeValue();
-			}
-		}
-
-		/// <summary>The cashed image.</summary>
-		[DependsOn(nameof(ThirdImageBinary))]
-		public BitmapSource ThirdImageThreadSafe
-		{
-			get
-			{
-				if (_thirdImageCash == null)
-					_thirdImageCash = new ImageHandler(() => ThirdImageBinary, val => ThirdImageBinary = val, () => ThirdImageHash, val => ThirdImageHash = val);
-
-				return _thirdImageCash.GetThreadSafeValue();
-			}
-		}
-
 		/// <summary>returns true if this element has been used before.</summary>
 		[DependsOn(nameof(LastUsedDate))]
 		public bool HasBeenUsed => LastUsedDate != null;
-		
+
+		/// <summary>
+		///     returns true if this <see cref="OutputFormat" /> is a default format.
+		///     <remarks>OnPropertyChanged will be invoked from table <see cref="OutputFormatsTable" />.</remarks>
+		/// </summary>
+		public bool IsDefault => new[]
+		{
+			IsDefault_PrintFormat(),
+			IsDefault_MailFormat(),
+			IsDefault_StornoFormat(),
+			IsDefault_TagesbonFormat(),
+			IsDefault_MonatsbonFormat(),
+			IsDefault_JahresbonFormat()
+		}.Any(x => x);
+
+
+		/// <summary>returns true if this <see cref="OutputFormat" /> can be modified.</summary>
+		[DependsOn(nameof(HasBeenUsed))]
+		public bool CanBeModified => !HasBeenUsed;
+
+		/// <summary>returns true if this <see cref="OutputFormat" /> can be deleted.</summary>
+		[DependsOn(nameof(HasBeenUsed))]
+		[DependsOn(nameof(IsDefault))]
+		public bool CanBeDeleted => !HasBeenUsed && !IsDefault;
+
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_PrintFormat" />.</summary>
+		public bool IsDefault_PrintFormat() => Table.Default_PrintFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_MailFormat" />.</summary>
+		public bool IsDefault_MailFormat() => Table.Default_MailFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_StornoFormat" />.</summary>
+		public bool IsDefault_StornoFormat() => Table.Default_StornoFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_TagesBonFormat" />.</summary>
+		public bool IsDefault_TagesbonFormat() => Table.Default_TagesBonFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_MonatsBonFormat" />.</summary>
+		public bool IsDefault_MonatsbonFormat() => Table.Default_MonatsBonFormat == this;
+
+		/// <summary>returns true if this element is the <see cref="OutputFormatsTable.Default_JahresBonFormat" />.</summary>
+		public bool IsDefault_JahresbonFormat() => Table.Default_JahresBonFormat == this;
+
+		/// <summary>sets the <see cref="OutputFormat" /> as the associated default in the <see cref="OutputFormatsTable" />.</summary>
+		public void SetAsDbStandard()
+		{
+			if (BonLayout.IsPrintLayout())
+				Table.Default_PrintFormat = this;
+			else if (BonLayout.IsMailLayout())
+				Table.Default_MailFormat = this;
+			else if (BonLayout.IsStornoLayout())
+				Table.Default_StornoFormat = this;
+			else if (BonLayout.IsTagesBonLayout())
+				Table.Default_TagesBonFormat = this;
+			else if (BonLayout.IsMonatsBonLayout())
+				Table.Default_MonatsBonFormat = this;
+			else if (BonLayout.IsJahresBonLayout())
+				Table.Default_JahresBonFormat = this;
+		}
+
+
+		/// <summary>Applys the business informations.</summary>
+		public void ApplyBusinessInfos()
+		{
+			BusinessUid = DataSet.Configurations.Business.Uid;
+			BusinessName = DataSet.Configurations.Business.Name;
+			BusinessAnschrift = DataSet.Configurations.Business.Anschrift;
+			BusinessMail = DataSet.Configurations.Business.Mail;
+			BusinessTelefon = DataSet.Configurations.Business.Telefon;
+			BusinessWebsite = DataSet.Configurations.Business.Website;
+		}
 
 
 
 		private class ImageHandler
 		{
+			private BitmapSource _value;
 
 			public ImageHandler(Func<byte[]> getDbValue, Action<byte[]> setDbValue, Func<string> getDbHash, Action<string> setDbHash)
 			{
@@ -178,7 +224,15 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 
 			}
 
-			private BitmapSource Value { get; set; }
+			private BitmapSource Value
+			{
+				get { return _value; }
+				set
+				{
+					_value = value;
+					value?.Freeze();
+				}
+			}
 			private string Hash { get; set; }
 
 			private Func<byte[]> GetDbValue { get; }
@@ -213,12 +267,6 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 				Hash = DbHash;
 				Value = DbValue.ConvertTo_Image();
 				return Value;
-			}
-			public BitmapSource GetThreadSafeValue()
-			{
-				if (string.IsNullOrEmpty(DbHash))
-					return null;
-				return DbValue.ConvertTo_Image();
 			}
 
 			public void SetValue(BitmapSource value)

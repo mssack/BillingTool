@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:btScope="clr-namespace:BillingTool.btScope"
              xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" >
     <Grid>
 		<Grid.Resources>
 			<DataTemplate DataType="{x:Type billingDatabaseDb:OutputFormat}">
@@ -18,10 +17,10 @@
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<Param Grid.Row="0" Header="Für Druckaufträge">
-			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}" SelectedItem="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Default_PrintFormat}"/>
+			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.PrintFormate}" SelectedItem="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Default_PrintFormat}"/>
 		</Param>
 		<Param Grid.Row="1" Header="Für Mailaufträge">
-			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.NonStornoFormate}" SelectedItem="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Default_MailFormat}"/>
+			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MailFormate}" SelectedItem="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.Default_MailFormat}"/>
 		</Param>
 	</Grid>
 </UserControl>

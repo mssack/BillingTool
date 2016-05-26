@@ -3,12 +3,13 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:extensions="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;assembly=BillingDataAccess"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		xmlns:belegdatacreation="clr-namespace:BillingTool.Themes.Controls.belegdatacreation"
+		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
 		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		CloseButtonVisibility="Collapsed" Style="{StaticResource {x:Type CsWindow}}"
-		Name="Uc" Width="730" >
+		Name="Uc" Width="730">
 	<CsWindow.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -38,7 +39,7 @@
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
-					<Expander Header="Beleg Daten" IsExpanded="True" >
+					<Expander Header="Beleg Daten" IsExpanded="True">
 						<Grid IsSharedSizeScope="True">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
@@ -48,13 +49,14 @@
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 							<belegdatacreation:BelegDataTypParam Grid.Row="1" Header="{StaticResource Bez-BelegData-Typ}" Help="{StaticResource Help-BelegData-Typ}"
-															Value="{Binding Path=Typ}" Width="190" HorizontalAlignment="Left" />
-							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" />
+																Value="{Binding Path=Typ}" Width="190" HorizontalAlignment="Left" />
+							<StringParam Grid.Row="2" Style="{StaticResource ParamZusatzText}" Value="{Binding Path=ZusatzText}" MaxHeight="90" />
 							<StringParam Grid.Row="3" Style="{StaticResource ParamZahlungsreferenz}" Value="{Binding Path=ZahlungsReferenz}" />
-							<StringParam Grid.Row="4" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" />
+							<StringParam Grid.Row="4" Style="{StaticResource ParamKommentar}" Value="{Binding Path=Comment}" MaxHeight="90" />
 						</Grid>
 					</Expander>
-					<Expander Grid.Row="1" IsExpanded="True" Padding="0" Visibility="{Binding ElementName=Uc, Path=IsApproval, Converter={StaticResource GConv-InvBoolVisibility}}">
+					<Expander Grid.Row="1" IsExpanded="True" Padding="0"
+							Visibility="{Binding ElementName=Uc, Path=IsApproval, Converter={StaticResource GConv-InvBoolVisibility}}">
 						<Expander.Header>
 							<Grid DataContext="{Binding ElementName=PostenListView, Path=SelectedItem}">
 								<Grid.ColumnDefinitions>
@@ -64,16 +66,16 @@
 									<ColumnDefinition Width="Auto" />
 								</Grid.ColumnDefinitions>
 								<TextBlock Text="Artikel" />
-								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteBelegPostenClicked" Content="Entfernen"
-										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
-								<PopupButton Grid.Column="3" Content="Neuer Artikel" Margin="0">
+								<designElements:CancleButton Grid.Column="2" Click="DeleteBelegPostenClicked" Content="Entfernen"
+															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False" />
+								<PopupButton Grid.Column="3" Content="Neuer Artikel" Padding="6,1,6,1" Margin="0" Focusable="False">
 									<PopupButton.PopupContent>
-										<belegdatacreation:NewBelegPostenControl Item="{Binding ElementName=Uc, Path=Item}"/>
+										<belegdatacreation:NewBelegPostenControl Item="{Binding ElementName=Uc, Path=Item}" />
 									</PopupButton.PopupContent>
 								</PopupButton>
 							</Grid>
 						</Expander.Header>
-						<belegdatacreation:PostenListView Item="{Binding}" x:Name="PostenListView" Padding="0,0,0,10"  />
+						<belegdatacreation:PostenListView Item="{Binding}" x:Name="PostenListView" Padding="0,0,0,10" />
 					</Expander>
 					<Expander Grid.Row="2"
 							IsExpanded="{Binding Path=PrintedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneTime}" Padding="0">
@@ -88,13 +90,13 @@
 								<TextBlock Text="Zu druckende Rechnungen" />
 
 
-								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeletePrintClicked" Content="Entfernen"
-										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
-								<Button Grid.Column="3" Style="{StaticResource AcceptButton}" Click="NewPrintClicked" Content="Neuer Ausdruck" Margin="0" />
+								<designElements:CancleButton Grid.Column="2" Click="DeletePrintClicked" Content="Entfernen"
+															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False"/>
+								<designElements:AcceptButton Grid.Column="3" Click="NewPrintClicked" Content="Neuer Ausdruck" Margin="0" Focusable="False"/>
 							</Grid>
 						</Expander.Header>
 						<belegdatacreation:PrintedBelegeListView Item="{Binding}" Padding="0,0,0,10" SomeOutputFormatChanged="SomeOutputFormatChanged"
-															x:Name="PrintedBelegeListView" SelectionChanged="ListViewSelectionChanged" />
+																x:Name="PrintedBelegeListView" SelectionChanged="ListViewSelectionChanged" />
 					</Expander>
 					<Expander Grid.Row="3"
 							IsExpanded="{Binding Path=MailedBelege.Count, Converter={StaticResource GConv-IsNotNullOrEmpty}, Mode=OneTime}" Padding="0">
@@ -109,13 +111,13 @@
 								<TextBlock Text="Zu sendende Emails" />
 
 
-								<Button Grid.Column="2" Style="{StaticResource CancleButton}" Click="DeleteMailClicked" Content="Entfernen"
-										Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" />
-								<Button Grid.Column="3" Style="{StaticResource AcceptButton}" Click="NewMailClicked" Content="Neue Mail" Margin="0" />
+								<designElements:CancleButton Grid.Column="2" Click="DeleteMailClicked" Content="Entfernen"
+															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False"/>
+								<designElements:AcceptButton Grid.Column="3" Click="NewMailClicked" Content="Neue Mail" Margin="0" Focusable="False"/>
 							</Grid>
 						</Expander.Header>
 						<belegdatacreation:MailedBelegeListView Item="{Binding}" Padding="0,0,0,10" SomeOutputFormatChanged="SomeOutputFormatChanged"
-															x:Name="MailedBelegeListView" SelectionChanged="ListViewSelectionChanged" />
+																x:Name="MailedBelegeListView" SelectionChanged="ListViewSelectionChanged" />
 					</Expander>
 				</Grid>
 				<Border Grid.Column="1" BorderThickness="1" BorderBrush="DimGray">
@@ -145,7 +147,7 @@
 					<ColumnDefinition Width="*" />
 					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
-				<Button Grid.Column="0" Click="CancleClick" Style="{StaticResource CancleButton}" FontSize="16" Content="Abbrechen" IsCancel="True" />
+				<designElements:CancleButton Grid.Column="0" Click="CancleClick" FontSize="16" Content="Abbrechen" IsCancel="True" />
 
 
 				<Grid Grid.Column="2">
@@ -154,21 +156,20 @@
 						<ColumnDefinition Width="Auto" />
 					</Grid.ColumnDefinitions>
 
-					<Border VerticalAlignment="Center" Padding="6,3,6,3" Margin="0,0,10,0">
-						<Border.Style>
-							<Style TargetType="{x:Type Border}" BasedOn="{StaticResource RedBorder}">
+					<designElements:RedBorderBox VerticalAlignment="Center" Padding="6,3,6,3" Margin="0,0,10,0"
+												Content="{Binding Path=InvalidReason, Converter={StaticResource GConv-GetEnumName}}">
+						<designElements:RedBorderBox.Style>
+							<Style TargetType="{x:Type designElements:RedBorderBox}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=InvalidReason}" Value="{x:Static extensions:BelegDataInvalidReasons.Valid}">
+									<DataTrigger Binding="{Binding Path=InvalidReason}" Value="{x:Static enumerations:BelegDataInvalidReasons.Valid}">
 										<Setter Property="Visibility" Value="Collapsed" />
 									</DataTrigger>
 								</Style.Triggers>
 							</Style>
-						</Border.Style>
-
-						<TextBlock Text="{Binding Path=InvalidReason, Converter={StaticResource GConv-GetEnumName}}" Foreground="White" />
-					</Border>
-					<Button Grid.Column="1" Click="ApprovedClick" Style="{StaticResource AcceptButton}" FontSize="16" Content="Akzeptieren"
-							IsEnabled="{Binding Path=IsValid}" IsDefault="True" />
+						</designElements:RedBorderBox.Style>
+					</designElements:RedBorderBox>
+					<designElements:AcceptButton Grid.Column="1" Click="ApprovedClick" FontSize="16" Content="Akzeptieren"
+												IsEnabled="{Binding Path=IsValid}" IsDefault="True" />
 				</Grid>
 			</Grid>
 		</Border>

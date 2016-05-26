@@ -66,8 +66,8 @@ namespace BillingTool.Themes.Controls._shared
 
 #pragma warning disable 1591
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(BonPreviewControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((BonPreviewControl)o).ReloadSelectablePreviewFormats()});
-		public static readonly DependencyProperty SelectedPreviewFormatProperty = DependencyProperty.Register("SelectedPreviewFormat", typeof(OutputFormat), typeof(BonPreviewControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty SelectablePreviewFormatsProperty = DependencyProperty.Register("SelectablePreviewFormats", typeof(OutputFormat[]), typeof(BonPreviewControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat[]), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty SelectedPreviewFormatProperty = DependencyProperty.Register("SelectedPreviewFormat", typeof(OutputFormat), typeof(BonPreviewControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty SelectablePreviewFormatsProperty = DependencyProperty.Register("SelectablePreviewFormats", typeof(OutputFormat[]), typeof(BonPreviewControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat[]), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
 	}
 }

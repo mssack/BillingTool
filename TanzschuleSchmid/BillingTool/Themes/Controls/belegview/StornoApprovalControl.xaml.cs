@@ -8,6 +8,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
@@ -38,6 +39,7 @@ namespace BillingTool.Themes.Controls.belegview
 		private StornoApprovalControl()
 		{
 			InitializeComponent();
+			Loaded += (sender, args) => Keyboard.Focus(ReasonTextBox);
 		}
 
 		/// <summary>The text which can be used as reason why the <see cref="ItemToStorno" /> needs to be storniert.</summary>

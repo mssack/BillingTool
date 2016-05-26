@@ -26,7 +26,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInter
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		ContractCollection Get_Between(DateTime from, DateTime to);
+		ContractCollection LoadThenFind_Between(DateTime from, DateTime to);
 		#endregion
 	}
 	/// <summary>Used to share the ability of a table to be filtered by a date zone.</summary>
@@ -40,7 +40,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInter
 		/// </summary>
 		/// <param name="from">The from date inclusive</param>
 		/// <param name="to">The to date inclusive</param>
-		new ContractCollection<TRow> Get_Between(DateTime from, DateTime to);
+		new ContractCollection<TRow> LoadThenFind_Between(DateTime from, DateTime to);
 		#endregion
 	}
 }

@@ -1,0 +1,25 @@
+﻿<Button x:Class="BillingTool.Themes.Controls._designElements.CancleButton"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		mc:Ignorable="d" Padding="6,1,6,1" IsCancel="True" Name="Btn">
+	<Button.Style>
+		<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding ElementName=Btn, Path=IsMouseOver}" Value="True">
+					<Setter Property="Foreground" Value="White" />
+					<Setter Property="BorderBrush" Value="#CD504A" />
+					<Setter Property="Background">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Color="#DC5F59" Offset="0" />
+								<GradientStop Color="#B33630" Offset="1" />
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+	</Button.Style>
+</Button>

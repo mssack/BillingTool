@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
+using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Themes.Controls.Containers;
+using CsWpfBase.Utilitys;
 
 
 
@@ -28,14 +29,24 @@ namespace BillingTool.Windows.tools
 	// ReSharper disable once InconsistentNaming
 	public partial class Window_BelegData_ProcessNonProcessedOutputs : CsWindow
 	{
+		private readonly bool _forceReprintIfFailed;
+		private readonly ProcessLock _saveClosing = new ProcessLock();
 
 		/// <summary>ctor</summary>
-		public Window_BelegData_ProcessNonProcessedOutputs(BelegData item)
+		public Window_BelegData_ProcessNonProcessedOutputs(BelegData item, bool forceReprintIfFailed)
 		{
+			_forceReprintIfFailed = forceReprintIfFailed;
 			Item = item;
 			IsFinished = false;
 			InitializeComponent();
 			Loaded += Window_BelegData_ProcessNonProcessedOutputs_Loaded;
+			Closing += Window_BelegData_ProcessNonProcessedOutputs_Closing;
+		}
+
+		private void Window_BelegData_ProcessNonProcessedOutputs_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			if (!_saveClosing.Active)
+				e.Cancel = true;
 		}
 
 		private void Window_BelegData_ProcessNonProcessedOutputs_Loaded(object sender, RoutedEventArgs e)
@@ -89,21 +100,25 @@ namespace BillingTool.Windows.tools
 			IsFinished = true;
 			if (!task.Result.Any(x => x.IsFaulted))
 			{
-				Close();
+				using (_saveClosing.Activate())
+					Close();
 				return;
 			}
 
-			var anyPrints = false;
-			var allMailsFailed = true;
-			task.Result.ForEach(t =>
+			if (_forceReprintIfFailed)
 			{
-				if (t is Task<PrintedBeleg>)
-					anyPrints = true;
-				else if (t is Task<MailedBeleg> && !t.IsFaulted)
-					allMailsFailed = false;
-			});
-			if (allMailsFailed && !anyPrints)
-				IsReprintNecessary = true;
+				var anyPrints = false;
+				var allMailsFailed = true;
+				task.Result.ForEach(t =>
+				{
+					if (t is Task<PrintedBeleg>)
+						anyPrints = true;
+					else if (t is Task<MailedBeleg> && !t.IsFaulted)
+						allMailsFailed = false;
+				});
+				if (allMailsFailed && !anyPrints)
+					IsReprintNecessary = true;
+			}
 		}
 
 		private void PrintAndCloseClicked(object sender, RoutedEventArgs e)
@@ -119,7 +134,8 @@ namespace BillingTool.Windows.tools
 
 		private void CloseClicked(object sender, RoutedEventArgs e)
 		{
-			Close();
+			using (_saveClosing.Activate())
+				Close();
 		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty ReprintOutputFormatProperty = DependencyProperty.Register("ReprintOutputFormat", typeof(OutputFormat), typeof(Window_BelegData_ProcessNonProcessedOutputs), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
