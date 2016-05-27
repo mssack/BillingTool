@@ -494,7 +494,10 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />
   <PropertyGroup>
-    <PostBuildEvent>start "" $(SolutionDir)_Anhänge\Software\ReleaseCandidateExporter\ReleaseCandidateExporter.exe</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Debug goto :Exit
+
+start "" $(SolutionDir)_Anhänge\Software\ReleaseCandidateExporter\ReleaseCandidateExporter.exe
+:Exit</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

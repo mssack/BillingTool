@@ -67,9 +67,10 @@ namespace CsWpfBase.Utilitys.templates
 		public void Load()
 		{
 			Path?.Refresh();
+			if (Path != null && !Path.Exists)
+				return;
 
 			var members = ReflectionHelper.GetKeyMembers(GetType());
-
 			var keyValuePair = LoadKeyValuePair(Path == null ? CsGlobal.Storage.Resource.File.Read(PackUri) : Path.LoadAs_UTF8String());
 
 			foreach (var keyMember in members)
