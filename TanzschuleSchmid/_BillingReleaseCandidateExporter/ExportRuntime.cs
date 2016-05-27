@@ -5,6 +5,7 @@
 // <date>2016-05-28</date>
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -40,6 +41,7 @@ namespace ReleaseCandidateExporter
 
 
 			Zipping();
+			ChangeReadme();
 
 			CommitViaCommandline();
 		}
@@ -47,7 +49,7 @@ namespace ReleaseCandidateExporter
 
 		private void DeleteAllActualFolders()
 		{
-			new DirectoryInfo(Paths.Destination.ZipFile).GetDirectories("Actual*").ForEach(di => di.Delete(true));
+			new DirectoryInfo(Paths.Destination.RcFolder).GetDirectories("Actual*").ForEach(di => di.Delete(true));
 		}
 
 		private void CollectBuildDetails()
@@ -61,6 +63,7 @@ namespace ReleaseCandidateExporter
 			{
 				var destFilePath = new FileInfo(Path.Combine(Paths.Arc.Executeable, fileInfo.Name));
 				destFilePath.CreateDirectory_IfNotExists();
+				destFilePath.DeleteFile_IfExists();
 				fileInfo.CopyTo(destFilePath.FullName);
 			}
 		}
@@ -68,6 +71,7 @@ namespace ReleaseCandidateExporter
 
 		private void Zipping()
 		{
+			new FileInfo(Paths.Destination.ZipFile).DeleteFile_IfExists();
 			ZipFile.CreateFromDirectory(Paths.Arc.Folder, Paths.Destination.ZipFile, CompressionLevel.Optimal, false, Encoding.UTF8);
 		}
 
@@ -81,13 +85,47 @@ namespace ReleaseCandidateExporter
 
 		private void CommitViaCommandline()
 		{
-			Command
+			Run
 				(
+					"echo on",
 					$"cd {Paths.GitRootFolder}",
-					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m 'New Relase Candidate Number = {BuildDetails.Number}'"
+					$"git add \"{Paths.Source.BuildDetails}\"",
+					$"git add \"{Paths.Destination.ZipFile}\"",
+					$"git add \"{Paths.Source.ReadmeFile}\"",
+					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {BuildDetails.Number}\""
+					,"pause"
 				).Wait();
 		}
 
+		public Task<Process> Run(params string[] commands)
+		{
+			Console.WriteLine(commands.Join("\r\n"));
+
+
+			var procStartInfo = new ProcessStartInfo
+			{
+				RedirectStandardError = false,
+				RedirectStandardOutput = false,
+				FileName = "cmd",
+				Arguments = "/C " + commands.Join("&"),
+			};
+
+			var process = new Process { EnableRaisingEvents = true, StartInfo = procStartInfo };
+			var tcs = new TaskCompletionSource<Process>();
+			process.Exited += (sender, args) => tcs.SetResult(process);
+			try
+			{
+				process.Start();
+			}
+			catch (Exception e)
+			{
+				tcs.SetException(e);
+			}
+
+
+
+			return tcs.Task;
+		}
 
 		/// <summary>Runs a list of CMD commands.</summary>
 		/// <param name="commands">List of commands to execute by CMD window.</param>

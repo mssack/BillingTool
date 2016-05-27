@@ -22,7 +22,7 @@ namespace ReleaseCandidateExporter
 	public static class Paths
 	{
 		private const string SolutionName = "TanzschuleSchmid";
-		private const string ProjectName = "TanzschuleSchmid";
+		private const string ProjectName = "BillingTool";
 		private const string ReadmeName = "README.md";
 		private static string ExecuteableFolder { get; }
 
@@ -32,7 +32,7 @@ namespace ReleaseCandidateExporter
 		private static string RcFolder => Path.Combine(SolutionFolder, "_Anhänge", "_ReleaseCandidates");
 		private static string ArcFolder => Path.Combine(RcFolder, $"RC.{BuildDetails.Number} vom {BuildDetails.Time.ToString("yyyy.MM.dd HH.mm.ss")}");
 
-		public static string GitRootFolder => new DirectoryInfo(ExecuteableFolder).GoUpward_Until(SolutionName).FullName;
+		public static string GitRootFolder => new DirectoryInfo(ExecuteableFolder).GoUpward_Until(SolutionName).Parent.FullName;
 		public static BuildDetails BuildDetails { get; set; }
 
 		static Paths()
@@ -44,6 +44,7 @@ namespace ReleaseCandidateExporter
 
 		public static class Destination
 		{
+			public static string RcFolder => Paths.RcFolder;
 			public static string ZipFile => Path.Combine(RcFolder, $"BillingTool - RC{BuildDetails.Number}.zip");
 		}
 		public static class Arc
@@ -63,7 +64,7 @@ namespace ReleaseCandidateExporter
 			public static string SharedEnumerations => Path.Combine(ProjectFolder, $"_SharedEnumerations");
 			public static string IncludedContentFolder => Path.Combine(RcFolder, "_IncludedContent");
 			public static string Executeables => Path.Combine(ProjectFolder, "bin", "Release");
-			public static string BuildDetails => Path.Combine(ProjectFolder, nameof(BillingTool.btScope), nameof(BillingTool.btScope.versioning), nameof(BillingTool.btScope.versioning.BuildDetails));
+			public static string BuildDetails => Path.Combine(ProjectFolder, nameof(BillingTool.btScope), nameof(BillingTool.btScope.versioning), nameof(BillingTool.btScope.versioning.BuildDetails) + ".txt");
 		}
 	}
 }
