@@ -2,14 +2,14 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -41,29 +41,16 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			if (BelegData == null)
 				return $"{nameof(MailedBeleg)} [Hash = {GetHashCode()}]";
-			return $"[{nameof(MailedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatId}']";
+			return $"[{nameof(MailedBeleg)}, Beleg Nr = '{BelegData.Nummer}', Status = '{ProcessingState.GetName()}', Format = '{OutputFormatId}']";
 		}
 
-		/// <summary>Applys the database extended default values, described by developer, to the row.</summary>
-		public override void ApplyExtendedDefaults()
-		{
-			base.ApplyExtendedDefaults();
-		}
-
-
-		/// <summary>The wrapper property for column property <see cref="ProcessingStateName" />.</summary>
-		[DependsOn(nameof(ProcessingStateName))]
+		/// <summary>The wrapper property for column property <see cref="ProcessingStateNumber" />.</summary>
+		[DependsOn(nameof(ProcessingStateNumber))]
 		public ProcessingStates ProcessingState
 		{
-			get
-			{
-				ProcessingStates val;
-				return Enum.TryParse(ProcessingStateName, true, out val) ? val : ProcessingStates.Unknown;
-			}
-			set { ProcessingStateName = value.ToString(); }
+			get { return EnumWrapper.Get(ProcessingStateNumber, ProcessingStates.Unknown); }
+			set { EnumWrapper.Set(() => ProcessingStateNumber = (int) value); }
 		}
-
-
 		#endregion
 	}
 }

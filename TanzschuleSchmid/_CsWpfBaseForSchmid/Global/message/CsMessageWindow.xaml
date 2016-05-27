@@ -171,7 +171,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Ja" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesButtonEnabled}">
+											<Button Content="Ja" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesOkButtonEnabled}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -185,7 +185,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Ok" Tag="{x:Static c:CsMessage+MessageResults.Ok}" IsDefault="True">
+											<Button Content="Ok" Tag="{x:Static c:CsMessage+MessageResults.Ok}" IsDefault="True" IsEnabled="{Binding Path=YesOkButtonEnabled}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>

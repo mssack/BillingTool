@@ -35,7 +35,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 
 
 		/// <summary>Beleg reversal.</summary>
-		[EnumDescription("Storno Beleg")] Storno = 100,
+		[EnumDescription("Storno")] Storno = 100,
 
 
 		/// <summary>Money exchanged with cash dispenser.</summary>

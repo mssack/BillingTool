@@ -29,8 +29,8 @@ namespace BillingTool.Themes.Controls.belegview
 		public static StornoApprovalControl DoApprovalFor(BelegData target)
 		{
 			var stornoApproval = new StornoApprovalControl {ItemToStorno = target};
-			var window = CsGlobal.Message.GetWindow(stornoApproval, CsMessage.Types.Warning, $"Beleg {target.Nummer} stornieren?", CsMessage.MessageButtons.YesNo);
-			window.SetBinding(CsMessageWindow.YesButtonEnabledProperty, new Binding("ReasonText") {Source = stornoApproval, Converter = new Conv_InvIsNullOrEmpty()});
+			var window = CsGlobal.Message.GetWindow(stornoApproval, CsMessage.Types.Warning, $"Beleg {target.Nummer} stornieren?", CsMessage.MessageButtons.OkCancel);
+			window.SetBinding(CsMessageWindow.YesOkButtonEnabledProperty, new Binding("ReasonText") {Source = stornoApproval, Converter = new Conv_InvIsNullOrEmpty()});
 			stornoApproval.MessageResult = window.ShowDialog();
 			return stornoApproval;
 		}

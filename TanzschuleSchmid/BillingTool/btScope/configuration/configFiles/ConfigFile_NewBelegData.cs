@@ -2,12 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-19</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.IO;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.configuration._interfaces;
 using CsWpfBase.Global;
@@ -51,9 +50,9 @@ namespace BillingTool.btScope.configuration.configFiles
 		private string _kassenOperator;
 		private bool _printBeleg;
 		private string[] _sendBelegTargets;
-		private string _typName = BelegDataTypes.Undefined.ToString();
-		private string _zusatzText;
+		private int _typNumber = (int) BelegDataTypes.Undefined;
 		private string _zahlungsReferenz;
+		private string _zusatzText;
 
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
@@ -76,8 +75,8 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
-		public string StateName
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateNumber</c>]</summary>
+		public int StateNumber
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -106,13 +105,13 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerVon</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerVon</c>]</summary>
 		public int? BonNummerVon
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerBis</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerBis</c>]</summary>
 		public int? BonNummerBis
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
@@ -159,13 +158,13 @@ namespace BillingTool.btScope.configuration.configFiles
 
 
 
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>TypName</c>]</summary>
-		public string TypName
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>TypNumber</c>]</summary>
+		public int TypNumber
 		{
-			get { return _typName; }
+			get { return _typNumber; }
 			set
 			{
-				if (SetProperty(ref _typName, value))
+				if (SetProperty(ref _typNumber, value))
 					OnPropertyChanged(nameof(Typ));
 			}
 		}
@@ -193,7 +192,7 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
 		public string ZahlungsReferenz
 		{
 			get { return _zahlungsReferenz; }
@@ -220,17 +219,17 @@ namespace BillingTool.btScope.configuration.configFiles
 		#endregion
 
 
-		/// <summary>The wrapper property for column property <see cref="TypName" />.</summary>
+		/// <summary>The wrapper property for column property <see cref="TypNumber" />.</summary>
 		public BelegDataTypes Typ
 		{
 			get
 			{
 				BelegDataTypes val;
-				if (Enum.TryParse(TypName, true, out val))
+				if (Enum.TryParse(TypNumber.ToString(), true, out val))
 					return val;
 				return BelegDataTypes.Unknown;
 			}
-			set { TypName = value.ToString(); }
+			set { TypNumber = (int) value; }
 		}
 	}
 }

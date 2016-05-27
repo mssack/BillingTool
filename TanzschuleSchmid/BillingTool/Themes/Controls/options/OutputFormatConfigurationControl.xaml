@@ -80,11 +80,12 @@
 
 
 					<designElements:RedBorderBox Visibility="{Binding Path=CanBeModified, Converter={StaticResource GConv-InvBoolVisibility}}"
-												Content="Sie können dieses Layout nicht editieren, da es bereits verwendet wird." />
+												Content="Sie können dieses Layout nicht editieren, da es bereits verwendet wird." Margin="0,0,10,10" />
 
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="1" Header="Details">
+					<Expander Grid.Row="1" Header="Details" IsExpanded="True">
 						<Grid IsSharedSizeScope="True">
 							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
@@ -92,7 +93,8 @@
 							</Grid.RowDefinitions>
 							<ParamView Grid.Row="0" Header="{StaticResource Bez-OutputFormat-CreationDate}" Value="{Binding Path=CreationDate}" />
 							<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-Name}" Value="{Binding Path=Name}" />
-							<Param Grid.Row="2" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" IsReadOnly="{Binding Path=HasBeenUsed}">
+							<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" MaxHeight="80" />
+							<Param Grid.Row="3" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" >
 								<Param.Resources>
 									<x:Array x:Key="IgnoredEnums" Type="system:Enum">
 										<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
@@ -134,11 +136,20 @@
 									</Grid>
 								</Param.Content>
 							</Param>
-							<StringParam Grid.Row="3" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" MaxHeight="80" />
+							<Param Grid.Row="4" Header="{StaticResource Bez-OutputFormat-Scale}" >
+								<Grid IsEnabled="{Binding Path=CanBeModified}">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<Slider Value="{Binding Path=Scaling}" Minimum="0.8" Maximum="2" TickFrequency="0.01" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"  />
+									<Button Grid.Column="1" Content="Zurücksetzen" Click="ResetScalingClicked"/>
+								</Grid>
+							</Param>
 						</Grid>
-					</GroupBox>
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="2" Header="Sichtbarkeiten" IsEnabled="{Binding Path=CanBeModified}">
-						<Grid  >
+					</Expander>
+					<Expander Grid.Row="2" Header="Sichtbarkeiten" IsExpanded="True">
+						<Grid IsEnabled="{Binding Path=CanBeModified}" >
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
@@ -213,9 +224,9 @@
 							</Border>
 
 						</Grid>
-					</GroupBox>
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="3" Header="Texte" IsEnabled="{Binding Path=CanBeModified}">
-						<Grid>
+					</Expander>
+					<Expander Grid.Row="3" Header="Texte" IsExpanded="True">
+						<Grid IsEnabled="{Binding Path=CanBeModified}">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
@@ -228,9 +239,9 @@
 							<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"
 										MaxHeight="60" />
 						</Grid>
-					</GroupBox>
-					<GroupBox Style="{StaticResource ParamGroup}" Grid.Row="4" Header="Bilder" IsEnabled="{Binding Path=CanBeModified}">
-						<Grid>
+					</Expander>
+					<Expander Grid.Row="4" Header="Bilder" IsExpanded="True">
+						<Grid IsEnabled="{Binding Path=CanBeModified}">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
@@ -240,12 +251,12 @@
 							<ImageParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondImageBinary}" Value="{Binding Path=SecondImage}" />
 							<ImageParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdImageBinary}" Value="{Binding Path=ThirdImage}" />
 						</Grid>
-					</GroupBox>
+					</Expander>
 
 
 				</Grid>
 
-				<Border Grid.Column="1" Margin="10,0,0,0" BorderThickness="1" BorderBrush="DimGray"
+				<Border Grid.Column="1" BorderThickness="1" BorderBrush="DimGray"
 						Visibility="{Binding ElementName=Control, Path=SampleBelegData, Converter={StaticResource GConv-NullToVisibility}}">
 					<Grid>
 						<Grid.RowDefinitions>
@@ -256,7 +267,9 @@
 							<TextBlock Text="Vorschau" />
 						</Border>
 						<ScrollViewer Grid.Row="1" Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-							<shared:AnyBonVisual Item="{Binding ElementName=Control, Path=SampleBelegData}" OutputFormat="{Binding}" />
+							<Border Padding="10" Background="White">
+								<shared:AnyBonVisual Item="{Binding ElementName=Control, Path=SampleBelegData}" OutputFormat="{Binding}" />
+							</Border>
 						</ScrollViewer>
 					</Grid>
 				</Border>

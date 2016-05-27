@@ -61,8 +61,8 @@ namespace BillingTool.btScope.configuration.merged
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
-		public string StateName
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateNumber</c>]</summary>
+		public int StateNumber
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -143,9 +143,9 @@ namespace BillingTool.btScope.configuration.merged
 
 
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>TypName</c>]</summary>
-		public string TypName
+		public int TypNumber
 		{
-			get { return GetMergedValue(setting => setting.TypName); }
+			get { return GetMergedValue(setting => setting.TypNumber); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>KassenOperator</c>]</summary>

@@ -58,7 +58,7 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.tables.belegDataCateg
 			if (field != null)
 				return field;
 
-			var belegDatas = Owner.DownloadRows($"SELECT TOP(1) {Owner.DefaultSqlSelector} FROM {BelegDatenTable.NativeName} WHERE {bonLayouts.Select(x => $"{BelegDatenTable.TypNameCol} LIKE '{x.ToString()}'").Join(" OR ")}");
+			var belegDatas = Owner.DownloadRows($"SELECT TOP(1) {Owner.DefaultSqlSelector} FROM {BelegDatenTable.NativeName} WHERE {bonLayouts.Select(x => $"{BelegDatenTable.TypNumberCol} = '{((int)x).ToString()}'").Join(" OR ")}");
 			field = belegDatas.Length == 0 ? null : belegDatas[0];
 			return field;
 		}

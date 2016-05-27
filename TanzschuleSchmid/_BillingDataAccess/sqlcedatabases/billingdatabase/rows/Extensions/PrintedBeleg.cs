@@ -41,21 +41,17 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		{
 			if (BelegData == null)
 				return $"{nameof(PrintedBeleg)} [Hash = {GetHashCode()}]";
-			return $"[{nameof(PrintedBeleg)}, Beleg Nr = '{BelegData.Nummer}', State = '{ProcessingStateName}', Format = '{OutputFormatId}']";
+			return $"[{nameof(PrintedBeleg)}, Beleg Nr = '{BelegData.Nummer}', Status = '{ProcessingStateNumber}', Format = '{OutputFormatId}']";
 		}
-		
 
 
-		/// <summary>The wrapper property for column property <see cref="ProcessingStateName" />.</summary>
-		[DependsOn(nameof(ProcessingStateName))]
+
+		/// <summary>The wrapper property for column property <see cref="ProcessingStateNumber" />.</summary>
+		[DependsOn(nameof(ProcessingStateNumber))]
 		public ProcessingStates ProcessingState
 		{
-			get
-			{
-				ProcessingStates val;
-				return Enum.TryParse(ProcessingStateName, true, out val) ? val : ProcessingStates.Unknown;
-			}
-			set { ProcessingStateName = value.ToString(); }
+			get { return EnumWrapper.Get(ProcessingStateNumber, ProcessingStates.Unknown); }
+			set { EnumWrapper.Set(() => ProcessingStateNumber = (int)value); }
 		}
 		#endregion
 	}

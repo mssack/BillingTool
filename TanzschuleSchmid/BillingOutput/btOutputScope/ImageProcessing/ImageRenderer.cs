@@ -48,7 +48,9 @@ namespace BillingOutput.btOutputScope.ImageProcessing
 
 		public BitmapSource Render(BelegData data, OutputFormat format, double scalingFactor = 4)
 		{
-			var visual = new AnyBonVisual { Item = data, OutputFormat = format };
+			if (format.BonLayout == BonLayouts.Unknown)
+				throw new InvalidOperationException($"The format {format} is not a valid format for a rendering of data {data}.");
+			var visual = new AnyBonVisual { Item = data, OutputFormat = format, Padding = new Thickness(0)};
 			ApplyScalingFactor(visual, scalingFactor);
 			var image = visual.ConvertTo_Image();
 			image.Freeze();

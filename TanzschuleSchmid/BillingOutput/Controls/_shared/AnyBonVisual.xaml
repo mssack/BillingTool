@@ -7,7 +7,8 @@
 			xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 			xmlns:recapBelege="clr-namespace:BillingOutput.Controls.RecapBelege"
 			mc:Ignorable="d"
-			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc1" Width="250" Background="White" Padding="0" Margin="0" Focusable="False" IsHitTestVisible="False">
+			d:DesignHeight="300" d:DesignWidth="300" x:Name="Uc1" Width="250" Focusable="False" IsHitTestVisible="False">
+
 	<UserControl.Style>
 		<Style TargetType="{x:Type UserControl}">
 			<Style.Triggers>
@@ -18,7 +19,11 @@
 					<Setter Property="ContentTemplate">
 						<Setter.Value>
 							<DataTemplate>
-								<bonVisuals:V1PrintBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+								<bonVisuals:V1PrintBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}">
+									<bonVisuals:V1PrintBonVisual.LayoutTransform>
+										<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}" ScaleY="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}"/>
+									</bonVisuals:V1PrintBonVisual.LayoutTransform>
+								</bonVisuals:V1PrintBonVisual>
 							</DataTemplate>
 						</Setter.Value>
 					</Setter>
@@ -27,7 +32,11 @@
 					<Setter Property="ContentTemplate">
 						<Setter.Value>
 							<DataTemplate>
-								<bonVisuals:V1PrintBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+								<bonVisuals:V1PrintBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}">
+									<bonVisuals:V1PrintBonVisual.LayoutTransform>
+										<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}" ScaleY="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}"/>
+									</bonVisuals:V1PrintBonVisual.LayoutTransform>
+								</bonVisuals:V1PrintBonVisual>
 							</DataTemplate>
 						</Setter.Value>
 					</Setter>
@@ -36,7 +45,11 @@
 					<Setter Property="ContentTemplate">
 						<Setter.Value>
 							<DataTemplate>
-								<bonVisuals:V1StornoBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+								<bonVisuals:V1StornoBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}">
+									<bonVisuals:V1StornoBonVisual.LayoutTransform>
+										<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}" ScaleY="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}"/>
+									</bonVisuals:V1StornoBonVisual.LayoutTransform>
+								</bonVisuals:V1StornoBonVisual>
 							</DataTemplate>
 						</Setter.Value>
 					</Setter>
@@ -52,7 +65,11 @@
 					<Setter Property="ContentTemplate">
 						<Setter.Value>
 							<DataTemplate>
-								<recapBelege:V1MonatsBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}" />
+								<recapBelege:V1MonatsBonVisual Item="{Binding ElementName=Uc1,  Path=Item}" OutputFormat="{Binding ElementName=Uc1,  Path=DisplayFormat}">
+									<recapBelege:V1MonatsBonVisual.LayoutTransform>
+										<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}" ScaleY="{Binding ElementName=Uc1, Path=DisplayFormat.Scaling}"/>
+									</recapBelege:V1MonatsBonVisual.LayoutTransform>
+								</recapBelege:V1MonatsBonVisual>
 							</DataTemplate>
 						</Setter.Value>
 					</Setter>

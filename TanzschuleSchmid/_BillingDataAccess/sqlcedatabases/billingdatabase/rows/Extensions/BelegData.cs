@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-26</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.Linq;
@@ -65,17 +65,17 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		public bool IsValid => InvalidReason == BelegDataInvalidReasons.Valid;
 
 		/// <summary>returns true if all needed informations are present in this row.</summary>
-		[DependsOn(nameof(StateName))]
-		[DependsOn(nameof(TypName))]
+		[DependsOn(nameof(StateNumber))]
+		[DependsOn(nameof(TypNumber))]
 		public bool CanBeStorniert => Typ.CanBeStorniert() && !IsStorniert;
 
 		/// <summary>returns true if the <see cref="BelegData" /> has been storniert.</summary>
-		[DependsOn(nameof(StateName))]
+		[DependsOn(nameof(StateNumber))]
 		public bool IsStorniert => State == BelegDataStates.Storniert;
 
 
 		/// <summary>returns true if all needed informations are present in this row.</summary>
-		[DependsOn(nameof(TypName))]
+		[DependsOn(nameof(TypNumber))]
 		[DependsOn(nameof(KassenOperator))]
 		[DependsOn(nameof(StornoBelegId))]
 		public BelegDataInvalidReasons InvalidReason
@@ -95,43 +95,32 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		}
 
 
-		/// <summary>The wrapper property for column property <see cref="TypName" />.</summary>
-		[DependsOn(nameof(TypName))]
+		/// <summary>The wrapper property for column property <see cref="TypNumber" />.</summary>
+		[DependsOn(nameof(TypNumber))]
 		public BelegDataTypes Typ
 		{
-			get
-			{
-				BelegDataTypes val;
-				if (Enum.TryParse(TypName, true, out val))
-					return val;
-				return BelegDataTypes.Unknown;
-			}
-			set { TypName = value.ToString(); }
+			get { return EnumWrapper.Get(TypNumber, BelegDataTypes.Unknown); }
+			set { EnumWrapper.Set(() => TypNumber = (int) value); }
 		}
 
 		/// <summary>
-		///     true if bon is of <see cref="Typ" /> <see cref="BelegDataTypes.TagesBon" /> or <see cref="BelegDataTypes.MonatsBon" /> or
+		///     true if Bon is of <see cref="Typ" /> <see cref="BelegDataTypes.TagesBon" /> or <see cref="BelegDataTypes.MonatsBon" /> or
 		///     <see cref="BelegDataTypes.JahresBon" />.
 		/// </summary>
-		[DependsOn(nameof(TypName))]
+		[DependsOn(nameof(TypNumber))]
 		public bool IsRecapBon => Typ.IsRecapBon();
 
-		/// <summary>The wrapper property for column property <see cref="StateName" />.</summary>
-		[DependsOn(nameof(StateName))]
+		/// <summary>The wrapper property for column property <see cref="StateNumber" />.</summary>
+		[DependsOn(nameof(StateNumber))]
 		public BelegDataStates State
 		{
-			get
-			{
-				BelegDataStates val;
-				if (Enum.TryParse(StateName, true, out val))
-					return val;
-				return BelegDataStates.Unknown;
-			}
-			set { StateName = value.ToString(); }
+			get { return EnumWrapper.Get(StateNumber, BelegDataStates.Unknown); }
+			set { EnumWrapper.Set(() => StateNumber = (int) value); }
+
 		}
 
 		/// <summary>Gets the <see cref="BelegData" /> which contains information about the reason why this <see cref="BelegData" /> had been storniert.</summary>
-		[DependsOn(nameof(StateName))]
+		[DependsOn(nameof(StateNumber))]
 		public BelegData StornierenderBeleg
 		{
 			get

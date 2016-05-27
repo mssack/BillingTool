@@ -122,7 +122,7 @@ namespace BillingTool.btScope.functions.data
 				BelegDatenTable.StornoBelegIdCol,
 				BelegDatenTable.BonNummerVonCol,
 				BelegDatenTable.BonNummerBisCol,
-				BelegDatenTable.StateNameCol,
+				BelegDatenTable.StateNumberCol,
 				BelegDatenTable.NummerCol,
 				BelegDatenTable.BetragBruttoCol,
 				BelegDatenTable.BetragNettoCol,

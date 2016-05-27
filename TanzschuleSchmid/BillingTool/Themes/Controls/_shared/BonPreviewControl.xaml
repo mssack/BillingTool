@@ -48,8 +48,10 @@
 			</Param.Style>
 		</Param>
 		<Border Grid.Row="1" >
-			<ScrollViewer Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-				<shared:AnyBonVisual Item="{Binding ElementName=Uc, Path=Item}" OutputFormat="{Binding ElementName=Uc, Path=SelectedPreviewFormat}" />
+			<ScrollViewer Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
+				<Border Background="White" Padding="10">
+					<shared:AnyBonVisual Item="{Binding ElementName=Uc, Path=Item}" OutputFormat="{Binding ElementName=Uc, Path=SelectedPreviewFormat}" />
+				</Border>
 			</ScrollViewer>
 		</Border>
 	</Grid>

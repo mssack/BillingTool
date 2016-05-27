@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.Collections.Generic;
@@ -180,6 +180,27 @@ namespace CsWpfBase.Db.models.bases
 			if (Table.DataSet.CsDbRelationsPerTableType.TryGetValue(Table.GetType(), out rv))
 				return rv;
 			return new CsDbRelation[0];
+		}
+
+
+
+		/// <summary>Helper method for enum wrapping property's</summary>
+		protected static class EnumWrapper
+		{
+			/// <summary>Gets the value from the column value.</summary>
+			public static T Get<T>(object columnValue, T def = default(T)) where T : struct
+			{
+				T val;
+				if (Enum.TryParse(columnValue.ToString(), true, out val))
+					return val;
+				return def;
+			}
+
+			/// <summary>Sets the column value.</summary>
+			public static void Set(Action setAction)
+			{
+				setAction();
+			}
 		}
 
 

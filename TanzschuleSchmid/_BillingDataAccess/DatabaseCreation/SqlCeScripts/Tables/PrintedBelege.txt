@@ -3,7 +3,7 @@
 	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
 
 	[BelegDataId]			uniqueidentifier	NOT NULL,
-	[ProcessingStateName]	nvarchar(100) NOT NULL DEFAULT('NotProcessed'),
+	[ProcessingStateNumber]	integer NOT NULL DEFAULT(0),
 	[ProcessingDate]		datetime NOT NULL DEFAULT getdate(),
 	[ProcessingException]	ntext,
 

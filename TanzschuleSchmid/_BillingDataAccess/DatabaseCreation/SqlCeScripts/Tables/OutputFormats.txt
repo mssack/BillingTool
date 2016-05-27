@@ -7,7 +7,7 @@
 	
 
 	[Name]				ntext			NOT NULL,
-	[BonLayoutName]		nvarchar(255)	NOT NULL DEFAULT('Unknown'),
+	[BonLayoutNumber]	integer	NOT NULL DEFAULT(0),
 
 	[FirstImageBinary]		image			,
 	[FirstImageHash]		ntext			,
@@ -20,6 +20,8 @@
 	[ThirdImageBinary]		image			,
 	[ThirdImageHash]		ntext			,
 	[ThirdText]				ntext			,
+
+	[Scaling]				float	NOT NULL DEFAULT(1),
 
 	[BusinessUid]			ntext,
 	[BusinessName]			ntext,

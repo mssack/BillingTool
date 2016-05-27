@@ -2,11 +2,10 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-27</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.functions.data.basis;
 
@@ -60,6 +59,7 @@ namespace BillingTool.btScope.functions.data
 		public PrintedBeleg New(BelegData data)
 		{
 			var newItem = data.DataSet.PrintedBelege.NewRow();
+			newItem.ProcessingState = ProcessingStates.NotProcessed;
 			newItem.BelegData = data;
 			newItem.PrinterDevice = Bt.Config.File.KassenEinstellung.Default_PrinterName;
 			newItem.OutputFormat = newItem.DataSet.OutputFormats.Default_PrintFormat;
