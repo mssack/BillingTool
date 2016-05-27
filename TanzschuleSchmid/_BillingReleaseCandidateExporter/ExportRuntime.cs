@@ -77,10 +77,9 @@ namespace ReleaseCandidateExporter
 
 		private void ChangeReadme()
 		{
-			var writer = new StreamWriter(Paths.Source.ReadmeFile);
-			writer.WriteLine(BuildDetails.Number);
-			writer.Close();
-			writer.Dispose();
+			var txtLines = File.ReadAllLines(Paths.Source.ReadmeFile).ToList();   //Fill a list with the lines from the txt file.
+			txtLines.Insert(txtLines.IndexOf("###Downloads:")+1, $"[Download RC{BuildDetails.Number}](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool%20-%20RC{BuildDetails.Number}.zip)"); 
+			File.WriteAllLines(Paths.Source.ReadmeFile, txtLines);
 		}
 
 		private void CommitViaCommandline()
