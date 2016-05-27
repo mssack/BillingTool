@@ -49,7 +49,7 @@ namespace ReleaseCandidateExporter
 
 		private void DeleteAllActualFolders()
 		{
-			new DirectoryInfo(Paths.Destination.RcFolder).GetDirectories("Actual*").ForEach(di => di.Delete(true));
+			new DirectoryInfo(Paths.Destination.RcFolder).GetDirectories("RC.*").ForEach(di => di.Delete(true));
 		}
 
 		private void CollectBuildDetails()
@@ -84,15 +84,15 @@ namespace ReleaseCandidateExporter
 
 		private void CommitViaCommandline()
 		{
-			Run
+			Command
 				(
-					"echo on",
+					"echo off",
 					$"cd {Paths.GitRootFolder}",
 					$"git add \"{Paths.Source.BuildDetails}\"",
 					$"git add \"{Paths.Destination.ZipFile}\"",
 					$"git add \"{Paths.Source.ReadmeFile}\"",
-					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {BuildDetails.Number}\""
-					,"pause"
+					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {BuildDetails.Number}\"",
+					$"git push"
 				).Wait();
 		}
 
