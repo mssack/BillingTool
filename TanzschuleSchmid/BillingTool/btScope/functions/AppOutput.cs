@@ -6,6 +6,7 @@
 
 using System;
 using BillingTool.Exceptions;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Objects;
 
 

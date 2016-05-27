@@ -6,7 +6,7 @@
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.btScope.configuration._enums;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Objects;
 
 

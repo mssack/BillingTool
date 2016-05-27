@@ -12,6 +12,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
 using BillingTool.Themes.Controls.belegview;
 using BillingTool.Themes.Controls._shared;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 

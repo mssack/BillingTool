@@ -1,0 +1,22 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+<#
+     int BuildNumber = 0;
+  
+	using(var f = File.OpenText(Host.ResolvePath("BuildDetails.txt")))
+	{
+		f.ReadLine();
+		BuildNumber = Convert.ToInt32(f.ReadLine().Split('=')[1].Trim());
+	}
+	BuildNumber=BuildNumber+1;
+ #>
+Time = <#= DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss") #>
+Number = <#= BuildNumber #>
+User = <#= Environment.UserName #>
+Machine = <#= Environment.MachineName #>

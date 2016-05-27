@@ -7,6 +7,7 @@
 using System;
 using System.ComponentModel;
 using BillingTool.btScope;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;
 

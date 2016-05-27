@@ -32,6 +32,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Originale", "Originale", "{
 		_Anhänge\Rechtliches\Originale\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf = _Anhänge\Rechtliches\Originale\WKO - Technisch-rechtliche-Grundlagen-zur-Registrierkassenpflicht.pdf
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Releases", "Releases", "{907EB7C1-5FF1-464C-8E06-21AEA6AB338A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingReleaseCandidateExporter", "_BillingReleaseCandidateExporter\_BillingReleaseCandidateExporter.csproj", "{359AF99A-73BF-4E99-901A-780A888353D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +84,14 @@ Global
 		{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}.Release|x86.ActiveCfg = Release|x86
 		{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}.Release|x86.Build.0 = Release|x86
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Debug|x86.ActiveCfg = Debug|x86
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Debug|x86.Build.0 = Debug|x86
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Release|x86.ActiveCfg = Release|Any CPU
+		{359AF99A-73BF-4E99-901A-780A888353D1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,5 +105,7 @@ Global
 		{56420FA1-0CFA-4A81-8C3D-8A2EE0C45B58} = {55EC313F-1B08-41CE-B6B4-E1845BA8D85A}
 		{F0F47B12-16E6-4C7D-9273-A0F125E76DB9} = {55EC313F-1B08-41CE-B6B4-E1845BA8D85A}
 		{9F5D7A63-EB20-420A-9610-DED81DB76B60} = {F0F47B12-16E6-4C7D-9273-A0F125E76DB9}
+		{907EB7C1-5FF1-464C-8E06-21AEA6AB338A} = {55EC313F-1B08-41CE-B6B4-E1845BA8D85A}
+		{359AF99A-73BF-4E99-901A-780A888353D1} = {E33A372F-43ED-4730-B822-4697914950B8}
 	EndGlobalSection
 EndGlobal

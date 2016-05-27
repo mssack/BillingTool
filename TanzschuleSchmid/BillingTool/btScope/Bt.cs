@@ -11,16 +11,17 @@ using System.Windows;
 using BillingDataAccess.DatabaseCreation;
 using BillingTool.btScope.administrator;
 using BillingTool.btScope.configuration;
-using BillingTool.btScope.configuration._enums;
 using BillingTool.btScope.db;
 using BillingTool.btScope.functions;
 using BillingTool.btScope.logging;
 using BillingTool.btScope.output;
+using BillingTool.btScope.versioning;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
 using BillingTool.Windows.privileged;
 using BillingTool.Windows.tools;
 using BillingTool.Windows._installation;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Global;
 
 
@@ -55,6 +56,8 @@ namespace BillingTool.btScope
 		public static AppOutput AppOutput => AppOutput.I;
 		/// <summary>Functions needed for the application.</summary>
 		public static Output Output => Output.I;
+		/// <summary>Gets current build details.</summary>
+		public static BuildDetails BuildDetails => BuildDetails.I;
 
 
 

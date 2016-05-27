@@ -5,17 +5,17 @@
 // <date>2016-05-17</date>
 
 // ReSharper disable RedundantUsingDirective
+
 using System;
-using CsWpfBase.Ev.Public.Extensions;
-using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
+using BillingTool._SharedEnumerations;
+using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 
@@ -33,8 +33,7 @@ namespace BillingTool
 		{
 			var ss = new SplashScreen("Themes/Icons/KassenIcon.png");
 			ss.Show(true, true);
-
-
+			
 			Current.DispatcherUnhandledException += (s, args) =>
 			{
 #if !DEBUG

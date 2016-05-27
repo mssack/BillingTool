@@ -91,6 +91,7 @@
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\ICanBeFilteredByDate.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IOutputBeleg.cs" />
     <Compile Include="sqlcedatabases\billingdatabase\_Extensions\DataInterfaces\IStoreZuletztGeändert.cs" />
+    <Compile Include="sqlcedatabases\billingdatabase\_Extensions\enumerations\BelegDataTypesExtensions.cs" />
     <Compile Include="_Exceptions\BillingDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

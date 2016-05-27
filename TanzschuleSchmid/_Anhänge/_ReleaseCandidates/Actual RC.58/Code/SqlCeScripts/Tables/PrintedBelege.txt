@@ -1,0 +1,18 @@
+﻿CREATE TABLE [PrintedBelege]
+(
+	[Id]				uniqueidentifier PRIMARY KEY DEFAULT newid(),
+
+	[BelegDataId]			uniqueidentifier	NOT NULL,
+	[ProcessingStateNumber]	integer NOT NULL DEFAULT(0),
+	[ProcessingDate]		datetime NOT NULL DEFAULT getdate(),
+	[ProcessingException]	ntext,
+
+	[OutputFormatId]		uniqueidentifier NOT NULL,
+	
+	[PrinterDevice]			ntext,
+
+	
+	
+	[Comment]				ntext,
+	[CommentLastChanged]	datetime
+)

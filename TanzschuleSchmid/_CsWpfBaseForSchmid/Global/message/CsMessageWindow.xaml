@@ -18,6 +18,7 @@
 	<Window.Style>
 		<Style TargetType="c:CsMessageWindow">
 			<Setter Property="MaxHeight" Value="400" />
+			<Setter Property="YesOkButtonEnabled" Value="True" />
 			<Setter Property="attachedProperties:AWindowDragMove.IsActive" Value="True" />
 			<Setter Property="ShowInTaskbar" Value="False" />
 			<Setter Property="Title" Value="{Binding RelativeSource={RelativeSource Self}, Path=Message.Title}" />

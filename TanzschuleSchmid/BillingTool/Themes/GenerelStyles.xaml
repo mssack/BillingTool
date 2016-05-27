@@ -49,6 +49,7 @@
 							<ColumnDefinition Width="Auto" />
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 						<TextBlock Grid.Column="0"
 									Text="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.KassenId, StringFormat={}KassenID: {0}}"
@@ -57,6 +58,7 @@
 									Text="{Binding Source={x:Static btScope:Bt.Config}, Path=CommandLine.NewBelegData.KassenOperator, StringFormat={}Operator: {0}}"
 									Foreground="DimGray" Margin="5,0,0,0" />
 						<TextBlock Grid.Column="3" Text="powered by Christian Sack" Foreground="DimGray" />
+						<TextBlock Margin="10,0,0,0" Grid.Column="4" Text="{Binding Source={x:Static btScope:Bt.BuildDetails}, Path=Number, StringFormat={}Version: {0:0}}" Foreground="DimGray" />
 					</Grid>
 				</DataTemplate>
 			</Setter.Value>
