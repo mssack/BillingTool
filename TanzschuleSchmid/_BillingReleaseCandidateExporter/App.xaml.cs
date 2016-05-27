@@ -21,8 +21,9 @@ namespace ReleaseCandidateExporter
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
-
-			new ExportRuntime().Run();
+			var messageBoxResult = MessageBox.Show("Store as new ReleaseCandidate", "New RC ?", MessageBoxButton.YesNo, MessageBoxImage.Information);
+			if (messageBoxResult == MessageBoxResult.Yes)
+				new ExportRuntime().Run();
 
 			Environment.Exit(0);
 		}
