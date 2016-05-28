@@ -60,6 +60,7 @@ namespace BillingTool.btScope.functions.data
 		public MailedBeleg New(BelegData data, string targetMailAddress)
 		{
 			var newItem = data.DataSet.MailedBelege.NewRow();
+			newItem.ProcessingState = ProcessingStates.NotProcessed;
 			newItem.BelegData = data;
 			newItem.TargetMailAddress = targetMailAddress;
 			newItem.Betreff = data.DataSet.Configurations.Default.MailBetreff;

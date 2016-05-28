@@ -1,8 +1,8 @@
-// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2015-07-24</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.IO;
@@ -77,6 +77,15 @@ namespace CsWpfBase.Ev.Public.Extensions
 			return file;
 		}
 
+		/// <summary>returns a <see cref="FileInfo" /> with the same file name but the directory will be the desktop.</summary>
+		public static FileInfo ChangeToDesktopDirectory(this FileInfo file)
+		{
+			if (file == null)
+				return null;
+
+			return new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), file.Name));
+		}
+
 		/// <summary>
 		///     Saves a string to file using <see cref="UTF8Encoding" />.
 		///     <para>If file exists then file is deleted.</para>
@@ -92,6 +101,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 				writer.Close();
 			}
 		}
+
 		/// <summary>
 		///     Saves a string to file using <see cref="UnicodeEncoding" />.
 		///     <para>If file exists then file is deleted.</para>
@@ -132,6 +142,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 				binaryFormatter.Serialize(sr, ob);
 			}
 		}
+
 		/// <summary>
 		///     Saves the binary to a file using the .NET Framework (File.WriteAllBytes).
 		///     <para>If file exists then file is deleted.</para>
@@ -146,6 +157,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 			file.DeleteFile_IfExists();
 			File.WriteAllBytes(file.FullName, ob ?? new byte[0]);
 		}
+
 		/// <summary>
 		///     Saves the binary to a file using the .NET Framework (File.WriteAllBytes).
 		///     <para>If file exists then file is deleted.</para>
@@ -250,7 +262,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 		}
 
 		/// <summary>Deserialize a file using <see cref="BinaryFormatter" />.</summary>
-		public static T LoadAs_Object_From_SerializedBinary<T>(this FileInfo file) where T: class
+		public static T LoadAs_Object_From_SerializedBinary<T>(this FileInfo file) where T : class
 		{
 			if (!file.Exists)
 				throw new FileNotFoundException();
@@ -272,6 +284,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 				return reader.ReadToEnd();
 			}
 		}
+
 		/// <summary>Uses UTF8 encoding</summary>
 		public static string LoadAs_UnicodeString(this FileInfo file)
 		{
@@ -304,7 +317,8 @@ namespace CsWpfBase.Ev.Public.Extensions
 				fs.Close();
 			}
 			return img;
-		}  
+		}
+
 		/// <summary>Reads the complete content of a file as byte array. Using the File.ReadAllBytes(string filename) method (.NET 2.0).</summary>
 		public static byte[] LoadAs_ByteArray(this FileInfo file)
 		{

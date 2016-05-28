@@ -56,7 +56,7 @@
 							<GridViewColumn Header="{StaticResource Bez-BelegData-Typ}" Sort.PropertyName="TypName">
 								<GridViewColumn.CellTemplate>
 									<DataTemplate DataType="{x:Type billingDatabaseDb:BelegData}">
-										<TextBlock Text="{Binding Path=TypName}" />
+										<TextBlock Text="{Binding Path=Typ}" />
 									</DataTemplate>
 								</GridViewColumn.CellTemplate>
 							</GridViewColumn>

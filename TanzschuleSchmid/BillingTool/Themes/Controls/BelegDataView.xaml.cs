@@ -12,6 +12,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
 using BillingTool.Themes.Controls.belegview;
 using BillingTool.Themes.Controls._shared;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 
@@ -182,7 +183,7 @@ namespace BillingTool.Themes.Controls
 			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
 			{
 				var approvalData = StornoApprovalControl.DoApprovalFor(Item);
-				if (approvalData.MessageResult == CsMessage.MessageResults.No)
+				if (approvalData.MessageResult != CsMessage.MessageResults.Ok)
 					return;
 
 				var stornoBeleg = Bt.Data.BelegData.New_Storno(Item);

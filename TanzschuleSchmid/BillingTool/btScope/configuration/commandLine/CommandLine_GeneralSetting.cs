@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using BillingTool.btScope.configuration._enums;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Objects;
 
 

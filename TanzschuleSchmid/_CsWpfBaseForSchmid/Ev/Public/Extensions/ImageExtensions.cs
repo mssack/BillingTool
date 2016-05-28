@@ -1,8 +1,8 @@
-// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-01-02</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.Diagnostics;
@@ -18,7 +18,6 @@ using System.Windows.Media.Imaging;
 namespace CsWpfBase.Ev.Public.Extensions
 {
 	/// <summary>Wraps a bunch of functions for converting from and to <see cref="BitmapImage" />.</summary>
-	[DebuggerStepThrough]
 	public static class ImageExtensions
 	{
 		/// <summary>
@@ -37,7 +36,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 
 			double xAdj = (double) image.PixelWidth/maximumWidth, yAdj = (double) image.PixelHeight/maximumHeight;
 
-			if ((xAdj > 1 || yAdj > 1))
+			if (xAdj > 1 || yAdj > 1)
 			{
 				if (xAdj > yAdj)
 				{
@@ -49,6 +48,31 @@ namespace CsWpfBase.Ev.Public.Extensions
 					var tbBitmap = new TransformedBitmap(image, new ScaleTransform(1/yAdj, 1/yAdj));
 					return BitmapFrame.Create(tbBitmap);
 				}
+			}
+			return image;
+		}
+
+		/// <summary>
+		///     Resizes the image to a defined width and height. Preserves the aspect ratio. After the process the image will fit into a rectengular of size
+		///     <paramref name="width" /> and <paramref name="height" />.
+		/// </summary>
+		public static BitmapSource UniformFill(this BitmapSource image, double width, double height)
+		{
+			if (image == null)
+				return null;
+
+
+			double xAdj = width/image.PixelWidth, yAdj = height/image.PixelHeight;
+
+			if (xAdj > yAdj)
+			{
+				var tbBitmap = new TransformedBitmap(image, new ScaleTransform(yAdj, yAdj));
+				return BitmapFrame.Create(tbBitmap);
+			}
+			else if (yAdj > xAdj)
+			{
+				var tbBitmap = new TransformedBitmap(image, new ScaleTransform(xAdj, xAdj));
+				return BitmapFrame.Create(tbBitmap);
 			}
 			return image;
 		}

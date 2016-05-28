@@ -17,7 +17,6 @@ using CsWpfBase.Ev.Public.Extensions;
 
 
 
-
 namespace BillingDataAccess.DatabaseCreation
 {
 	/// <summary>

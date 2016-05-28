@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-02</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.Collections.Generic;
@@ -49,16 +49,16 @@ namespace BillingTool.btScope.configuration.commandLine
 				}
 			}
 		}
+		private string _comment;
 		private string _empfänger;
 		private string _empfängerId;
 		private string _kassenOperator;
-		private string _comment;
 		private CommandLine_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
 		private string[] _sendBelegTargets;
-		private string _typName;
-		private string _zusatzText;
+		private int _typNumber;
 		private string _zahlungsReferenz;
+		private string _zusatzText;
 
 		private CommandLine_NewBelegData()
 		{
@@ -72,8 +72,8 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateName</c>]</summary>
-		public string StateName
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>StateNumber</c>]</summary>
+		public int StateNumber
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -102,13 +102,13 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerVon</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerVon</c>]</summary>
 		public int? BonNummerVon
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerBis</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BonNummerBis</c>]</summary>
 		public int? BonNummerBis
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
@@ -152,11 +152,11 @@ namespace BillingTool.btScope.configuration.commandLine
 		}
 
 
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>TypName</c>]</summary>
-		public string TypName
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>TypNumber</c>]</summary>
+		public int TypNumber
 		{
-			get { return _typName; }
-			set { SetProperty(ref _typName, value); }
+			get { return _typNumber; }
+			set { SetProperty(ref _typNumber, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>KassenOperator</c>]</summary>
 		public string KassenOperator
@@ -183,7 +183,7 @@ namespace BillingTool.btScope.configuration.commandLine
 			get { return _empfängerId; }
 			set { SetProperty(ref _empfängerId, value); }
 		}
-		///	<summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
 		public string ZahlungsReferenz
 		{
 			get { return _zahlungsReferenz; }
@@ -242,7 +242,7 @@ namespace BillingTool.btScope.configuration.commandLine
 
 				if (compareableDictionary.TryGetValue(param, out foundProperty))
 				{
-					if (foundProperty.PropertyType == typeof (string))
+					if (foundProperty.PropertyType == typeof(string))
 						foundProperty.SetValue(this, value, null);
 					else
 						foundProperty.SetValue(this, Convert.ChangeType(value, foundProperty.PropertyType), null);
@@ -254,7 +254,7 @@ namespace BillingTool.btScope.configuration.commandLine
 					ParseTargetMails(nameof(SendBelegTargets), value);
 				else if (param == $"{ParamPrefix}{nameof(Postens)}".ToLower())
 				{
-					ParsePosten(nameof(Postens),value);
+					ParsePosten(nameof(Postens), value);
 				}
 
 				if (found)
@@ -270,8 +270,9 @@ namespace BillingTool.btScope.configuration.commandLine
 			value = value.Substring(1, value.Length - 2);
 			var first = new Regex("(.*?)[ ]*?(?:[,]|$)[ ]*");
 
-			SendBelegTargets = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value.ToString()).Where(x=> !string.IsNullOrEmpty(x) && IsValidMailAddress(x)).ToArray();
+			SendBelegTargets = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value.ToString()).Where(x => !string.IsNullOrEmpty(x) && IsValidMailAddress(x)).ToArray();
 		}
+
 		private void ParsePosten(string parameterName, string value)
 		{
 			// FOR TESTING see http://www.regextester.com/

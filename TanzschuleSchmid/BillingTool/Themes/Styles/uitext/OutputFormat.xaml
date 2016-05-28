@@ -8,6 +8,7 @@
 	<system:String x:Key="Bez-OutputFormat-CreationDate">Erstelldatum</system:String>
 	<system:String x:Key="Bez-OutputFormat-LastUsedDate">Zuletzt verwendet</system:String>
 	<system:String x:Key="Bez-OutputFormat-Name">Name</system:String>
+	<system:String x:Key="Bez-OutputFormat-Scale">Skalierung</system:String>
 	<system:String x:Key="Bez-OutputFormat-BonLayoutName">Bon Layout</system:String>
 	<system:String x:Key="Bez-OutputFormat-FirstImageBinary">Bild 1</system:String>
 	<system:String x:Key="Bez-OutputFormat-FirstText">Text 1</system:String>

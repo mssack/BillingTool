@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingOutput.btOutputScope.ImageProcessing;
+using BillingOutput.btOutputScope.printer;
 using BillingOutput.btOutputScope.PdfCreation;
 using BillingOutput.Interfaces;
 using BillingOutput.TaskSchedulers;
@@ -34,9 +35,8 @@ namespace BillingOutput.btOutputScope
 	public static class BtOutput
 	{
 		private static readonly StaTaskScheduler StaTaskScheduler = new StaTaskScheduler(2);
-		private static readonly StaTaskScheduler StaPrinterScheduler = new StaTaskScheduler(1);
-		private static ImageRenderer ImageRenderer => ImageRenderer.I;
-		private static PdfCreator PdfCreator => PdfCreator.I;
+		internal static ImageRenderer ImageRenderer => ImageRenderer.I;
+		internal static PdfCreator PdfCreator => PdfCreator.I;
 
 
 		/// <summary>Processes all <see cref="ProcessingStates.NotProcessed" /> linked outputs.</summary>
@@ -78,7 +78,7 @@ namespace BillingOutput.btOutputScope
 
 			var t = new Task(() =>
 			{
-				var image = ProcessFormat(data.BelegData, data.OutputFormat);
+				var image = ImageRenderer.Render(data.BelegData, data.OutputFormat);
 				using (var pdfLifeLine = PdfCreator.CreatePdf(data.BelegData, image))
 				{
 					using (var smtpClient = new SmtpClient
@@ -134,55 +134,12 @@ namespace BillingOutput.btOutputScope
 			if (data.BelegData.State == BelegDataStates.Unknown)
 				throw new InvalidOperationException($"The {data} cannot be printed because the {nameof(BelegData)} is currently of state {data.BelegData.State} which is not a valid state for mailing.");
 
-			var context = TaskScheduler.FromCurrentSynchronizationContext();
-			data.ProcessingState = ProcessingStates.Processing;
 
-			var t = new Task(() =>
-			{
-				var processFormat = ProcessFormat(data.BelegData, data.OutputFormat);
-				var image = new Image {Source = processFormat, Width = processFormat.PixelWidth, Height = processFormat.PixelHeight};
-				image.Measure(new Size(image.Width, image.Height));
-				image.Arrange(new Rect(new Size(image.Width, image.Height)));
-				image.UpdateLayout();
-
-				var printServer = new PrintServer();
-				var printDialog = new PrintDialog
-				{
-					PrintQueue = new PrintQueue(printServer,data.PrinterDevice)
-				};
-				//printDialog.PrintableAreaHeight could be exceeded what should i do if that happens multiple pages would be great
-				printDialog.PrintVisual(image, $"{data.BelegData}");
-
-			}, TaskCreationOptions.LongRunning);
-			var continuationTask = t.ContinueWith(task =>
-			{
-				data.ProcessingDate = DateTime.Now;
-				data.OutputFormat.LastUsedDate = data.ProcessingDate;
-				data.BelegData.PrintCount++;
-				if (task.Exception != null && task.IsFaulted)
-				{
-					data.ProcessingState = ProcessingStates.Failed;
-					data.ProcessingException = task.Exception.MostInner().Message;
-					throw task.Exception;
-				}
-
-				data.ProcessingState = ProcessingStates.Processed;
-				data.ProcessingException = null;
-				return data;
-
-			}, context);
-			t.Start(StaPrinterScheduler);
-			return continuationTask;
-		}
-		
-
-		private static BitmapSource ProcessFormat(BelegData data, OutputFormat format)
-		{
-			if (format.BonLayout == BonLayouts.Unknown)
-				throw new InvalidOperationException($"The format {format} is not a valid format for a rendering of data {data}.");
-			return ImageRenderer.Render(data, format);
+			return new BtPrinter(data).Print();
 		}
 	}
+
+
 
 
 

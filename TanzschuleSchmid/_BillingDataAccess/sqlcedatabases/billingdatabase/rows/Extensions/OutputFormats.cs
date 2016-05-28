@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-26</date>
+// <date>2016-05-27</date>
 
 using System;
 using System.Linq;
@@ -55,20 +55,16 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.rows
 		#endregion
 
 
-		/// <summary>The wrapper property for column property <see cref="BonLayoutName" />.</summary>
-		[DependsOn(nameof(BonLayoutName))]
+		/// <summary>The wrapper property for column property <see cref="BonLayoutNumber" />.</summary>
+		[DependsOn(nameof(BonLayoutNumber))]
 		public BonLayouts BonLayout
 		{
-			get
-			{
-				BonLayouts val;
-				return Enum.TryParse(BonLayoutName, true, out val) ? val : BonLayouts.Unknown;
-			}
-			set { BonLayoutName = value.ToString(); }
+			get { return EnumWrapper.Get(BonLayoutNumber, BonLayouts.Unknown); }
+			set { EnumWrapper.Set(() => BonLayoutNumber = (int) value); }
 		}
 
-		/// <summary>The wrapper property for column property <see cref="BonLayoutName" />.</summary>
-		[DependsOn(nameof(BonLayoutName))]
+		/// <summary>The wrapper property for column property <see cref="BonLayoutNumber" />.</summary>
+		[DependsOn(nameof(BonLayoutNumber))]
 		public BonLayoutTypes BonLayoutType => BonLayout.GetBonLayoutType();
 
 		/// <summary>The cashed image.</summary>

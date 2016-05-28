@@ -14,6 +14,7 @@ using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
+using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 using CsWpfBase.Themes.Controls.Containers;

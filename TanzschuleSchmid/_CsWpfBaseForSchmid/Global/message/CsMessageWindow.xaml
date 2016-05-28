@@ -18,6 +18,7 @@
 	<Window.Style>
 		<Style TargetType="c:CsMessageWindow">
 			<Setter Property="MaxHeight" Value="400" />
+			<Setter Property="YesOkButtonEnabled" Value="True" />
 			<Setter Property="attachedProperties:AWindowDragMove.IsActive" Value="True" />
 			<Setter Property="ShowInTaskbar" Value="False" />
 			<Setter Property="Title" Value="{Binding RelativeSource={RelativeSource Self}, Path=Message.Title}" />
@@ -171,7 +172,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Ja" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesButtonEnabled}">
+											<Button Content="Ja" Tag="{x:Static c:CsMessage+MessageResults.Yes}" IsDefault="True" IsEnabled="{Binding Path=YesOkButtonEnabled}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>
@@ -185,7 +186,7 @@
 													</Style>
 												</Button.Style>
 											</Button>
-											<Button Content="Ok" Tag="{x:Static c:CsMessage+MessageResults.Ok}" IsDefault="True">
+											<Button Content="Ok" Tag="{x:Static c:CsMessage+MessageResults.Ok}" IsDefault="True" IsEnabled="{Binding Path=YesOkButtonEnabled}">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
 														<Style.Triggers>

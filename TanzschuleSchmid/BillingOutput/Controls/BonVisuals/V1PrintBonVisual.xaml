@@ -7,7 +7,7 @@
 			xmlns:dataanalysis="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.dataanalysis;assembly=BillingDataAccess"
 			xmlns:shared="clr-namespace:BillingOutput.Controls._shared"
 			mc:Ignorable="d"
-			Padding="10" x:Name="Uc" FontFamily="Consolas" >
+			x:Name="Uc" FontFamily="Consolas" >
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

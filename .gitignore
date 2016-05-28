@@ -20,6 +20,11 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+TanzschuleSchmid/_Anhänge/_ReleaseCandidates/RC.*/
+TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*
+!TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.dll
+!TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.exe
+
 
 # Visual Studio 2015 cache/options directory
 .vs/

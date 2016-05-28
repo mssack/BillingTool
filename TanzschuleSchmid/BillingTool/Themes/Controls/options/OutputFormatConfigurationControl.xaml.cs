@@ -91,9 +91,15 @@ namespace BillingTool.Themes.Controls.options
 		{
 			SelectedItem.SetAsDbStandard();
 		}
+
+		private void ResetScalingClicked(object sender, RoutedEventArgs e)
+		{
+			SelectedItem.Scaling = 1;
+		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty SampleBelegDataProperty = DependencyProperty.Register("SampleBelegData", typeof(BelegData), typeof(OutputFormatConfigurationControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(OutputFormat), typeof(OutputFormatConfigurationControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((OutputFormatConfigurationControl) o).SelectedItemChanged()});
 #pragma warning restore 1591
+
 	}
 }

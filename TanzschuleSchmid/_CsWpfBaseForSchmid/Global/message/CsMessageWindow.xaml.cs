@@ -52,10 +52,10 @@ namespace CsWpfBase.Global.message
 		}
 
 		/// <summary>Gets or sets the enable state for the yes button.</summary>
-		public bool YesButtonEnabled
+		public bool YesOkButtonEnabled
 		{
-			get { return (bool) GetValue(YesButtonEnabledProperty); }
-			set { SetValue(YesButtonEnabledProperty, value); }
+			get { return (bool) GetValue(YesOkButtonEnabledProperty); }
+			set { SetValue(YesOkButtonEnabledProperty, value); }
 		}
 
 
@@ -74,7 +74,7 @@ namespace CsWpfBase.Global.message
 		}
 #pragma warning disable 1591
 		public static readonly DependencyProperty MessageProperty = DependencyProperty.Register("Message", typeof(CsMessage), typeof(CsMessageWindow), new FrameworkPropertyMetadata {DefaultValue = default(CsMessage), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
-		public static readonly DependencyProperty YesButtonEnabledProperty = DependencyProperty.Register("YesButtonEnabled", typeof(bool), typeof(CsMessageWindow), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty YesOkButtonEnabledProperty = DependencyProperty.Register("YesOkButtonEnabled", typeof(bool), typeof(CsMessageWindow), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 #pragma warning restore 1591
 	}
 }

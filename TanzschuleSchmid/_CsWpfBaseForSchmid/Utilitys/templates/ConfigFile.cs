@@ -6,9 +6,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
@@ -64,12 +66,11 @@ namespace CsWpfBase.Utilitys.templates
 		/// <summary>Loads the configuration file into the instance.</summary>
 		public void Load()
 		{
-			if (Path != null && Path.Exists == false)
+			Path?.Refresh();
+			if (Path != null && !Path.Exists)
 				return;
-			Path.Refresh();
 
 			var members = ReflectionHelper.GetKeyMembers(GetType());
-
 			var keyValuePair = LoadKeyValuePair(Path == null ? CsGlobal.Storage.Resource.File.Read(PackUri) : Path.LoadAs_UTF8String());
 
 			foreach (var keyMember in members)
@@ -88,8 +89,11 @@ namespace CsWpfBase.Utilitys.templates
 				{
 					if (keyMember.Type.IsEnum)
 						keyMember.SetValue(this, Enum.Parse(keyMember.Type, value));
+					else if (keyMember.Type == typeof(DateTime) && !string.IsNullOrEmpty(keyMember.Attribute.StringFormat))
+						keyMember.SetValue(this, DateTime.ParseExact(value, keyMember.Attribute.StringFormat, CultureInfo.CurrentCulture)); 
 					else
 						keyMember.SetValue(this, Convert.ChangeType(value, keyMember.Type));
+
 				}
 				catch (Exception)
 				{

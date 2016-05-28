@@ -118,7 +118,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 		public static BitmapSource ConvertTo_Image(this FrameworkElement visual)
 		{
 			visual.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-			visual.Arrange(new Rect(0, 0, visual.DesiredSize.Width, visual.DesiredSize.Height));
+			visual.Arrange(new Rect(visual.DesiredSize));
 			visual.UpdateLayout();
 
 			var bitmap = new RenderTargetBitmap((int) visual.DesiredSize.Width, (int) visual.DesiredSize.Height, 96, 96, PixelFormats.Pbgra32);
