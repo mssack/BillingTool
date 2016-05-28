@@ -53,7 +53,7 @@ namespace ReleaseCandidateExporter
 
 		private void DeleteAllActualFolders()
 		{
-			new DirectoryInfo(Paths.Destination.RcFolder).GetDirectories("RC.*").ForEach(di => di.Delete(true));
+			new DirectoryInfo(Paths.Destination.RcFolder).GetDirectories("RC*").ForEach(di => di.Delete(true));
 		}
 
 		private void CollectBuildDetails()
@@ -82,7 +82,7 @@ namespace ReleaseCandidateExporter
 		private void ChangeReadme()
 		{
 			var txtLines = File.ReadAllLines(Paths.Source.ReadmeFile).ToList(); //Fill a list with the lines from the txt file.
-			txtLines.Insert(txtLines.IndexOf("###Downloads:") + 1, $"* [RC{BuildDetails.Number} vom {BuildDetails.Time.ToString("dd.MM.yyyy HH:mm")}](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool%20-%20RC{BuildDetails.Number}.zip)"
+			txtLines.Insert(txtLines.IndexOf("###Downloads:") + 1, $"* [{Paths.Destination.BuildNumber} vom {BuildDetails.Time.ToString("dd.MM.yyyy HH:mm")}](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/{Paths.Destination.ZipFileName})"
 																	+ (string.IsNullOrEmpty(_messageList) ? "" : "\n" + "\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\t* ")));
 			File.WriteAllLines(Paths.Source.ReadmeFile, txtLines);
 		}
@@ -96,7 +96,7 @@ namespace ReleaseCandidateExporter
 					$"git add \"{Paths.Source.BuildDetails}\"",
 					$"git add \"{Paths.Destination.ZipFile}\"",
 					$"git add \"{Paths.Source.ReadmeFile}\"",
-					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {BuildDetails.Number}\""
+					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {Paths.Destination.BuildNumber}\""
 				).Wait();
 		}
 
