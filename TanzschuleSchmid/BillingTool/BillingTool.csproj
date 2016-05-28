@@ -475,11 +475,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BuildDetails.txt</LastGenOutput>
     </Content>
-    <Content Include="btScope\versioning\BuildDetails.txt">
+    <Resource Include="btScope\versioning\BuildDetails.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BuildDetails.tt</DependentUpon>
-    </Content>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
