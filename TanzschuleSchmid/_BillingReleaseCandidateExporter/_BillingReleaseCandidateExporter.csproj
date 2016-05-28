@@ -87,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExportRuntime.cs" />
+    <Compile Include="GitChangesQuestion.xaml.cs">
+      <DependentUpon>GitChangesQuestion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Paths.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -117,6 +120,12 @@
       <Project>{63CB4E91-9D9C-4C97-8097-FC3964593796}</Project>
       <Name>_CsWpfBaseForSchmid</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GitChangesQuestion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

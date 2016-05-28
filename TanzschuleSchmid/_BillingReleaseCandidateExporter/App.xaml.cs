@@ -6,6 +6,8 @@
 
 using System;
 using System.Windows;
+using CsWpfBase.Global;
+using CsWpfBase.Global.message;
 
 
 
@@ -21,9 +23,12 @@ namespace ReleaseCandidateExporter
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
-			var messageBoxResult = MessageBox.Show("Store as new ReleaseCandidate", "New RC ?", MessageBoxButton.YesNo, MessageBoxImage.Information);
-			if (messageBoxResult == MessageBoxResult.Yes)
-				new ExportRuntime().Run();
+
+			GitChangesQuestion question = new GitChangesQuestion();
+			var messageResult = CsGlobal.Message.Push(question, CsMessage.Types.Information, "Neuer Release Client", CsMessage.MessageButtons.YesNo);
+
+			if (messageResult == CsMessage.MessageResults.Yes)
+				new ExportRuntime(question.Message).Run();
 
 			Environment.Exit(0);
 		}

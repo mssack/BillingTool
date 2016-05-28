@@ -5,12 +5,12 @@
 // <date>2016-05-28</date>
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BillingTool.btScope.versioning;
 using CsWpfBase.Ev.Public.Extensions;
@@ -24,9 +24,14 @@ namespace ReleaseCandidateExporter
 {
 	public class ExportRuntime
 	{
+		private readonly string _messageList;
+
+		public ExportRuntime(string messageList)
+		{
+			_messageList = messageList;
+		}
 
 		private BuildDetails BuildDetails { get; set; }
-
 
 		public void Run()
 		{
@@ -45,7 +50,6 @@ namespace ReleaseCandidateExporter
 
 			CommitViaCommandline();
 		}
-
 
 		private void DeleteAllActualFolders()
 		{
@@ -77,8 +81,9 @@ namespace ReleaseCandidateExporter
 
 		private void ChangeReadme()
 		{
-			var txtLines = File.ReadAllLines(Paths.Source.ReadmeFile).ToList();   //Fill a list with the lines from the txt file.
-			txtLines.Insert(txtLines.IndexOf("###Downloads:")+1, $"* [RC:{BuildDetails.Number} ({BuildDetails.Time.ToString("dd.MM.yyyy HH:mm")})](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool%20-%20RC{BuildDetails.Number}.zip), "); 
+			var txtLines = File.ReadAllLines(Paths.Source.ReadmeFile).ToList(); //Fill a list with the lines from the txt file.
+			txtLines.Insert(txtLines.IndexOf("###Downloads:") + 1, $"* [RC{BuildDetails.Number} vom {BuildDetails.Time.ToString("dd.MM.yyyy HH:mm")}](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool%20-%20RC{BuildDetails.Number}.zip)"
+																	+ (string.IsNullOrEmpty(_messageList) ? "" : "\n" + "\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\t* ")));
 			File.WriteAllLines(Paths.Source.ReadmeFile, txtLines);
 		}
 
@@ -91,39 +96,8 @@ namespace ReleaseCandidateExporter
 					$"git add \"{Paths.Source.BuildDetails}\"",
 					$"git add \"{Paths.Destination.ZipFile}\"",
 					$"git add \"{Paths.Source.ReadmeFile}\"",
-					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {BuildDetails.Number}\"",
-					$"git push"
+					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New Relase Candidate Number = {BuildDetails.Number}\""
 				).Wait();
-		}
-
-		public Task<Process> Run(params string[] commands)
-		{
-			Console.WriteLine(commands.Join("\r\n"));
-
-
-			var procStartInfo = new ProcessStartInfo
-			{
-				RedirectStandardError = false,
-				RedirectStandardOutput = false,
-				FileName = "cmd",
-				Arguments = "/C " + commands.Join("&"),
-			};
-
-			var process = new Process { EnableRaisingEvents = true, StartInfo = procStartInfo };
-			var tcs = new TaskCompletionSource<Process>();
-			process.Exited += (sender, args) => tcs.SetResult(process);
-			try
-			{
-				process.Start();
-			}
-			catch (Exception e)
-			{
-				tcs.SetException(e);
-			}
-
-
-
-			return tcs.Task;
 		}
 
 		/// <summary>Runs a list of CMD commands.</summary>
