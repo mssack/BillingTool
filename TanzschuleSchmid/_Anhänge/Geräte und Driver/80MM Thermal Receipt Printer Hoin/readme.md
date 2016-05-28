@@ -10,18 +10,23 @@
 	+ [Vorne](Dokumentation/Vorne.jpg)
 	+ [Hinten](Dokumentation/Hinten.jpg)
 	+ [Seite Links](Dokumentation/Seite Links.jpg)
-	+ [Unten](Dokumentation/Unten.jpg)
+	+ [Typbeschreibung](Dokumentation/Typbeschreibung.jpg)
+	+ [Pinbelegung](Dokumentation/Pinbelegung.jpg)
 + Einstellungen
-	+ [Geräteeinstellungen](Dokumentation/Druckereinstellungen.png)
+	+ [Geräteeinstellungen](Dokumentation/Geräteeinstellungen.png)
+	+ [Erweiterte Optionen](Dokumentation/ErweiterteOptionen.png)
+	+ [Erweitert](Dokumentation/Erweitert.png)
 
 ###Inbetriebnahme
 1. Installation des Drivers 50MM für 50 mm breites Thermopapier
 2. Installation des Drivers 80MM für 80 mm breites Thermopapier
 3. Pinbelegung des Druckers wie folgt: **1, 3, 5, 6 auf on** der Rest auf off (unabhängig von 50 mm oder 80 mm)  
-    <img src="Dokumentation/Unten.jpg" width="600" />
+    <img src="Dokumentation/Pinbelegung.jpg" width="300" />
 4. Drucker aufdrehen und per USB mit Computer verbinden.
 5. Druckereinstellungen anpassen:  
-    <img src="Dokumentation/Druckereinstellungen.png" width="400" />
+	+ siehe [Geräteeinstellungen](Dokumentation/Geräteeinstellungen.png)
+	+ siehe [Erweiterte Optionen](Dokumentation/ErweiterteOptionen.png)
+	+ siehe [Erweitert](Dokumentation/ErweiterteOptionen.png)
 
 ###Erfahrungen
 + Der Drucker kann ohne Probleme auf Windows 10 Version	10.0.10586 Build 10586 installiert werden.
