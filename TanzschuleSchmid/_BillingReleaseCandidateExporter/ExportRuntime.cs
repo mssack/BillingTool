@@ -85,7 +85,7 @@ namespace ReleaseCandidateExporter
 			var txtLines = File.ReadAllLines(Paths.Source.AnhängeReadmeFile).ToList(); //Fill a list with the lines from the text file.
 			txtLines.Insert(txtLines.IndexOf("####Release Candidates") + 1, $"* [{BuildDetails.NameWithDate}](_ReleaseCandidates/{Paths.Destination.ZipFileName}?raw=true)" +
 																			$" (Computer: {BuildDetails.Computer}, User: {BuildDetails.User})"
-																	+ (string.IsNullOrEmpty(_messageList) ? "" : "\n" + "\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\t* ")));
+																	+ (string.IsNullOrEmpty(_messageList) ? "" : "\n\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\n\t* ")));
 			File.WriteAllLines(Paths.Source.AnhängeReadmeFile, txtLines);
 		}
 		private void ChangeStartseiteReadme()
@@ -105,7 +105,7 @@ namespace ReleaseCandidateExporter
 					$"git add \"{Paths.Destination.ZipFile}\"",
 					$"git add \"{Paths.Source.AnhängeReadmeFile}\"",
 					$"git add \"{Paths.Source.StartseiteReadmeFile}\"",
-					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.AnhängeReadmeFile}\" \"{Paths.Source.StartseiteReadmeFile}\" -m \"New Release Candidate => {BuildDetails.Name}\""
+					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.AnhängeReadmeFile}\" \"{Paths.Source.StartseiteReadmeFile}\" -m \"New Release Candidate {BuildDetails.Name}\""
 				).Wait();
 		}
 
@@ -124,7 +124,7 @@ namespace ReleaseCandidateExporter
 				CreateNoWindow = true,
 				Arguments = "/c " + commands.Join("&"),
 			};
-
+			Console.WriteLine(commands.Join("\r\n"));
 
 			var process = new Process();
 			process.EnableRaisingEvents = true;
