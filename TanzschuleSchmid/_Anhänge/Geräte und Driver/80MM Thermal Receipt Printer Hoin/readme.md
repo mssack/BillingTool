@@ -1,14 +1,26 @@
-##Website
-http://hoinprinter.com/en/download
+#HOP-E801 Thermal Receipt Printer
++ [Support Website](http://hoinprinter.com/en/download)
+	+ [Offline Version vom 28.05.2016](Website 28.05.2016/Services&Support.pdf)
++ [Produkt Website](http://hoinprinter.com/en/products/show/Thermal-Receipt-Printer-2)
+	+ [Accessories - Offline Version vom 28.05.2016](Website 28.05.2016/Accessories.pdf)
+	+ [Features - Offline Version vom 28.05.2016](Website 28.05.2016/Features.pdf)
+	+ [Parameter - Offline Version vom 28.05.2016](Website 28.05.2016/Parameter.pdf)
++ [User Manual](Dokumentation/User Manual.pdf) (scan vom 28.05.2016)
++ Bilder
+	+ [Vorne](Dokumentation/Vorne.jpg)
+	+ [Hinten](Dokumentation/Hinten.jpg)
+	+ [Seite Links](Dokumentation/Seite Links.jpg)
+	+ [Unten](Dokumentation/Unten.jpg)
+	+ [Druckereinstellungen](Dokumentation/Druckereinstellungen.png)
 
 ###Inbetriebnahme
-1. Installation des Drivers 80MM für 80 mm breites Thermopapier
-2. Installation des Drivers 50MM für 50 mm breites Thermopapier
+1. Installation des Drivers 50MM für 50 mm breites Thermopapier
+2. Installation des Drivers 80MM für 80 mm breites Thermopapier
 3. Pinbelegung des Druckers wie folgt: **1, 3, 5, 6 auf on** der Rest auf off (unabhängig von 50 mm oder 80 mm)  
-    <img src="Fotos/Unten.jpg" width="600" />
+    <img src="Dokumentation/Unten.jpg" width="600" />
 4. Drucker aufdrehen und per USB mit Computer verbinden.
 5. Druckereinstellungen anpassen:  
-    <img src="Druckereinstellungen.png" width="400" />
+    <img src="Dokumentation/Druckereinstellungen.png" width="400" />
 
 ###Erfahrungen
 + Der Drucker kann ohne Probleme auf Windows 10 Version	10.0.10586 Build 10586 installiert werden.
@@ -16,5 +28,6 @@ http://hoinprinter.com/en/download
 + Er kann 80 mm breites Thermopapier bedrucken und genauso 50 mm
 + Am unteren Boden besitzt er "jumper" diese müssen richtig eingestellt werden.
   + Ich konnte kaum eine sinnvolle Variante finden, vorlallem aber wird die Papierbreite dadurch bestimmt welchen Windows treiber man verwendet und nicht welche Pinbelegung aktiv ist.
-  + Trotzdem ist die Pinbelegung wichtig. Erfahrungsgemäß funktionieren beide Treiber mit folgender Pinbelegung: **1,3,5,6 auf** on die anderen auf off
+  + Trotzdem ist die Pinbelegung wichtig. Erfahrungsgemäß funktionieren beide Treiber mit folgender Pinbelegung: **1,3,5,6 auf on** die anderen auf off
 + Leider und das ist ein großer Nachteil ist es nicht möglich von dem Drucker Statusmeldungen nach C# zu delegieren. Bzw war mir das nach 4 stündigem ausprobieren von verschiedenster Tricks nach wie vor nicht möglich.
++ **[WICHTIG]** Beim Installieren des Druckers muss sehr viel ausprobiert werden bezüglich der Driver Installation, neu starts, druckportauswahl... bis der Drucker im 80 mm Modus lauffähig wird.
