@@ -490,7 +490,7 @@
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug goto :Exit
 
-start "" $(SolutionDir)_Anhänge\Software\ReleaseCandidateExporter\ReleaseCandidateExporter.exe
+start "" $(SolutionDir)_Anhänge\Software\BillingToolGitControl\BillingToolGitControl.exe NewRC
 :Exit</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

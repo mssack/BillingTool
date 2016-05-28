@@ -48,7 +48,7 @@ namespace BillingToolGitControl.Control
 		private void AppendToChangelog(string filename)
 		{
 			var txtLines = File.ReadAllLines(filename).ToList(); //Fill a list with the lines from the text file.
-			txtLines.Insert(txtLines.IndexOf("<!--CHANGELOGEND-->"), "* " + ChangelogTextBox.Text.Replace("\r\n", "\n").Split("\n").Join("  \r\n  "));
+			txtLines.Insert(txtLines.IndexOf("[](CHANGELOGEND)"), "* " + ChangelogTextBox.Text.Replace("\r\n", "\n").Split("\n").Join("  \r\n  "));
 			File.WriteAllLines(filename, txtLines);
 		}
 	}

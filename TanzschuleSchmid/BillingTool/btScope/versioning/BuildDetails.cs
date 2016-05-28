@@ -68,7 +68,7 @@ namespace BillingTool.btScope.versioning
 		public string User { get; private set; }
 		/// <summary>Gets the computer which invoked the build.</summary>
 		[Key]
-		public string Computer { get; private set; }
+		public string Machine { get; private set; }
 
 
 

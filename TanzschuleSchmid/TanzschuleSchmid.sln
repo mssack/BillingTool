@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Originale", "Originale", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Releases", "Releases", "{907EB7C1-5FF1-464C-8E06-21AEA6AB338A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingReleaseCandidateExporter", "_BillingReleaseCandidateExporter\_BillingReleaseCandidateExporter.csproj", "{359AF99A-73BF-4E99-901A-780A888353D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_BillingToolGitControl", "_BillingToolGitControl\_BillingToolGitControl.csproj", "{359AF99A-73BF-4E99-901A-780A888353D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
