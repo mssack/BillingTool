@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-27</date>
+// <date>2016-05-28</date>
 
 using System;
 using System.IO;
@@ -35,6 +35,7 @@ namespace BillingTool.btScope.versioning
 				}
 			}
 		}
+
 		/// <summary>Returns the singleton instance</summary>
 		public static BuildDetails LoadFromFile(FileInfo fi)
 		{
@@ -68,5 +69,10 @@ namespace BillingTool.btScope.versioning
 		/// <summary>Gets the computer which invoked the build.</summary>
 		[Key]
 		public string Computer { get; private set; }
+
+
+
+		/// <summary>Gets the name of the current RC.</summary>
+		public string Name => $"RC{ActiveDevNumber}{(GoldNumber == 0 ? "" : "." + GoldNumber)}";
 	}
 }
