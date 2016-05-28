@@ -491,7 +491,8 @@
     <PostBuildEvent>if $(ConfigurationName) == Debug goto :Exit
 
 start "" $(SolutionDir)_Anhänge\Software\BillingToolGitControl\BillingToolGitControl.exe NewRC
-:Exit</PostBuildEvent>
+:Exit
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

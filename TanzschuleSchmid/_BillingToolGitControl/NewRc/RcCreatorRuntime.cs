@@ -56,7 +56,7 @@ namespace BillingToolGitControl.NewRc
 		private void ChangeAnhängeReadme()
 		{
 			var txtLines = File.ReadAllLines(Utils.Paths.Source.AnhängeReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines.Insert(txtLines.IndexOf("####Release Candidates") + 1, $"* [{Utils.BuildDetails.NameWithDate}](_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true)" +
+			txtLines.Insert(txtLines.IndexOf("#####Release Candidates") + 1, $"* [{Utils.BuildDetails.NameWithDate}](_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true)" +
 																			$" (Computer: {Utils.BuildDetails.Machine}, User: {Utils.BuildDetails.User})"
 																			+ (string.IsNullOrEmpty(_messageList) ? "" : "\n\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\n\t* ")));
 			File.WriteAllLines(Utils.Paths.Source.AnhängeReadmeFile, txtLines);
