@@ -65,7 +65,7 @@ namespace BillingToolGitControl.NewRc
 		private void ChangeStartseiteReadme()
 		{
 			var txtLines = File.ReadAllLines(Utils.Paths.Source.StartseiteReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines[txtLines.FindIndex(x=>x.StartsWith("<!--AktuelleVersion-->"))] = $"<!--AktuelleVersion-->Aktuell [{Utils.BuildDetails.NameWithDate}](TanzschuleSchmid/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
+			txtLines[2] = $"Aktuell [{Utils.BuildDetails.NameWithDate}](TanzschuleSchmid/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
 			File.WriteAllLines(Utils.Paths.Source.StartseiteReadmeFile, txtLines);
 		}
 

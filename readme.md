@@ -1,6 +1,6 @@
 #Schmid-Cash
 
-Aktuell im Betrieb [RC72 vom 28.05.2016 um 15:09](TanzschuleSchmid/_Anhänge/_ReleaseCandidates/BillingTool - RC72.zip?raw=true).
+Aktuell im Betrieb [RC66 vom 28.05.2016](_ReleaseCandidates/BillingTool - RC66.zip?raw=true).
 
 #####Wichtige Änderungen
 [](CHANGELOGEND)
