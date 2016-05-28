@@ -41,7 +41,7 @@ namespace BillingTool
 				{
 					try
 					{
-						var mailConfig = Bt.Config.File.Local;
+						var mailConfig = Bt.Config.Local;
 						using (var smtpClient = new SmtpClient
 						{
 							Host = mailConfig.SmtpServer,
