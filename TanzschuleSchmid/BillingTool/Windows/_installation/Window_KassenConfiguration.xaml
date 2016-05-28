@@ -10,7 +10,7 @@
 		HeaderVisibility="Collapsed" Width="550" Height="550" FooterVisibility="Collapsed" AWindowDragMove.IsActive="True" ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen" SizeToContent="Height">
 
-	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung}">
+	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=Local}">
 		<Grid.LayoutTransform>
 			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Path=Scaling}" ScaleY="{Binding Path=Scaling}" />
 		</Grid.LayoutTransform>
@@ -60,7 +60,7 @@
 				</Grid.RowDefinitions>
 				<Param Header="Standarddrucker">
 					<ComboBox ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}" SelectedValuePath="Name" DisplayMemberPath="Name"
-							SelectedValue="{Binding Path=Default_PrinterName}" />
+							SelectedValue="{Binding Path=DefaultPrinter}" />
 				</Param>
 			</Grid>
 		</GroupBox>

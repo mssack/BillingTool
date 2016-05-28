@@ -5,10 +5,10 @@
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:btScope="clr-namespace:BillingTool.btScope"
 			mc:Ignorable="d">
-	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung}">
+	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=Local}">
 		<Param Header="Drucker">
 			<ComboBox ItemsSource="{Binding Source={x:Static CsGlobal.Computer}, Path=Devices.Printers}" SelectedValuePath="Name"
-					SelectedValue="{Binding Path=Default_PrinterName}" DisplayMemberPath="Name"/>
+					SelectedValue="{Binding Path=DefaultPrinter}" DisplayMemberPath="Name"/>
 		</Param>
 	</Grid>
 </UserControl>

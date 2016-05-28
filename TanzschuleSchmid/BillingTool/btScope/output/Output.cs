@@ -7,7 +7,6 @@
 using System;
 using System.Threading.Tasks;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingOutput.btOutputScope;
 using BillingTool._SharedEnumerations;
@@ -47,7 +46,7 @@ namespace BillingTool.btScope.output
 		/// <summary>Processes all <see cref="ProcessingStates.NotProcessed" /> items within the <see cref="BelegData" />.</summary>
 		public Task<Task[]> DoOpenedExportsAsync(BelegData data)
 		{
-			return BtOutput.Process(data, Bt.Config.File.KassenEinstellung).ContinueWith(t =>
+			return BtOutput.Process(data, Bt.Config.Local).ContinueWith(t =>
 			{
 				Bt.Data.SyncChanges();
 				foreach (var task in t.Result)

@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-26</date>
+// <date>2016-05-28</date>
 
 using System;
 using System.IO;
@@ -15,17 +15,17 @@ using CsWpfBase.Utilitys.templates;
 
 
 
-namespace BillingTool.btScope.configuration.configFiles
+namespace BillingTool.btScope.configuration
 {
-	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	// ReSharper disable once InconsistentNaming
-	public sealed class ConfigFile_KassenEinstellung : ConfigFileBase, IContainMailConfiguration
+	public sealed class ConfigFile_Local : ConfigFileBase, IContainMailConfiguration
 	{
-		private static ConfigFile_KassenEinstellung _instance;
+		private static ConfigFile_Local _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static ConfigFile_KassenEinstellung I
+		internal static ConfigFile_Local I
 		{
 			get
 			{
@@ -33,13 +33,13 @@ namespace BillingTool.btScope.configuration.configFiles
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new ConfigFile_KassenEinstellung(CsGlobal.Storage.Private.GetFilePathByName("Kasseneinstellungen")));
+					return _instance ?? (_instance = new ConfigFile_Local(CsGlobal.Storage.Private.GetFilePathByName("Kasseneinstellungen")));
 				}
 			}
 		}
 
 		private string _billingDatabaseFilePath;
-		private string _defaultPrinterName;
+		private string _defaultPrinter;
 		private string _kassenId;
 		private double _scaling = 1.3;
 		private bool _smtpEnableSsl;
@@ -52,14 +52,14 @@ namespace BillingTool.btScope.configuration.configFiles
 		private string _smtpUsername;
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
-		private ConfigFile_KassenEinstellung(FileInfo path) : base(path)
+		private ConfigFile_Local(FileInfo path) : base(path)
 		{
 			Load();
 			CsGlobal.App.OnExit += args => Save();
 		}
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
-		private ConfigFile_KassenEinstellung(Uri packUri) : base(packUri)
+		private ConfigFile_Local(Uri packUri) : base(packUri)
 		{
 		}
 
@@ -139,10 +139,10 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 		/// <summary>Gets or sets the Default_PrinterName.</summary>
 		[Key]
-		public string Default_PrinterName
+		public string DefaultPrinter
 		{
-			get { return _defaultPrinterName; }
-			set { SetProperty(ref _defaultPrinterName, value); }
+			get { return _defaultPrinter; }
+			set { SetProperty(ref _defaultPrinter, value); }
 		}
 
 		/// <summary>Check if all fields which are important are present.</summary>

@@ -65,7 +65,7 @@ namespace BillingTool.btScope
 		/// <summary>Ensures that the configuration is valid and that a database is accessible and functional.</summary>
 		public static void EnsureInitialization()
 		{
-			if (!Config.File.KassenEinstellung.Path.Exists || !Config.File.KassenEinstellung.IsValid)
+			if (!Config.Local.Path.Exists || !Config.Local.IsValid)
 			{
 				if (!Administrator.AskForLicenseAgreement())
 					throw new BillingToolException(BillingToolException.Types.LicenseAgreement_NotAccepted, $"Die Lizenzvereinbarungen wurden nicht akzeptiert.");
@@ -73,12 +73,12 @@ namespace BillingTool.btScope
 
 				var window = new Window_KassenConfiguration();
 				window.ShowDialog();
-				if (!Config.File.KassenEinstellung.IsValid)
+				if (!Config.Local.IsValid)
 					throw new BillingToolException(BillingToolException.Types.No_ValidConfiguration, $"Es wurde keine gültige Datenbankkonfiguration erstellt.");
 			}
 
 
-			var fi = new FileInfo(Config.File.KassenEinstellung.BillingDatabaseFilePath);
+			var fi = new FileInfo(Config.Local.BillingDatabaseFilePath);
 			if (fi.Exists)
 			{
 				InitDb();
@@ -93,7 +93,7 @@ namespace BillingTool.btScope
 			}
 			try
 			{
-				using (var installer = new DatabaseInstaller(Config.File.KassenEinstellung.BillingDatabaseFilePath))
+				using (var installer = new DatabaseInstaller(Config.Local.BillingDatabaseFilePath))
 				{
 					installer.Install();
 				}
@@ -113,11 +113,11 @@ namespace BillingTool.btScope
 		/// <summary>does the startup</summary>
 		public static void Startup(string[] startupArgs)
 		{
-			Config.CommandLine.Interpret(startupArgs);
-			var mode = Config.CommandLine.General.StartupMode;
-			CsGlobal.Message.SetDefaultScaling(Config.File.KassenEinstellung.Scaling);
+			Config.Control.Interpret(startupArgs);
+			var mode = Config.Control.General.StartupMode;
+			CsGlobal.Message.SetDefaultScaling(Config.Local.Scaling);
 
-			if (string.IsNullOrEmpty(Config.CommandLine.NewBelegData.KassenOperator))
+			if (string.IsNullOrEmpty(Config.Control.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
 
 
@@ -156,9 +156,9 @@ namespace BillingTool.btScope
 		/// <summary>gets an indicator whether the database is accessible.</summary>
 		public static bool IsInitialized()
 		{
-			if (!Config.File.KassenEinstellung.Path.Exists || !Config.File.KassenEinstellung.IsValid)
+			if (!Config.Local.Path.Exists || !Config.Local.IsValid)
 				return false;
-			var fi = new FileInfo(Config.File.KassenEinstellung.BillingDatabaseFilePath);
+			var fi = new FileInfo(Config.Local.BillingDatabaseFilePath);
 			if (!fi.Exists)
 				return false;
 			if (!Db.IsConnected())

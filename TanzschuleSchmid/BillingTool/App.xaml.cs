@@ -41,7 +41,7 @@ namespace BillingTool
 				{
 					try
 					{
-						var mailConfig = Bt.Config.File.KassenEinstellung;
+						var mailConfig = Bt.Config.File.Local;
 						using (var smtpClient = new SmtpClient
 						{
 							Host = mailConfig.SmtpServer,
@@ -57,7 +57,7 @@ namespace BillingTool
 								From = new MailAddress(mailConfig.SmtpMailAddress),
 								Subject = $"[BILLINGTOOL].[EXCEPTION] - {args.Exception.Message.CutMiddle()}",
 								IsBodyHtml = false,
-								Body = $"Konfiguration = \"{Bt.Config.CommandLine.CurrentConfiguration}\"\r\n\r\n\r\n{args.Exception}"
+								Body = $"Konfiguration = \"{Bt.Config.Control.Current}\"\r\n\r\n\r\n{args.Exception}"
 							})
 							{
 								message.To.Add("service.christian@sack.at");

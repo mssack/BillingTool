@@ -114,7 +114,7 @@ namespace BillingTool.btScope.functions.data
 
 			var newItem = db.BelegDaten.NewRow();
 
-			newItem.Copy_From_But_Ignore(Bt.Config.Merged.NewBelegData,
+			newItem.Copy_From_But_Ignore(Bt.Config.Control.NewBelegData,
 				BelegDatenTable.IdCol,
 				BelegDatenTable.KassenIdCol,
 				BelegDatenTable.DatumCol,
@@ -130,12 +130,12 @@ namespace BillingTool.btScope.functions.data
 				BelegDatenTable.PrintCountCol,
 				BelegDatenTable.MailCountCol);
 
-			newItem.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
+			newItem.KassenId = Bt.Config.Local.KassenId;
 			newItem.UmsatzZähler = 0;
 			db.BelegDaten.Add(newItem);
 
-			if (Bt.Config.CommandLine.NewBelegData.Postens != null)
-				foreach (var template in Bt.Config.CommandLine.NewBelegData.Postens)
+			if (Bt.Config.Control.NewBelegData.Postens != null)
+				foreach (var template in Bt.Config.Control.NewBelegData.Postens)
 				{
 					var posten = Bt.Data.Posten.GetOrNew_FromTemplate(template);
 					var steuersatz = Bt.Data.Steuersatz.GetOrNew_FromTemplate(template);
@@ -149,11 +149,11 @@ namespace BillingTool.btScope.functions.data
 			newItem.Recalculate_BetragNetto();
 
 
-			if (Bt.Config.Merged.NewBelegData.PrintBeleg)
+			if (Bt.Config.Control.NewBelegData.PrintBeleg)
 				Bt.Data.PrintedBeleg.New(newItem);
-			if (Bt.Config.Merged.NewBelegData.SendBelegTargets != null && Bt.Config.Merged.NewBelegData.SendBelegTargets.Length != 0)
+			if (Bt.Config.Control.NewBelegData.SendBelegTargets != null && Bt.Config.Control.NewBelegData.SendBelegTargets.Length != 0)
 			{
-				foreach (var mailTargets in Bt.Config.Merged.NewBelegData.SendBelegTargets)
+				foreach (var mailTargets in Bt.Config.Control.NewBelegData.SendBelegTargets)
 				{
 					Bt.Data.MailedBeleg.New(newItem, mailTargets);
 				}
@@ -176,8 +176,8 @@ namespace BillingTool.btScope.functions.data
 			var newItem = data.DataSet.BelegDaten.NewRow();
 
 			newItem.Typ = BelegDataTypes.Storno;
-			newItem.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
-			newItem.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
+			newItem.KassenId = Bt.Config.Local.KassenId;
+			newItem.KassenOperator = Bt.Config.Control.NewBelegData.KassenOperator;
 			newItem.StornoBeleg = data;
 			newItem.UmsatzZähler = 0;
 			newItem.Table.Add(newItem);
@@ -204,8 +204,8 @@ namespace BillingTool.btScope.functions.data
 			var newItem = Bt.Db.Billing.BelegDaten.NewRow();
 
 			newItem.Typ = BelegDataTypes.MonatsBon;
-			newItem.KassenId = Bt.Config.File.KassenEinstellung.KassenId;
-			newItem.KassenOperator = Bt.Config.Merged.NewBelegData.KassenOperator;
+			newItem.KassenId = Bt.Config.Local.KassenId;
+			newItem.KassenOperator = Bt.Config.Control.NewBelegData.KassenOperator;
 			newItem.UmsatzZähler = 0;
 			newItem.BonNummerVon = Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastUsedBelegDataNumber == null ? 1 : Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastUsedBelegDataNumber + 1;
 			newItem.BonNummerBis = Bt.Db.Billing.Configurations.DataIntegrity.LastBelegNummer;

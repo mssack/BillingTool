@@ -2,12 +2,13 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-22</date>
+// <date>2016-05-28</date>
 
 using System;
 using System.Linq;
 using System.Windows;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingTool.btScope.configuration.control;
 using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Ev.Public.Extensions;
@@ -17,16 +18,16 @@ using CsWpfBase.Ev.Public.Extensions;
 
 
 
-namespace BillingTool.btScope.configuration.commandLine
+namespace BillingTool.btScope.configuration
 {
-	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
-	public sealed class CommandLines : Base
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	public sealed class Control : Base
 	{
-		private static CommandLines _instance;
+		private static Control _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static CommandLines I
+		internal static Control I
 		{
 			get
 			{
@@ -34,33 +35,33 @@ namespace BillingTool.btScope.configuration.commandLine
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new CommandLines());
+					return _instance ?? (_instance = new Control());
 				}
 			}
 		}
 
-		private string _currentConfiguration;
+		private string _current;
 
-		private CommandLines()
+		private Control()
 		{
 		}
 
-		/// <summary>Gets or sets the CurrentConfiguration.</summary>
-		public string CurrentConfiguration
+		/// <summary>Gets the currently active command.</summary>
+		public string Current
 		{
-			get { return _currentConfiguration; }
-			set { SetProperty(ref _currentConfiguration, value); }
+			get { return _current; }
+			private set { SetProperty(ref _current, value); }
 		}
 
 		/// <summary>
 		///     The <see cref="General" /> sub configuration holds all uncategorize able configurations like <see cref="StartupModes" />, the database location
 		///     and other general configurations.
 		/// </summary>
-		public CommandLine_GeneralSetting General => CommandLine_GeneralSetting.I;
+		public Control_General General => Control_General.I;
 
 
 		/// <summary>The <see cref="NewBelegData" /> sub configuration holds all configurable properties for <see cref="BelegData" />'s like default values.</summary>
-		public CommandLine_NewBelegData NewBelegData => CommandLine_NewBelegData.I;
+		public Control_NewBelegData NewBelegData => Control_NewBelegData.I;
 
 
 		/// <summary>
@@ -69,8 +70,8 @@ namespace BillingTool.btScope.configuration.commandLine
 		/// </summary>
 		public void Interpret(string[] startParams)
 		{
-			CurrentConfiguration = startParams.Join(" ");
-			var concanatedParams = CurrentConfiguration.Replace("//", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "//")).Where(x => !string.IsNullOrEmpty(x)).ToList();
+			Current = startParams.Join(" ");
+			var concanatedParams = Current.Replace("//", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "//")).Where(x => !string.IsNullOrEmpty(x)).ToList();
 			General.Interpret(concanatedParams);
 			NewBelegData.Interpret(concanatedParams);
 		}

@@ -2,12 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-04-15</date>
+// <date>2016-05-28</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.dataset;
 using BillingDataAccess.sqlcedatabases.Router;
-using BillingTool.btScope.configuration.merged;
 using BillingTool.Exceptions;
 using CsWpfBase.Db.models.bases;
 using CsWpfBase.Ev.Objects;
@@ -49,8 +48,8 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     The billing database loaded from <see cref="MergedConfiguration" />. You have to call <see cref="Connect" /> before accessing this property. On
-		///     application exit don't forget to save (<see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
+		///     You have to call <see cref="Connect" /> before accessing this property. On application exit don't forget to save (
+		///     <see cref="CsDbDataSetBase.SaveUnspecific" />) changes. Then close connection.
 		/// </summary>
 		public BillingDatabase Billing
 		{
@@ -84,7 +83,7 @@ namespace BillingTool.btScope.db
 
 			Router.Open();
 			if (!Router.State.IsConnected)
-				throw new BillingToolException(BillingToolException.Types.No_DatabaseConnectionPossible, "Die Verbindung zur Datenbank konnte nicht aufgebaut werden. Siehe innere Exception", Router.State.LastException); 
+				throw new BillingToolException(BillingToolException.Types.No_DatabaseConnectionPossible, "Die Verbindung zur Datenbank konnte nicht aufgebaut werden. Siehe innere Exception", Router.State.LastException);
 		}
 
 
@@ -95,8 +94,8 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     Used to connect to database file specified in <see cref="MergedConfiguration" />. Take care a second call will result in an
-		///     <see cref="InvalidOperationException" />. To ensure connectivity use <see cref="EnsureConnectivity" />.
+		///     Used to connect to database file. Take care a second call will result in an <see cref="InvalidOperationException" />. To ensure connectivity use
+		///     <see cref="EnsureConnectivity" />.
 		/// </summary>
 		private void Connect()
 		{
@@ -104,7 +103,7 @@ namespace BillingTool.btScope.db
 				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.AppOutput)} instead.");
 
 
-			Router = new SqlCeRouter(Bt.Config.File.KassenEinstellung.BillingDatabaseFilePath);
+			Router = new SqlCeRouter(Bt.Config.Local.BillingDatabaseFilePath);
 			Router.Open();
 
 			var billing = new BillingDatabase(); // Just loading the proxy before making it accessible for binding
@@ -114,8 +113,8 @@ namespace BillingTool.btScope.db
 		}
 
 		/// <summary>
-		///     Used to disconnect from database file specified in <see cref="MergedConfiguration" />. DANGER all unsaved files will be lost. Ensure that you
-		///     call at least <see cref="CsDbDataSetBase.SaveUnspecific" /> before call <see cref="Disconnect" />.
+		///     Used to disconnect from database file. DANGER all unsaved files will be lost. Ensure that you call at least
+		///     <see cref="CsDbDataSetBase.SaveUnspecific" /> before call <see cref="Disconnect" />.
 		/// </summary>
 		private void Disconnect()
 		{

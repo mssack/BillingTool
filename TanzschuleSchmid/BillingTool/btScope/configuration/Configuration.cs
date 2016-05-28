@@ -2,12 +2,9 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-03-30</date>
+// <date>2016-05-28</date>
 
 using System;
-using BillingTool.btScope.configuration.commandLine;
-using BillingTool.btScope.configuration.configFiles;
-using BillingTool.btScope.configuration.merged;
 using CsWpfBase.Ev.Objects;
 
 
@@ -17,7 +14,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.configuration
 {
-	/// <summary>The <see cref="Bt.Config" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class Configuration : Base
 	{
 		private static Configuration _instance;
@@ -42,16 +39,13 @@ namespace BillingTool.btScope.configuration
 		}
 
 
-
+		/// <summary>Contains all local (for the current Environment) specific settings. Like mail setting, database path or others.</summary>
+		public ConfigFile_Local Local => ConfigFile_Local.I;
 
 		/// <summary>
-		///     The <see cref="Merged" /> configuration merges the <see cref="File" /> and the <see cref="CommandLine" /> configuration into one valid
-		///     configuration set
+		///     The <see cref="Control" /> scope contains all runtime relevant settings. This settings will manipulate how the user can interact with the
+		///     program. Or this settings can be used to pre-configure informations for the user.
 		/// </summary>
-		public MergedConfiguration Merged => MergedConfiguration.I;
-		/// <summary>The configuration file configuration is the weakest. This configuration will be used if no other configuration is supplied.</summary>
-		public ConfigFiles File => ConfigFiles.I;
-		/// <summary>The command line parameters overrides all configurations done in the <see cref="File" /> configuration.</summary>
-		public CommandLines CommandLine => CommandLines.I;
+		public Control Control => Control.I;
 	}
 }

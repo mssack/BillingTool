@@ -19,11 +19,11 @@ using CsWpfBase.Ev.Public.Extensions;
 
 
 
-namespace BillingTool.btScope.configuration.commandLine
+namespace BillingTool.btScope.configuration.control
 {
-	/// <summary>Used for the command line interpretation of the different <see cref="BelegPosten" /> for an <see cref="BelegData" />.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	// ReSharper disable once InconsistentNaming
-	public class CommandLine_BelegPostenTemplate : Base
+	public class Control_BelegPostenTemplate : Base
 	{
 		/// <summary>Parsing <see cref="Regex" />.</summary>
 		private static readonly Regex ParsingRegex = new Regex("([a-zA-Z].*?)[ \\r\\n]*=[ \\r\\n]*(.*?)[ \\r\\n]*?([;}]|$)");
@@ -34,7 +34,7 @@ namespace BillingTool.btScope.configuration.commandLine
 			{
 				if (_reflectedProperties != null)
 					return _reflectedProperties;
-				_reflectedProperties = typeof (CommandLine_BelegPostenTemplate).GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(x => x.Name, x => x);
+				_reflectedProperties = typeof (Control_BelegPostenTemplate).GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(x => x.Name, x => x);
 				return _reflectedProperties;
 			}
 		}
@@ -46,9 +46,9 @@ namespace BillingTool.btScope.configuration.commandLine
 
 
 		/// <summary>ctor</summary>
-		public CommandLine_BelegPostenTemplate(string command)
+		public Control_BelegPostenTemplate(string controlCommand)
 		{
-			InterpretFrom(command);
+			InterpretFrom(controlCommand);
 		}
 
 		/// <summary>Name for the <see cref="Posten.Name" />.</summary>
@@ -76,6 +76,7 @@ namespace BillingTool.btScope.configuration.commandLine
 			set { SetProperty(ref _anzahl, value); }
 		}
 
+
 		private void InterpretFrom(string command)
 		{
 			_command = command;
@@ -87,14 +88,14 @@ namespace BillingTool.btScope.configuration.commandLine
 		private void SanityCheck()
 		{
 			if (string.IsNullOrEmpty(Name))
-				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(CommandLine_NewBelegData.Postens)}] muss ein Posten einen [{nameof(Name)}] enthalten. Überprüfen Sie '{_command}'");
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(Control_NewBelegData.Postens)}] muss ein Posten einen [{nameof(Name)}] enthalten. Überprüfen Sie '{_command}'");
 		}
 
 		private void SetProperty(string name, string value)
 		{
 			PropertyInfo target;
 			if (!ReflectedProperties.TryGetValue(name, out target))
-				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(CommandLine_NewBelegData.Postens)}] enthält ein Posten ein ungültiges Argument ({name}). Überprüfen Sie '{_command}'");
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(Control_NewBelegData.Postens)}] enthält ein Posten ein ungültiges Argument ({name}). Überprüfen Sie '{_command}'");
 
 			object typedValue;
 			try
@@ -105,7 +106,7 @@ namespace BillingTool.btScope.configuration.commandLine
 			}
 			catch (Exception exc)
 			{
-				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(CommandLine_NewBelegData.Postens)}] enthält ein Posten ein ungültigen Typ bei dem Argument [{name}]. Der Typ des Arguments muss [{target.PropertyType.Name}] sein. Überprüfen Sie '{_command}'", exc);
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(Control_NewBelegData.Postens)}] enthält ein Posten ein ungültigen Typ bei dem Argument [{name}]. Der Typ des Arguments muss [{target.PropertyType.Name}] sein. Überprüfen Sie '{_command}'", exc);
 			}
 			target.SetValue(this, typedValue, null);
 		}

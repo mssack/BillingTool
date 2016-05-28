@@ -6,7 +6,7 @@
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.btScope.configuration.commandLine;
+using BillingTool.btScope.configuration.control;
 using BillingTool.btScope.functions.data.basis;
 
 
@@ -74,7 +74,7 @@ namespace BillingTool.btScope.functions.data
 		}
 
 		/// <summary>Get or creates a <see cref="Steuersatz" /> from the database specified by a template.</summary>
-		public Steuersatz GetOrNew_FromTemplate(CommandLine_BelegPostenTemplate template)
+		public Steuersatz GetOrNew_FromTemplate(Control_BelegPostenTemplate template)
 		{
 			var newItem = Bt.Db.Billing.Steuersätze.FindOrLoad_By_Percent(template.Steuer);
 			if (newItem == null)

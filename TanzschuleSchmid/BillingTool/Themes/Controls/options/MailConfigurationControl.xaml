@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:btScope="clr-namespace:BillingTool.btScope"
              mc:Ignorable="d" >
-	<Grid IsSharedSizeScope="True" DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung}">
+	<Grid IsSharedSizeScope="True" DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=Local}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />

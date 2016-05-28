@@ -87,7 +87,7 @@ namespace BillingTool.Themes.Controls.belegview
 			else
 				OutputFormat = Bt.Db.Billing.OutputFormats.Default_PrintFormat;
 
-			Device = Bt.Config.File.KassenEinstellung.Default_PrinterName;
+			Device = Bt.Config.Local.DefaultPrinter;
 		}
 
 		private void DruckenButtonClicked(object sender, RoutedEventArgs e)

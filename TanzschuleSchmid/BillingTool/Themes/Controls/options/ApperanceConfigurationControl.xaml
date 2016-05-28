@@ -11,7 +11,7 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<StringParam Grid.Row="0" Header="Skalierung" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=File.KassenEinstellung.Scaling, UpdateSourceTrigger=LostFocus}" />
+		<StringParam Grid.Row="0" Header="Skalierung" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=Local.Scaling, UpdateSourceTrigger=LostFocus}" />
 		<DoubleParam Grid.Row="2" Header="Logo Größe" Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Design.HeaderSize}" />
 	</Grid>
 </UserControl>

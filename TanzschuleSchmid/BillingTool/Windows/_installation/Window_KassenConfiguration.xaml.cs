@@ -41,8 +41,8 @@ namespace BillingTool.Windows._installation
 
 		private void NextClick(object sender, RoutedEventArgs e)
 		{
-			if (Bt.Config.File.KassenEinstellung.IsValid)
-				Bt.Config.File.KassenEinstellung.Save();
+			if (Bt.Config.Local.IsValid)
+				Bt.Config.Local.Save();
 
 			using (_managedClose.Activate())
 			{

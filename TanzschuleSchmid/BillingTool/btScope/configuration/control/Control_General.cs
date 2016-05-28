@@ -14,17 +14,17 @@ using CsWpfBase.Ev.Objects;
 
 
 
-namespace BillingTool.btScope.configuration.commandLine
+namespace BillingTool.btScope.configuration.control
 {
-	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	// ReSharper disable once InconsistentNaming
-	public sealed class CommandLine_GeneralSetting : Base
+	public sealed class Control_General : Base
 	{
-		private static CommandLine_GeneralSetting _instance;
+		private static Control_General _instance;
 		private static readonly object SingletonLock = new object();
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static CommandLine_GeneralSetting I
+		internal static Control_General I
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace BillingTool.btScope.configuration.commandLine
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new CommandLine_GeneralSetting());
+					return _instance ?? (_instance = new Control_General());
 				}
 			}
 		}
@@ -40,11 +40,11 @@ namespace BillingTool.btScope.configuration.commandLine
 
 		private StartupModes _startupMode;
 
-		private CommandLine_GeneralSetting()
+		private Control_General()
 		{
 		}
 
-		/// <summary>The mode decides how the application will be started.</summary>
+		/// <summary>The mode decides how the application will be started or which next action will be performed.</summary>
 		public StartupModes StartupMode
 		{
 			get { return _startupMode; }
@@ -53,7 +53,7 @@ namespace BillingTool.btScope.configuration.commandLine
 
 
 		/// <summary>DO NOT USE THIS METHOD. This method is used to interpret the commands into the current properties.</summary>
-		public void Interpret(List<string> commands)
+		internal void Interpret(List<string> commands)
 		{
 			foreach (var item in commands.ToArray())
 			{

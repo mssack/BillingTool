@@ -6,7 +6,7 @@
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingTool.btScope.configuration.commandLine;
+using BillingTool.btScope.configuration.control;
 using BillingTool.btScope.functions.data.basis;
 
 
@@ -58,7 +58,7 @@ namespace BillingTool.btScope.functions.data
 
 
 		/// <summary>Get or creates a <see cref="Posten" /> from the database specified by a template.</summary>
-		public Posten GetOrNew_FromTemplate(CommandLine_BelegPostenTemplate template)
+		public Posten GetOrNew_FromTemplate(Control_BelegPostenTemplate template)
 		{
 			var newItem = Bt.Db.Billing.Postens.FindOrLoad_By_NameAndPreis(template.Name, template.BetragBrutto);
 			if (newItem == null)

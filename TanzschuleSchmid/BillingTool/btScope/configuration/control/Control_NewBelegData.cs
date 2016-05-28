@@ -1,38 +1,44 @@
-Ôªø// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
+// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-27</date>
+// <date>2016-05-28</date>
 
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mail;
+using System.Reflection;
+using System.Text.RegularExpressions;
+using BillingDataAccess.sqlcedatabases.billingdatabase.rowinterfaces;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
-using BillingTool.btScope.configuration._interfaces;
-using CsWpfBase.Global;
-using CsWpfBase.Utilitys.templates;
+using BillingTool.Exceptions;
+using CsWpfBase.Ev.Objects;
 
 
 
 
 
 
-// ReSharper disable InconsistentNaming
-
-namespace BillingTool.btScope.configuration.configFiles
+namespace BillingTool.btScope.configuration.control
 {
-	/// <summary>DO NOT USE THIS CLASS DIRECTLY. Use <see cref="Bt" /> Scope instead.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	// ReSharper disable once InconsistentNaming
-	public sealed class ConfigFile_NewBelegData : ConfigFileBase, IConfig_NewBelegData
+	public sealed class Control_NewBelegData : Base, IBelegData
 	{
-		private static ConfigFile_NewBelegData _instance;
-		private static readonly object SingletonLock = new object();
 		private const string GetErrorMessage = "You cannot get this property. This property is not use able.";
 		private const string SetErrorMessage = "You cannot set this property. This property is not use able.";
+		/// <summary>The prefix which will be used for each configuration part.</summary>
+		private const string ParamPrefix = "NCE";
+		private static Control_NewBelegData _instance;
+		private static readonly object SingletonLock = new object();
+
+
+
 
 
 		/// <summary>Returns the singleton instance</summary>
-		internal static ConfigFile_NewBelegData I
+		internal static Control_NewBelegData I
 		{
 			get
 			{
@@ -40,30 +46,22 @@ namespace BillingTool.btScope.configuration.configFiles
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new ConfigFile_NewBelegData(CsGlobal.Storage.Private.GetFilePathByName("NewBelegData")));
+					return _instance ?? (_instance = new Control_NewBelegData());
 				}
 			}
 		}
 		private string _comment;
-		private string _empf√§nger;
-		private string _empf√§ngerId;
+		private string _empf‰nger;
+		private string _empf‰ngerId;
 		private string _kassenOperator;
+		private Control_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
 		private string[] _sendBelegTargets;
-		private int _typNumber = (int) BelegDataTypes.Undefined;
+		private int _typNumber;
 		private string _zahlungsReferenz;
 		private string _zusatzText;
 
-
-		/// <summary>Creates a new instance by providing the source file path.</summary>
-		private ConfigFile_NewBelegData(FileInfo path) : base(path)
-		{
-			Load();
-			CsGlobal.App.OnExit += args => Save();
-		}
-
-		/// <summary>Creates a new instance by providing the source file path.</summary>
-		private ConfigFile_NewBelegData(Uri packUri) : base(packUri)
+		private Control_NewBelegData()
 		{
 		}
 
@@ -93,8 +91,8 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>UmsatzZ√§hler</c>]</summary>
-		public decimal UmsatzZ√§hler
+		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>UmsatzZ‰hler</c>]</summary>
+		public decimal UmsatzZ‰hler
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
@@ -123,7 +121,7 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { throw new InvalidOperationException(GetErrorMessage); }
 			set { throw new InvalidOperationException(SetErrorMessage); }
 		}
-		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZuletztGe√§ndert</c>]</summary>
+		/// <summary>!!!!NOT EDITABLE - Generated property!!!!     [<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZuletztGe‰ndert</c>]</summary>
 		public DateTime? CommentLastChanged
 		{
 			get { throw new InvalidOperationException(GetErrorMessage); }
@@ -155,18 +153,11 @@ namespace BillingTool.btScope.configuration.configFiles
 		}
 
 
-
-
-
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>TypNumber</c>]</summary>
 		public int TypNumber
 		{
 			get { return _typNumber; }
-			set
-			{
-				if (SetProperty(ref _typNumber, value))
-					OnPropertyChanged(nameof(Typ));
-			}
+			set { SetProperty(ref _typNumber, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>KassenOperator</c>]</summary>
 		public string KassenOperator
@@ -174,23 +165,23 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _kassenOperator; }
 			set { SetProperty(ref _kassenOperator, value); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>BelegText</c>]</summary>
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZusatzText</c>]</summary>
 		public string ZusatzText
 		{
 			get { return _zusatzText; }
 			set { SetProperty(ref _zusatzText, value); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Empf√§nger</c>]</summary>
-		public string Empf√§nger
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Empf‰nger</c>]</summary>
+		public string Empf‰nger
 		{
-			get { return _empf√§nger; }
-			set { SetProperty(ref _empf√§nger, value); }
+			get { return _empf‰nger; }
+			set { SetProperty(ref _empf‰nger, value); }
 		}
-		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Empf√§ngerId</c>]</summary>
-		public string Empf√§ngerId
+		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>Empf‰ngerId</c>]</summary>
+		public string Empf‰ngerId
 		{
-			get { return _empf√§ngerId; }
-			set { SetProperty(ref _empf√§ngerId, value); }
+			get { return _empf‰ngerId; }
+			set { SetProperty(ref _empf‰ngerId, value); }
 		}
 		/// <summary>[<c>BillingDatabase</c>].[<c>BelegDaten</c>].[<c>ZahlungsReferenz</c>]</summary>
 		public string ZahlungsReferenz
@@ -204,32 +195,112 @@ namespace BillingTool.btScope.configuration.configFiles
 			get { return _comment; }
 			set { SetProperty(ref _comment, value); }
 		}
-		/// <summary>If true a new <see cref="PrintedBeleg" /> will be created and printed to a printer.</summary>
-		public bool PrintBeleg
-		{
-			get { return _printBeleg; }
-			set { SetProperty(ref _printBeleg, value); }
-		}
-		/// <summary>The mail targets.</summary>
-		public string[] SendBelegTargets
-		{
-			get { return _sendBelegTargets; }
-			set { SetProperty(ref _sendBelegTargets, value); }
-		}
 		#endregion
 
 
-		/// <summary>The wrapper property for column property <see cref="TypNumber" />.</summary>
-		public BelegDataTypes Typ
+		/// <summary>If true a new <see cref="PrintedBeleg" /> will be created.</summary>
+		public bool PrintBeleg
 		{
-			get
+			get { return _printBeleg; }
+			private set { SetProperty(ref _printBeleg, value); }
+		}
+		/// <summary>The mail targets for a new <see cref="BelegData"/>.</summary>
+		public string[] SendBelegTargets
+		{
+			get { return _sendBelegTargets; }
+			private set { SetProperty(ref _sendBelegTargets, value); }
+		}
+
+
+		/// <summary>The <see cref="Posten"/> are directly correlated to the created <see cref="BelegPosten"/>.</summary>
+		public Control_BelegPostenTemplate[] Postens
+		{
+			get { return _postens; }
+			private set { SetProperty(ref _postens, value); }
+		}
+
+
+		/// <summary>DO NOT USE THIS METHOD. This method is used to interpret the commands into the current properties.</summary>
+		internal void Interpret(List<string> commands)
+		{
+			var compareableDictionary = BelegData.NativeColumnName_To_Property.ToDictionary(x => ParamPrefix.ToLower() + x.Key.Replace(" ", "").ToLower(), x => x.Value);
+
+			foreach (var command in commands.ToArray())
 			{
-				BelegDataTypes val;
-				if (Enum.TryParse(TypNumber.ToString(), true, out val))
-					return val;
-				return BelegDataTypes.Unknown;
+				if (string.IsNullOrEmpty(command))
+					continue;
+
+				var found = false;
+
+				var indexOfFirtsLeerzeichen = command.IndexOf(" ", StringComparison.Ordinal);
+				if (indexOfFirtsLeerzeichen == -1)
+					continue;
+
+				PropertyInfo foundProperty;
+				var param = command.Substring(0, indexOfFirtsLeerzeichen).ToLower();
+				var value = command.Substring(indexOfFirtsLeerzeichen + 1).Trim();
+
+				if (compareableDictionary.TryGetValue(param, out foundProperty))
+				{
+					if (foundProperty.PropertyType == typeof(string))
+						foundProperty.SetValue(this, value, null);
+					else
+						foundProperty.SetValue(this, Convert.ChangeType(value, foundProperty.PropertyType), null);
+					found = true;
+				}
+				else if (param == $"{ParamPrefix}{nameof(PrintBeleg)}".ToLower())
+					PrintBeleg = Convert.ToBoolean(value);
+				else if (param == $"{ParamPrefix}{nameof(SendBelegTargets)}".ToLower())
+					ParseTargetMails(nameof(SendBelegTargets), value);
+				else if (param == $"{ParamPrefix}{nameof(Postens)}".ToLower())
+				{
+					ParsePosten(nameof(Postens), value);
+				}
+
+				if (found)
+					commands.Remove(command);
 			}
-			set { TypNumber = (int) value; }
+		}
+
+		private void ParseTargetMails(string parameterName, string value)
+		{
+			if (value.Length < 2 || value[0] != '{' || value[value.Length - 1] != '}')
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Der parameter[{parameterName}] ist ung¸ltig weil der Wert[{value}] falsch ist.");
+
+			value = value.Substring(1, value.Length - 2);
+			var first = new Regex("(.*?)[ ]*?(?:[,]|$)[ ]*");
+
+			SendBelegTargets = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value.ToString()).Where(x => !string.IsNullOrEmpty(x) && IsValidMailAddress(x)).ToArray();
+		}
+
+		private void ParsePosten(string parameterName, string value)
+		{
+			// FOR TESTING see http://www.regextester.com/
+			if (value.Length < 2 || value[0] != '{' || value[value.Length - 1] != '}')
+				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Der parameter[{parameterName}] ist ung¸ltig weil der Wert[{value}] falsch ist.");
+
+			value = value.Substring(1, value.Length - 2);
+			// find all {...} in {...}, {...}, {...} => if ... contains '}' escape it with '\}'
+			var first = new Regex("\\{(.*?[^\\\\])\\}");
+
+			Postens = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value).Select(x => new Control_BelegPostenTemplate(x)).ToArray();
+		}
+
+		private bool IsValidMailAddress(string emailaddress)
+		{
+			try
+			{
+				// ReSharper disable once ObjectCreationAsStatement
+				new MailAddress(emailaddress);
+				return true;
+			}
+			catch (FormatException)
+			{
+				return false;
+			}
 		}
 	}
+
+
+
 }
