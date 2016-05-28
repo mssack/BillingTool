@@ -6,6 +6,8 @@ Ein Program von Christian Sack. In Zukunft einmal eine Registrierkasse nach dem 
 * [Anhänge](https://github.com/cssack/ProjectSchmid/tree/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge)
 
 ###Downloads:
+* [RC67.2 vom 28.05.2016 11:18](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool - RC67.2.zip)
+	* test
 * [RC67 vom 28.05.2016 11:18](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool - RC67.zip)
 	* test
 * [RC67 vom 28.05.2016 11:18](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/BillingTool - RC67.zip)
