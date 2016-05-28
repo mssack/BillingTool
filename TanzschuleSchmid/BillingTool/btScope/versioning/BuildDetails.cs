@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-27</date>
+// <date>2016-05-28</date>
 
 using System;
 using System.IO;
@@ -35,6 +35,7 @@ namespace BillingTool.btScope.versioning
 				}
 			}
 		}
+
 		/// <summary>Returns the singleton instance</summary>
 		public static BuildDetails LoadFromFile(FileInfo fi)
 		{
@@ -58,15 +59,20 @@ namespace BillingTool.btScope.versioning
 		public DateTime Time { get; private set; }
 		/// <summary>Gets the current build number.</summary>
 		[Key]
-		public int Number { get; private set; }
+		public int ActiveDevNumber { get; private set; }
 		/// <summary>Gets the current build number2 used for Gold Branch manipulation.</summary>
 		[Key]
-		public int Number2 { get; private set; }
+		public int GoldNumber { get; private set; }
 		/// <summary>Gets the user which invoked the build.</summary>
 		[Key]
 		public string User { get; private set; }
 		/// <summary>Gets the computer which invoked the build.</summary>
 		[Key]
 		public string Computer { get; private set; }
+
+
+
+		/// <summary>Gets the name of the current RC.</summary>
+		public string Name => $"RC{ActiveDevNumber}{(GoldNumber == 0 ? "" : "." + GoldNumber)}";
 	}
 }

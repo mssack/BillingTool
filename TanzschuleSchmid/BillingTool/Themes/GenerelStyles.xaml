@@ -58,7 +58,7 @@
 									Text="{Binding Source={x:Static btScope:Bt.Config}, Path=CommandLine.NewBelegData.KassenOperator, StringFormat={}Operator: {0}}"
 									Foreground="DimGray" Margin="5,0,0,0" />
 						<TextBlock Grid.Column="3" Text="powered by Christian Sack" Foreground="DimGray" />
-						<TextBlock Margin="10,0,0,0" Grid.Column="4" Text="{Binding Source={x:Static btScope:Bt.BuildDetails}, Path=Number, StringFormat={}Version: {0:0}}" Foreground="DimGray" />
+						<TextBlock Margin="10,0,0,0" Grid.Column="4" Text="{Binding Source={x:Static btScope:Bt.BuildDetails}, Path=ActiveDevNumber, StringFormat={}Version: {0:0}}" Foreground="DimGray" />
 					</Grid>
 				</DataTemplate>
 			</Setter.Value>

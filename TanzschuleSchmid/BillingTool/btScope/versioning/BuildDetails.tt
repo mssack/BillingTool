@@ -10,11 +10,11 @@
 <#@ output extension=".txt" #>
 
 <#
-	Process p = this.Command("echo asdasd", "cd " + new FileInfo(Host.ResolvePath("BuildDetails.txt")).Directory.FullName, "git branch");
+	Process p = this.Command("cd " + new FileInfo(Host.ResolvePath("BuildDetails.txt")).Directory.FullName, "git branch");
 	string gitResponse = p.StandardOutput.ReadToEnd();
 	p.WaitForExit();
-    int BuildNumber = 0;
-    int BuildNumber2 = 0;
+    int ActiveDevNumber = 0;
+    int GoldNumber = 0;
 	bool isActiveDevelopment = false;
 	bool isGoldDevelopment = false;
 
@@ -32,10 +32,10 @@
 			string argument = split[0].Trim();
 			string value = split[1].Trim();
 
-			if (argument == "Number")
-				BuildNumber = Convert.ToInt32(value);
-			else if (argument == "Number2")
-				BuildNumber2 = Convert.ToInt32(value);
+			if (argument == "ActiveDevNumber")
+				ActiveDevNumber = Convert.ToInt32(value);
+			else if (argument == "GoldNumber")
+				GoldNumber = Convert.ToInt32(value);
 		}
 	}
 	
@@ -55,16 +55,16 @@
 	}
 	if (isActiveDevelopment)
 	{
-		BuildNumber=BuildNumber+1;
-		BuildNumber2 = 0;
+		ActiveDevNumber=ActiveDevNumber+1;
+		GoldNumber = 0;
 	}
 	if (isGoldDevelopment)
-		BuildNumber2 = BuildNumber2 + 1;
+		GoldNumber = GoldNumber + 1;
 
  #>
 Time = <#= DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss") #>
-Number = <#= BuildNumber #>
-Number2 = <#= BuildNumber2 #>
+ActiveDevNumber = <#= ActiveDevNumber #>
+GoldNumber = <#= GoldNumber #>
 User = <#= Environment.UserName #>
 Machine = <#= Environment.MachineName #>
 <#+
