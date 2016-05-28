@@ -26,7 +26,7 @@
 5. Druckereinstellungen anpassen:  
 	+ siehe [Geräteeinstellungen](Dokumentation/Geräteeinstellungen.png)
 	+ siehe [Erweiterte Optionen](Dokumentation/ErweiterteOptionen.png)
-	+ siehe [Erweitert](Dokumentation/ErweiterteOptionen.png)
+	+ siehe [Erweitert](Dokumentation/Erweitert.png)
 
 ###Erfahrungen
 + Der Drucker kann ohne Probleme auf Windows 10 Version	10.0.10586 Build 10586 installiert werden.
