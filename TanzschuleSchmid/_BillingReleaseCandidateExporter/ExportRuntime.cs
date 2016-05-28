@@ -46,7 +46,8 @@ namespace ReleaseCandidateExporter
 
 
 			Zipping();
-			ChangeReadme();
+			ChangeAnhängeReadme();
+			ChangeStartseiteReadme();
 
 			CommitViaCommandline();
 		}
@@ -79,12 +80,19 @@ namespace ReleaseCandidateExporter
 			ZipFile.CreateFromDirectory(Paths.Arc.Folder, Paths.Destination.ZipFile, CompressionLevel.Optimal, false, Encoding.UTF8);
 		}
 
-		private void ChangeReadme()
+		private void ChangeAnhängeReadme()
 		{
-			var txtLines = File.ReadAllLines(Paths.Source.ReadmeFile).ToList(); //Fill a list with the lines from the txt file.
-			txtLines.Insert(txtLines.IndexOf("###Downloads:") + 1, $"* [{BuildDetails.Name} am {BuildDetails.Time.ToString("dd.MM.yyyy u\\m HH:mm")}](https://github.com/cssack/ProjectSchmid/raw/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge/_ReleaseCandidates/{Paths.Destination.ZipFileName})"
+			var txtLines = File.ReadAllLines(Paths.Source.AnhängeReadmeFile).ToList(); //Fill a list with the lines from the text file.
+			txtLines.Insert(txtLines.IndexOf("####Release Candidates") + 1, $"* [{BuildDetails.NameWithDate}](_ReleaseCandidates/{Paths.Destination.ZipFileName}?raw=true)" +
+																			$" (Computer: {BuildDetails.Computer}, User: {BuildDetails.User})"
 																	+ (string.IsNullOrEmpty(_messageList) ? "" : "\n" + "\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\t* ")));
-			File.WriteAllLines(Paths.Source.ReadmeFile, txtLines);
+			File.WriteAllLines(Paths.Source.AnhängeReadmeFile, txtLines);
+		}
+		private void ChangeStartseiteReadme()
+		{
+			var txtLines = File.ReadAllLines(Paths.Source.StartseiteReadmeFile).ToList(); //Fill a list with the lines from the text file.
+			txtLines[2] = $"Aktuell im Betrieb [{BuildDetails.NameWithDate}](TanzschuleSchmid/_Anhänge/_ReleaseCandidates/{Paths.Destination.ZipFileName}?raw=true).";
+			File.WriteAllLines(Paths.Source.StartseiteReadmeFile, txtLines);
 		}
 
 		private void CommitViaCommandline()
@@ -95,8 +103,9 @@ namespace ReleaseCandidateExporter
 					$"cd {Paths.GitRootFolder}",
 					$"git add \"{Paths.Source.BuildDetails}\"",
 					$"git add \"{Paths.Destination.ZipFile}\"",
-					$"git add \"{Paths.Source.ReadmeFile}\"",
-					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.ReadmeFile}\" -m \"New RC = {BuildDetails.Name}\""
+					$"git add \"{Paths.Source.AnhängeReadmeFile}\"",
+					$"git add \"{Paths.Source.StartseiteReadmeFile}\"",
+					$"git commit \"{Paths.Source.BuildDetails}\" \"{Paths.Destination.ZipFile}\" \"{Paths.Source.AnhängeReadmeFile}\" \"{Paths.Source.StartseiteReadmeFile}\" -m \"New Release Candidate => {BuildDetails.Name}\""
 				).Wait();
 		}
 

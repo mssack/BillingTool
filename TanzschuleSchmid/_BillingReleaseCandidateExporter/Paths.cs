@@ -23,7 +23,7 @@ namespace ReleaseCandidateExporter
 	{
 		private const string SolutionName = "TanzschuleSchmid";
 		private const string ProjectName = "BillingTool";
-		private const string ReadmeName = "README.md";
+		private const string ReadmeName = "readme.md";
 		private static string ExecuteableFolder { get; }
 
 
@@ -60,7 +60,8 @@ namespace ReleaseCandidateExporter
 		
 		public static class Source
 		{
-			public static string ReadmeFile => Path.Combine(GitRootFolder, ReadmeName);
+			public static string StartseiteReadmeFile => Path.Combine(GitRootFolder, ReadmeName);
+			public static string AnhängeReadmeFile => Path.Combine(SolutionFolder, "_Anhänge", ReadmeName);
 			public static string SqlCeScripts => Path.Combine(SolutionFolder, $"_BillingDataAccess", $"DatabaseCreation", "SqlCeScripts");
 			public static string SharedEnumerations => Path.Combine(ProjectFolder, $"_SharedEnumerations");
 			public static string IncludedContentFolder => Path.Combine(RcFolder, "_IncludedContent");

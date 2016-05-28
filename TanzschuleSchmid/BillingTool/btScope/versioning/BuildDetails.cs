@@ -74,5 +74,7 @@ namespace BillingTool.btScope.versioning
 
 		/// <summary>Gets the name of the current RC.</summary>
 		public string Name => $"RC{ActiveDevNumber}{(GoldNumber == 0 ? "" : "." + GoldNumber)}";
+		/// <summary>Gets the name of the current RC.</summary>
+		public string NameWithDate => $"{Name} vom {Time.ToString("dd.MM.yyyy u\\m HH:mm")}";
 	}
 }
