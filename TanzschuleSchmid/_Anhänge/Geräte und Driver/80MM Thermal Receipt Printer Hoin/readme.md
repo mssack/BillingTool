@@ -2,10 +2,10 @@
 1. Installation des Drivers 80MM für 80 mm breites Thermopapier
 2. Installation des Drivers 50MM für 50 mm breites Thermopapier
 3. Pinbelegung des Druckers wie folgt: **1, 3, 5, 6 auf on** der Rest auf off (unabhängig von 50 mm oder 80 mm)  
-    <img src="80MM%20Thermal%20Receipt%20Printer%20Hoin/Fotos/Unten.jpg" width="600" />
+    <img src="Fotos/Unten.jpg" width="600" />
 4. Drucker aufdrehen und per USB mit Computer verbinden.
 5. Druckereinstellungen anpassen:  
-    <img src="80MM%20Thermal%20Receipt%20Printer%20Hoin/Druckereinstellungen.png" width="400" />
+    <img src="Druckereinstellungen.png" width="400" />
 
 ###Erfahrungen
 + Der Drucker kann ohne Probleme auf Windows 10 Version	10.0.10586 Build 10586 installiert werden.
