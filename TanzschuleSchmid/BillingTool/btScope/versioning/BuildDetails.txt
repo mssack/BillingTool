@@ -1,4 +1,6 @@
-﻿Time = 2016.05.28 01:52:15
-Number = 66
+﻿
+Time = 2016.05.28 11:27:48
+Number = 68
+Number2 = 0
 User = chris
 Machine = CHRISTIAN-S

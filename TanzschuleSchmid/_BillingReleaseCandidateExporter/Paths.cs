@@ -30,7 +30,7 @@ namespace ReleaseCandidateExporter
 		private static string SolutionFolder => Path.Combine(GitRootFolder, SolutionName);
 		private static string ProjectFolder => Path.Combine(SolutionFolder, ProjectName);
 		private static string RcFolder => Path.Combine(SolutionFolder, "_Anhänge", "_ReleaseCandidates");
-		private static string ArcFolder => Path.Combine(RcFolder, $"RC.{BuildDetails.Number} vom {BuildDetails.Time.ToString("yyyy.MM.dd HH.mm.ss")}");
+		private static string ArcFolder => Path.Combine(RcFolder, $"{Destination.BuildNumber} vom {BuildDetails.Time.ToString("yyyy.MM.dd HH.mm.ss")}");
 
 		public static string GitRootFolder => new DirectoryInfo(ExecuteableFolder).GoUpward_Until(SolutionName).Parent.FullName;
 		public static BuildDetails BuildDetails { get; set; }
@@ -45,7 +45,9 @@ namespace ReleaseCandidateExporter
 		public static class Destination
 		{
 			public static string RcFolder => Paths.RcFolder;
-			public static string ZipFile => Path.Combine(RcFolder, $"BillingTool - RC{BuildDetails.Number}.zip");
+			public static string BuildNumber => $"RC{BuildDetails.Number}{(BuildDetails.Number2 == 0 ? "" : $".{BuildDetails.Number2}")}";
+			public static string ZipFileName => $"BillingTool - {BuildNumber}.zip";
+			public static string ZipFile => Path.Combine(RcFolder, ZipFileName);
 		}
 		public static class Arc
 		{

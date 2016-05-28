@@ -5,18 +5,86 @@
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Threading.Tasks" #>
+<#@ import namespace="System.Diagnostics" #>
 <#@ output extension=".txt" #>
+
 <#
-     int BuildNumber = 0;
-  
+	Process p = this.Command("echo asdasd", "cd " + new FileInfo(Host.ResolvePath("BuildDetails.txt")).Directory.FullName, "git branch");
+	string gitResponse = p.StandardOutput.ReadToEnd();
+	p.WaitForExit();
+    int BuildNumber = 0;
+    int BuildNumber2 = 0;
+	bool isActiveDevelopment = false;
+	bool isGoldDevelopment = false;
+
+
 	using(var f = File.OpenText(Host.ResolvePath("BuildDetails.txt")))
 	{
-		f.ReadLine();
-		BuildNumber = Convert.ToInt32(f.ReadLine().Split('=')[1].Trim());
+		string line = "";
+		while((line = f.ReadLine()) != null)
+		{
+			string[] split = line.Split('=');
+
+			if (split.Length != 2)
+				continue;
+
+			string argument = split[0].Trim();
+			string value = split[1].Trim();
+
+			if (argument == "Number")
+				BuildNumber = Convert.ToInt32(value);
+			else if (argument == "Number2")
+				BuildNumber2 = Convert.ToInt32(value);
+		}
 	}
-	BuildNumber=BuildNumber+1;
+	
+
+	using (StringReader reader = new StringReader(gitResponse))
+	{
+		string line = "";
+		while((line = reader.ReadLine()) != null)
+		{
+			if (!line.StartsWith("*"))
+				continue;
+			if (line.ToLower().Contains("active-development"))
+				isActiveDevelopment = true;
+			if (line.ToLower().Contains("gold"))
+				isGoldDevelopment = true;
+		}
+	}
+	if (isActiveDevelopment)
+	{
+		BuildNumber=BuildNumber+1;
+		BuildNumber2 = 0;
+	}
+	if (isGoldDevelopment)
+		BuildNumber2 = BuildNumber2 + 1;
+
  #>
 Time = <#= DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss") #>
 Number = <#= BuildNumber #>
+Number2 = <#= BuildNumber2 #>
 User = <#= Environment.UserName #>
 Machine = <#= Environment.MachineName #>
+<#+
+	private Process Command(params string[] commands)
+	{
+		var procStartInfo = new ProcessStartInfo
+		{
+			RedirectStandardOutput = true,
+			UseShellExecute = false,
+			WindowStyle = ProcessWindowStyle.Hidden,
+			CreateNoWindow = true,
+
+			FileName = "cmd",
+			Arguments = "/c " + string.Join("&", commands),
+		};
+
+
+		var process = new Process();
+		process.StartInfo = procStartInfo;
+		process.Start();
+		return process;
+	}
+#>

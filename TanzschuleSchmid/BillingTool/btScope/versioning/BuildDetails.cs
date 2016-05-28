@@ -59,6 +59,9 @@ namespace BillingTool.btScope.versioning
 		/// <summary>Gets the current build number.</summary>
 		[Key]
 		public int Number { get; private set; }
+		/// <summary>Gets the current build number2 used for Gold Branch manipulation.</summary>
+		[Key]
+		public int Number2 { get; private set; }
 		/// <summary>Gets the user which invoked the build.</summary>
 		[Key]
 		public string User { get; private set; }
