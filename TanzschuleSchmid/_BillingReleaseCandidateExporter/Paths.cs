@@ -45,7 +45,7 @@ namespace ReleaseCandidateExporter
 		public static class Destination
 		{
 			public static string RcFolder => Paths.RcFolder;
-			public static string BuildNumber => $"RC{BuildDetails.Number}{(BuildDetails.Number2 == 0 ? "" : $".{BuildDetails.Number2}")}";
+			public static string BuildNumber => $"RC{BuildDetails.ActiveDevNumber}{(BuildDetails.GoldNumber == 0 ? "" : $".{BuildDetails.GoldNumber}")}";
 			public static string ZipFileName => $"BillingTool - {BuildNumber}.zip";
 			public static string ZipFile => Path.Combine(RcFolder, ZipFileName);
 		}

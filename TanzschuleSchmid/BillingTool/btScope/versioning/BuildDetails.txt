@@ -1,6 +1,6 @@
 ﻿
-Time = 2016.05.28 11:27:48
-Number = 68
-Number2 = 0
+Time = 28.05.2016 01:52:00
+ActiveDevNumber = 66
+GoldNumber = 0
 User = chris
 Machine = CHRISTIAN-S
