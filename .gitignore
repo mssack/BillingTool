@@ -24,6 +24,7 @@ TanzschuleSchmid/_Anhänge/_ReleaseCandidates/RC.*/
 TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*
 !TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.dll
 !TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.exe
+!TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.vshost.exe
 
 
 # Visual Studio 2015 cache/options directory
