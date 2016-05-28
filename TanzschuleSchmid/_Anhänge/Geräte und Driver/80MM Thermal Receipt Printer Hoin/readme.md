@@ -14,3 +14,4 @@
 + Am unteren Boden besitzt er "jumper" diese müssen richtig eingestellt werden.
   + Ich konnte kaum eine sinnvolle Variante finden, vorlallem aber wird die Papierbreite dadurch bestimmt welchen Windows treiber man verwendet und nicht welche Pinbelegung aktiv ist.
   + Trotzdem ist die Pinbelegung wichtig. Erfahrungsgemäß funktionieren beide Treiber mit folgender Pinbelegung: **1,3,5,6 auf** on die anderen auf off
++ Leider und das ist ein großer Nachteil ist es nicht möglich von dem Drucker Statusmeldungen nach C# zu delegieren. Bzw war mir das nach 4 stündigem ausprobieren von verschiedenster Tricks nach wie vor nicht möglich.
