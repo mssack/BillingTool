@@ -1,17 +1,18 @@
 #HOP-E801 Thermal Receipt Printer
 + [Support Website](http://hoinprinter.com/en/download)
-	+ [Offline Version vom 28.05.2016](Website 28.05.2016/Services&Support.pdf)
+	+ [Services&Support.pdf](Website 28.05.2016/Services&Support.pdf) - Offline Version vom 28.05.2016
 + [Produkt Website](http://hoinprinter.com/en/products/show/Thermal-Receipt-Printer-2)
-	+ [Accessories - Offline Version vom 28.05.2016](Website 28.05.2016/Accessories.pdf)
-	+ [Features - Offline Version vom 28.05.2016](Website 28.05.2016/Features.pdf)
-	+ [Parameter - Offline Version vom 28.05.2016](Website 28.05.2016/Parameter.pdf)
-+ [User Manual](Dokumentation/User Manual.pdf) (scan vom 28.05.2016)
+	+ [Accessories.pdf](Website 28.05.2016/Accessories.pdf) - Offline Version vom 28.05.2016
+	+ [Features.pdf](Website 28.05.2016/Features.pdf) - Offline Version vom 28.05.2016
+	+ [Parameter.pdf](Website 28.05.2016/Parameter.pdf) - Offline Version vom 28.05.2016
++ [User Manual](Dokumentation/User Manual.pdf) - scan vom 28.05.2016
 + Bilder
 	+ [Vorne](Dokumentation/Vorne.jpg)
 	+ [Hinten](Dokumentation/Hinten.jpg)
 	+ [Seite Links](Dokumentation/Seite Links.jpg)
 	+ [Unten](Dokumentation/Unten.jpg)
-	+ [Druckereinstellungen](Dokumentation/Druckereinstellungen.png)
++ Einstellungen
+	+ [Geräteeinstellungen](Dokumentation/Druckereinstellungen.png)
 
 ###Inbetriebnahme
 1. Installation des Drivers 50MM für 50 mm breites Thermopapier
