@@ -6,7 +6,7 @@
 
 ####Modeling SDK for VS2015:
 * Für das automatisierte Versionsnummer generieren beim Builden eines Projektes in Visualstudio.
-* [REQUIRED] sollte auf jeden Fall installiert werden
+* **[REQUIRED]** sollte auf jeden Fall installiert werden
 
 ####tangibleT4EditorPlusModellingToolsVS2015: 
 * Für das verbesserte editieren von T4 Templates, welche für das automatisierte versioning benutzt werden.
