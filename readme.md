@@ -4,6 +4,7 @@ Aktuell im Betrieb [RC66 vom 28.05.2016](_ReleaseCandidates/BillingTool - RC66.z
 
 #####Wichtige Änderungen
 * %appdata%\Kasseneinstellungen.txt -> Aus "Default_PrinterName" wurde "DefaultPrinter" in der neuen Version sollte daher manuell eine Umbenennung erfolgen
+* Implemented CurrentDataVersion in %appdata%/Kasseneinstellungen. Es muss das entsprechende Feld manuell eingefügt werden und mit RC66 befüllt werden
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
