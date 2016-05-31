@@ -7,6 +7,7 @@ Aktuell im Betrieb [RC66 vom 28.05.2016](_ReleaseCandidates/BillingTool - RC66.z
 * Implemented CurrentDataVersion in %appdata%/Kasseneinstellungen. Es muss das entsprechende Feld manuell eingefügt werden und mit RC66 befüllt werden
 * test
 * Datenbank geändert sodass nun die Bildqualität und Größe justiert werden kann
+* Neuer Mail parameter. Der Name hat sich geändert sowie der einzutragende Wert. Ein Betreff, Content kann nun mitgegeben werden.
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
