@@ -297,23 +297,23 @@
 
 				</Grid>
 
-				<Border Grid.Column="1" BorderThickness="1" BorderBrush="DimGray"
+				<Expander Grid.Column="1" BorderThickness="1" IsExpanded="True" Margin="0"
 						Visibility="{Binding ElementName=Control, Path=SampleBelegData, Converter={StaticResource GConv-NullToVisibility}}">
+					<Expander.Header>
+						<TextBlock Text="Vorschau" Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Expander}}, Path=IsExpanded, Converter={StaticResource GConv-BoolVisibility}}" />
+					</Expander.Header>
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
-						<Border Background="LightGray" Padding="5,3,5,3">
-							<TextBlock Text="Vorschau" />
-						</Border>
 						<ScrollViewer Grid.Row="1" Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 							<Border Padding="10" Background="White">
 								<shared:AnyBonVisual Item="{Binding ElementName=Control, Path=SampleBelegData}" OutputFormat="{Binding}" />
 							</Border>
 						</ScrollViewer>
 					</Grid>
-				</Border>
+				</Expander>
 			</Grid>
 		</Border>
 

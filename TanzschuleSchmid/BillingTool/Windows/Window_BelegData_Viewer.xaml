@@ -22,8 +22,8 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<designElements:AcceptButton Content="Neuer Beleg" Click="NeuerBelegClicked" Margin="0" Padding="7,2,7,2"
-											Width="{Binding ElementName=LstView, Path=ActualWidth}" />
+				<designElements:AcceptButton Content="Neuer Beleg" Click="NeuerBelegClicked" Padding="7,5,7,5"
+											Width="{Binding ElementName=LstView, Path=ActualWidth}" IsHighlighted="True" Margin="0,-2,0,-5" />
 				<shared:FromToSelectorControl Grid.Column="2" x:Name="FromToSelector" HorizontalAlignment="Center" />
 
 			</Grid>

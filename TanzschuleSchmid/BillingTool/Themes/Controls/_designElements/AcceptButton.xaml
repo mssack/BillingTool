@@ -3,9 +3,11 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		mc:Ignorable="d" Padding="6,1,6,1" Name="Btn">
+		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+		mc:Ignorable="d" Name="Btn">
 	<Button.Style>
-		<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" >
+		<Style TargetType="designElements:AcceptButton" BasedOn="{StaticResource {x:Type Button}}" >
+			<Setter Property="Padding" Value="6,1,6,1" />
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding ElementName=Btn, Path=IsMouseOver}" Value="True">
 					<Setter Property="Foreground" Value="White" />
@@ -19,6 +21,36 @@
 						</Setter.Value>
 					</Setter>
 				</DataTrigger>
+				<DataTrigger Binding="{Binding ElementName=Btn, Path=IsHighlighted}" Value="True">
+					<Setter Property="Foreground" Value="White" />
+					<Setter Property="BorderBrush" Value="#4A993E" />
+					<Setter Property="Background">
+						<Setter.Value>
+							<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+								<GradientStop Color="#79D858" Offset="0" />
+								<GradientStop Color="#569E3D" Offset="1" />
+							</LinearGradientBrush>
+						</Setter.Value>
+					</Setter>
+				</DataTrigger>
+				<MultiDataTrigger>
+					<MultiDataTrigger.Conditions>
+						<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsHighlighted}" Value="True" />
+						<Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+					</MultiDataTrigger.Conditions>
+					<MultiDataTrigger.Setters>
+						<Setter Property="Foreground" Value="White" />
+						<Setter Property="BorderBrush" Value="#438938" />
+						<Setter Property="Background">
+							<Setter.Value>
+								<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+									<GradientStop Color="#70C651" Offset="0" />
+									<GradientStop Color="#569E3D" Offset="1" />
+								</LinearGradientBrush>
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger.Setters>
+				</MultiDataTrigger>
 			</Style.Triggers>
 		</Style>
 	</Button.Style>

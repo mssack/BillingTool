@@ -292,8 +292,8 @@
 										</Border>
 									</Grid>
 								</designElements:RedBorderBox>
-								<designElements:CancleButton Grid.Row="0" Content="Stornieren" x:Name="PART_StornoButton"
-															Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="7,2,7,2" Margin="0,0,10,10" />
+								<designElements:CancleButton Grid.Row="0" Content="Stornieren" x:Name="PART_StornoButton" IsHighlighted="True"
+															Visibility="{Binding Path=CanBeStorniert, Converter={StaticResource GConv-BoolVisibility}}" Padding="7,6,7,6" Margin="0,0,10,10" />
 								<Expander Grid.Row="1" Header="Rechnungsansicht" IsExpanded="True" Padding="0">
 									<shared:BonPreviewControl Item="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Item}" x:Name="PART_BonPreviewControl" />
 								</Expander>

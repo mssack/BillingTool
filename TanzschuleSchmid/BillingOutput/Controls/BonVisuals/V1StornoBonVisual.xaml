@@ -20,9 +20,9 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
-		<TextBlock Grid.Row="0" TextAlignment="Center" FontSize="20" Text="**** STORNO ****" FontFamily="Consolas"/>
+		<TextBlock Grid.Row="0" TextAlignment="Center" FontSize="20" Text="{Binding ElementName=Uc, Path=Item.StornoBeleg.Nummer, StringFormat={}*** STORNO BON {0} ***}" FontFamily="Consolas"/>
 		<bonVisuals:V1PrintBonVisual Grid.Row="1" Item="{Binding ElementName=Uc, Path=Item}" OutputFormat="{Binding ElementName=Uc, Path=OutputFormat}" Margin="0,10,0,10" />
-		<TextBlock Grid.Row="2" TextAlignment="Center" FontSize="20" Text="**** STORNO ****" FontFamily="Consolas"/>
-		<TextBlock Grid.Row="3"  Text="{Binding ElementName=Uc, Path=Item.Comment, StringFormat={}Begründung: {0}}" FontFamily="Consolas" TextWrapping="Wrap"/>
+		<TextBlock Grid.Row="2" TextAlignment="Center" FontSize="20" Text="{Binding ElementName=Uc, Path=Item.StornoBeleg.Nummer, StringFormat={}*** STORNO BON {0} ***}" FontFamily="Consolas"/>
+		<TextBlock Grid.Row="3"  Text="{Binding ElementName=Uc, Path=Item.Comment, StringFormat={}Begründung: {0}}" FontFamily="Consolas" TextWrapping="Wrap" Margin="0,4,0,0"/>
     </Grid>
 </UserControl>
