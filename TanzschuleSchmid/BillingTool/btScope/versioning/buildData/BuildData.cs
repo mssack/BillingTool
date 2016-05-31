@@ -80,5 +80,7 @@ namespace BillingTool.btScope.versioning.buildData
 		/// <summary>Gets the current build number2 used for Gold Branch manipulation.</summary>
 		[Key]
 		private int GoldNumber { get; set; }
+
+
 	}
 }

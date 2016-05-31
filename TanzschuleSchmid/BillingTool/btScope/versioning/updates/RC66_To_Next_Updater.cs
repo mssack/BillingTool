@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingTool.btScope.configuration;
-using CsWpfBase.Ev.Public.Extensions;
+using CsWpfBase.Global;
 
 
 
@@ -29,17 +29,13 @@ namespace BillingTool.btScope.versioning.updates
 
 		protected override void RunUpdate()
 		{
-
-
-
-			Rename_ParameterField_InFile(KasseneinstellungenFilePath, "Default_PrinterName", "DefaultPrinter");
-			Add_ParameterField_InFile(KasseneinstellungenFilePath, "DataVersion", Bt.Versioning.Build.Version.Name);
-			Rename_File(Path.Combine(KasseneinstellungenFilePath), ConfigFile_LocalSettings.FileName.FullName);
-			Add_Column(OutputFormatsTable.Cols.ImageQuality, "NOT NULL DEFAULT(100)");
-			Add_Column(OutputFormatsTable.Cols.ImageScaling, "NOT NULL DEFAULT(4)");
-
-		
-			Router.ExecuteCommand($"SELECT * FROM {OutputFormatsTable.NativeName}").GetDiagnosticString().SaveAs_Utf8String(new FileInfo("test.txt").In_Desktop_Directory());
+			Parameter.Rename(KasseneinstellungenFilePath, "Default_PrinterName", "DefaultPrinter");
+			Parameter.Add(KasseneinstellungenFilePath, "DataVersion", Bt.Versioning.Build.Version.Name);
+			File.Rename(KasseneinstellungenFilePath, ConfigFile_LocalSettings.FileName.FullName);
+			File.Remove(Path.Combine(CsGlobal.Storage.Private.Directory.FullName, "pc.txt"));
+			File.Remove(Path.Combine(CsGlobal.Storage.Private.Directory.FullName, "NewBelegData.txt"));
+			Database.Column_Add(OutputFormatsTable.Cols.ImageQuality, "NOT NULL DEFAULT(100)");
+			Database.Column_Add(OutputFormatsTable.Cols.ImageScaling, "NOT NULL DEFAULT(4)");
 		}
 		#endregion
 	}

@@ -51,6 +51,15 @@ namespace BillingTool.btScope.versioning
 		/// <summary>Checks if update is necessary and updates the data portion.</summary>
 		public bool DoUpdates()
 		{
+
+			if (ConfigFile_LocalSettings.FileName.Exists && Build.Version < new BuildVersion(Bt.Config.LocalSettings.DataVersion))
+				throw new BillingToolException(BillingToolException.Types.Invalid_DataVersion, $"Sie verwenden eine alte program version! Um die Daten lesen zu können benutzen sie bitte eine Version gleich oder größer {Bt.Config.LocalSettings.DataVersion}.");
+
+			return DoRecursiveUpdates();
+		}
+
+		private bool DoRecursiveUpdates()
+		{
 			var currentDataVersion = GetCurrentDataRc();
 			if (currentDataVersion == null || Build.Version.Equals(currentDataVersion))
 				return false;
@@ -60,10 +69,9 @@ namespace BillingTool.btScope.versioning
 				return false;
 
 			updateForRc.Run();
-			DoUpdates();
+			DoRecursiveUpdates();
 			return true;
 		}
-
 
 		private BuildVersion GetCurrentDataRc()
 		{

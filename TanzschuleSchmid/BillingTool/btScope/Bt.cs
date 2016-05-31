@@ -115,8 +115,6 @@ namespace BillingTool.btScope
 		{
 			Bt.Versioning.DoUpdates();
 
-
-
 			Config.Control.Interpret(startupArgs);
 			var mode = Config.Control.General.StartupMode;
 			CsGlobal.Message.SetDefaultScaling(Config.LocalSettings.Scaling);

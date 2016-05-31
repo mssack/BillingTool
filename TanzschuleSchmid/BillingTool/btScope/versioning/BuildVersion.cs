@@ -18,6 +18,20 @@ namespace BillingTool.btScope.versioning
 	public class BuildVersion : Base
 	{
 
+		public static bool operator >(BuildVersion x, BuildVersion y)
+		{
+			if (Equals(x, null) || Equals(y, null))
+				throw new InvalidOperationException();
+			return (x.ActiveDevelopment > y.ActiveDevelopment) || (x.ActiveDevelopment == y.ActiveDevelopment && x.Gold > y.Gold);
+		}
+
+		public static bool operator <(BuildVersion x, BuildVersion y)
+		{
+			if (x == null || y == null)
+				throw new InvalidOperationException();
+			return (x.ActiveDevelopment < y.ActiveDevelopment) || (x.ActiveDevelopment == y.ActiveDevelopment && x.Gold < y.Gold);
+		}
+
 		private static Exception GetException(string value)
 		{
 			throw new Exception($"Der Text '{value}' kann nicht in einen typeof({nameof(BuildVersion)}) umgewandelt werden.");
@@ -26,6 +40,13 @@ namespace BillingTool.btScope.versioning
 		/// <summary>parses from name.</summary>
 		public BuildVersion(string name)
 		{
+			if (name == null)
+			{
+				Gold = -1;
+				ActiveDevelopment = -1;
+				return;
+			}
+
 			var originalValue = name;
 			if (string.IsNullOrEmpty(name))
 				throw GetException(originalValue);
@@ -82,6 +103,10 @@ namespace BillingTool.btScope.versioning
 				return (Gold*397) ^ ActiveDevelopment;
 			}
 		}
+
+
+		/// <summary>Returns the name of the type.</summary>
+		public override string ToString() => Name;
 		#endregion
 
 
@@ -97,10 +122,6 @@ namespace BillingTool.btScope.versioning
 
 		/// <summary>Gets the name of the current RC.</summary>
 		public string Name => $"RC{ActiveDevelopment}{(Gold == 0 ? "" : "." + Gold)}";
-
-
-		/// <summary>Returns the name of the type.</summary>
-		public override string ToString() => Name;
 
 		/// <summary>compares with <paramref name="activeDevelopment" /> and <paramref name="gold" /> params.</summary>
 		public bool Equals(int activeDevelopment, int gold)

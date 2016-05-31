@@ -35,12 +35,16 @@ namespace BillingTool.btScope.versioning.updates
 			return null;
 		}
 
-		private readonly HashSet<string> _backupFiles = new HashSet<string>();
 		private readonly DirectoryInfo _backupDirectory;
+
+		private readonly HashSet<string> _backupFiles = new HashSet<string>();
 		private SqlCeRouter _router;
 
 		protected UpdateBase()
 		{
+			Database = new WrapperDatabase(this);
+			Parameter = new WrapperParameter(this);
+			File = new WrapperFile(this);
 			_backupDirectory = new DirectoryInfo(Path.Combine(CsGlobal.Storage.Private.Directory.FullName, "Update-Backups", GetType().Name));
 		}
 
@@ -59,7 +63,7 @@ namespace BillingTool.btScope.versioning.updates
 				if (_router == null)
 				{
 					Bt.Config.LocalSettings.Load();
-					if (!File.Exists(Bt.Config.LocalSettings.BillingDatabaseFilePath))
+					if (!System.IO.File.Exists(Bt.Config.LocalSettings.BillingDatabaseFilePath))
 						return null;
 					AddBackupFile(Bt.Config.LocalSettings.BillingDatabaseFilePath);
 					_router = new SqlCeRouter(Bt.Config.LocalSettings.BillingDatabaseFilePath);
@@ -69,17 +73,16 @@ namespace BillingTool.btScope.versioning.updates
 			}
 		}
 
+		protected internal WrapperFile File { get; }
+		protected internal WrapperParameter Parameter { get; }
+		protected internal WrapperDatabase Database { get; }
+
 		public void Run()
 		{
-			var result = CsGlobal.Message.Push("Sie führen ein Datenupdate aus. Nachdem Sie dieses Update ausgeführt haben, können Sie das Programm nicht mehr mit der alten Version benutzen. Wollen Sie fortfahren?", CsMessage.Types.Warning, "Datenupdate steht bevor", CsMessage.MessageButtons.YesNo);
-
-			if (result == CsMessage.MessageResults.No)
-				throw new BillingToolException(BillingToolException.Types.Invalid_DataVersion, "Der Updatevorgang wurde abgebrochen das Programm muss beendet werden.");
-
 			try
 			{
 				RunUpdate();
-				Update_Parameter_DataVersion();
+				Parameter.Update(ConfigFile_LocalSettings.FileName.FullName, nameof(ConfigFile_LocalSettings.DataVersion), TargetDataVersion ?? Bt.Versioning.Build.Version.Name);
 				Bt.Config.LocalSettings.Load();
 			}
 			finally
@@ -88,7 +91,7 @@ namespace BillingTool.btScope.versioning.updates
 			}
 		}
 
-		protected void AddBackupFile(string file)
+		private void AddBackupFile(string file)
 		{
 			if (_backupFiles.Contains(file))
 				return;
@@ -99,51 +102,100 @@ namespace BillingTool.btScope.versioning.updates
 			_backupFiles.Add(file);
 		}
 
-		protected void Rename_File(string oldFileName, string newFileName)
+
+
+		protected internal class WrapperFile
 		{
-			var fi = new FileInfo(oldFileName);
+			private readonly UpdateBase _owner;
 
-			if (!fi.Exists)
-				return;
+			public WrapperFile(UpdateBase owner)
+			{
+				_owner = owner;
+			}
 
-			AddBackupFile(oldFileName);
-			fi.MoveTo(newFileName);
+			public void Remove(string fileName)
+			{
+				var fi = new FileInfo(fileName);
+
+				if (!fi.Exists)
+					return;
+
+				_owner.AddBackupFile(fileName);
+				fi.Delete();
+			}
+
+			public void Rename(string oldFileName, string newFileName)
+			{
+				var fi = new FileInfo(oldFileName);
+
+				if (!fi.Exists)
+					return;
+
+				_owner.AddBackupFile(oldFileName);
+				fi.MoveTo(newFileName);
+			}
 		}
 
-		protected void Rename_ParameterField_InFile(string file, string oldParamName, string newParamName)
+
+
+		protected internal class WrapperParameter
 		{
-			var fi = new FileInfo(file);
+			private readonly UpdateBase _owner;
 
-			if (!fi.Exists)
-				return;
+			public WrapperParameter(UpdateBase owner)
+			{
+				_owner = owner;
+			}
 
-			AddBackupFile(file);
-			Regex.Replace(fi.LoadAs_UTF8String(), $"{oldParamName}.*?=", $"{newParamName} =").SaveAs_Utf8String(fi);
+			public void Rename(string file, string oldParamName, string newParamName)
+			{
+				var fi = new FileInfo(file);
+
+				if (!fi.Exists)
+					return;
+
+				_owner.AddBackupFile(file);
+				Regex.Replace(fi.LoadAs_UTF8String(), $"{oldParamName}.*?=", $"{newParamName} =").SaveAs_Utf8String(fi);
+			}
+
+			public void Add(string file, string paramName, string value)
+			{
+				var fi = new FileInfo(file);
+
+				if (!fi.Exists)
+					return;
+
+				_owner.AddBackupFile(file);
+				(fi.LoadAs_UTF8String() + $"\r\n{paramName} = {value}").SaveAs_Utf8String(fi);
+
+			}
+
+			public void Update(string filename, string name, string value)
+			{
+				var fi = new FileInfo(filename);
+
+				if (!fi.Exists)
+					return;
+
+				Regex.Replace(fi.LoadAs_UTF8String(), $"{name}\\s*?=.*", $"{name} = {value}").SaveAs_Utf8String(fi);
+			}
 		}
 
-		protected void Add_ParameterField_InFile(string file, string paramName, string value)
+
+
+		protected internal class WrapperDatabase
 		{
-			var fi = new FileInfo(file);
+			private readonly UpdateBase _owner;
 
-			if (!fi.Exists)
-				return;
+			public WrapperDatabase(UpdateBase owner)
+			{
+				_owner = owner;
+			}
 
-			AddBackupFile(file);
-			(fi.LoadAs_UTF8String() + $"\r\n{paramName} = {value}").SaveAs_Utf8String(fi);
-		}
-
-		protected void Update_Parameter_DataVersion()
-		{
-			var fi = ConfigFile_LocalSettings.FileName;
-
-			if (!fi.Exists)
-				return;
-
-			Regex.Replace(fi.LoadAs_UTF8String(), $"{nameof(ConfigFile_LocalSettings.DataVersion)}\\s*?=.*", $"{nameof(ConfigFile_LocalSettings.DataVersion)} = {TargetDataVersion ?? Bt.Versioning.Build.Version.Name}").SaveAs_Utf8String(fi);
-		}
-		protected void Add_Column(CsDbNativeDataColumnAttribute attribute, string modifier = "")
-		{
-			Router?.ExecuteNonQuery($"ALTER TABLE [{attribute.Table}] ADD COLUMN  [{attribute.Name}] {attribute.Type} {modifier}");
+			public void Column_Add(CsDbNativeDataColumnAttribute attribute, string modifier = "")
+			{
+				_owner.Router?.ExecuteNonQuery($"ALTER TABLE [{attribute.Table}] ADD COLUMN  [{attribute.Name}] {attribute.Type} {modifier}");
+			}
 		}
 	}
 }
