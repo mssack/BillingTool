@@ -61,7 +61,7 @@ namespace BillingOutput.Controls._shared
 			if (OutputFormat != null)
 				DisplayFormat = OutputFormat;
 
-			else if (Item.Typ.IsNormalBon())
+			else if (Item.Typ.IsNormalBon() || Item.Typ == BelegDataTypes.Unknown)
 				DisplayFormat = Item.DataSet.OutputFormats.Default_PrintFormat;
 			else if (Item.Typ == BelegDataTypes.Storno)
 				DisplayFormat = Item?.DataSet.OutputFormats.Default_StornoFormat;
