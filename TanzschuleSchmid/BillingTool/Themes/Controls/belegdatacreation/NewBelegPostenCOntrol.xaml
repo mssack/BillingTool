@@ -21,10 +21,11 @@
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Int32Param Header="{StaticResource Bez-BelegPosten-Anzahl}" Value="{Binding Path=Anzahl}" Minimum="1" />
 		<Param Grid.Row="1" Header="{StaticResource Bez-Posten-Name}">
-			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Postens.Collection}" SelectedItem="{Binding Path=Posten}">
+			<ComboBoxWithNewButton x:Name="PostenComboBox" ItemsSource="{Binding Path=SortedPosten}" SelectedItem="{Binding Path=Posten}" NewClicked="PostenComboBox_OnNewClicked">
 				<ComboBox.ItemTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
 						<TextBlock>
@@ -37,9 +38,9 @@
 						</TextBlock>
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
-			</ComboBox>
+			</ComboBoxWithNewButton>
 		</Param>
-		<Param Grid.Row="2" Header="{StaticResource Bez-BelegPosten-Steuersatz}">
+		<Param Grid.Row="3" Header="{StaticResource Bez-BelegPosten-Steuersatz}">
 			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Steuersätze.Collection}" SelectedItem="{Binding Path=Steuersatz}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:Steuersatz}">
@@ -56,14 +57,14 @@
 			</ComboBox>
 		</Param>
 		
-		<Grid Grid.Row="3" Margin="0,10,0,0">
+		<Grid Grid.Row="4" Margin="0,10,0,0">
 
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<designElements:AcceptButton Content="Erstellen" Click="ErstellenClick" />
+			<designElements:AcceptButton Content="Erstellen" Click="ErstellenClick" IsEnabled="{Binding Path=Posten, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
 		</Grid>
 	</Grid>
 </UserControl>

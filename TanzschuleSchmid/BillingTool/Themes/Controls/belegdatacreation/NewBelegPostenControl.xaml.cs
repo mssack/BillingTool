@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-09</date>
+// <date>2016-05-31</date>
 
 using System;
 using System.Linq;
@@ -12,7 +12,10 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope;
+using CsWpfBase.Db.models.helper;
 using CsWpfBase.Ev.Public.Extensions;
+using CsWpfBase.Global;
+using CsWpfBase.Themes.Controls.Basics;
 
 
 
@@ -31,27 +34,33 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 		public static readonly DependencyProperty PostenProperty = DependencyProperty.Register("Posten", typeof(Posten), typeof(NewBelegPostenControl), new FrameworkPropertyMetadata {DefaultValue = default(Posten), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty SteuersatzProperty = DependencyProperty.Register("Steuersatz", typeof(Steuersatz), typeof(NewBelegPostenControl), new FrameworkPropertyMetadata {DefaultValue = default(Steuersatz), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(NewBelegPostenControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+
+
+		public static readonly DependencyProperty SortedPostenProperty = DependencyProperty.Register("SortedPosten", typeof(ContractCollection<Posten>), typeof(NewBelegPostenControl), new FrameworkPropertyMetadata {DefaultValue = default(ContractCollection<Posten>), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
 		/// <summary>ctor</summary>
 		public NewBelegPostenControl()
 		{
+			SortedPosten = Bt.Db.Billing.Postens.CreateContractCollection(posten => true);
+			SortedPosten.SortDesc(posten => posten.LastUsedDate);
+			Posten = SortedPosten.Count == 0 ? null : SortedPosten[0];
 			InitializeComponent();
 			Loaded += NewBelegPostenControl_Loaded;
+
 		}
 
-		private void NewBelegPostenControl_Loaded(object sender, RoutedEventArgs e)
+		public ContractCollection<Posten> SortedPosten
 		{
-			Reset();
+			get { return (ContractCollection<Posten>) GetValue(SortedPostenProperty); }
+			set { SetValue(SortedPostenProperty, value); }
 		}
-
 		public BelegData Item
 		{
 			get { return (BelegData) GetValue(ItemProperty); }
 			set { SetValue(ItemProperty, value); }
 		}
-
 		public int Anzahl
 		{
 			get { return (int) GetValue(AnzahlProperty); }
@@ -68,6 +77,11 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 			set { SetValue(SteuersatzProperty, value); }
 		}
 
+		private void NewBelegPostenControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			Reset();
+		}
+
 		private void Reset()
 		{
 			Bt.EnsureInitialization();
@@ -78,12 +92,20 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 
 
 			Anzahl = 1;
-			Posten = Bt.Db.Billing.Postens.OrderByDescending(x=>x.LastUsedDate).FirstOrDefault();
+			Posten = Bt.Db.Billing.Postens.OrderByDescending(x => x.LastUsedDate).FirstOrDefault();
 			Steuersatz = Bt.Db.Billing.Steuersätze.OrderByDescending(x => x.LastUsedDate).FirstOrDefault();
 		}
 
 		private void ErstellenClick(object sender, RoutedEventArgs e)
 		{
+			if (Posten == null)
+			{
+				var text = PostenComboBox.Text;
+				Posten = Bt.Data.Posten.New();
+				Posten.Name = text;
+			}
+
+
 			var item = Item.Postens.FirstOrDefault(x => x.Posten == Posten && x.Steuersatz == Steuersatz);
 			if (item != null)
 			{
@@ -102,6 +124,12 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 			Reset();
 
 			this.GetParentByCondition<Popup>(p => true).IsOpen = false;
+		}
+		
+
+		private void PostenComboBox_OnNewClicked(ComboBoxWithNewButton obj)
+		{
+			
 		}
 	}
 }

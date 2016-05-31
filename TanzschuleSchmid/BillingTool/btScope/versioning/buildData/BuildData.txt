@@ -1,5 +1,5 @@
-﻿Time = 2016.05.31 19:52:17
-ActiveDevNumber = 126
+﻿Time = 2016.05.31 21:11:41
+ActiveDevNumber = 140
 GoldNumber = 0
 User = chris
 Machine = CHRISTIAN-S
