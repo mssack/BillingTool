@@ -111,4 +111,5 @@ namespace BillingTool.btScope.configuration.control
 			target.SetValue(this, typedValue, null);
 		}
 	}
+
 }

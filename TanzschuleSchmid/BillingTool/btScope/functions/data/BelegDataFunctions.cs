@@ -151,9 +151,9 @@ namespace BillingTool.btScope.functions.data
 
 			if (Bt.Config.Control.NewBelegData.PrintBeleg)
 				Bt.Data.PrintedBeleg.New(newItem);
-			if (Bt.Config.Control.NewBelegData.SendBelegTargets != null && Bt.Config.Control.NewBelegData.SendBelegTargets.Length != 0)
+			if (Bt.Config.Control.NewBelegData.Mails != null && Bt.Config.Control.NewBelegData.Mails.Length != 0)
 			{
-				foreach (var mailTargets in Bt.Config.Control.NewBelegData.SendBelegTargets)
+				foreach (var mailTargets in Bt.Config.Control.NewBelegData.Mails)
 				{
 					Bt.Data.MailedBeleg.New(newItem, mailTargets);
 				}

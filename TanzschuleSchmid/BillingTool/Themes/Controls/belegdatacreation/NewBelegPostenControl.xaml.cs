@@ -43,9 +43,6 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 		/// <summary>ctor</summary>
 		public NewBelegPostenControl()
 		{
-			SortedPosten = Bt.Db.Billing.Postens.CreateContractCollection(posten => true);
-			SortedPosten.SortDesc(posten => posten.LastUsedDate);
-			Posten = SortedPosten.Count == 0 ? null : SortedPosten[0];
 			InitializeComponent();
 			Loaded += NewBelegPostenControl_Loaded;
 
@@ -79,6 +76,8 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 
 		private void NewBelegPostenControl_Loaded(object sender, RoutedEventArgs e)
 		{
+			SortedPosten = Bt.Db.Billing.Postens.CreateContractCollection(posten => true);
+			SortedPosten.SortDesc(posten => posten.LastUsedDate);
 			Reset();
 		}
 
@@ -92,7 +91,7 @@ namespace BillingTool.Themes.Controls.belegdatacreation
 
 
 			Anzahl = 1;
-			Posten = Bt.Db.Billing.Postens.OrderByDescending(x => x.LastUsedDate).FirstOrDefault();
+			Posten = SortedPosten.Count == 0 ? null : SortedPosten[0];
 			Steuersatz = Bt.Db.Billing.Steuersätze.OrderByDescending(x => x.LastUsedDate).FirstOrDefault();
 		}
 

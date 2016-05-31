@@ -59,6 +59,7 @@
     <Compile Include="btScope\Bt.cs" />
     <Compile Include="btScope\configuration\control\Control_BelegPostenTemplate.cs" />
     <Compile Include="btScope\configuration\control\Control_General.cs" />
+    <Compile Include="btScope\configuration\control\Control_MailTemplate.cs" />
     <Compile Include="btScope\configuration\control\Control_NewBelegData.cs" />
     <Compile Include="btScope\configuration\Control.cs" />
     <Compile Include="btScope\configuration\ConfigFile_LocalSettings.cs" />

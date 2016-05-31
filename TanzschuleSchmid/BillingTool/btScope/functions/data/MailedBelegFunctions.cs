@@ -5,8 +5,10 @@
 // <date>2016-05-09</date>
 
 using System;
+using System.Linq;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
+using BillingTool.btScope.configuration.control;
 using BillingTool.btScope.functions.data.basis;
 
 
@@ -56,6 +58,20 @@ namespace BillingTool.btScope.functions.data
 		#endregion
 
 
+		/// <summary>Appends a new <see cref="MailedBeleg" /> to the <paramref name="data" />.</summary>
+		public MailedBeleg New(BelegData data, Control_MailTemplate mailTemplate)
+		{
+			var newItem = data.DataSet.MailedBelege.NewRow();
+			newItem.ProcessingState = ProcessingStates.NotProcessed;
+			newItem.BelegData = data;
+			newItem.TargetMailAddress = mailTemplate.Address;
+			newItem.Betreff = mailTemplate.Betreff??data.DataSet.Configurations.Default.MailBetreff;
+			newItem.Text = mailTemplate.Text?? data.DataSet.Configurations.Default.MailText;
+			newItem.OutputFormat = string.IsNullOrEmpty(mailTemplate.OutputFormat)?data.DataSet.OutputFormats.Default_MailFormat:(data.DataSet.OutputFormats.FirstOrDefault(x=>x.Name.ToLower() == mailTemplate.OutputFormat)?? data.DataSet.OutputFormats.Default_MailFormat);
+			newItem.Table.Add(newItem);
+			NonFinalized_Add(newItem);
+			return newItem;
+		}
 		/// <summary>Appends a new <see cref="MailedBeleg" /> to the <paramref name="data" />.</summary>
 		public MailedBeleg New(BelegData data, string targetMailAddress)
 		{

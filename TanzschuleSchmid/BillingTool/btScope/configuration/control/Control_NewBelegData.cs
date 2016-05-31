@@ -56,7 +56,6 @@ namespace BillingTool.btScope.configuration.control
 		private string _kassenOperator;
 		private Control_BelegPostenTemplate[] _postens;
 		private bool _printBeleg;
-		private string[] _sendBelegTargets;
 		private int _typNumber;
 		private string _zahlungsReferenz;
 		private string _zusatzText;
@@ -204,12 +203,6 @@ namespace BillingTool.btScope.configuration.control
 			get { return _printBeleg; }
 			private set { SetProperty(ref _printBeleg, value); }
 		}
-		/// <summary>The mail targets for a new <see cref="BelegData"/>.</summary>
-		public string[] SendBelegTargets
-		{
-			get { return _sendBelegTargets; }
-			private set { SetProperty(ref _sendBelegTargets, value); }
-		}
 
 
 		/// <summary>The <see cref="Posten"/> are directly correlated to the created <see cref="BelegPosten"/>.</summary>
@@ -218,7 +211,13 @@ namespace BillingTool.btScope.configuration.control
 			get { return _postens; }
 			private set { SetProperty(ref _postens, value); }
 		}
-
+		private Control_MailTemplate[] _mails;
+		///<summary>Gets or sets the Mails.</summary>
+		public Control_MailTemplate[] Mails
+		{
+			get { return _mails; }
+			set { SetProperty(ref _mails, value); }
+		}
 
 		/// <summary>DO NOT USE THIS METHOD. This method is used to interpret the commands into the current properties.</summary>
 		internal void Interpret(List<string> commands)
@@ -250,27 +249,27 @@ namespace BillingTool.btScope.configuration.control
 				}
 				else if (param == $"{ParamPrefix}{nameof(PrintBeleg)}".ToLower())
 					PrintBeleg = Convert.ToBoolean(value);
-				else if (param == $"{ParamPrefix}{nameof(SendBelegTargets)}".ToLower())
-					ParseTargetMails(nameof(SendBelegTargets), value);
+				else if (param == $"{ParamPrefix}{nameof(Mails)}".ToLower())
+					ParseMails(nameof(Mails), value);
 				else if (param == $"{ParamPrefix}{nameof(Postens)}".ToLower())
-				{
 					ParsePosten(nameof(Postens), value);
-				}
 
 				if (found)
 					commands.Remove(command);
 			}
 		}
 
-		private void ParseTargetMails(string parameterName, string value)
+		private void ParseMails(string parameterName, string value)
 		{
 			if (value.Length < 2 || value[0] != '{' || value[value.Length - 1] != '}')
 				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Der parameter[{parameterName}] ist ungültig weil der Wert[{value}] falsch ist.");
 
 			value = value.Substring(1, value.Length - 2);
-			var first = new Regex("(.*?)[ ]*?(?:[,]|$)[ ]*");
+			// find all {...} in {...}, {...}, {...} => if ... contains '}' escape it with '\}'
+			var first = new Regex("\\{(.*?[^\\\\])\\}", RegexOptions.Singleline);
 
-			SendBelegTargets = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value.ToString()).Where(x => !string.IsNullOrEmpty(x) && IsValidMailAddress(x)).ToArray();
+			var enumerable = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value);
+			Mails = enumerable.Select(x=> new Control_MailTemplate(x)).Where(x=>IsValidMailAddress(x.Address)).ToArray();
 		}
 
 		private void ParsePosten(string parameterName, string value)
@@ -281,11 +280,10 @@ namespace BillingTool.btScope.configuration.control
 
 			value = value.Substring(1, value.Length - 2);
 			// find all {...} in {...}, {...}, {...} => if ... contains '}' escape it with '\}'
-			var first = new Regex("\\{(.*?[^\\\\])\\}");
+			var first = new Regex("\\{(.*?[^\\\\])\\}", RegexOptions.Singleline) ;
 
 			Postens = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value).Select(x => new Control_BelegPostenTemplate(x)).ToArray();
 		}
-
 		private bool IsValidMailAddress(string emailaddress)
 		{
 			try
@@ -299,6 +297,7 @@ namespace BillingTool.btScope.configuration.control
 				return false;
 			}
 		}
+
 	}
 
 
