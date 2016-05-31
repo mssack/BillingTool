@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" Padding="10"
-        Title="GIT Control" Height="300" Width="600" FooterVisibility="Collapsed" WindowStartupLocation="CenterScreen" Topmost="True" Scale="1.2">
+        Title="GIT Control" Height="350" Width="600" FooterVisibility="Collapsed" WindowStartupLocation="CenterScreen" Topmost="True" Scale="1.2">
 
 	<CsWindow.Resources>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Standard.xaml" />
@@ -33,7 +33,7 @@
 			</Grid>
 		</Expander>
 		<Expander Grid.Row="1" Header="Testumgebung" IsExpanded="True">
-			<UniformGrid HorizontalAlignment="Left" MinWidth="200">
+			<UniformGrid >
 				<Button Content="Debug" Click="GenerateDebugTestingEnvironment"/>
 				<Button Content="Release" Click="GenerateReleaseTestingEnvironment"/>
 			</UniformGrid>

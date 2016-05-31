@@ -27,6 +27,8 @@ namespace BillingToolGitControl.Control
 			InitializeComponent();
 		}
 
+		private string ChangelogText => ChangelogTextBox.Text.Replace("\r\n", "\n").Split("\n").Join("  \r\n  ");
+
 		private void GenerateReleaseTestingEnvironment(object sender, RoutedEventArgs e)
 		{
 			var targetFolder = Path.Combine(Utils.Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
@@ -46,16 +48,15 @@ namespace BillingToolGitControl.Control
 		private void AppendToChangelog(object sender, RoutedEventArgs e)
 		{
 			AppendToChangelog(Utils.Paths.Source.StartseiteReadmeFile);
-			AppendToChangelog(Utils.Paths.Source.AnhängeReadmeFile);
 
-			Utils.CommitFiles("Changelog changed", Utils.Paths.Source.StartseiteReadmeFile, Utils.Paths.Source.AnhängeReadmeFile);
+			Utils.CommitFiles($"Readme adapted ('{ChangelogText}')", Utils.Paths.Source.StartseiteReadmeFile);
 			Close();
 		}
 
 		private void AppendToChangelog(string filename)
 		{
 			var txtLines = File.ReadAllLines(filename).ToList(); //Fill a list with the lines from the text file.
-			txtLines.Insert(txtLines.IndexOf("[](CHANGELOGEND)"), "* " + ChangelogTextBox.Text.Replace("\r\n", "\n").Split("\n").Join("  \r\n  "));
+			txtLines.Insert(txtLines.IndexOf("[](CHANGELOGEND)"), "* " + ChangelogText);
 			File.WriteAllLines(filename, txtLines);
 		}
 	}
