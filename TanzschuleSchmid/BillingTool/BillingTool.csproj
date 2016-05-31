@@ -61,7 +61,7 @@
     <Compile Include="btScope\configuration\control\Control_General.cs" />
     <Compile Include="btScope\configuration\control\Control_NewBelegData.cs" />
     <Compile Include="btScope\configuration\Control.cs" />
-    <Compile Include="btScope\configuration\ConfigFile_Local.cs" />
+    <Compile Include="btScope\configuration\ConfigFile_LocalSettings.cs" />
     <Compile Include="btScope\configuration\Configuration.cs" />
     <Compile Include="btScope\functions\DataFunctions.cs" />
     <Compile Include="btScope\functions\data\basis\DataFunctionsBase.cs" />
@@ -76,7 +76,11 @@
     <Compile Include="btScope\functions\UiFunctions.cs" />
     <Compile Include="btScope\administrator\Administrator.cs" />
     <Compile Include="btScope\output\Output.cs" />
+    <Compile Include="btScope\versioning\BtVersioning.cs" />
     <Compile Include="btScope\versioning\BuildDetails.cs" />
+    <Compile Include="btScope\versioning\ReleaseCandidate.cs" />
+    <Compile Include="btScope\versioning\updates\RC66_To_Next_Updater.cs" />
+    <Compile Include="btScope\versioning\updates\_UpdateBase.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="_SharedEnumerations\ExitCodes.cs" />
     <Compile Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml.cs">

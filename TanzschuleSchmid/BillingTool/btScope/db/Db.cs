@@ -18,7 +18,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.db
 {
-	/// <summary>THe <see cref="Bt.Db" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class Db : Base
 	{
 		private static Db _instance;
@@ -103,7 +103,7 @@ namespace BillingTool.btScope.db
 				throw new InvalidOperationException($"The {nameof(Db)} is already connected. The method {nameof(Connect)} was called twice. Use {nameof(Bt.AppOutput)} instead.");
 
 
-			Router = new SqlCeRouter(Bt.Config.Local.BillingDatabaseFilePath);
+			Router = new SqlCeRouter(Bt.Config.LocalSettings.BillingDatabaseFilePath);
 			Router.Open();
 
 			var billing = new BillingDatabase(); // Just loading the proxy before making it accessible for binding

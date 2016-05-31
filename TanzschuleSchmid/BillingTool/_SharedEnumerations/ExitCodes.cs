@@ -62,6 +62,8 @@ namespace BillingTool._SharedEnumerations
 		Error_No_BusinessName = 1 << 21,
 		/// <summary>Occurs when the license agreement was not accepted.</summary>
 		Error_LicenseAgreement_NotAccepted = 1 << 22,
+		/// <summary>Occurs when the license agreement was not accepted.</summary>
+		Error_DataVersion_NotFound = 1 << 23,
 
 		/// <summary>Occurs if some other non described error occurs.</summary>
 		Error_Others = 1 << 32,

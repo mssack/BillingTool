@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-28</date>
+// <date>2016-05-30</date>
 
 using System;
 using System.IO;
@@ -19,13 +19,13 @@ namespace BillingTool.btScope.configuration
 {
 	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	// ReSharper disable once InconsistentNaming
-	public sealed class ConfigFile_Local : ConfigFileBase, IContainMailConfiguration
+	public sealed class ConfigFile_LocalSettings : ConfigFileBase, IContainMailConfiguration
 	{
-		private static ConfigFile_Local _instance;
+		private static ConfigFile_LocalSettings _instance;
 		private static readonly object SingletonLock = new object();
-
+		internal static FileInfo FileName => CsGlobal.Storage.Private.GetFilePathByName("_LocalSettings");
 		/// <summary>Returns the singleton instance</summary>
-		internal static ConfigFile_Local I
+		internal static ConfigFile_LocalSettings I
 		{
 			get
 			{
@@ -33,12 +33,13 @@ namespace BillingTool.btScope.configuration
 					return _instance; //Advanced first check to improve performance (no lock needed).
 				lock (SingletonLock)
 				{
-					return _instance ?? (_instance = new ConfigFile_Local(CsGlobal.Storage.Private.GetFilePathByName("Kasseneinstellungen")));
+					return _instance ?? (_instance = new ConfigFile_LocalSettings(FileName));
 				}
 			}
 		}
 
 		private string _billingDatabaseFilePath;
+		private string _dataVersion;
 		private string _defaultPrinter;
 		private string _kassenId;
 		private double _scaling = 1.3;
@@ -52,14 +53,14 @@ namespace BillingTool.btScope.configuration
 		private string _smtpUsername;
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
-		private ConfigFile_Local(FileInfo path) : base(path)
+		private ConfigFile_LocalSettings(FileInfo path) : base(path)
 		{
 			Load();
 			CsGlobal.App.OnExit += args => Save();
 		}
 
 		/// <summary>Creates a new instance by providing the source file path.</summary>
-		private ConfigFile_Local(Uri packUri) : base(packUri)
+		private ConfigFile_LocalSettings(Uri packUri) : base(packUri)
 		{
 		}
 
@@ -143,6 +144,13 @@ namespace BillingTool.btScope.configuration
 		{
 			get { return _defaultPrinter; }
 			set { SetProperty(ref _defaultPrinter, value); }
+		}
+		/// <summary>Gets or sets the DataVersion.</summary>
+		[Key]
+		public string DataVersion
+		{
+			get { return _dataVersion; }
+			set { SetProperty(ref _dataVersion, value); }
 		}
 
 		/// <summary>Check if all fields which are important are present.</summary>

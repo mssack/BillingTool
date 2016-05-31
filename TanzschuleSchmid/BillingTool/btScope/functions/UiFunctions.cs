@@ -20,7 +20,7 @@ using Window_BelegData_ProcessNonProcessedOutputs = BillingTool.Windows.tools.Wi
 
 namespace BillingTool.btScope.functions
 {
-	/// <summary>The <see cref="Bt.Ui" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class UiFunctions : Base
 	{
 		private static UiFunctions _instance;

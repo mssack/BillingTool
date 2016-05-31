@@ -52,7 +52,7 @@ namespace BillingTool.Windows.tools
 		private void Window_BelegData_ProcessNonProcessedOutputs_Loaded(object sender, RoutedEventArgs e)
 		{
 			ReprintOutputFormat = Bt.Db.Billing.OutputFormats.Default_PrintFormat;
-			ReprintPrinterDevice = Bt.Config.Local.DefaultPrinter;
+			ReprintPrinterDevice = Bt.Config.LocalSettings.DefaultPrinter;
 			OpenedItems = new ObservableCollection<DataRow>(Item.MailedBelege.Where(x => x.ProcessingState == ProcessingStates.NotProcessed).OfType<DataRow>().Union(Item.PrintedBelege.Where(x => x.ProcessingState == ProcessingStates.NotProcessed)));
 			Bt.Output.DoOpenedExportsAsync(Item).ContinueWith(TaskCompleted, TaskScheduler.FromCurrentSynchronizationContext());
 		}

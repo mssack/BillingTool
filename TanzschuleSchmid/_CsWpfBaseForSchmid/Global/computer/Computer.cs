@@ -31,7 +31,7 @@ namespace CsWpfBase.Global.computer
 					return _instance;
 
 				if (CsGlobal.IsInstalled(GlobalFunctions.WpfStorage))
-					_instance = CsGlobal.Storage.Private.Handle("pc", () => new CsgComputer());
+					_instance = CsGlobal.Storage.Private.Handle("Configuration-Computer", () => new CsgComputer());
 				else
 					_instance = new CsgComputer();
 				return _instance;

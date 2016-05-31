@@ -13,7 +13,7 @@
 		<Setter Property="Padding" Value="10" />
 		<Setter Property="Icon"
 				Value="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations.Business.Logo, Converter={StaticResource GConv-CloneImage}}" />
-		<Setter Property="Scale" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=Local.Scaling}" />
+		<Setter Property="Scale" Value="{Binding Source={x:Static btScope:Bt.Config}, Path=LocalSettings.Scaling}" />
 		<Setter Property="HeaderTemplate">
 			<Setter.Value>
 				<DataTemplate DataType="{x:Type CsWindow}">
@@ -52,13 +52,13 @@
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 						<TextBlock Grid.Column="0"
-									Text="{Binding Source={x:Static btScope:Bt.Config}, Path=Local.KassenId, StringFormat={}KassenID: {0}}"
+									Text="{Binding Source={x:Static btScope:Bt.Config}, Path=LocalSettings.KassenId, StringFormat={}KassenID: {0}}"
 									Foreground="DimGray" />
 						<TextBlock Grid.Column="1"
 									Text="{Binding Source={x:Static btScope:Bt.Config}, Path=Control.NewBelegData.KassenOperator, StringFormat={}Operator: {0}}"
 									Foreground="DimGray" Margin="5,0,0,0" />
 						<TextBlock Grid.Column="3" Text="powered by Christian Sack" Foreground="DimGray" />
-						<TextBlock Margin="10,0,0,0" Grid.Column="4" Text="{Binding Source={x:Static btScope:Bt.BuildDetails}, Path=ActiveDevNumber, StringFormat={}Version: {0:0}}" Foreground="DimGray" />
+						<TextBlock Margin="10,0,0,0" Grid.Column="4" Text="{Binding Source={x:Static btScope:Bt.Versioning}, Path=BuildDetails.ActiveDevNumber, StringFormat={}Version: {0:0}}" Foreground="DimGray" />
 					</Grid>
 				</DataTemplate>
 			</Setter.Value>

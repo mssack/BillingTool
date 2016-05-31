@@ -10,7 +10,7 @@
 		HeaderVisibility="Collapsed" Width="550" Height="550" FooterVisibility="Collapsed" AWindowDragMove.IsActive="True" ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen" SizeToContent="Height">
 
-	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=Local}">
+	<Grid DataContext="{Binding Source={x:Static btScope:Bt.Config}, Path=LocalSettings}">
 		<Grid.LayoutTransform>
 			<ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="{Binding Path=Scaling}" ScaleY="{Binding Path=Scaling}" />
 		</Grid.LayoutTransform>

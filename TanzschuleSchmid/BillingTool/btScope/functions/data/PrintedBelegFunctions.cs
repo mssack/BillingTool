@@ -61,7 +61,7 @@ namespace BillingTool.btScope.functions.data
 			var newItem = data.DataSet.PrintedBelege.NewRow();
 			newItem.ProcessingState = ProcessingStates.NotProcessed;
 			newItem.BelegData = data;
-			newItem.PrinterDevice = Bt.Config.Local.DefaultPrinter;
+			newItem.PrinterDevice = Bt.Config.LocalSettings.DefaultPrinter;
 			newItem.OutputFormat = newItem.DataSet.OutputFormats.Default_PrintFormat;
 			newItem.Table.Add(newItem);
 

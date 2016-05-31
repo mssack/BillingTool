@@ -56,8 +56,8 @@ namespace BillingTool.btScope
 		public static AppOutput AppOutput => AppOutput.I;
 		/// <summary>Functions needed for the application.</summary>
 		public static Output Output => Output.I;
-		/// <summary>Gets current build details.</summary>
-		public static BuildDetails BuildDetails => BuildDetails.I;
+		/// <summary>Versioning functions.</summary>
+		public static BtVersioning Versioning => BtVersioning.I;
 
 
 
@@ -65,7 +65,7 @@ namespace BillingTool.btScope
 		/// <summary>Ensures that the configuration is valid and that a database is accessible and functional.</summary>
 		public static void EnsureInitialization()
 		{
-			if (!Config.Local.Path.Exists || !Config.Local.IsValid)
+			if (!Config.LocalSettings.Path.Exists || !Config.LocalSettings.IsValid)
 			{
 				if (!Administrator.AskForLicenseAgreement())
 					throw new BillingToolException(BillingToolException.Types.LicenseAgreement_NotAccepted, $"Die Lizenzvereinbarungen wurden nicht akzeptiert.");
@@ -73,12 +73,12 @@ namespace BillingTool.btScope
 
 				var window = new Window_KassenConfiguration();
 				window.ShowDialog();
-				if (!Config.Local.IsValid)
+				if (!Config.LocalSettings.IsValid)
 					throw new BillingToolException(BillingToolException.Types.No_ValidConfiguration, $"Es wurde keine gültige Datenbankkonfiguration erstellt.");
 			}
 
 
-			var fi = new FileInfo(Config.Local.BillingDatabaseFilePath);
+			var fi = new FileInfo(Config.LocalSettings.BillingDatabaseFilePath);
 			if (fi.Exists)
 			{
 				InitDb();
@@ -93,7 +93,7 @@ namespace BillingTool.btScope
 			}
 			try
 			{
-				using (var installer = new DatabaseInstaller(Config.Local.BillingDatabaseFilePath))
+				using (var installer = new DatabaseInstaller(Config.LocalSettings.BillingDatabaseFilePath))
 				{
 					installer.Install();
 				}
@@ -113,9 +113,13 @@ namespace BillingTool.btScope
 		/// <summary>does the startup</summary>
 		public static void Startup(string[] startupArgs)
 		{
+			Bt.Versioning.DoUpdates();
+
+
+
 			Config.Control.Interpret(startupArgs);
 			var mode = Config.Control.General.StartupMode;
-			CsGlobal.Message.SetDefaultScaling(Config.Local.Scaling);
+			CsGlobal.Message.SetDefaultScaling(Config.LocalSettings.Scaling);
 
 			if (string.IsNullOrEmpty(Config.Control.NewBelegData.KassenOperator))
 				throw new BillingToolException(BillingToolException.Types.No_KassenOperator, "Es wurde kein Kassenoperator angegeben. Ohne Kassenoperator kann dieses Program nicht fortgesetzt werden.");
@@ -156,9 +160,9 @@ namespace BillingTool.btScope
 		/// <summary>gets an indicator whether the database is accessible.</summary>
 		public static bool IsInitialized()
 		{
-			if (!Config.Local.Path.Exists || !Config.Local.IsValid)
+			if (!Config.LocalSettings.Path.Exists || !Config.LocalSettings.IsValid)
 				return false;
-			var fi = new FileInfo(Config.Local.BillingDatabaseFilePath);
+			var fi = new FileInfo(Config.LocalSettings.BillingDatabaseFilePath);
 			if (!fi.Exists)
 				return false;
 			if (!Db.IsConnected())

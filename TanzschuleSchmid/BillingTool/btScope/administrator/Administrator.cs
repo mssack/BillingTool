@@ -16,7 +16,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.administrator
 {
-	/// <summary>see <see cref="Bt" /> Scope for more information.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class Administrator : Base
 	{
 		private static Administrator _instance;

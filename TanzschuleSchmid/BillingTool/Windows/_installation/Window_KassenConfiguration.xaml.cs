@@ -41,8 +41,8 @@ namespace BillingTool.Windows._installation
 
 		private void NextClick(object sender, RoutedEventArgs e)
 		{
-			if (Bt.Config.Local.IsValid)
-				Bt.Config.Local.Save();
+			if (Bt.Config.LocalSettings.IsValid)
+				Bt.Config.LocalSettings.Save();
 
 			using (_managedClose.Activate())
 			{

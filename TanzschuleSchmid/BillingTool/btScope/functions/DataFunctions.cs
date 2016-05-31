@@ -18,7 +18,7 @@ using CsWpfBase.Ev.Public.Extensions;
 
 namespace BillingTool.btScope.functions
 {
-	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class DataFunctions : Base
 	{
 		private static DataFunctions _instance;

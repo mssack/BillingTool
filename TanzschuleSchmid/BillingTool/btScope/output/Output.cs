@@ -18,7 +18,7 @@ using BillingTool._SharedEnumerations;
 
 namespace BillingTool.btScope.output
 {
-	/// <summary>The <see cref="Bt.Data" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class Output
 	{
 		private static Output _instance;
@@ -46,7 +46,7 @@ namespace BillingTool.btScope.output
 		/// <summary>Processes all <see cref="ProcessingStates.NotProcessed" /> items within the <see cref="BelegData" />.</summary>
 		public Task<Task[]> DoOpenedExportsAsync(BelegData data)
 		{
-			return BtOutput.Process(data, Bt.Config.Local).ContinueWith(t =>
+			return BtOutput.Process(data, Bt.Config.LocalSettings).ContinueWith(t =>
 			{
 				Bt.Data.SyncChanges();
 				foreach (var task in t.Result)

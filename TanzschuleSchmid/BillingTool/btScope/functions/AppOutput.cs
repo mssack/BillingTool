@@ -16,7 +16,7 @@ using CsWpfBase.Ev.Objects;
 
 namespace BillingTool.btScope.functions
 {
-	/// <summary>The <see cref="Bt.AppOutput" /> scope. Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public sealed class AppOutput : Base
 	{
 		private static AppOutput _instance;

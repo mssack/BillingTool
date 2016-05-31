@@ -40,7 +40,7 @@ namespace BillingTool.btScope.configuration
 
 
 		/// <summary>Contains all local (for the current Environment) specific settings. Like mail setting, database path or others.</summary>
-		public ConfigFile_Local Local => ConfigFile_Local.I;
+		public ConfigFile_LocalSettings LocalSettings => ConfigFile_LocalSettings.I;
 
 		/// <summary>
 		///     The <see cref="Control" /> scope contains all runtime relevant settings. This settings will manipulate how the user can interact with the

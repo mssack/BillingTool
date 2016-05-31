@@ -130,7 +130,7 @@ namespace BillingTool.btScope.functions.data
 				BelegDatenTable.PrintCountCol,
 				BelegDatenTable.MailCountCol);
 
-			newItem.KassenId = Bt.Config.Local.KassenId;
+			newItem.KassenId = Bt.Config.LocalSettings.KassenId;
 			newItem.UmsatzZähler = 0;
 			db.BelegDaten.Add(newItem);
 
@@ -176,7 +176,7 @@ namespace BillingTool.btScope.functions.data
 			var newItem = data.DataSet.BelegDaten.NewRow();
 
 			newItem.Typ = BelegDataTypes.Storno;
-			newItem.KassenId = Bt.Config.Local.KassenId;
+			newItem.KassenId = Bt.Config.LocalSettings.KassenId;
 			newItem.KassenOperator = Bt.Config.Control.NewBelegData.KassenOperator;
 			newItem.StornoBeleg = data;
 			newItem.UmsatzZähler = 0;
@@ -204,7 +204,7 @@ namespace BillingTool.btScope.functions.data
 			var newItem = Bt.Db.Billing.BelegDaten.NewRow();
 
 			newItem.Typ = BelegDataTypes.MonatsBon;
-			newItem.KassenId = Bt.Config.Local.KassenId;
+			newItem.KassenId = Bt.Config.LocalSettings.KassenId;
 			newItem.KassenOperator = Bt.Config.Control.NewBelegData.KassenOperator;
 			newItem.UmsatzZähler = 0;
 			newItem.BonNummerVon = Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastUsedBelegDataNumber == null ? 1 : Bt.Db.Billing.Configurations.DataIntegrity.MonatsBon_LastUsedBelegDataNumber + 1;

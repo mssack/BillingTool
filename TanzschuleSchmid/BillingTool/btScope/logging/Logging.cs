@@ -21,7 +21,7 @@ using CsWpfBase.Ev.Public.Extensions;
 
 namespace BillingTool.btScope.logging
 {
-	/// <summary>This class is used for Logging purpose.</summary>
+	/// <summary>Do not use this directly instead use <see cref="Bt" /> class to access instance of this.</summary>
 	public class Logging
 	{
 		private static Logging _instance;
