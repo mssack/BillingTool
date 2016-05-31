@@ -49,7 +49,8 @@ namespace BillingTool.Exceptions
 			No_KassenOperator = ExitCodes.Error_No_KassenOperator,
 			No_BusinessName = ExitCodes.Error_No_BusinessName,
 			LicenseAgreement_NotAccepted = ExitCodes.Error_LicenseAgreement_NotAccepted,
-			No_DataVersionFound = ExitCodes.Error_DataVersion_NotFound,
+			No_DataVersionFound = ExitCodes.Error_No_DataVersion,
+			Invalid_DataVersion = ExitCodes.Error_Invalid_DataVersion,
 		}
 	}
 }

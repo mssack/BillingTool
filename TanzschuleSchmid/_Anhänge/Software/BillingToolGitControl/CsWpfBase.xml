@@ -118,6 +118,9 @@
         <member name="T:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute">
             <summary>A db column attribute for the CsDb system. Holds all the native values of the column.</summary>
         </member>
+        <member name="P:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute.Table">
+            <summary>The native column name.</summary>
+        </member>
         <member name="P:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute.Name">
             <summary>The native column name.</summary>
         </member>
@@ -136,7 +139,10 @@
         <member name="P:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute.Description">
             <summary>Native description</summary>
         </member>
-        <member name="M:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute.ToCode">
+        <member name="M:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute.To_Attribute_Code">
+            <summary>Returns the attribute as C# Code</summary>
+        </member>
+        <member name="M:CsWpfBase.Db.attributes.columnAttributes.CsDbNativeDataColumnAttribute.To_NewObject_Code">
             <summary>Returns the attribute as C# Code</summary>
         </member>
         <member name="T:CsWpfBase.Db.attributes.CsDbDataSetAttribute">
@@ -1704,6 +1710,9 @@
         <member name="P:CsWpfBase.Db.models.helper.ContractCollection`1.Count">
             <summary>The items count.</summary>
         </member>
+        <member name="M:CsWpfBase.Db.models.helper.ContractCollection`1.Finalize">
+            <summary>Destructor</summary>
+        </member>
         <member name="M:CsWpfBase.Db.models.helper.ContractCollection`1.GetEnumerator">
             <summary>Returns an enumerator that iterates through the collection.</summary>
             <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
@@ -2823,6 +2832,9 @@
         <member name="M:CsWpfBase.Ev.Public.Extensions.DirectoryInfoExtensions.GoUpward_Until(System.IO.DirectoryInfo,System.String,System.Boolean)">
             <summary>goes the directory structure up until it finds directory with sepcific name</summary>
         </member>
+        <member name="M:CsWpfBase.Ev.Public.Extensions.DirectoryInfoExtensions.Create_If_NotExists(System.IO.DirectoryInfo)">
+            <summary>creates the directory if it does not exist already.</summary>
+        </member>
         <member name="T:CsWpfBase.Ev.Public.Extensions.DateTimeExtensions">
             <summary>Wraps a bunch of DateTime extensions</summary>
         </member>
@@ -2898,7 +2910,7 @@
         <member name="M:CsWpfBase.Ev.Public.Extensions.FileWritingAndReadingExtensions.AppendIndexToFile_IfExists(System.IO.FileInfo)">
             <summary>Appends an index to an file.</summary>
         </member>
-        <member name="M:CsWpfBase.Ev.Public.Extensions.FileWritingAndReadingExtensions.ChangeToDesktopDirectory(System.IO.FileInfo)">
+        <member name="M:CsWpfBase.Ev.Public.Extensions.FileWritingAndReadingExtensions.In_Desktop_Directory(System.IO.FileInfo)">
             <summary>returns a <see cref="T:System.IO.FileInfo" /> with the same file name but the directory will be the desktop.</summary>
         </member>
         <member name="M:CsWpfBase.Ev.Public.Extensions.FileWritingAndReadingExtensions.SaveAs_Utf8String(System.String,System.IO.FileInfo)">

@@ -8,7 +8,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Themes.Controls.Containers;
@@ -28,10 +27,18 @@ namespace BillingToolGitControl.Control
 			InitializeComponent();
 		}
 
-		private void GenerateTestingEnvironment(object sender, RoutedEventArgs e)
+		private void GenerateReleaseTestingEnvironment(object sender, RoutedEventArgs e)
 		{
-			var targetFolder = Path.Combine(Utils.Paths.Destination.RcFolder, $"{Utils.BuildDetails.Name} - TestEnvironment");
-			Utils.CreateTestEnvironment(targetFolder);
+			var targetFolder = Path.Combine(Utils.Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
+			Utils.CreateTestEnvironment(targetFolder, true);
+			Process.Start(Path.Combine(targetFolder));
+			Close();
+		}
+
+		private void GenerateDebugTestingEnvironment(object sender, RoutedEventArgs e)
+		{
+			var targetFolder = Path.Combine(Utils.Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
+			Utils.CreateTestEnvironment(targetFolder, false);
 			Process.Start(Path.Combine(targetFolder));
 			Close();
 		}

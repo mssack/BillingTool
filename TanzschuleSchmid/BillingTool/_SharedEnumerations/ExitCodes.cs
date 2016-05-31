@@ -2,10 +2,11 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-17</date>
+// <date>2016-05-31</date>
 
 using System;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingTool.btScope.configuration;
 
 
 
@@ -62,8 +63,10 @@ namespace BillingTool._SharedEnumerations
 		Error_No_BusinessName = 1 << 21,
 		/// <summary>Occurs when the license agreement was not accepted.</summary>
 		Error_LicenseAgreement_NotAccepted = 1 << 22,
-		/// <summary>Occurs when the license agreement was not accepted.</summary>
-		Error_DataVersion_NotFound = 1 << 23,
+		/// <summary>Occurs when no data version could be found in <see cref="ConfigFile_LocalSettings" /> file.</summary>
+		Error_No_DataVersion = 1 << 23,
+		/// <summary>Occurs when an invalid data version was found.</summary>
+		Error_Invalid_DataVersion = 1 << 24,
 
 		/// <summary>Occurs if some other non described error occurs.</summary>
 		Error_Others = 1 << 32,

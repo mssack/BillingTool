@@ -49,6 +49,7 @@ namespace CsWpfBase.Db.codegen.code.files.database.dataviewparts.row.columns
 		/// <summary>Gets or sets the ColumnAttribute.</summary>
 		public CsDbNativeDataColumnAttribute NativeAttributes => _csDbNativeDataAttribute ?? (_csDbNativeDataAttribute = new CsDbNativeDataColumnAttribute()
 		{
+			Table = Architecture.Owner.Name,
 			Name = Architecture.Name,
 			Type = Architecture.Type,
 			MaxLength = Architecture.MaxLength,
@@ -90,7 +91,7 @@ namespace CsWpfBase.Db.codegen.code.files.database.dataviewparts.row.columns
 		internal string DefaultDescription => $"[<c>{CodeBundle.Architecture.Name}</c>].[<c>{Architecture.OwnerView.Name}</c>].[<c>{Architecture.Name}</c>] ({TypeDescription})";
 
 		[Key]
-		private string Attributes => $"{DotNetAttributes.ToCode()}{NativeAttributes.ToCode()}";
+		private string Attributes => $"{DotNetAttributes.ToCode()}{NativeAttributes.To_Attribute_Code()}";
 
 		[Key]
 		private string Type => Architecture.DotNetType.IsValueType && Architecture.DotNetIsNullable ? $"{Architecture.DotNetType.Name}?" : Architecture.DotNetType.Name;

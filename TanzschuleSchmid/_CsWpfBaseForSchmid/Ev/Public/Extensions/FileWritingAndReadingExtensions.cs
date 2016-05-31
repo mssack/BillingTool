@@ -78,7 +78,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 		}
 
 		/// <summary>returns a <see cref="FileInfo" /> with the same file name but the directory will be the desktop.</summary>
-		public static FileInfo ChangeToDesktopDirectory(this FileInfo file)
+		public static FileInfo In_Desktop_Directory(this FileInfo file)
 		{
 			if (file == null)
 				return null;

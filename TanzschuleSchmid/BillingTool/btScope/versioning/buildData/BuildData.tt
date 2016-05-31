@@ -8,9 +8,8 @@
 <#@ import namespace="System.Threading.Tasks" #>
 <#@ import namespace="System.Diagnostics" #>
 <#@ output extension=".txt" #>
-
 <#
-	Process p = this.Command("cd " + new FileInfo(Host.ResolvePath("BuildDetails.txt")).Directory.FullName, "git branch");
+	Process p = this.Command("cd " + new FileInfo(Host.ResolvePath("BuildData.txt")).Directory.FullName, "git branch");
 	string gitResponse = p.StandardOutput.ReadToEnd();
 	p.WaitForExit();
     int ActiveDevNumber = 0;
@@ -19,7 +18,7 @@
 	bool isGoldDevelopment = false;
 
 
-	using(var f = File.OpenText(Host.ResolvePath("BuildDetails.txt")))
+	using(var f = File.OpenText(Host.ResolvePath("BuildData.txt")))
 	{
 		string line = "";
 		while((line = f.ReadLine()) != null)
@@ -66,8 +65,7 @@ Time = <#= DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss") #>
 ActiveDevNumber = <#= ActiveDevNumber #>
 GoldNumber = <#= GoldNumber #>
 User = <#= Environment.UserName #>
-Machine = <#= Environment.MachineName #>
-<#+
+Machine = <#= Environment.MachineName #><#+
 	private Process Command(params string[] commands)
 	{
 		var procStartInfo = new ProcessStartInfo

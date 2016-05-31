@@ -33,9 +33,10 @@
 			</Grid>
 		</Expander>
 		<Expander Grid.Row="1" Header="Testumgebung" IsExpanded="True">
-			<Grid HorizontalAlignment="Left" MinWidth="200">
-				<Button Content="Erstellen" Click="GenerateTestingEnvironment"/>
-			</Grid>
+			<UniformGrid HorizontalAlignment="Left" MinWidth="200">
+				<Button Content="Debug" Click="GenerateDebugTestingEnvironment"/>
+				<Button Content="Release" Click="GenerateReleaseTestingEnvironment"/>
+			</UniformGrid>
 		</Expander>
     </Grid>
 </CsWindow>

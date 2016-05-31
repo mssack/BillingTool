@@ -29,7 +29,7 @@ namespace BillingOutput.btOutputScope.PdfCreation
 		private PdfDocument _pdfDoc;
 		private BelegData _belegData;
 
-		public PdfLifeLine(BelegData data, BitmapSource image)
+		public PdfLifeLine(BelegData data, OutputFormat format, BitmapSource image)
 		{
 			_belegData = data;
 			File = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TMP", $"{Guid.NewGuid()}.pdf"));
@@ -40,8 +40,9 @@ namespace BillingOutput.btOutputScope.PdfCreation
 			var page = PdfDoc.AddPage();
 			page.Width = new XUnit(image.PixelWidth/ image.DpiX, XGraphicsUnit.Inch);
 			page.Height = new XUnit(image.PixelHeight/ image.DpiY, XGraphicsUnit.Inch);
-			
-			XGraphics.FromPdfPage(page).DrawImage(XImage.FromBitmapSource(image), new Point(0,0));
+
+			XGraphics.FromPdfPage(page).DrawImage(XImage.FromStream(new MemoryStream(image.ConvertTo_JpgByteArray(format.ImageQuality))), new Point(0,0));
+
 			PdfDoc.Save(File.FullName);
 			PdfDoc.Dispose();
 			File.Refresh();

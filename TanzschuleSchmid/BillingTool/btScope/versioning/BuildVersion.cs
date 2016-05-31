@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-30</date>
+// <date>2016-05-31</date>
 
 using System;
 using CsWpfBase.Ev.Objects;
@@ -15,22 +15,29 @@ using CsWpfBase.Ev.Objects;
 namespace BillingTool.btScope.versioning
 {
 	/// <summary>Gives feedback about the current build version.</summary>
-	public class ReleaseCandidate : Base
+	public class BuildVersion : Base
 	{
-		public ReleaseCandidate(string value)
+
+		private static Exception GetException(string value)
 		{
-			var originalValue = value;
-			if (string.IsNullOrEmpty(value))
+			throw new Exception($"Der Text '{value}' kann nicht in einen typeof({nameof(BuildVersion)}) umgewandelt werden.");
+		}
+
+		/// <summary>parses from name.</summary>
+		public BuildVersion(string name)
+		{
+			var originalValue = name;
+			if (string.IsNullOrEmpty(name))
 				throw GetException(originalValue);
 
-			value = value.Trim();
-			if (value.StartsWith("RC", StringComparison.OrdinalIgnoreCase))
-				value = value.Substring(2);
+			name = name.Trim();
+			if (name.StartsWith("RC", StringComparison.OrdinalIgnoreCase))
+				name = name.Substring(2);
 
-			if (string.IsNullOrEmpty(value))
+			if (string.IsNullOrEmpty(name))
 				throw GetException(originalValue);
 
-			var values = value.Split('.');
+			var values = name.Split('.');
 
 			var activeDevelopment = 0;
 			var gold = 0;
@@ -42,18 +49,19 @@ namespace BillingTool.btScope.versioning
 				if (!int.TryParse(values[1], out activeDevelopment))
 					throw GetException(originalValue);
 			}
-			else if (values.Length> 2)
+			else if (values.Length > 2)
 				throw GetException(originalValue);
 
 			ActiveDevelopment = activeDevelopment;
 			Gold = gold;
 		}
 
-		private static Exception GetException(string value)
+		/// <summary>from definition</summary>
+		public BuildVersion(int activeDevelopment, int gold)
 		{
-			throw new Exception($"Der Text '{value}' kann nicht in einen typeof({nameof(ReleaseCandidate)}) umgewandelt werden.");
+			Gold = gold;
+			ActiveDevelopment = activeDevelopment;
 		}
-
 
 
 		#region Overrides/Interfaces
@@ -62,7 +70,7 @@ namespace BillingTool.btScope.versioning
 		/// <param name="obj">The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" />. </param>
 		public override bool Equals(object obj)
 		{
-			return obj is ReleaseCandidate && Gold == ((ReleaseCandidate) obj).Gold && ActiveDevelopment == ((ReleaseCandidate) obj).ActiveDevelopment;
+			return obj is BuildVersion && Gold == ((BuildVersion) obj).Gold && ActiveDevelopment == ((BuildVersion) obj).ActiveDevelopment;
 		}
 
 		/// <summary>Serves as a hash function for a particular type. </summary>
@@ -84,6 +92,15 @@ namespace BillingTool.btScope.versioning
 		///     active-development version.
 		/// </summary>
 		public int ActiveDevelopment { get; private set; }
+
+
+
+		/// <summary>Gets the name of the current RC.</summary>
+		public string Name => $"RC{ActiveDevelopment}{(Gold == 0 ? "" : "." + Gold)}";
+
+
+		/// <summary>Returns the name of the type.</summary>
+		public override string ToString() => Name;
 
 		/// <summary>compares with <paramref name="activeDevelopment" /> and <paramref name="gold" /> params.</summary>
 		public bool Equals(int activeDevelopment, int gold)

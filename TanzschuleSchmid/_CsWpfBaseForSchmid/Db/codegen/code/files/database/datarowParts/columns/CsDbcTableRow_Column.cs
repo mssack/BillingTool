@@ -61,6 +61,7 @@ namespace CsWpfBase.Db.codegen.code.files.database.datarowParts.columns
 		/// <summary>Gets or sets the ColumnAttribute.</summary>
 		public CsDbNativeDataColumnAttribute NativeAttributes => _csDbNativeDataAttribute ?? (_csDbNativeDataAttribute = new CsDbNativeDataColumnAttribute()
 		{
+			Table = Architecture.Owner.Name,
 			Name = Architecture.Name,
 			Type = Architecture.Type,
 			MaxLength = Architecture.MaxLength,
@@ -126,6 +127,6 @@ namespace CsWpfBase.Db.codegen.code.files.database.datarowParts.columns
 
 
 		[Key(ValueSuffix = "\r\n")]
-		private string Attributes => $"{DotNetAttributes.ToCode()}\r\n{NativeAttributes.ToCode()}";
+		private string Attributes => $"{DotNetAttributes.ToCode()}\r\n{NativeAttributes.To_Attribute_Code()}";
 	}
 }

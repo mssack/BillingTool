@@ -125,42 +125,34 @@ namespace CsWpfBase.Db.codegen.architecture.generators
 					return Convert.ChangeType(defaultValue.Trim('(', ')'), dotNetType);
 
 
+				defaultValue = RemoveSourroundings(defaultValue.ToLower());
 				if (dotNetType == typeof (DateTime))
 				{
-					if (defaultValue.ToLower() == "(getdate())")
-						return CsDb.CodeGen.Statics.DateTimeNowFunction;
 					if (defaultValue.ToLower() == "getdate()")
 						return CsDb.CodeGen.Statics.DateTimeNowFunction;
 					return Convert.ToDateTime(defaultValue.Trim('(', ')', '\''));
 				}
 				if (dotNetType == typeof (Guid))
 				{
-					if (defaultValue.ToLower() == "(newid())")
-						return CsDb.CodeGen.Statics.NewGuidFunction;
 					if (defaultValue.ToLower() == "newid()")
 						return CsDb.CodeGen.Statics.NewGuidFunction;
 					throw new InvalidOperationException("Unknown Default value found. Include a conversion to a valid C# instance. If it is a function please use the 'CsDb.CodeGen.Statics' name space to set the value to a string.");
 				}
 				if (dotNetType == typeof (string))
 				{
-					var lower = defaultValue.ToLower();
-					if (lower == "(null)")
+					if (defaultValue == "null")
 						return null;
-					if (lower.StartsWith("('") && lower.EndsWith("')"))
-						return defaultValue.Substring(2, defaultValue.Length - 4);
-					if (lower.StartsWith("(n'") && lower.EndsWith("')"))
-						return defaultValue.Substring(3, defaultValue.Length - 5);
+					if (defaultValue.StartsWith("'") && defaultValue.EndsWith("'"))
+						return defaultValue.Substring(1, defaultValue.Length - 2);
+					if (defaultValue.StartsWith("n'") && defaultValue.EndsWith("'"))
+						return defaultValue.Substring(2, defaultValue.Length - 3);
 					throw new InvalidOperationException("Unknown Default value found. Include a conversion to a valid C# instance. If it is a function please use the 'CsDb.CodeGen.Statics' name space to set the value to a string.");
 				}
 				if (dotNetType == typeof (bool))
 				{
-					if (defaultValue.ToLower() == "((0))")
+					if (defaultValue == "0")
 						return false;
-					if (defaultValue.ToLower() == "((1))")
-						return true;
-					if (defaultValue.ToLower() == "(0)")
-						return false;
-					if (defaultValue.ToLower() == "(1)")
+					if (defaultValue == "1")
 						return true;
 				}
 
@@ -299,7 +291,7 @@ namespace CsWpfBase.Db.codegen.architecture.generators
 						column.Type = row["DATA_TYPE"].ToString();
 						column.Nullable = row["IS_NULLABLE"] == DBNull.Value ? null : row["IS_NULLABLE"].ToString();
 						column.MaxLength = row["CHARACTER_MAXIMUM_LENGTH"] == DBNull.Value ? null : row["CHARACTER_MAXIMUM_LENGTH"].ToString();
-						column.DefaultValue = row["COLUMN_DEFAULT"] == DBNull.Value ? null : row["COLUMN_DEFAULT"].ToString().Trim('\r', '\n');
+						column.DefaultValue = RemoveSourroundings(row["COLUMN_DEFAULT"] == DBNull.Value ? null : row["COLUMN_DEFAULT"].ToString().Trim('\r', '\n'));
 						
 
 						column.DotNetType = CsDb.CodeGen.Convert.ToType((SqlDbType) Enum.Parse(typeof (SqlDbType), column.Type, true));
@@ -379,6 +371,17 @@ namespace CsWpfBase.Db.codegen.architecture.generators
 				{
 					table.Level = GetMaxDistanceToOutside(table);
 				}
+			}
+
+			private static string RemoveSourroundings(string input, string left = "(", string right = ")")
+			{
+				if (input == null)
+					return null;
+				while (input.StartsWith(left) && input.EndsWith(right))
+				{
+					input = input.Substring(left.Length, input.Length - (left.Length + right.Length));
+				}
+				return input;
 			}
 		}
 	}

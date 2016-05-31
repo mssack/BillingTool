@@ -17,7 +17,7 @@ public partial class #Name# : CsDbTable<#DataRowType#>
 	#Constants#
 
 	/// <summary> Contains attribute values for the columns</summary>
-	public static class ColAttributes
+	public static class Cols
 	{
 		#ColAttributes#
 	}

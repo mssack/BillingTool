@@ -19,25 +19,22 @@ namespace CsWpfBase.Db.codegen.code.files.database.datatableParts
 	// ReSharper disable once InconsistentNaming
 	internal class CsDbcTable_ColAttribute : FileTemplate
 	{
-		public CsDbcTable_ColAttribute(CsDbcTableRow_Column column, Modes mode)
+		public CsDbcTable_ColAttribute(CsDbcTableRow_Column column)
 		{
 			Column = column;
-			Mode = mode;
 		}
 
 		private CsDbcTableRow_Column Column { get; }
+		
 
 		[Key]
-		private Modes Mode { get; }
+		private string Name => $"{Column.Name}";
 
 		[Key]
-		private string Name => $"{Column.Name}{Mode}";
+		private string Type => Column.NativeAttributes.GetType().Name;
 
 		[Key]
-		private string Type => Mode == Modes.Description ? "string" : "int";
-
-		[Key]
-		private string Value => Mode == Modes.Description ? $"\"{Column.NativeAttributes.Description.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"")}\"" : $"{Column.DotNetAttributes.MaxLength}";
+		private string Value => Column.NativeAttributes.To_NewObject_Code();
 
 		[Key]
 		private string DatabaseName => Column.CodeBundle.Architecture.Name;
@@ -48,12 +45,6 @@ namespace CsWpfBase.Db.codegen.code.files.database.datatableParts
 		[Key]
 		private string NativeColumnName => Column.Architecture.Name;
 
-
-
-		public enum Modes
-		{
-			MaxLength,
-			Description
-		}
+		
 	}
 }

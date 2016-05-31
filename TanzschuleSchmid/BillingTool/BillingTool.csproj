@@ -77,8 +77,8 @@
     <Compile Include="btScope\administrator\Administrator.cs" />
     <Compile Include="btScope\output\Output.cs" />
     <Compile Include="btScope\versioning\BtVersioning.cs" />
-    <Compile Include="btScope\versioning\BuildDetails.cs" />
-    <Compile Include="btScope\versioning\ReleaseCandidate.cs" />
+    <Compile Include="btScope\versioning\buildData\BuildData.cs" />
+    <Compile Include="btScope\versioning\BuildVersion.cs" />
     <Compile Include="btScope\versioning\updates\RC66_To_Next_Updater.cs" />
     <Compile Include="btScope\versioning\updates\_UpdateBase.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
@@ -475,14 +475,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="btScope\versioning\BuildDetails.tt">
+    <Content Include="btScope\versioning\buildData\BuildData.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>BuildDetails.txt</LastGenOutput>
+      <LastGenOutput>BuildData.txt</LastGenOutput>
     </Content>
-    <Resource Include="btScope\versioning\BuildDetails.txt">
+    <Resource Include="btScope\versioning\buildData\BuildData.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BuildDetails.tt</DependentUpon>
+      <DependentUpon>BuildData.tt</DependentUpon>
     </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

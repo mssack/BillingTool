@@ -17,6 +17,8 @@ namespace CsWpfBase.Db.attributes.columnAttributes
 	public class CsDbNativeDataColumnAttribute : Attribute
 	{
 		/// <summary>The native column name.</summary>
+		public string Table { get; set; }
+		/// <summary>The native column name.</summary>
 		public string Name { get; set; }
 		/// <summary>The native database type.</summary>
 		public string Type { get; set; }
@@ -30,9 +32,11 @@ namespace CsWpfBase.Db.attributes.columnAttributes
 		public string Description { get; set; }
 
 		/// <summary>Returns the attribute as C# Code</summary>
-		public string ToCode()
+		public string To_Attribute_Code()
 		{
 			var setters = "(";
+			if (!string.IsNullOrEmpty(Table))
+				setters = $"{setters}Table = \"{Table}\", ";
 			if (!string.IsNullOrEmpty(Name))
 				setters = $"{setters}Name = \"{Name}\", ";
 			if (!string.IsNullOrEmpty(Type))
@@ -53,8 +57,31 @@ namespace CsWpfBase.Db.attributes.columnAttributes
 
 			return "[" + "CsDbNativeDataColumn" + setters + "]";
 		}
+		/// <summary>Returns the attribute as C# Code</summary>
+		public string To_NewObject_Code()
+		{
+			var setters = "{";
+			if (!string.IsNullOrEmpty(Table))
+				setters = $"{setters}Table = \"{Table}\", ";
+			if (!string.IsNullOrEmpty(Name))
+				setters = $"{setters}Name = \"{Name}\", ";
+			if (!string.IsNullOrEmpty(Type))
+				setters = $"{setters}Type = \"{Type}\", ";
+			if (!string.IsNullOrEmpty(Default))
+				setters = $"{setters}Default = \"{Default.Replace("\"", "'")}\", ";
+			if (!string.IsNullOrEmpty(MaxLength))
+				setters = $"{setters}MaxLength = \"{MaxLength}\", ";
+			if (!string.IsNullOrEmpty(IsNullable))
+				setters = $"{setters}IsNullable = \"{IsNullable}\", ";
+			if (!string.IsNullOrEmpty(Description))
+				setters = $"{setters}Description = \"{Description.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"")}\", ";
+
+			if (setters == "{")
+				setters = "";
+			else
+				setters = setters.Substring(0, setters.Length - 2) + "}";
+
+			return "new " + "CsDbNativeDataColumnAttribute " + setters + "";
+		}
 	}
-
-
-
 }

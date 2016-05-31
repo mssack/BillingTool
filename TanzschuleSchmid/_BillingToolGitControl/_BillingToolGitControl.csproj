@@ -78,8 +78,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\BillingTool\btScope\versioning\BuildDetails.cs">
-      <Link>BuildDetails.cs</Link>
+    <Compile Include="..\BillingTool\btScope\versioning\buildData\BuildData.cs">
+      <Link>BuildData.cs</Link>
+    </Compile>
+    <Compile Include="..\BillingTool\btScope\versioning\BuildVersion.cs">
+      <Link>BuildVersion.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

@@ -175,7 +175,7 @@ namespace CsWpfBase.Db.codegen.code.files.database
 
 
 		[Key]
-		private string ColAttributes => Row.Columns.Where(x => x.DotNetAttributes.MaxLength != -1).Select(x => new CsDbcTable_ColAttribute(x, CsDbcTable_ColAttribute.Modes.MaxLength).GetString(2)).Concat(Row.Columns.Where(x => !string.IsNullOrEmpty(x.NativeAttributes.Description)).Select(x => new CsDbcTable_ColAttribute(x, CsDbcTable_ColAttribute.Modes.Description).GetString(2))).Join("\r\n\t\t");
+		private string ColAttributes => Row.Columns.Select(x => new CsDbcTable_ColAttribute(x).GetString(2)).Join("\r\n\t\t");
 
 
 	}

@@ -71,187 +71,228 @@
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
 
 					<designElements:RedBorderBox Visibility="{Binding Path=CanBeModified, Converter={StaticResource GConv-InvBoolVisibility}}"
 												Content="Sie können dieses Layout nicht editieren, da es bereits verwendet wird." Margin="0,0,10,10" />
 
-					<Expander Grid.Row="1" Header="Details" IsExpanded="True">
-						<Grid IsSharedSizeScope="True">
+					<ScrollViewer Grid.Row="1" Margin="0,0,10,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+						<Grid Margin="0,0,-10,0">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
 								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
-							<ParamView Grid.Row="0" Header="{StaticResource Bez-OutputFormat-CreationDate}" Value="{Binding Path=CreationDate}" />
-							<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-Name}" Value="{Binding Path=Name}" />
-							<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" MaxHeight="80" />
-							<Param Grid.Row="3" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" >
-								<Param.Resources>
-									<x:Array x:Key="IgnoredEnums" Type="system:Enum">
-										<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
-										<x:Static MemberType="enumerations:BonLayouts" Member="V1StornoBon" />
-									</x:Array>
-								</Param.Resources>
-								<Param.Content>
-									<Grid>
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="*" />
-											<ColumnDefinition Width="Auto" />
-										</Grid.ColumnDefinitions>
-										<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
+							<Expander Grid.Row="0" Header="Details" IsExpanded="True">
+								<Grid IsSharedSizeScope="True">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<ParamView Grid.Row="0" Header="{StaticResource Bez-OutputFormat-CreationDate}" Value="{Binding Path=CreationDate}" />
+									<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-Name}" Value="{Binding Path=Name}" />
+									<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-Comment}" Value="{Binding Path=Comment}" AcceptsReturn="True" MaxHeight="80" />
+									<Param Grid.Row="3" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" >
+										<Param.Resources>
+											<x:Array x:Key="IgnoredEnums" Type="system:Enum">
+												<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
+												<x:Static MemberType="enumerations:BonLayouts" Member="V1StornoBon" />
+											</x:Array>
+										</Param.Resources>
+										<Param.Content>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*" />
+													<ColumnDefinition Width="Auto" />
+												</Grid.ColumnDefinitions>
+												<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
 												ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}">
-											<ComboBox.Style>
-												<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-													<Style.Triggers>
-														<DataTrigger Binding="{Binding Path=CanBeModified}" Value="False">
-															<Setter Property="IsEnabled" Value="False" />
-														</DataTrigger>
-														<DataTrigger Binding="{Binding Path=IsDefault}" Value="True">
-															<Setter Property="IsEnabled" Value="False" />
-														</DataTrigger>
-													</Style.Triggers>
-												</Style>
-											</ComboBox.Style>
-										</ComboBox>
+													<ComboBox.Style>
+														<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+															<Style.Triggers>
+																<DataTrigger Binding="{Binding Path=CanBeModified}" Value="False">
+																	<Setter Property="IsEnabled" Value="False" />
+																</DataTrigger>
+																<DataTrigger Binding="{Binding Path=IsDefault}" Value="True">
+																	<Setter Property="IsEnabled" Value="False" />
+																</DataTrigger>
+															</Style.Triggers>
+														</Style>
+													</ComboBox.Style>
+												</ComboBox>
 
-										<designElements:AcceptButton Grid.Column="1" Click="SetAsStandardButtonClicked"
+												<designElements:AcceptButton Grid.Column="1" Click="SetAsStandardButtonClicked"
 																	Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-InvBoolVisibility}}" Padding="5,0,5,0" Margin="5,0,0,0">
-											<designElements:AcceptButton.Content>
-												<TextBlock Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Als {0} Standard setzen}" />
-											</designElements:AcceptButton.Content>
-										</designElements:AcceptButton>
-										<TextBlock Grid.Column="1"
+													<designElements:AcceptButton.Content>
+														<TextBlock Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Als {0} Standard setzen}" />
+													</designElements:AcceptButton.Content>
+												</designElements:AcceptButton>
+												<TextBlock Grid.Column="1"
 													Text="{Binding Path=BonLayoutType, Converter={StaticResource GConv-GetEnumName}, StringFormat={}Aktueller {0} Standard}"
 													Visibility="{Binding Path=IsDefault, Converter={StaticResource GConv-BoolVisibility}}" Padding="0" Margin="5,0,0,0"
 													Foreground="RoyalBlue" />
-									</Grid>
-								</Param.Content>
-							</Param>
-							<Param Grid.Row="4" Header="{StaticResource Bez-OutputFormat-Scale}" >
-								<Grid IsEnabled="{Binding Path=CanBeModified}">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-									<Slider Value="{Binding Path=Scaling}" Minimum="0.8" Maximum="2" TickFrequency="0.01" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"  />
-									<Button Grid.Column="1" Content="Zurücksetzen" Click="ResetScalingClicked"/>
+											</Grid>
+										</Param.Content>
+									</Param>
+									<Param Grid.Row="4" Header="{StaticResource Bez-OutputFormat-Scale}" >
+										<Grid IsEnabled="{Binding Path=CanBeModified}">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*" />
+												<ColumnDefinition Width="Auto" />
+											</Grid.ColumnDefinitions>
+											<Slider Value="{Binding Path=Scaling}" Minimum="0.8" Maximum="2" TickFrequency="0.01" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"  />
+											<Button Grid.Column="1" Content="Zurücksetzen" Click="ResetScalingClicked"/>
+										</Grid>
+									</Param>
 								</Grid>
-							</Param>
-						</Grid>
-					</Expander>
-					<Expander Grid.Row="2" Header="Sichtbarkeiten" IsExpanded="True">
-						<Grid IsEnabled="{Binding Path=CanBeModified}" >
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto" />
-								<ColumnDefinition Width="*" />
-							</Grid.ColumnDefinitions>
-							<Grid IsSharedSizeScope="True">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="Auto" />
-								</Grid.RowDefinitions>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="Auto" />
-									<ColumnDefinition Width="Auto" />
-								</Grid.ColumnDefinitions>
-								<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessUidVisible}" Value="{Binding Path=IsBusinessUidVisible}" />
-								<BoolParam Grid.Row="1" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessNameVisible}"
+							</Expander>
+							<Expander Grid.Row="1" Header="Quality" IsExpanded="True">
+								<Grid IsSharedSizeScope="True" IsEnabled="{Binding Path=CanBeModified}">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Param Grid.Row="0" Header="{StaticResource Bez-OutputFormat-ImageScaling}" >
+										<Param.Content>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*" />
+													<ColumnDefinition Width="Auto" />
+												</Grid.ColumnDefinitions>
+												<Slider Value="{Binding Path=ImageScaling}" TickFrequency="0.1" IsSnapToTickEnabled="True" Minimum="1" Maximum="5"/>
+												<TextBlock Grid.Column="1" Text="{Binding Path=ImageScaling}" Padding="0" Margin="5,0,0,0" Foreground="RoyalBlue" Width="50" TextAlignment="Right"/>
+											</Grid>
+										</Param.Content>
+									</Param>
+									<Param Grid.Row="1" Header="{StaticResource Bez-OutputFormat-ImageQuality}" >
+										<Param.Content>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition Width="*" />
+													<ColumnDefinition Width="Auto" />
+												</Grid.ColumnDefinitions>
+												<Slider Value="{Binding Path=ImageQuality}" TickFrequency="1" IsSnapToTickEnabled="True" Minimum="1" Maximum="100"/>
+												<TextBlock Grid.Column="1" Text="{Binding Path=ImageQuality}" Padding="0" Margin="5,0,0,0" Foreground="RoyalBlue" Width="50" TextAlignment="Right"/>
+											</Grid>
+										</Param.Content>
+									</Param>
+								</Grid>
+							</Expander>
+							<Expander Grid.Row="2" Header="Sichtbarkeiten" IsExpanded="True">
+								<Grid IsEnabled="{Binding Path=CanBeModified}" >
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Grid IsSharedSizeScope="True">
+										<Grid.RowDefinitions>
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+											<RowDefinition Height="Auto" />
+										</Grid.RowDefinitions>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="Auto" />
+											<ColumnDefinition Width="Auto" />
+										</Grid.ColumnDefinitions>
+										<BoolParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-IsBusinessUidVisible}" Value="{Binding Path=IsBusinessUidVisible}" />
+										<BoolParam Grid.Row="1" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessNameVisible}"
 												Value="{Binding Path=IsBusinessNameVisible}" />
-								<BoolParam Grid.Row="2" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessTelefonVisible}"
+										<BoolParam Grid.Row="2" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessTelefonVisible}"
 												Value="{Binding Path=IsBusinessTelefonVisible}" />
 
-								<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessUid, StringFormat={}{0}}" />
-								<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=BusinessName, StringFormat={}{0}}" />
-								<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=BusinessTelefon, StringFormat={}{0}}" />
+										<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessUid, StringFormat={}{0}}" />
+										<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=BusinessName, StringFormat={}{0}}" />
+										<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=BusinessTelefon, StringFormat={}{0}}" />
 
-							</Grid>
-							<Border Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Padding="10,0,0,0" BorderThickness="1,0,0,0" BorderBrush="LightGray">
+									</Grid>
+									<Border Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" Padding="10,0,0,0" BorderThickness="1,0,0,0" BorderBrush="LightGray">
 
-								<Grid IsSharedSizeScope="True">
-									<Grid.RowDefinitions>
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-										<RowDefinition Height="Auto" />
-									</Grid.RowDefinitions>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="*" />
-									</Grid.ColumnDefinitions>
+										<Grid IsSharedSizeScope="True">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="*" />
+											</Grid.ColumnDefinitions>
 
-									<BoolParam Grid.Row="0" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessMailVisible}"
+											<BoolParam Grid.Row="0" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessMailVisible}"
 												Value="{Binding Path=IsBusinessMailVisible}" x:Name="MailBoolParam"/>
-									<BoolParam Grid.Row="1" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessWebsiteVisible}"
+											<BoolParam Grid.Row="1" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessWebsiteVisible}"
 												Value="{Binding Path=IsBusinessWebsiteVisible}" />
-									<BoolParam Grid.Row="2" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsKassenoperatorVisible}"
+											<BoolParam Grid.Row="2" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsKassenoperatorVisible}"
 												Value="{Binding Path=IsKassenoperatorVisible}" />
 
-									<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessMail, StringFormat={}{0}}" AKeyboardFocusRedirection.Target="{Binding ElementName=MailBoolParam}" />
-									<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=BusinessWebsite, StringFormat={}{0}}" />
+											<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessMail, StringFormat={}{0}}" AKeyboardFocusRedirection.Target="{Binding ElementName=MailBoolParam}" />
+											<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=BusinessWebsite, StringFormat={}{0}}" />
+
+										</Grid>
+									</Border>
+									<Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,0" Padding="0,5,0,0" BorderThickness="0,1,0,0" BorderBrush="LightGray">
+										<Grid IsSharedSizeScope="True">
+											<Grid.RowDefinitions>
+												<RowDefinition Height="Auto" />
+											</Grid.RowDefinitions>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto" />
+												<ColumnDefinition Width="Auto" />
+											</Grid.ColumnDefinitions>
+											<BoolParam Grid.Row="0" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessAnschriftVisible}"
+													Value="{Binding Path=IsBusinessAnschriftVisible}" />
+											<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessAnschrift, StringFormat={}{0}}" />
+										</Grid>
+
+									</Border>
 
 								</Grid>
-							</Border>
-							<Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,0" Padding="0,5,0,0" BorderThickness="0,1,0,0" BorderBrush="LightGray">
-								<Grid IsSharedSizeScope="True">
+							</Expander>
+							<Expander Grid.Row="3" Header="Texte" IsExpanded="{Binding Path=CanBeModified, Mode=OneWay}">
+								<Grid IsEnabled="{Binding Path=CanBeModified}">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
 									</Grid.RowDefinitions>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-									<BoolParam Grid.Row="0" Grid.Column="0" Header="{StaticResource Bez-OutputFormat-IsBusinessAnschriftVisible}"
-													Value="{Binding Path=IsBusinessAnschriftVisible}" />
-									<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=BusinessAnschrift, StringFormat={}{0}}" />
+									<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True"
+										MaxHeight="60" />
+									<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True"
+										MaxHeight="60" />
+									<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"
+										MaxHeight="60" />
 								</Grid>
+							</Expander>
+							<Expander Grid.Row="4" Header="Bilder" IsExpanded="{Binding Path=CanBeModified, Mode=OneWay}">
+								<Grid IsEnabled="{Binding Path=CanBeModified}">
+									<Grid.RowDefinitions>
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<ImageParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstImageBinary}" Value="{Binding Path=FirstImage}" />
+									<ImageParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondImageBinary}" Value="{Binding Path=SecondImage}" />
+									<ImageParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdImageBinary}" Value="{Binding Path=ThirdImage}" />
+								</Grid>
+							</Expander>
+						</Grid>
+					</ScrollViewer>
 
-							</Border>
-
-						</Grid>
-					</Expander>
-					<Expander Grid.Row="3" Header="Texte" IsExpanded="True">
-						<Grid IsEnabled="{Binding Path=CanBeModified}">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<StringParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstText}" Value="{Binding Path=FirstText}" AcceptsReturn="True"
-										MaxHeight="60" />
-							<StringParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondText}" Value="{Binding Path=SecondText}" AcceptsReturn="True"
-										MaxHeight="60" />
-							<StringParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdText}" Value="{Binding Path=ThirdText}" AcceptsReturn="True"
-										MaxHeight="60" />
-						</Grid>
-					</Expander>
-					<Expander Grid.Row="4" Header="Bilder" IsExpanded="True">
-						<Grid IsEnabled="{Binding Path=CanBeModified}">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<ImageParam Grid.Row="0" Header="{StaticResource Bez-OutputFormat-FirstImageBinary}" Value="{Binding Path=FirstImage}" />
-							<ImageParam Grid.Row="1" Header="{StaticResource Bez-OutputFormat-SecondImageBinary}" Value="{Binding Path=SecondImage}" />
-							<ImageParam Grid.Row="2" Header="{StaticResource Bez-OutputFormat-ThirdImageBinary}" Value="{Binding Path=ThirdImage}" />
-						</Grid>
-					</Expander>
 
 
 				</Grid>

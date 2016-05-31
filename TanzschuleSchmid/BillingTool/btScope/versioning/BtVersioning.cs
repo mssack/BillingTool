@@ -5,8 +5,10 @@
 // <date>2016-05-30</date>
 
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using BillingTool.btScope.configuration;
+using BillingTool.btScope.versioning.buildData;
 using BillingTool.btScope.versioning.updates;
 using BillingTool.Exceptions;
 using CsWpfBase.Ev.Objects;
@@ -44,18 +46,16 @@ namespace BillingTool.btScope.versioning
 		}
 
 		/// <summary>Gets current build details.</summary>
-		public BuildDetails BuildDetails => BuildDetails.I;
+		public BuildData Build => BuildData.I;
 
 		/// <summary>Checks if update is necessary and updates the data portion.</summary>
 		public bool DoUpdates()
 		{
 			var currentDataVersion = GetCurrentDataRc();
-			if (currentDataVersion == null)
-				return false;
-			if (currentDataVersion.Equals(BuildDetails.ActiveDevNumber, BuildDetails.GoldNumber))
+			if (currentDataVersion == null || Build.Version.Equals(currentDataVersion))
 				return false;
 
-			var updateForRc = UpdateBase.GetUpdateForRc(currentDataVersion);
+			var updateForRc = UpdateBase.GetUpdateForBuildVersion(currentDataVersion);
 			if (updateForRc == null)
 				return false;
 
@@ -65,8 +65,11 @@ namespace BillingTool.btScope.versioning
 		}
 
 
-		private ReleaseCandidate GetCurrentDataRc()
+		private BuildVersion GetCurrentDataRc()
 		{
+			if (File.Exists(RC66_To_Next_Updater.KasseneinstellungenFilePath))
+				return new BuildVersion("RC66");
+
 			ConfigFile_LocalSettings.FileName.Refresh();
 			if (!ConfigFile_LocalSettings.FileName.Exists)
 				return null;
@@ -76,7 +79,7 @@ namespace BillingTool.btScope.versioning
 				throw new BillingToolException(BillingToolException.Types.No_DataVersionFound, $"Es fehlt der Parameter 'DataVersion = RC??' im File [{ConfigFile_LocalSettings.FileName.FullName}].");
 			try
 			{
-				return new ReleaseCandidate(match.Groups[1].Value);
+				return new BuildVersion(match.Groups[1].Value);
 			}
 			catch (Exception exc)
 			{

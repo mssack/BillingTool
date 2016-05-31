@@ -33,7 +33,7 @@ namespace BillingToolGitControl.NewRc
 		{
 			DeleteAllActualFolders();
 
-			Utils.CreateTestEnvironment(Utils.Paths.Arc.Folder);
+			Utils.CreateTestEnvironment(Utils.Paths.Arc.Folder, true);
 
 			Zipping();
 			ChangeAnhängeReadme();
@@ -56,8 +56,8 @@ namespace BillingToolGitControl.NewRc
 		private void ChangeAnhängeReadme()
 		{
 			var txtLines = File.ReadAllLines(Utils.Paths.Source.AnhängeReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines.Insert(txtLines.IndexOf("#####Release Candidates") + 1, $"* [{Utils.BuildDetails.NameWithDate}](_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true)" +
-																			$" (Computer: {Utils.BuildDetails.Machine}, User: {Utils.BuildDetails.User})"
+			txtLines.Insert(txtLines.IndexOf("#####Release Candidates") + 1, $"* [{Utils.Build.NameWithDate}](_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true)" +
+																			$" (Computer: {Utils.Build.Machine}, User: {Utils.Build.User})"
 																			+ (string.IsNullOrEmpty(_messageList) ? "" : "\n\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\n\t* ")));
 			File.WriteAllLines(Utils.Paths.Source.AnhängeReadmeFile, txtLines);
 		}
@@ -65,13 +65,13 @@ namespace BillingToolGitControl.NewRc
 		private void ChangeStartseiteReadme()
 		{
 			var txtLines = File.ReadAllLines(Utils.Paths.Source.StartseiteReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines[2] = $"Aktuell [{Utils.BuildDetails.NameWithDate}](TanzschuleSchmid/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
+			txtLines[2] = $"Aktuell [{Utils.Build.NameWithDate}](TanzschuleSchmid/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
 			File.WriteAllLines(Utils.Paths.Source.StartseiteReadmeFile, txtLines);
 		}
 
 		private void CommitViaCommandline()
 		{
-			Utils.CommitFiles($"New Release Candidate {Utils.BuildDetails.Name}", Utils.Paths.Source.BuildDetails, Utils.Paths.Source.AnhängeReadmeFile, Utils.Paths.Source.StartseiteReadmeFile, Utils.Paths.Destination.ZipFile);
+			Utils.CommitFiles($"New Release Candidate {Utils.Build.Version.Name}", Utils.Paths.Source.BuildDetails, Utils.Paths.Source.AnhängeReadmeFile, Utils.Paths.Source.StartseiteReadmeFile, Utils.Paths.Destination.ZipFile);
 		}
 
 

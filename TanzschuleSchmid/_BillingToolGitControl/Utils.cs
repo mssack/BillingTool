@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using BillingTool.btScope.versioning;
+using BillingTool.btScope.versioning.buildData;
 using CsWpfBase.Ev.Public.Extensions;
 
 
@@ -23,14 +23,14 @@ namespace BillingToolGitControl
 
 	public static class Utils
 	{
-		private static BuildDetails _buildDetails;
-		public static BuildDetails BuildDetails
+		private static BuildData _buildData;
+		public static BuildData Build
 		{
 			get
 			{
-				if (_buildDetails == null)
-					_buildDetails = BuildDetails.LoadFromFile(new FileInfo(Paths.Source.BuildDetails));
-				return _buildDetails;
+				if (_buildData == null)
+					_buildData = BuildData.LoadFromFile(new FileInfo(Paths.Source.BuildDetails));
+				return _buildData;
 			}
 		}
 
@@ -50,9 +50,12 @@ namespace BillingToolGitControl
 				).Wait();
 		}
 
-		public static void CreateTestEnvironment(string targetFolder)
+		public static void CreateTestEnvironment(string targetFolder, bool releaseExecuteables)
 		{
-			foreach (var fileInfo in new DirectoryInfo(Paths.Source.Executeables).GetFiles("*.dll").Union(new DirectoryInfo(Paths.Source.Executeables).GetFiles("*.exe").Where(x => !x.Name.EndsWith(".vshost.exe"))).ToList())
+			string source = releaseExecuteables ? Paths.Source.ReleaseExecuteables : Paths.Source.DebugExecuteables;
+
+
+			foreach (var fileInfo in new DirectoryInfo(source).GetFiles("*.dll").Union(new DirectoryInfo(source).GetFiles("*.exe").Where(x => !x.Name.EndsWith(".vshost.exe"))).ToList())
 			{
 				var destFilePath = new FileInfo(Path.Combine(targetFolder, Paths.Arc.RelFolder_Executeable, fileInfo.Name));
 				destFilePath.CreateDirectory_IfNotExists();
@@ -138,7 +141,7 @@ namespace BillingToolGitControl
 			public static class Destination
 			{
 				public static string RcFolder => Paths.RcFolder;
-				public static string ZipFileName => $"BillingTool - {BuildDetails.Name}.zip";
+				public static string ZipFileName => $"BillingTool - {Build.Version.Name}.zip";
 				public static string ZipFile => Path.Combine(RcFolder, ZipFileName);
 			}
 
@@ -146,7 +149,7 @@ namespace BillingToolGitControl
 
 			public static class Arc
 			{
-				public static string Folder => Path.Combine(RcFolder, $"{BuildDetails.Name} vom {BuildDetails.Time.ToString("yyyy.MM.dd HH.mm.ss")}");
+				public static string Folder => Path.Combine(RcFolder, $"{Build.NameWithDate}");
 
 				public static string RelFolder_Code_ => "Code";
 				public static string RelFolder_Executeable => "Executeable";
@@ -163,8 +166,9 @@ namespace BillingToolGitControl
 				public static string SqlCeScripts => Path.Combine(SolutionFolder, $"_BillingDataAccess", $"DatabaseCreation", "SqlCeScripts");
 				public static string SharedEnumerations => Path.Combine(ProjectFolder, $"_SharedEnumerations");
 				public static string IncludedContentFolder => Path.Combine(RcFolder, "_IncludedContent");
-				public static string Executeables => Path.Combine(ProjectFolder, "bin", "Release");
-				public static string BuildDetails => Path.Combine(ProjectFolder, nameof(BillingTool.btScope), nameof(BillingTool.btScope.versioning), nameof(BillingTool.btScope.versioning.BuildDetails) + ".txt");
+				public static string ReleaseExecuteables => Path.Combine(ProjectFolder, "bin", "Release");
+				public static string DebugExecuteables => Path.Combine(ProjectFolder, "bin", "Debug");
+				public static string BuildDetails => Path.Combine(ProjectFolder, nameof(BillingTool.btScope), nameof(BillingTool.btScope.versioning), nameof(BillingTool.btScope.versioning.buildData), nameof(BillingTool.btScope.versioning.buildData.BuildData) + ".txt");
 			}
 		}
 	}

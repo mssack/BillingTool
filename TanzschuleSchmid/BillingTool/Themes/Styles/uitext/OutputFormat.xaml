@@ -17,6 +17,10 @@
 	<system:String x:Key="Bez-OutputFormat-ThirdImageBinary">Bild 3</system:String>
 	<system:String x:Key="Bez-OutputFormat-ThirdText">Text 3</system:String>
 
+
+	<system:String x:Key="Bez-OutputFormat-ImageScaling">Größenfaktor</system:String>
+	<system:String x:Key="Bez-OutputFormat-ImageQuality">Qualität</system:String>
+
 	<system:String x:Key="Bez-OutputFormat-IsBusinessUidVisible">Uid</system:String>
 	<system:String x:Key="Bez-OutputFormat-IsBusinessNameVisible">Bezeichnung</system:String>
 	<system:String x:Key="Bez-OutputFormat-IsBusinessAnschriftVisible">Anschrift</system:String>

@@ -40,9 +40,9 @@ namespace BillingOutput.btOutputScope.PdfCreation
 		}
 
 
-		public PdfLifeLine CreatePdf(BelegData data, BitmapSource image)
+		public PdfLifeLine CreatePdf(BelegData data, OutputFormat format, BitmapSource image)
 		{
-			return new PdfLifeLine(data, image);
+			return new PdfLifeLine(data, format, image);
 		}
 	}
 }

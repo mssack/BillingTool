@@ -22,6 +22,9 @@
 	[ThirdText]				ntext			,
 
 	[Scaling]				float	NOT NULL DEFAULT(1),
+	
+	[ImageScaling]			float	NOT NULL DEFAULT(4),
+	[ImageQuality]			integer	NOT NULL DEFAULT(100),
 
 	[BusinessUid]			ntext,
 	[BusinessName]			ntext,

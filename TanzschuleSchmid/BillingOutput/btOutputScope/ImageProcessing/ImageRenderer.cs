@@ -5,6 +5,7 @@
 // <date>2016-04-03</date>
 
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -46,12 +47,12 @@ namespace BillingOutput.btOutputScope.ImageProcessing
 		}
 
 
-		public BitmapSource Render(BelegData data, OutputFormat format, double scalingFactor = 4)
+		public BitmapSource Render(BelegData data, OutputFormat format)
 		{
 			if (format.BonLayout == BonLayouts.Unknown)
 				throw new InvalidOperationException($"The format {format} is not a valid format for a rendering of data {data}.");
 			var visual = new AnyBonVisual { Item = data, OutputFormat = format, Padding = new Thickness(0)};
-			ApplyScalingFactor(visual, scalingFactor);
+			ApplyScalingFactor(visual, format.ImageScaling);
 			var image = visual.ConvertTo_Image();
 			image.Freeze();
 			return image;
