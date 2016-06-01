@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-15</date>
+// <date>2016-06-01</date>
 
 using System;
 using System.ComponentModel;
@@ -10,13 +10,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
+using BillingTool.Themes.Controls.belegdatacreation;
 using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
+using CsWpfBase.Global.message;
 using CsWpfBase.Themes.Controls.Containers;
 using CsWpfBase.Utilitys;
 
@@ -125,7 +126,7 @@ namespace BillingTool.Windows
 			Bt.Data.MailedBeleg.New(Item, "");
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
-			((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = true;
+			((FrameworkElement) sender).GetParentByCondition<Expander>(ex => true).IsExpanded = true;
 		}
 
 		private void NewPrintClicked(object sender, RoutedEventArgs e)
@@ -133,7 +134,7 @@ namespace BillingTool.Windows
 			Bt.Data.PrintedBeleg.New(Item);
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
-			((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = true;
+			((FrameworkElement) sender).GetParentByCondition<Expander>(ex => true).IsExpanded = true;
 		}
 
 		private void DeleteMailClicked(object sender, RoutedEventArgs e)
@@ -143,7 +144,7 @@ namespace BillingTool.Windows
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 
 			if (Item.MailedBelege.Count == 0)
-				((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = false;
+				((FrameworkElement) sender).GetParentByCondition<Expander>(ex => true).IsExpanded = false;
 		}
 
 		private void DeletePrintClicked(object sender, RoutedEventArgs e)
@@ -152,7 +153,7 @@ namespace BillingTool.Windows
 
 			BonPreviewControl.ReloadSelectablePreviewFormats();
 			if (Item.PrintedBelege.Count == 0)
-				((FrameworkElement)sender).GetParentByCondition<Expander>(ex => true).IsExpanded = false;
+				((FrameworkElement) sender).GetParentByCondition<Expander>(ex => true).IsExpanded = false;
 		}
 
 		private void DeleteBelegPostenClicked(object sender, RoutedEventArgs e)
@@ -178,6 +179,22 @@ namespace BillingTool.Windows
 					BonPreviewControl.SelectedPreviewFormat = outputFormat;
 			}
 		}
+
+		private void NewArticleClicked(object sender, RoutedEventArgs e)
+		{
+			using (CsGlobal.Wpf.Window.GrayOutAllWindows())
+			{
+				var control = new NewBelegPostenControl {Item = Item};
+				var messageWindow = CsGlobal.Message.GetWindow(control, CsMessage.Types.Information, null, CsMessage.MessageButtons.NoButtons);
+				
+				control.Completed += c =>
+				{
+					messageWindow.Close();
+				};
+				messageWindow.ShowDialog();
+			}
+		}
+		
 #pragma warning disable 1591
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(Window_BelegData_Creation), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((Window_BelegData_Creation) o).ItemChanged(args.NewValue as BelegData)});
 		public static readonly DependencyProperty IsApprovalProperty = DependencyProperty.Register("IsApproval", typeof(bool), typeof(Window_BelegData_Creation), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});

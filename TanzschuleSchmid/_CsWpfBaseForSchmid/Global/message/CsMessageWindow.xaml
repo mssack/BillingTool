@@ -122,9 +122,9 @@
 											</TextBlock>
 										</Grid>
 									</Border>
-									<Border Grid.Row="0" Grid.Column="1" Margin="0,3,0,0">
+									<Border Grid.Row="0" Grid.Column="1" Margin="0,3,0,0" Visibility="{Binding Path=Message.Title, Converter={StaticResource GConv-NullToVisibility}}">
 										<TextBlock FontSize="22" Foreground="DimGray" FontFamily="Segoe UI Light" Text="{Binding Path=Message.Title}" Margin="0"
-													Padding="0" />
+													Padding="0"  />
 									</Border>
 									<ContentPresenter Grid.Row="1" Grid.Column="1" Margin="5,8,5,5" />
 
@@ -132,9 +132,8 @@
 										<Grid.ColumnDefinitions>
 											<ColumnDefinition Width="*" />
 											<ColumnDefinition Width="Auto" />
-											<ColumnDefinition Width="Auto" />
 										</Grid.ColumnDefinitions>
-										<StackPanel Grid.Column="2" Orientation="Horizontal" Button.Click="DialogButtonClicked">
+										<StackPanel Grid.Column="1" Orientation="Horizontal" Button.Click="DialogButtonClicked">
 											<StackPanel.Resources>
 												<Style TargetType="Button" x:Key="DialogButton" BasedOn="{StaticResource {x:Type Button}}">
 													<Setter Property="Width" Value="80" />
@@ -144,6 +143,15 @@
 													<Setter Property="Visibility" Value="Collapsed" />
 												</Style>
 											</StackPanel.Resources>
+											<StackPanel.Style>
+												<Style TargetType="{x:Type StackPanel}" >
+													<Style.Triggers>
+														<DataTrigger Binding="{Binding Path=Message.MessageButton}" Value="{x:Static c:CsMessage+MessageButtons.NoButtons}">
+															<Setter Property="Visibility" Value="Collapsed"/>
+														</DataTrigger>
+													</Style.Triggers>
+												</Style>
+											</StackPanel.Style>
 											<Button Content="Nein" Tag="{x:Static c:CsMessage+MessageResults.No}" IsCancel="True">
 												<Button.Style>
 													<Style TargetType="{x:Type Button}" BasedOn="{StaticResource DialogButton}">
@@ -235,9 +243,6 @@
 	<ScrollViewer DataContext="{Binding ElementName=Self, Path=Message}" Focusable="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" MinWidth="400" MaxWidth="600" MinHeight="45" Padding="0" Margin="0">
 		<ContentControl Focusable="False" Content="{Binding Path=Content}" SnapsToDevicePixels="False" Margin="0" Padding="0">
 			<ContentControl.Resources>
-				<DataTemplate DataType="{x:Type system:String}">
-					<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" />
-				</DataTemplate>
 				<DataTemplate DataType="{x:Type entries:CsopServerMessage}">
 					<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay, Path=Text}" TextWrapping="Wrap" VerticalAlignment="Top" />
 				</DataTemplate>
@@ -263,6 +268,12 @@
 				</DataTemplate>
 				<DataTemplate DataType="{x:Type net:WebException}">
 					<Grid>
+						<Grid.Resources>
+
+							<DataTemplate DataType="{x:Type system:String}">
+								<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" />
+							</DataTemplate>
+						</Grid.Resources>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -293,6 +304,12 @@
 				<DataTemplate DataType="{x:Type system:Exception}" x:Key="ExceptionContent">
 
 					<Grid Margin="0,15,0,0">
+						<Grid.Resources>
+
+							<DataTemplate DataType="{x:Type system:String}">
+								<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" />
+							</DataTemplate>
+						</Grid.Resources>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -320,6 +337,12 @@
 				<DataTemplate DataType="{x:Type system:Exception}">
 
 					<Grid>
+						<Grid.Resources>
+
+							<DataTemplate DataType="{x:Type system:String}">
+								<TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" Text="{Binding Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Top" />
+							</DataTemplate>
+						</Grid.Resources>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />

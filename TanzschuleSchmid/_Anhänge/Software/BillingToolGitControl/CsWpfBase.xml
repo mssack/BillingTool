@@ -6340,6 +6340,9 @@
         <member name="F:CsWpfBase.Global.message.CsMessage.MessageButtons.OkCancel">
             <summary></summary>
         </member>
+        <member name="F:CsWpfBase.Global.message.CsMessage.MessageButtons.NoButtons">
+            <summary></summary>
+        </member>
         <member name="T:CsWpfBase.Global.message.CsMessage.MessageResults">
             <summary>The result of a message which result can be chosen in the message box is defined by the
                 <see cref="T:CsWpfBase.Global.message.CsMessage.MessageButtons" /> enum.</summary>
@@ -10052,36 +10055,6 @@
         </member>
         <member name="M:CsWpfBase._files.html.CsHtmlPage.Hdi.Parse(System.IO.FileInfo)">
             <summary>Parses the beginning of a file to match the DocInfo.</summary>
-        </member>
-        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
-            <summary>
-            GeneratedInternalTypeHelper
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
-            <summary>
-            CreateInstance
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            GetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            SetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
-            <summary>
-            CreateDelegate
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
-            <summary>
-            AddEventHandler
-            </summary>
         </member>
     </members>
 </doc>

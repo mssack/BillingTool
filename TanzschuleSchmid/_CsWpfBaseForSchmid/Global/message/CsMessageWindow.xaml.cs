@@ -58,7 +58,6 @@ namespace CsWpfBase.Global.message
 			set { SetValue(YesOkButtonEnabledProperty, value); }
 		}
 
-
 		/// <summary>shows the window.</summary>
 		public new CsMessage.MessageResults ShowDialog()
 		{

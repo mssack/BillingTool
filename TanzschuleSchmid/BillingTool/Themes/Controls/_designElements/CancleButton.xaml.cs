@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 
@@ -16,7 +17,7 @@ using System.Windows.Data;
 namespace BillingTool.Themes.Controls._designElements
 {
 	/// <summary>Interaction logic for CancleButton.xaml</summary>
-	public partial class CancleButton
+	public partial class CancleButton : Button
 	{
 		#region DP Keys
 		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(CancleButton), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});

@@ -68,11 +68,7 @@
 								<TextBlock Text="Artikel" />
 								<designElements:CancleButton Grid.Column="2" Click="DeleteBelegPostenClicked" Content="Entfernen"
 															Visibility="{Binding Converter={StaticResource GConv-NullToVisibility}}" Margin="0,0,3,0" Focusable="False" />
-								<PopupButton Grid.Column="3" Content="Neuer Artikel" Padding="6,1,6,1" Margin="0" Focusable="False">
-									<PopupButton.PopupContent>
-										<belegdatacreation:NewBelegPostenControl Item="{Binding ElementName=Uc, Path=Item}" />
-									</PopupButton.PopupContent>
-								</PopupButton>
+								<designElements:AcceptButton Grid.Column="3" Click="NewArticleClicked" Content="Neuer Artikel" Margin="0" Focusable="False" />
 							</Grid>
 						</Expander.Header>
 						<belegdatacreation:PostenListView Item="{Binding}" x:Name="PostenListView" Padding="0,0,0,10" />

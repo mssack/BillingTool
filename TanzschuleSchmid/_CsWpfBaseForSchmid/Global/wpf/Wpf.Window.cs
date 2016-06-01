@@ -53,16 +53,18 @@ namespace CsWpfBase.Global.wpf
 
 		private class GrayOutClass : IDisposable
 		{
+			private CsWindow[] grayoutWindows;
 			public GrayOutClass()
 			{
-				Application.Current.Windows.OfType<Window>().Where(x => x is CsWindow).OfType<CsWindow>().ToArray().ForEach(x => x.IsGrayedOut = true);
+				grayoutWindows = Application.Current.Windows.OfType<Window>().Where(x => x is CsWindow).OfType<CsWindow>().Where(x=>x.IsGrayedOut == false).ToArray();
+				grayoutWindows.ForEach(x => x.IsGrayedOut = true);
 			}
 
 
 			#region Overrides/Interfaces
 			public void Dispose()
 			{
-				Application.Current.Windows.OfType<Window>().Where(x => x is CsWindow).OfType<CsWindow>().ToArray().ForEach(x => x.IsGrayedOut = false);
+				grayoutWindows.ForEach(x => x.IsGrayedOut = false);
 			}
 			#endregion
 		}

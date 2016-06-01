@@ -4,7 +4,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
-		mc:Ignorable="d" Name="Btn">
+		mc:Ignorable="d" x:Name="Btn">
 	<Button.Style>
 		<Style TargetType="designElements:AcceptButton" BasedOn="{StaticResource {x:Type Button}}" >
 			<Setter Property="Padding" Value="6,1,6,1" />

@@ -37,7 +37,7 @@ namespace CsWpfBase.Global.message
 			_time = DateTime.Now;
 			_type = type;
 			_content = content;
-			_title = title ?? type.GetName();
+			_title = title;
 			_messageButton = button;
 			_code = new CodePosition(methodName, classFilePath, classLineNumber);
 			_messageId = SmallHash.FromString(_content.ToString());
@@ -125,6 +125,8 @@ namespace CsWpfBase.Global.message
 			Ok,
 			/// <summary></summary>
 			OkCancel,
+			/// <summary></summary>
+			NoButtons,
 		}
 
 

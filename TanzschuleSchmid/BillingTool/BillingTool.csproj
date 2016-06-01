@@ -83,6 +83,9 @@
     <Compile Include="btScope\versioning\updates\RC66_To_Next_Updater.cs" />
     <Compile Include="btScope\versioning\updates\_UpdateBase.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
+    <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs">
+      <DependentUpon>RedBorderBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="_SharedEnumerations\ExitCodes.cs" />
     <Compile Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml.cs">
       <DependentUpon>BelegDataTypParam.xaml</DependentUpon>
@@ -123,7 +126,6 @@
     <Compile Include="Themes\Controls\_designElements\CancleButton.xaml.cs">
       <DependentUpon>CancleButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs" />
     <Compile Include="Themes\Controls\_shared\BonPreviewControl.xaml.cs">
       <DependentUpon>BonPreviewControl.xaml</DependentUpon>
     </Compile>

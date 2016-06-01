@@ -22,6 +22,8 @@ namespace BillingDataAccess.sqlcedatabases.billingdatabase.dataset
 				OutputFormats.DownloadRows();
 			if (!Steuersätze.HasBeenLoaded)
 				Steuersätze.DownloadRows();
+			if (!Postens.HasBeenLoaded)
+				Postens.DownloadRows();
 			if (!Configurations.HasBeenLoaded)
 				Configurations.DownloadRows();
 

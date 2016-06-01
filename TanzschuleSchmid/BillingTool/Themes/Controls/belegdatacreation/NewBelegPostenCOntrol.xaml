@@ -16,55 +16,115 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 	<Grid DataContext="{Binding ElementName=Uc1}" IsSharedSizeScope="True">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
-		<Int32Param Header="{StaticResource Bez-BelegPosten-Anzahl}" Value="{Binding Path=Anzahl}" Minimum="1" />
-		<Param Grid.Row="1" Header="{StaticResource Bez-Posten-Name}">
-			<ComboBoxWithNewButton x:Name="PostenComboBox" ItemsSource="{Binding Path=SortedPosten}" SelectedItem="{Binding Path=Posten}" NewClicked="PostenComboBox_OnNewClicked">
-				<ComboBox.ItemTemplate>
-					<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
-						<TextBlock>
-							<TextBlock.Text>
-								<MultiBinding StringFormat="{}{0} ({1:0.00} €)">
-									<Binding Path="Name"/>
-									<Binding Path="PreisBrutto"/>
-								</MultiBinding>
-							</TextBlock.Text>
-						</TextBlock>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBoxWithNewButton>
-		</Param>
-		<Param Grid.Row="3" Header="{StaticResource Bez-BelegPosten-Steuersatz}">
-			<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Steuersätze.Collection}" SelectedItem="{Binding Path=Steuersatz}">
-				<ComboBox.ItemTemplate>
-					<DataTemplate DataType="{x:Type billingDatabaseDb:Steuersatz}">
-						<TextBlock>
-							<TextBlock.Text>
-								<MultiBinding StringFormat="{}{0} ({1:0} %)">
-									<Binding Path="Name"/>
-									<Binding Path="Percent"/>
-								</MultiBinding>
-							</TextBlock.Text>
-						</TextBlock>
-					</DataTemplate>
-				</ComboBox.ItemTemplate>
-			</ComboBox>
-		</Param>
-		
-		<Grid Grid.Row="4" Margin="0,10,0,0">
+		<Border x:Name="NewBelegPostenBorder">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
+				</Grid.RowDefinitions>
+				<Border Grid.Row="0" Margin="0,3,0,0">
+					<TextBlock FontSize="22" Foreground="DimGray" FontFamily="Segoe UI Light" Text="Neuer Artikel" Margin="0" Padding="0"  />
+				</Border>
+				<Grid Grid.Row="1" IsSharedSizeScope="True">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+					<Int32Param Header="{StaticResource Bez-BelegPosten-Anzahl}" Value="{Binding Path=BelegPosten_Anzahl}" Minimum="1" />
+					<Param Grid.Row="1" Header="{StaticResource Bez-Posten-Name}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<ComboBox ItemsSource="{Binding Path=SortedPosten}" SelectedItem="{Binding Path=BelegPosten_Posten}">
+								<ComboBox.ItemTemplate>
+									<DataTemplate DataType="{x:Type billingDatabaseDb:Posten}">
+										<TextBlock>
+											<TextBlock.Text>
+												<MultiBinding StringFormat="{}{0} ({1:0.00} €)">
+													<Binding Path="Name"/>
+													<Binding Path="PreisBrutto"/>
+												</MultiBinding>
+											</TextBlock.Text>
+										</TextBlock>
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+							<Button Grid.Column="1" Content="Neu" Click="Change_To_PostenCreation"/>
+						</Grid>
+					</Param>
+					<Param Grid.Row="2" Header="{StaticResource Bez-BelegPosten-Steuersatz}">
+						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Steuersätze.Collection}" SelectedItem="{Binding Path=BelegPosten_Steuersatz}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate DataType="{x:Type billingDatabaseDb:Steuersatz}">
+									<TextBlock>
+										<TextBlock.Text>
+											<MultiBinding StringFormat="{}{0} ({1:0} %)">
+												<Binding Path="Name"/>
+												<Binding Path="Percent"/>
+											</MultiBinding>
+										</TextBlock.Text>
+									</TextBlock>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</Param>
+				</Grid>
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="Auto"/>
-			</Grid.ColumnDefinitions>
-			<designElements:AcceptButton Content="Erstellen" Click="ErstellenClick" IsEnabled="{Binding Path=Posten, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
-		</Grid>
+
+				<Grid Grid.Row="2">
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<designElements:CancleButton Grid.Column="1" Content="Abbrechen" Click="Cancle_BelegPosten_Click" />
+					<designElements:AcceptButton Grid.Column="2" Content="Erstellen" Click="Create_BelegPosten_Click" IsEnabled="{Binding Path=BelegPosten_Posten, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
+				</Grid>
+			</Grid>
+		</Border>
+		<Border x:Name="NewPostenBorder" Visibility="Collapsed">
+			<Grid DataContext="{Binding ElementName=Uc1}">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Border Grid.Row="0" Margin="0,3,0,0">
+					<TextBlock FontSize="22" Foreground="DimGray" FontFamily="Segoe UI Light" Text="Neuer Posten" Margin="0" Padding="0"  />
+				</Border>
+
+				<Grid Grid.Row="1" IsSharedSizeScope="True">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<StringParam Grid.Row="0"  Header="{StaticResource Bez-Posten-Name}" Value="{Binding Path=Posten_Name}" />
+					<StringParam Grid.Row="1"  Header="{StaticResource Bez-Posten-PreisBrutto}" Value="{Binding Path=Posten_PreisBrutto, StringFormat={}{0:0.00}}">
+						<TextBlock Text="€ Brutto" />
+					</StringParam>
+					<StringParam Grid.Row="2"  Header="{StaticResource Bez-Posten-Dimension}" Value="{Binding Path=Posten_Dimension}" />
+				</Grid>
+
+
+				<Grid Grid.Row="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+
+					<designElements:CancleButton Grid.Column="1" Content="Abbrechen" Click="Cancle_Posten_Clicked"/>
+					<designElements:AcceptButton Grid.Column="2" Content="Erstellen" Click="Create_Posten_Clicked"></designElements:AcceptButton>
+				</Grid>
+			</Grid>
+		</Border>
+		
 	</Grid>
 </UserControl>
