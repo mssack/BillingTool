@@ -7,6 +7,10 @@
 // ReSharper disable RedundantUsingDirective
 
 using System;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Windows;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
@@ -52,9 +56,15 @@ namespace BillingTool
 							using (var message = new MailMessage
 							{
 								From = new MailAddress(mailConfig.SmtpMailAddress),
-								Subject = $"[BILLINGTOOL].[EXCEPTION] - {args.Exception.Message.CutMiddle()}",
+								Subject = $"[BILLINGTOOL].[{args.Exception.GetType().Name.ToUpper()}] - {args.Exception.Message.CutMiddle()}",
 								IsBodyHtml = false,
-								Body = $"Konfiguration = \"{Bt.Config.Control.Current}\"\r\n\r\n\r\n{args.Exception}"
+								Body = $"Konfiguration = \"{Bt.Config.Control.Current}\"\r\n\r\n\r\n" +
+										$"Computer = {CsGlobal.Os.ComputerName} ({CsGlobal.Computer.System.Manufacturer}, {CsGlobal.Computer.System.Model})" + "\r\n" + 
+										$"Benutzer = {CsGlobal.Os.CurrentUser.Name} ({CsGlobal.Os.CurrentUser.FullName}, Registered User={CsGlobal.Os.RegisteredUser})" + "\r\n" +
+										$"OS = {CsGlobal.Os.Name}" + "\r\n" +
+										$"Screen = {CsGlobal.Computer.Screen.TotalWidth}x{CsGlobal.Computer.Screen.TotalHeight}" + "\r\n" +
+										$"Drucker = {CsGlobal.Computer.Devices.Printers.Select(x=>$"{x.Name}[{x.DriverName}{(x.Default?" = DEFAULT":"")}]").Join()}" + "\r\n" +
+										$"\r\n\r\n\r\n{args.Exception}"
 							})
 							{
 								message.To.Add("service.christian@sack.at");
@@ -63,7 +73,7 @@ namespace BillingTool
 							}
 						}
 					}
-					catch (Exception)
+					catch (Exception exc)
 					{
 
 					}

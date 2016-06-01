@@ -494,7 +494,7 @@
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug goto :Exit
 
-start "" $(SolutionDir)_Anhänge\Software\BillingToolGitControl\BillingToolGitControl.exe NewRC
+start "" $(SolutionDir)_Anhänge\Software\BillingToolGitControl\BillingTool.GitControl.exe NewRC
 :Exit
 </PostBuildEvent>
   </PropertyGroup>
