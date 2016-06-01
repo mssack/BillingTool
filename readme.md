@@ -8,6 +8,7 @@ Aktuell im Betrieb [RC66 vom 28.05.2016](_ReleaseCandidates/BillingTool - RC66.z
 * Größere Buttons im BelegDataViewer
 * File.Rename    [Kasseneinstellungen.txt]   ->  [_LocalSettings.txt]
 * Man kann nun beim anfügen eines weiteren Artikels beim manuellen erstellen einer Rechnung, direkt einen neuen Posten erstellen.
+* *.dll filenames haben sich geändert (Refactur)
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
