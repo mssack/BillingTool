@@ -9,6 +9,7 @@ Aktuell [RC278 vom 02.06.2016 um 01:24](BillingToolSolution/_Anhänge/_ReleaseCa
 * File.Rename    [Kasseneinstellungen.txt]   ->  [_LocalSettings.txt]
 * Man kann nun beim anfügen eines weiteren Artikels beim manuellen erstellen einer Rechnung, direkt einen neuen Posten erstellen.
 * *.dll filenames haben sich geändert (Refactur)
+* Weißer Rahmen beim Mailbon
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
