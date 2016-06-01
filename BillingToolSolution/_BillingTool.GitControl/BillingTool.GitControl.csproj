@@ -78,11 +78,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\BillingTool.DataAccess\sqlcedatabases\billingdatabase\_Extensions\enumerations\BelegDataTypes.cs">
+      <Link>BelegDataTypes.cs</Link>
+    </Compile>
     <Compile Include="..\BillingTool\btScope\versioning\buildData\BuildData.cs">
       <Link>BuildData.cs</Link>
     </Compile>
     <Compile Include="..\BillingTool\btScope\versioning\BuildVersion.cs">
       <Link>BuildVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\BillingTool\enumerations\ExitCodes.cs">
+      <Link>ExitCodes.cs</Link>
+    </Compile>
+    <Compile Include="..\BillingTool\enumerations\StartupModes.cs">
+      <Link>StartupModes.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -90,6 +99,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="codeSamples\BillingToolStarter.cs" />
     <Compile Include="Control\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
     </Compile>
@@ -97,6 +107,7 @@
     <Compile Include="NewRc\NewRcControl.xaml.cs">
       <DependentUpon>NewRcControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="_gen\BatchFileCreator.cs" />
     <Compile Include="_gen\Manipulate.cs" />
     <Compile Include="_gen\Paths.cs" />
     <Compile Include="_gen\Utils.cs" />

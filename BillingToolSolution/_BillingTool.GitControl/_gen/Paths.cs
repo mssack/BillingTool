@@ -22,6 +22,7 @@ namespace BillingToolGitControl._gen
 		private const string SolutionName = "BillingToolSolution";
 		private const string ProjectName = "BillingTool";
 		private const string DataAccessProjectName = "BillingTool.DataAccess";
+		private const string GitControlProjectName = "_BillingTool.GitControl";
 		private const string ReadmeName = "readme.md";
 		private static string ExecuteableFolder { get; }
 
@@ -52,9 +53,10 @@ namespace BillingToolGitControl._gen
 		{
 			public static string Folder => Path.Combine(RcFolder, $"{Utils.Build.NameWithDateForIO}");
 
+			public static string RelFolder_Startup => "#Startup (BATCH FILES)";
 			public static string RelFolder_Code => "Code";
-			public static string RelFolder_CodeBillingTool => Path.Combine(RelFolder_Code, "BillingTool");
 			public static string RelFolder_Executeable => "Executeable";
+			public static string RelFolder_CodeBillingTool => Path.Combine(RelFolder_Code, "BillingTool");
 			public static string RelFolder_SqlCe => Path.Combine(RelFolder_Code, "SqlCE - Database Definition");
 			public static string RelFolder_Enumerations => Path.Combine(RelFolder_CodeBillingTool, "enumerations");
 		}
@@ -68,7 +70,7 @@ namespace BillingToolGitControl._gen
 			public static string SqlCeScripts => Path.Combine(SolutionFolder, DataAccessProjectName, $"DatabaseCreation", "SqlCeScripts");
 			public static string BillingToolEnumerations => Path.Combine(ProjectFolder, $"enumerations");
 			public static string BelegDataTypes_EnumerationFile => Path.Combine(SolutionFolder, DataAccessProjectName, "sqlcedatabases", "billingdatabase", "_Extensions", "enumerations", "BelegDataTypes.cs");
-			public static string BillingToolCodeSamples => Path.Combine(ProjectFolder, $"codeSamples");
+			public static string CodeSamples => Path.Combine(SolutionFolder, GitControlProjectName, $"codeSamples");
 			public static string IncludedContentFolder => Path.Combine(RcFolder, "_IncludedContent");
 			public static string ReleaseExecuteables => Path.Combine(ProjectFolder, "bin", "Release");
 			public static string DebugExecuteables => Path.Combine(ProjectFolder, "bin", "Debug");

@@ -5,8 +5,6 @@
 // <date>2016-05-31</date>
 
 using System;
-using BillingTool.btScope.configuration;
-using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 
 
 
@@ -26,21 +24,21 @@ namespace BillingTool.enumerations
 		Success = 1 << 0,
 
 
-		/// <summary>some <see cref="BelegData" /> were created and saved to the database.</summary>
+		/// <summary>some BelegData were created and saved to the database.</summary>
 		BelegData_Created = 1 << 1,
-		/// <summary>some <see cref="BelegData" /> which should be created were canceled.</summary>
+		/// <summary>some BelegData which should be created were canceled.</summary>
 		BelegData_Creation_Aborted = 1 << 2,
-		/// <summary>some <see cref="BelegData" /> were storniert.</summary>
+		/// <summary>some BelegData were storniert.</summary>
 		BelegData_Storniert = 1 << 3,
 
-		/// <summary>some <see cref="BelegData" /> were printed.</summary>
+		/// <summary>some BelegData were printed.</summary>
 		BelegData_Print_Success = 1 << 4,
-		/// <summary>some <see cref="BelegData" /> could not be printed. This is not an absolut error which sets the <see cref="Success" /> flag to zero.</summary>
+		/// <summary>some BelegData could not be printed. This is not an absolut error which sets the Success flag to zero.</summary>
 		BelegData_Print_Error = 1 << 5,
 
-		/// <summary>some <see cref="BelegData" /> were mailed.</summary>
+		/// <summary>some BelegData were mailed.</summary>
 		BelegData_Mail_Success = 1 << 6,
-		/// <summary>some <see cref="BelegData" /> could not be mailed. This is not an absolut error which sets the <see cref="Success" /> flag to zero.</summary>
+		/// <summary>some BelegData could not be mailed. This is not an absolut error which sets the Success flag to zero.</summary>
 		BelegData_Mail_Error = 1 << 7,
 
 		/// <summary>some options were being stored.</summary>
@@ -63,7 +61,7 @@ namespace BillingTool.enumerations
 		Error_No_BusinessName = 1 << 21,
 		/// <summary>Occurs when the license agreement was not accepted.</summary>
 		Error_LicenseAgreement_NotAccepted = 1 << 22,
-		/// <summary>Occurs when no data version could be found in <see cref="ConfigFile_LocalSettings" /> file.</summary>
+		/// <summary>Occurs when no data version could be found in ConfigFile_LocalSettings file.</summary>
 		Error_No_DataVersion = 1 << 23,
 		/// <summary>Occurs when an invalid data version was found.</summary>
 		Error_Invalid_DataVersion = 1 << 24,

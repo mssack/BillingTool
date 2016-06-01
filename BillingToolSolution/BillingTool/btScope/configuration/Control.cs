@@ -5,6 +5,7 @@
 // <date>2016-05-28</date>
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using BillingTool.btScope.configuration.control;
@@ -70,8 +71,9 @@ namespace BillingTool.btScope.configuration
 		/// </summary>
 		public void Interpret(string[] startParams)
 		{
-			Current = startParams.Join(" ");
-			var concanatedParams = Current.Replace("//", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "//")).Where(x => !string.IsNullOrEmpty(x)).ToList();
+
+			Current.SaveAs_Utf8String(new FileInfo("Test.txt").In_Desktop_Directory());
+			var concanatedParams = Current.Replace("\\/", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "/")).Where(x => !string.IsNullOrEmpty(x)).ToList();
 			General.Interpret(concanatedParams);
 			NewBelegData.Interpret(concanatedParams);
 		}

@@ -19,7 +19,7 @@ using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerati
 
 //This class will be exported to the release candidate.
 
-namespace BillingTool.codeSamples
+namespace BillingToolGitControl.codeSamples
 {
 	/// <summary>used to interact with the BillingTool.</summary>
 	public class BillingToolStarter
@@ -40,36 +40,62 @@ namespace BillingTool.codeSamples
 		/// <summary>Used to approve one instance of <see cref="BelegData" />.</summary>
 		public ExitCodes BelegDataApproval(BelegData data)
 		{
-			return OpenProcess(StartupModes.BelegDataApprove, data.ToString());
+			return OpenProcess(Cmd_BelegDataApproval(data));
 		}
 
-		/// <summary>Used to approve one instance of <see cref="BelegData" />.</summary>
+		/// <summary>Used to open the options.</summary>
 		public ExitCodes Options()
 		{
-			return OpenProcess(StartupModes.Options);
+			return OpenProcess(Cmd_Options());
 		}
 
-		/// <summary>Used to approve one instance of <see cref="BelegData" />.</summary>
+		/// <summary>Used to create a Monatsbon.</summary>
 		public ExitCodes SilentMonatsBonPrint()
 		{
-			return OpenProcess(StartupModes.SilentMonatsBonPrint);
+			return OpenProcess(Cmd_SilentMonatsBonPrint());
+		}
+
+		/// <summary>Used for Storno, viewing, manual creation and others.</summary>
+		public ExitCodes BelegDataViewer()
+		{
+			return OpenProcess(Cmd_BelegDataViewer());
 		}
 
 		/// <summary>Used to approve one instance of <see cref="BelegData" />.</summary>
-		public ExitCodes BelegDataViewer()
+		public string Cmd_BelegDataApproval(BelegData data)
 		{
-			return OpenProcess(StartupModes.BelegDataViewer);
+			return GetCommand(StartupModes.BelegDataApprove, data.ToString());
 		}
 
+		/// <summary>Used to open the options.</summary>
+		public string Cmd_Options()
+		{
+			return GetCommand(StartupModes.Options);
+		}
 
+		/// <summary>Used to create a Monatsbon.</summary>
+		public string Cmd_SilentMonatsBonPrint()
+		{
+			return GetCommand(StartupModes.SilentMonatsBonPrint);
+		}
 
-		private ExitCodes OpenProcess(StartupModes mode, string commandlineArgs = null)
+		/// <summary>Used for Storno, viewing, manual creation and others.</summary>
+		public string Cmd_BelegDataViewer()
+		{
+			return GetCommand(StartupModes.BelegDataViewer);
+		}
+
+		private string GetCommand(StartupModes mode, string commandlineArgs = null)
 		{
 			var fullArgument = "/" + mode + " /NceKassenOperator " + _kassenoperator;
 			if (!string.IsNullOrEmpty(commandlineArgs))
 				fullArgument = fullArgument + " " + commandlineArgs;
+			return fullArgument;
+		}
 
-			using (var process = Process.Start(_filePath, fullArgument))
+		private ExitCodes OpenProcess(string command)
+		{
+			using (var process = Process.Start(_filePath, command))
 			{
 				process.WaitForExit();
 				return (ExitCodes) process.ExitCode;
@@ -199,7 +225,7 @@ namespace BillingTool.codeSamples
 					if ((property.PropertyType.IsValueType && Equals(value, Activator.CreateInstance(property.PropertyType))) || value == null)
 						continue;
 
-					string valueText = GetTextRepresentation(property, value);
+					var valueText = GetTextRepresentation(property, value);
 					if (valueText == null)
 						continue;
 
@@ -207,6 +233,7 @@ namespace BillingTool.codeSamples
 				}
 				return arguments.Substring(0, arguments.Length - 1);
 			}
+
 			public static string Get_ListItem_String(object o)
 			{
 				var arguments = "";
@@ -216,7 +243,7 @@ namespace BillingTool.codeSamples
 					if ((property.PropertyType.IsValueType && value == Activator.CreateInstance(property.PropertyType)) || value == null)
 						continue;
 
-					string valueText = GetTextRepresentation(property, value);
+					var valueText = GetTextRepresentation(property, value);
 					if (valueText == null)
 						continue;
 
@@ -231,16 +258,16 @@ namespace BillingTool.codeSamples
 				if ((property.PropertyType.IsValueType && value == Activator.CreateInstance(property.PropertyType)) || value == null)
 					return null;
 				if (property.PropertyType == typeof(decimal))
-					return ((decimal)value).ToString("0.00");
+					return ((decimal) value).ToString("0.00");
 
 				if (property.PropertyType.IsEnum)
-					return ((int)value).ToString();
+					return ((int) value).ToString();
 
 				if (property.PropertyType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
 				{
 					var count = 0;
-					string valueText = "{ ";
-					foreach (var obj in (IEnumerable)value)
+					var valueText = "{ ";
+					foreach (var obj in (IEnumerable) value)
 					{
 						count++;
 						valueText = valueText + obj + ", ";

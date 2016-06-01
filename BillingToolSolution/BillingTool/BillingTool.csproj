@@ -79,7 +79,6 @@
     <Compile Include="btScope\versioning\BuildVersion.cs" />
     <Compile Include="btScope\versioning\updates\RC66_To_Next_Updater.cs" />
     <Compile Include="btScope\versioning\updates\_UpdateBase.cs" />
-    <Compile Include="codeSamples\BillingToolStarter.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="Themes\Controls\_designElements\AcceptButton.xaml.cs">
       <DependentUpon>AcceptButton.xaml</DependentUpon>

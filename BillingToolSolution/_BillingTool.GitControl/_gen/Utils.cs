@@ -5,6 +5,7 @@
 // <date>2016-06-01</date>
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -67,8 +68,10 @@ namespace BillingToolGitControl._gen
 
 			CopyFile(Paths.Source.BelegDataTypes_EnumerationFile, Path.Combine(targetFolder, Paths.Arc.RelFolder_Enumerations), Manipulate.BelegDataTypes);
 
-			CopyEntireFolder(Paths.Source.BillingToolCodeSamples, Path.Combine(targetFolder, Paths.Arc.RelFolder_CodeBillingTool), Manipulate.Class);
+			CopyEntireFolder(Paths.Source.CodeSamples, Path.Combine(targetFolder, Paths.Arc.RelFolder_CodeBillingTool), Manipulate.Class);
+			BatchFileCreator.CreateBatchFiles(targetFolder);
 		}
+		
 
 		public static void CopyEntireFolder(string from, string to, Func<string, string> fileContentManipulationAction = null)
 		{
