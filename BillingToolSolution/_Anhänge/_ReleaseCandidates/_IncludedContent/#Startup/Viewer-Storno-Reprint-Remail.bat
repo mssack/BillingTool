@@ -1,0 +1,1 @@
+Start ..\Executeable\Billingtool.exe /BelegDataViewer /NCEKassenOperator SCRIPT
