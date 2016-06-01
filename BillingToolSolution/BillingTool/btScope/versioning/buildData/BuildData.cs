@@ -72,6 +72,8 @@ namespace BillingTool.btScope.versioning.buildData
 
 		/// <summary>Gets the name of the current RC.</summary>
 		public string NameWithDate => $"{Version.Name} vom {Time.ToString("dd.MM.yyyy u\\m HH:mm")}";
+		/// <summary>Gets the name of the current RC.</summary>
+		public string NameWithDateForIO => $"{Version.Name} vom {Time.ToString("dd.MM.yyyy u\\m HH.mm")}";
 
 
 		/// <summary>Gets the current build number.</summary>

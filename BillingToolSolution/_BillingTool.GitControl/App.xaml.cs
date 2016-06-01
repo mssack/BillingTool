@@ -26,7 +26,7 @@ namespace BillingToolGitControl
 		{
 			base.OnStartup(e);
 
-			if (e.Args.Length != 0 && e.Args[0] == "NewRC")
+			if (e.Args.Length != 0 && e.Args[0].ToLower() == "NewRC".ToLower())
 			{
 				var question = new NewRc.NewRcControl();
 				var messageResult = CsGlobal.Message.Push(question, CsMessage.Types.Information, "Neuer Release Client", CsMessage.MessageButtons.YesNo);

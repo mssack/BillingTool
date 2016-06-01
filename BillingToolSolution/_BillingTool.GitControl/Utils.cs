@@ -150,7 +150,7 @@ namespace BillingToolGitControl
 
 			public static class Arc
 			{
-				public static string Folder => Path.Combine(RcFolder, $"{Build.NameWithDate}");
+				public static string Folder => Path.Combine(RcFolder, $"{Build.NameWithDateForIO}");
 
 				public static string RelFolder_Code_ => "Code";
 				public static string RelFolder_Executeable => "Executeable";
