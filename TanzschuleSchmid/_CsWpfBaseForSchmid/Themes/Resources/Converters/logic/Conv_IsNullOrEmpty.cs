@@ -28,6 +28,8 @@ namespace CsWpfBase.Themes.Resources.Converters.logic
 				return string.IsNullOrEmpty(value as string);
 			if (value is int)
 				return ((int) value) == 0;
+			if (value is decimal)
+				return ((decimal) value) == 0;
 			return false;
 		}
 

@@ -18,18 +18,10 @@ namespace CsWpfBase.Themes.Resources.Converters.logic
 	// ReSharper disable InconsistentNaming
 	public class Conv_InvIsNullOrEmpty : IValueConverter
 	{
+		private static Conv_IsNullOrEmpty nullOrEmpty = new Conv_IsNullOrEmpty();
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			bool rv;
-			if (value == null)
-				rv = true;
-			else if (value is string)
-				rv = String.IsNullOrEmpty(value as string);
-			else if (value is int)
-				rv = ((int)value) == 0;
-			else
-				rv = false;
-			return !rv;
+			return !(bool)nullOrEmpty.Convert(value, targetType, parameter, culture);
 		}
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{

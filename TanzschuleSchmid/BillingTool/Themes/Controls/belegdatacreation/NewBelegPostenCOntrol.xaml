@@ -33,7 +33,7 @@
 						<RowDefinition Height="Auto"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
-					<Int32Param Header="{StaticResource Bez-BelegPosten-Anzahl}" Value="{Binding Path=BelegPosten_Anzahl}" Minimum="1" />
+					<Int32Param Header="{StaticResource Bez-BelegPosten-Anzahl}" Value="{Binding Path=BelegPosten_Anzahl}" Minimum="1" HorizontalAlignment="Left" MinWidth="120" />
 					<Param Grid.Row="1" Header="{StaticResource Bez-Posten-Name}">
 						<Grid>
 							<Grid.ColumnDefinitions>
@@ -54,10 +54,10 @@
 									</DataTemplate>
 								</ComboBox.ItemTemplate>
 							</ComboBox>
-							<Button Grid.Column="1" Content="Neu" Click="Change_To_PostenCreation"/>
+							<Button Grid.Column="1" Content="Neuer Posten" Click="Change_To_PostenCreation"/>
 						</Grid>
 					</Param>
-					<Param Grid.Row="2" Header="{StaticResource Bez-BelegPosten-Steuersatz}">
+					<Param Grid.Row="2" Header="{StaticResource Bez-BelegPosten-Steuersatz}" >
 						<ComboBox ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Steuersätze.Collection}" SelectedItem="{Binding Path=BelegPosten_Steuersatz}">
 							<ComboBox.ItemTemplate>
 								<DataTemplate DataType="{x:Type billingDatabaseDb:Steuersatz}">
@@ -76,7 +76,7 @@
 				</Grid>
 
 
-				<Grid Grid.Row="2">
+				<Grid Grid.Row="2" Margin="0,10,0,0">
 
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
@@ -84,7 +84,7 @@
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
 					<designElements:CancleButton Grid.Column="1" Content="Abbrechen" Click="Cancle_BelegPosten_Click" />
-					<designElements:AcceptButton Grid.Column="2" Content="Erstellen" Click="Create_BelegPosten_Click" IsEnabled="{Binding Path=BelegPosten_Posten, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
+					<designElements:AcceptButton Grid.Column="2" Content="Anfügen" Click="Create_BelegPosten_Click" IsEnabled="{Binding Path=BelegPosten_Posten, Converter={StaticResource GConv-IsNotNullOrEmpty}}" />
 				</Grid>
 			</Grid>
 		</Border>
@@ -99,21 +99,21 @@
 					<TextBlock FontSize="22" Foreground="DimGray" FontFamily="Segoe UI Light" Text="Neuer Posten" Margin="0" Padding="0"  />
 				</Border>
 
-				<Grid Grid.Row="1" IsSharedSizeScope="True">
+				<Grid Grid.Row="1" IsSharedSizeScope="True" >
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 					<StringParam Grid.Row="0"  Header="{StaticResource Bez-Posten-Name}" Value="{Binding Path=Posten_Name}" />
-					<StringParam Grid.Row="1"  Header="{StaticResource Bez-Posten-PreisBrutto}" Value="{Binding Path=Posten_PreisBrutto, StringFormat={}{0:0.00}}">
-						<TextBlock Text="€ Brutto" />
+					<StringParam Grid.Row="1"  Header="{StaticResource Bez-Posten-PreisBrutto}" Value="{Binding Path=Posten_PreisBrutto, StringFormat={}{0:0.00}}" ExtensionHorizontalAlignment="Right" MinWidth="160" HorizontalAlignment="Left">
+						<TextBlock Margin="5,0,0,0" Text="€ Brutto" />
 					</StringParam>
 					<StringParam Grid.Row="2"  Header="{StaticResource Bez-Posten-Dimension}" Value="{Binding Path=Posten_Dimension}" />
 				</Grid>
 
 
-				<Grid Grid.Row="2">
+				<Grid Grid.Row="2" Margin="0,10,0,0">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="Auto"/>
@@ -121,7 +121,20 @@
 					</Grid.ColumnDefinitions>
 
 					<designElements:CancleButton Grid.Column="1" Content="Abbrechen" Click="Cancle_Posten_Clicked"/>
-					<designElements:AcceptButton Grid.Column="2" Content="Erstellen" Click="Create_Posten_Clicked"></designElements:AcceptButton>
+					<designElements:AcceptButton Grid.Column="2" Content="Posten erstellen" Click="Create_Posten_Clicked">
+						<designElements:AcceptButton.Style>
+							<Style TargetType="{x:Type designElements:AcceptButton}">
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding Path=Posten_Name, Converter={StaticResource GConv-IsNullOrEmpty}}" Value="True">
+										<Setter Property="IsEnabled" Value="False"/>
+									</DataTrigger>
+									<DataTrigger Binding="{Binding Path=Posten_PreisBrutto, Converter={StaticResource GConv-IsNullOrEmpty}}" Value="True">
+										<Setter Property="IsEnabled" Value="False"/>
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</designElements:AcceptButton.Style>
+					</designElements:AcceptButton>
 				</Grid>
 			</Grid>
 		</Border>

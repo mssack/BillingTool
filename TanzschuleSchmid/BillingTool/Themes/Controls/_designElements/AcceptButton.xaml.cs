@@ -16,16 +16,16 @@ using System.Windows.Data;
 
 namespace BillingTool.Themes.Controls._designElements
 {
-	public class AcceptButton1 : Button
+	public class AcceptButton : Button
 	{
 		#region DP Keys
-		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(AcceptButton1), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(AcceptButton), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
-		static AcceptButton1()
+		static AcceptButton()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(AcceptButton1), new FrameworkPropertyMetadata(typeof(AcceptButton1)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(AcceptButton), new FrameworkPropertyMetadata(typeof(AcceptButton)));
 		}
 
 		public bool IsHighlighted

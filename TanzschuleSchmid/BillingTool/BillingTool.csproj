@@ -84,8 +84,12 @@
     <Compile Include="btScope\versioning\updates\RC66_To_Next_Updater.cs" />
     <Compile Include="btScope\versioning\updates\_UpdateBase.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
-    <Compile Include="Themes\Controls\_designElements\AcceptButton1.xaml.cs" />
-    <Compile Include="Themes\Controls\_designElements\CancleButton1.xaml.cs" />
+    <Compile Include="Themes\Controls\_designElements\AcceptButton.xaml.cs">
+      <DependentUpon>AcceptButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Controls\_designElements\CancleButton.xaml.cs">
+      <DependentUpon>CancleButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs">
       <DependentUpon>RedBorderBox.xaml</DependentUpon>
     </Compile>
@@ -254,11 +258,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\_designElements\AcceptButton1.xaml">
+    <Page Include="Themes\Controls\_designElements\AcceptButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\Controls\_designElements\CancleButton1.xaml">
+    <Page Include="Themes\Controls\_designElements\CancleButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

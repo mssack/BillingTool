@@ -4,6 +4,8 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/_shared/FromToSelectorControl.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/_designElements/RedBorderBox.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/_designElements/AcceptButton.xaml" />
+		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/_designElements/CancleButton.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/BelegDataView.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 

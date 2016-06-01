@@ -17,16 +17,16 @@ using System.Windows.Data;
 namespace BillingTool.Themes.Controls._designElements
 {
 
-	public class CancleButton1 : Control
+	public class CancleButton : Button
 	{
 		#region DP Keys
-		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(CancleButton1), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(CancleButton), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
-		static CancleButton1()
+		static CancleButton()
 		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(CancleButton1), new FrameworkPropertyMetadata(typeof(CancleButton1)));
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(CancleButton), new FrameworkPropertyMetadata(typeof(CancleButton)));
 		}
 
 		public bool IsHighlighted
