@@ -121,6 +121,7 @@ namespace BillingToolGitControl
 		{
 			private const string SolutionName = "BillingToolSolution";
 			private const string ProjectName = "BillingTool";
+			private const string DataAccessProjectName = "BillingTool.DataAccess";
 			private const string ReadmeName = "readme.md";
 			private static string ExecuteableFolder { get; }
 
@@ -163,7 +164,7 @@ namespace BillingToolGitControl
 			{
 				public static string StartseiteReadmeFile => Path.Combine(GitRootFolder, ReadmeName);
 				public static string AnhängeReadmeFile => Path.Combine(SolutionFolder, "_Anhänge", ReadmeName);
-				public static string SqlCeScripts => Path.Combine(SolutionFolder, $"_BillingDataAccess", $"DatabaseCreation", "SqlCeScripts");
+				public static string SqlCeScripts => Path.Combine(SolutionFolder, DataAccessProjectName, $"DatabaseCreation", "SqlCeScripts");
 				public static string SharedEnumerations => Path.Combine(ProjectFolder, $"_SharedEnumerations");
 				public static string IncludedContentFolder => Path.Combine(RcFolder, "_IncludedContent");
 				public static string ReleaseExecuteables => Path.Combine(ProjectFolder, "bin", "Release");

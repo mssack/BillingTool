@@ -20,11 +20,11 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-TanzschuleSchmid/_Anhänge/_ReleaseCandidates/RC*/
-TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*
-!TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.dll
-!TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.exe
-!TanzschuleSchmid/_Anhänge/Software/ReleaseCandidateExporter/*.vshost.exe
+*/_Anhänge/_ReleaseCandidates/RC*/
+*/_Anhänge/Software/BillingToolGitControl/*
+!*/_Anhänge/Software/BillingToolGitControl/*.dll
+!*/_Anhänge/Software/BillingToolGitControl/*.exe
+*/_Anhänge/Software/BillingToolGitControl/*.vshost.exe
 
 
 # Visual Studio 2015 cache/options directory
