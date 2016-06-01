@@ -153,7 +153,7 @@
 									</Param>
 								</Grid>
 							</Expander>
-							<Expander Grid.Row="1" Header="Quality" IsExpanded="True">
+							<Expander Grid.Row="1" Header="EMail - Qualität" IsExpanded="True">
 								<Grid IsSharedSizeScope="True" IsEnabled="{Binding Path=CanBeModified}">
 									<Grid.RowDefinitions>
 										<RowDefinition Height="Auto" />

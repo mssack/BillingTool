@@ -72,7 +72,7 @@ namespace BillingToolOutput.btOutputScope.printer
 
 		private void CreateImage()
 		{
-			Image = BtOutput.ImageRenderer.Render(Data.BelegData, Data.OutputFormat);
+			Image = BtOutput.ImageRenderer.Render(Data.BelegData, Data.OutputFormat, 0);
 		}
 
 		private void CreateDocument()

@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
@@ -44,13 +45,15 @@ namespace BillingToolOutput.btOutputScope.ImageProcessing
 		}
 
 
-		public BitmapSource Render(BelegData data, OutputFormat format)
+		public BitmapSource Render(BelegData data, OutputFormat format, double rahmen)
 		{
 			if (format.BonLayout == BonLayouts.Unknown)
 				throw new InvalidOperationException($"The format {format} is not a valid format for a rendering of data {data}.");
+			var border = new Border {Background = new SolidColorBrush(Colors.White), Padding = new Thickness(rahmen)};
 			var visual = new AnyBonVisual { Item = data, OutputFormat = format, Padding = new Thickness(0)};
-			ApplyScalingFactor(visual, format.ImageScaling);
-			var image = visual.ConvertTo_Image();
+			ApplyScalingFactor(border, format.ImageScaling);
+			border.Child = visual;
+			var image = border.ConvertTo_Image();
 			image.Freeze();
 			return image;
 		}

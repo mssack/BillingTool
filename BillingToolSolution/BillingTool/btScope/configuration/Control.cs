@@ -2,10 +2,9 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-28</date>
+// <date>2016-06-02</date>
 
 using System;
-using System.IO;
 using System.Linq;
 using System.Windows;
 using BillingTool.btScope.configuration.control;

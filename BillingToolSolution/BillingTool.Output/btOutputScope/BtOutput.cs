@@ -73,7 +73,7 @@ namespace BillingToolOutput.btOutputScope
 
 			var t = new Task(() =>
 			{
-				var image = ImageRenderer.Render(data.BelegData, data.OutputFormat);
+				var image = ImageRenderer.Render(data.BelegData, data.OutputFormat, 10);
 				using (var pdfLifeLine = PdfCreator.CreatePdf(data.BelegData, data.OutputFormat, image))
 				{
 					using (var smtpClient = new SmtpClient
