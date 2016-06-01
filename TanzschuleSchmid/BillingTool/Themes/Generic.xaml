@@ -6,4 +6,6 @@
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/_designElements/RedBorderBox.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Controls/BelegDataView.xaml" />
 	</ResourceDictionary.MergedDictionaries>
+
+
 </ResourceDictionary>

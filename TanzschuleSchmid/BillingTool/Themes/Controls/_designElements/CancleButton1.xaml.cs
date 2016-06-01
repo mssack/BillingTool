@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-31</date>
+// <date>2016-06-01</date>
 
 using System;
 using System.Windows;
@@ -16,18 +16,17 @@ using System.Windows.Data;
 
 namespace BillingTool.Themes.Controls._designElements
 {
-	/// <summary>Interaction logic for AcceptButton.xaml</summary>
-	public partial class AcceptButton : Button
+
+	public class CancleButton1 : Control
 	{
 		#region DP Keys
-		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(AcceptButton), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
+		public static readonly DependencyProperty IsHighlightedProperty = DependencyProperty.Register("IsHighlighted", typeof(bool), typeof(CancleButton1), new FrameworkPropertyMetadata {DefaultValue = default(bool), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		#endregion
 
 
-		/// <summary>ctor</summary>
-		public AcceptButton()
+		static CancleButton1()
 		{
-			InitializeComponent();
+			DefaultStyleKeyProperty.OverrideMetadata(typeof(CancleButton1), new FrameworkPropertyMetadata(typeof(CancleButton1)));
 		}
 
 		public bool IsHighlighted
