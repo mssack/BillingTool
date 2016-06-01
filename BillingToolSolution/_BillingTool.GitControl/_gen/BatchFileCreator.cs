@@ -39,18 +39,20 @@ namespace BillingToolGitControl._gen
 		private static BillingToolStarter _starter = new BillingToolStarter("", $"{Utils.Build.Version.Name}-SCRIPT");
 		private static List<BillingToolStarter.Posten> _defaultPostensArray;
 
+		private static List<int> Steuersätze = new List<int>() {20, 13, 10, 0, 19};
 		private static List<BillingToolStarter.Posten> ManyPostensArray
 		{
-			get { return _manyPostensArray ?? (_manyPostensArray = GetSeparatedWords(2).Select(x => new BillingToolStarter.Posten(x, (decimal)Rand.Next(2, 999999) / (decimal)100, 20, Rand.Next(1, 10))).ToList()); }
+			get { return _manyPostensArray ?? (_manyPostensArray = GetSeparatedWords(2).Select(x => new BillingToolStarter.Posten(x, (decimal)Rand.Next(100, 999999) / (decimal)100, 20, Rand.Next(1, 10))).ToList()); }
 		}
 		private static List<BillingToolStarter.Posten> DefaultPostensArray
 		{
 			get { return _defaultPostensArray ?? (_defaultPostensArray = new List<BillingToolStarter.Posten>
 			{
-				new BillingToolStarter.Posten("Kurs A", (decimal)20.10, 20, 2),
-				new BillingToolStarter.Posten("Kurs B", (decimal)130.10, 20, 1),
-				new BillingToolStarter.Posten("Gebühr Kurs C", (decimal)3.10, 20, 1),
-				new BillingToolStarter.Posten("Reinigungsaufschlag", (decimal)2.50, 20, 1),
+				new BillingToolStarter.Posten("Kurs A", (decimal)Rand.Next(100, 99999) / (decimal)100, Steuersätze[Rand.Next(0, Steuersätze.Count)], Rand.Next(1,5)),
+				new BillingToolStarter.Posten("Kurs B", (decimal)Rand.Next(100, 99999) / (decimal)100, Steuersätze[Rand.Next(0, Steuersätze.Count)], Rand.Next(1,5)),
+				new BillingToolStarter.Posten("Gebühr Kurs C", (decimal)Rand.Next(100, 99999) / (decimal)100, Steuersätze[Rand.Next(0, Steuersätze.Count)], Rand.Next(1,5)),
+				new BillingToolStarter.Posten("Reinigungsaufschlag", (decimal)Rand.Next(100, 99999) / (decimal)100, Steuersätze[Rand.Next(0, Steuersätze.Count)], Rand.Next(1,5)),
+				new BillingToolStarter.Posten("Nächtigungsgebühr", (decimal)Rand.Next(100, 99999) / (decimal)100, Steuersätze[Rand.Next(0, Steuersätze.Count)], Rand.Next(1,5)),
 			}); }
 		}
 		private static string TargetFolder;

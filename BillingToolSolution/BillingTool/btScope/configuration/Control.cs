@@ -71,8 +71,7 @@ namespace BillingTool.btScope.configuration
 		/// </summary>
 		public void Interpret(string[] startParams)
 		{
-
-			Current.SaveAs_Utf8String(new FileInfo("Test.txt").In_Desktop_Directory());
+			Current = startParams.Join(" ");
 			var concanatedParams = Current.Replace("\\/", "#######ALÖÄSÖ######").Split("/").Select(x => x.Trim().Replace("#######ALÖÄSÖ######", "/")).Where(x => !string.IsNullOrEmpty(x)).ToList();
 			General.Interpret(concanatedParams);
 			NewBelegData.Interpret(concanatedParams);
