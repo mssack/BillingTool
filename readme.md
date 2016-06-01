@@ -1,6 +1,6 @@
 #Schmid-Cash
 
-Aktuell [RC241 vom 01.06.2016 um 17:57](BillingTool/_Anhänge/_ReleaseCandidates/BillingTool - RC241.zip?raw=true).
+Aktuell [RC242 vom 01.06.2016 um 18:19](BillingTool/_Anhänge/_ReleaseCandidates/BillingTool - RC242.zip?raw=true).
 
 #####Wichtige Änderungen
 * Datenbank geändert sodass nun die Bildqualität und Größe justiert werden kann
