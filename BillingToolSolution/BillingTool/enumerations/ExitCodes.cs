@@ -15,7 +15,7 @@ using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 
 // ReSharper disable InconsistentNaming
 
-namespace BillingTool._SharedEnumerations
+namespace BillingTool.enumerations
 {
 	/// <summary>The exit codes are used to pass information about the applications exit states to the calling process.</summary>
 	[Serializable]

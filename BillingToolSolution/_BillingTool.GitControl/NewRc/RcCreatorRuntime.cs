@@ -10,6 +10,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using BillingToolGitControl._gen;
 using CsWpfBase.Ev.Public.Extensions;
 
 
@@ -33,7 +34,7 @@ namespace BillingToolGitControl.NewRc
 		{
 			DeleteAllActualFolders();
 
-			Utils.CreateTestEnvironment(Utils.Paths.Arc.Folder, true);
+			Utils.CreateTestEnvironment(Paths.Arc.Folder, true);
 
 			Zipping();
 			ChangeAnhängeReadme();
@@ -44,34 +45,34 @@ namespace BillingToolGitControl.NewRc
 
 		private void DeleteAllActualFolders()
 		{
-			new DirectoryInfo(Utils.Paths.Destination.RcFolder).GetDirectories("RC*").ForEach(di => di.Delete(true));
+			new DirectoryInfo(Paths.Destination.RcFolder).GetDirectories("RC*").ForEach(di => di.Delete(true));
 		}
 		
 		private void Zipping()
 		{
-			new FileInfo(Utils.Paths.Destination.ZipFile).DeleteFile_IfExists();
-			ZipFile.CreateFromDirectory(Utils.Paths.Arc.Folder, Utils.Paths.Destination.ZipFile, CompressionLevel.Optimal, false, Encoding.UTF8);
+			new FileInfo(Paths.Destination.ZipFile).DeleteFile_IfExists();
+			ZipFile.CreateFromDirectory(Paths.Arc.Folder, Paths.Destination.ZipFile, CompressionLevel.Optimal, false, Encoding.UTF8);
 		}
 
 		private void ChangeAnhängeReadme()
 		{
-			var txtLines = File.ReadAllLines(Utils.Paths.Source.AnhängeReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines.Insert(txtLines.IndexOf("#####Release Candidates") + 1, $"* [{Utils.Build.NameWithDate}](_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true)" +
+			var txtLines = File.ReadAllLines(Paths.Source.AnhängeReadmeFile).ToList(); //Fill a list with the lines from the text file.
+			txtLines.Insert(txtLines.IndexOf("#####Release Candidates") + 1, $"* [{Utils.Build.NameWithDate}](_ReleaseCandidates/{Paths.Destination.ZipFileName}?raw=true)" +
 																			$" (Computer: {Utils.Build.Machine}, User: {Utils.Build.User})"
 																			+ (string.IsNullOrEmpty(_messageList) ? "" : "\n\t* " + Regex.Split(_messageList.Replace("\r\n", "\n"), "\n").Join("\n\t* ")));
-			File.WriteAllLines(Utils.Paths.Source.AnhängeReadmeFile, txtLines);
+			File.WriteAllLines(Paths.Source.AnhängeReadmeFile, txtLines);
 		}
 
 		private void ChangeStartseiteReadme()
 		{
-			var txtLines = File.ReadAllLines(Utils.Paths.Source.StartseiteReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines[2] = $"Aktuell [{Utils.Build.NameWithDate}](BillingToolSolution/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
-			File.WriteAllLines(Utils.Paths.Source.StartseiteReadmeFile, txtLines);
+			var txtLines = File.ReadAllLines(Paths.Source.StartseiteReadmeFile).ToList(); //Fill a list with the lines from the text file.
+			txtLines[2] = $"Aktuell [{Utils.Build.NameWithDate}](BillingToolSolution/_Anhänge/_ReleaseCandidates/{Paths.Destination.ZipFileName}?raw=true).";
+			File.WriteAllLines(Paths.Source.StartseiteReadmeFile, txtLines);
 		}
 
 		private void CommitViaCommandline()
 		{
-			Utils.CommitFiles($"New Release Candidate {Utils.Build.Version.Name}", Utils.Paths.Source.BuildDetails, Utils.Paths.Source.AnhängeReadmeFile, Utils.Paths.Source.StartseiteReadmeFile, Utils.Paths.Destination.ZipFile);
+			Utils.CommitFiles($"New Release Candidate {Utils.Build.Version.Name}", Paths.Source.BuildDetails, Paths.Source.AnhängeReadmeFile, Paths.Source.StartseiteReadmeFile, Paths.Destination.ZipFile);
 		}
 
 

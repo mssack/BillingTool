@@ -15,12 +15,12 @@ using BillingTool.btScope.functions;
 using BillingTool.btScope.logging;
 using BillingTool.btScope.output;
 using BillingTool.btScope.versioning;
+using BillingTool.enumerations;
 using BillingTool.Exceptions;
 using BillingTool.Windows;
 using BillingTool.Windows.privileged;
 using BillingTool.Windows.tools;
 using BillingTool.Windows._installation;
-using BillingTool._SharedEnumerations;
 using BillingToolDataAccess.DatabaseCreation;
 using CsWpfBase.Global;
 

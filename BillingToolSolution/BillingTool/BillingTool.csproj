@@ -79,6 +79,7 @@
     <Compile Include="btScope\versioning\BuildVersion.cs" />
     <Compile Include="btScope\versioning\updates\RC66_To_Next_Updater.cs" />
     <Compile Include="btScope\versioning\updates\_UpdateBase.cs" />
+    <Compile Include="codeSamples\BillingToolStarter.cs" />
     <Compile Include="Exceptions\BillingToolException.cs" />
     <Compile Include="Themes\Controls\_designElements\AcceptButton.xaml.cs">
       <DependentUpon>AcceptButton.xaml</DependentUpon>
@@ -89,7 +90,7 @@
     <Compile Include="Themes\Controls\_designElements\RedBorderBox.xaml.cs">
       <DependentUpon>RedBorderBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="_SharedEnumerations\ExitCodes.cs" />
+    <Compile Include="enumerations\ExitCodes.cs" />
     <Compile Include="Themes\Controls\belegdatacreation\BelegDataTypParam.xaml.cs">
       <DependentUpon>BelegDataTypParam.xaml</DependentUpon>
     </Compile>
@@ -195,7 +196,7 @@
     <Compile Include="btScope\db\Db.cs" />
     <Compile Include="btScope\logging\Logging.cs" />
     <Compile Include="CompilerServices.cs" />
-    <Compile Include="_SharedEnumerations\StartupModes.cs" />
+    <Compile Include="enumerations\StartupModes.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>

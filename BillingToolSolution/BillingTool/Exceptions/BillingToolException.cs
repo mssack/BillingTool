@@ -5,7 +5,7 @@
 // <date>2016-04-15</date>
 
 using System;
-using BillingTool._SharedEnumerations;
+using BillingTool.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 
 

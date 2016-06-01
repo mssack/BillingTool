@@ -6,7 +6,7 @@
 
 using System;
 using System.Threading.Tasks;
-using BillingTool._SharedEnumerations;
+using BillingTool.enumerations;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingToolOutput.btOutputScope;

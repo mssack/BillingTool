@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using BillingToolGitControl._gen;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Themes.Controls.Containers;
 
@@ -31,7 +32,7 @@ namespace BillingToolGitControl.Control
 
 		private void GenerateReleaseTestingEnvironment(object sender, RoutedEventArgs e)
 		{
-			var targetFolder = Path.Combine(Utils.Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
+			var targetFolder = Path.Combine(Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
 			Utils.CreateTestEnvironment(targetFolder, true);
 			Process.Start(Path.Combine(targetFolder));
 			Close();
@@ -39,7 +40,7 @@ namespace BillingToolGitControl.Control
 
 		private void GenerateDebugTestingEnvironment(object sender, RoutedEventArgs e)
 		{
-			var targetFolder = Path.Combine(Utils.Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
+			var targetFolder = Path.Combine(Paths.Destination.RcFolder, $"{Utils.Build.Version.Name} - TestEnvironment");
 			Utils.CreateTestEnvironment(targetFolder, false);
 			Process.Start(Path.Combine(targetFolder));
 			Close();
@@ -47,9 +48,9 @@ namespace BillingToolGitControl.Control
 
 		private void AppendToChangelog(object sender, RoutedEventArgs e)
 		{
-			AppendToChangelog(Utils.Paths.Source.StartseiteReadmeFile);
+			AppendToChangelog(Paths.Source.StartseiteReadmeFile);
 
-			Utils.CommitFiles($"Readme adapted ('{ChangelogText}')", Utils.Paths.Source.StartseiteReadmeFile);
+			Utils.CommitFiles($"Readme adapted ('{ChangelogText}')", Paths.Source.StartseiteReadmeFile);
 			Close();
 		}
 

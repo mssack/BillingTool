@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 
 
-namespace BillingTool._SharedEnumerations
+namespace BillingTool.enumerations
 {
 	/// <summary>The possible startup modes of the application. The mode defines the functionality of an application instance.</summary>
 	[Serializable]

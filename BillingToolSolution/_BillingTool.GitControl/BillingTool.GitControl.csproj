@@ -97,7 +97,9 @@
     <Compile Include="NewRc\NewRcControl.xaml.cs">
       <DependentUpon>NewRcControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils.cs" />
+    <Compile Include="_gen\Manipulate.cs" />
+    <Compile Include="_gen\Paths.cs" />
+    <Compile Include="_gen\Utils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

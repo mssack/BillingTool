@@ -7,14 +7,15 @@
 // ReSharper disable RedundantUsingDirective
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Windows;
 using BillingTool.btScope;
+using BillingTool.enumerations;
 using BillingTool.Exceptions;
-using BillingTool._SharedEnumerations;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
@@ -120,8 +121,39 @@ namespace BillingTool
 				Current.Shutdown();
 
 			};
+
+			codeSamples.BillingToolStarter bt = new codeSamples.BillingToolStarter(@"C:\Data\Dev\Github\BillingTool\BillingToolSolution\_Anhänge\_ReleaseCandidates\RC242 vom 01.06.2016 um 18.19\Executeable\BillingTool.exe", "CHRISOSSS");
+			bt.Options();
+			bt.BelegDataViewer();
+			bt.SilentMonatsBonPrint();
+			bt.BelegDataApproval(new codeSamples.BillingToolStarter.BelegData
+			{
+				Comment = "was hier hallo",
+				TypNumber = BelegDataTypes.Bar,
+				ZahlungsReferenz = "Zahlungsref",
+				Empfänger = "empfänger",
+				EmpfängerId = "awda",
+				PrintBeleg = true,
+				ZusatzText = "was geht ab",
+				Mails = new List<codeSamples.BillingToolStarter.Mail>
+				{
+					new codeSamples.BillingToolStarter.Mail("christian@sack.at"),
+					new codeSamples.BillingToolStarter.Mail("heinz@sack.at", "WAS SOLL DENN DAS WERDEN", "Mein advanced Text"),
+				},
+				Postens = new List<codeSamples.BillingToolStarter.Posten>()
+				{
+					new codeSamples.BillingToolStarter.Posten("Käsewurst", (decimal) 15.25, 20, 5),
+					new codeSamples.BillingToolStarter.Posten("Erdbeerwurst", (decimal) 38.25, 20, 1),
+					new codeSamples.BillingToolStarter.Posten("Marmeladenwurst", (decimal) 10.25, 20, 1),
+				}
+
+			});
+
+
+
 			CsGlobal.Install(GlobalFunctions.Storage | GlobalFunctions.WpfStorage | GlobalFunctions.GermanThreadCulture); //Provides some needed functionality. DO NOT REMOVE.
-			Bt.Startup(e.Args);
+			//Bt.Startup(e.Args);
+			Bt.Startup(new []{ "/BelegDataApprove /NceKassenOperator CHRISOSSS /NceTypNumber 11 /NceEmpfänger empfänger /NceEmpfängerId awda /NceZusatzText was geht ab /NceZahlungsreferenz Zahlungsref /NceComment was hier hallo /NcePrint True /NcePostens { {Name = Käsewurst; BetragBrutto = 15,25; Steuer = 20,00; Anzahl = 5}, {Name = Erdbeerwurst; BetragBrutto = 38,25; Steuer = 20,00; Anzahl = 1}, {Name = Marmeladenwurst; BetragBrutto = 10,25; Steuer = 20,00; Anzahl = 1} } /NceMails { {Address = christian@sack.at}, {Address = heinz@sack.at; Betreff = WAS SOLL DENN DAS WERDEN; Text = Mein advanced Text} }" });
 		}
 	}
 }

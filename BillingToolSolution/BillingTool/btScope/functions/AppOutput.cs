@@ -5,8 +5,8 @@
 // <date>2016-04-30</date>
 
 using System;
+using BillingTool.enumerations;
 using BillingTool.Exceptions;
-using BillingTool._SharedEnumerations;
 using CsWpfBase.Ev.Objects;
 
 

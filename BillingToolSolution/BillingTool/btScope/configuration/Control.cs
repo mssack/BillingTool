@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using BillingTool.btScope.configuration.control;
-using BillingTool._SharedEnumerations;
+using BillingTool.enumerations;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
 using CsWpfBase.Ev.Public.Extensions;
