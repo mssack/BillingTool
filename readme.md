@@ -1,6 +1,6 @@
 #Schmid-Cash
 
-Aktuell [RC242 vom 01.06.2016 um 18:19](BillingTool/_Anhänge/_ReleaseCandidates/BillingTool - RC242.zip?raw=true).
+Aktuell [RC242 vom 01.06.2016 um 18:19](BillingToolSolution/_Anhänge/_ReleaseCandidates/BillingTool - RC242.zip?raw=true).
 
 #####Wichtige Änderungen
 * Datenbank geändert sodass nun die Bildqualität und Größe justiert werden kann
@@ -12,4 +12,4 @@ Aktuell [RC242 vom 01.06.2016 um 18:19](BillingTool/_Anhänge/_ReleaseCandidates
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
-* [Anhänge](https://github.com/cssack/ProjectSchmid/tree/Active-Development/TanzschuleSchmid/_Anh%C3%A4nge) (Active-Development)
+* [Anhänge](https://github.com/cssack/ProjectSchmid/tree/Active-Development/BillingToolSolution/_Anh%C3%A4nge) (Active-Development)

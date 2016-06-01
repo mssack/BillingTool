@@ -65,7 +65,7 @@ namespace BillingToolGitControl.NewRc
 		private void ChangeStartseiteReadme()
 		{
 			var txtLines = File.ReadAllLines(Utils.Paths.Source.StartseiteReadmeFile).ToList(); //Fill a list with the lines from the text file.
-			txtLines[2] = $"Aktuell [{Utils.Build.NameWithDate}](BillingTool/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
+			txtLines[2] = $"Aktuell [{Utils.Build.NameWithDate}](BillingToolSolution/_Anhänge/_ReleaseCandidates/{Utils.Paths.Destination.ZipFileName}?raw=true).";
 			File.WriteAllLines(Utils.Paths.Source.StartseiteReadmeFile, txtLines);
 		}
 
