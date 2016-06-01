@@ -9,9 +9,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Global;
 
 

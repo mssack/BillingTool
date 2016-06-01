@@ -7,8 +7,8 @@
 using System;
 using System.Linq;
 using System.Windows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Windows;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
 using CheckTrustAbilityWindow = BillingTool.Windows.tools.CheckTrustAbilityWindow;
 using Window_BelegData_ProcessNonProcessedOutputs = BillingTool.Windows.tools.Window_BelegData_ProcessNonProcessedOutputs;

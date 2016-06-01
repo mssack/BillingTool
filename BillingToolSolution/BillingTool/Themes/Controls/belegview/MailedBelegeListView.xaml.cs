@@ -9,8 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.DataInterfaces;
 
 
 

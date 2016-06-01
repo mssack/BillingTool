@@ -3,8 +3,7 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			xmlns:bonVisuals="clr-namespace:BillingOutput.Controls.BonVisuals;assembly=BillingOutput"
-			xmlns:shared="clr-namespace:BillingOutput.Controls._shared;assembly=BillingOutput"
+			xmlns:billingToolOutput="BillingTool.Output"
 			mc:Ignorable="d" x:Name="Uc">
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -50,7 +49,7 @@
 		<Border Grid.Row="1" >
 			<ScrollViewer Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
 				<Border Background="White" Padding="10">
-					<shared:AnyBonVisual Item="{Binding ElementName=Uc, Path=Item}" OutputFormat="{Binding ElementName=Uc, Path=SelectedPreviewFormat}" />
+					<billingToolOutput:AnyBonVisual Item="{Binding ElementName=Uc, Path=Item}" OutputFormat="{Binding ElementName=Uc, Path=SelectedPreviewFormat}" />
 				</Border>
 			</ScrollViewer>
 		</Border>

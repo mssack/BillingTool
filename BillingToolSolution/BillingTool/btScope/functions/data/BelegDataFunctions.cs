@@ -5,10 +5,10 @@
 // <date>2016-05-19</date>
 
 using System;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope.functions.data.basis;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.tables;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 
 
 

@@ -4,8 +4,8 @@
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:btScope="clr-namespace:BillingTool.btScope"
-			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 			xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+			xmlns:billingDatabaseDb="clr-namespace:BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;assembly=BillingTool.DataAccess"
 			mc:Ignorable="d" x:Name="Uc1">
 	<UserControl.Resources>
 		<ResourceDictionary>

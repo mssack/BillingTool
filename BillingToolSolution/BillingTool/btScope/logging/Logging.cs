@@ -6,12 +6,9 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 
 
@@ -55,11 +52,7 @@ namespace BillingTool.btScope.logging
 		public void New(string titel, string content, LogTypes logType = LogTypes.Undefined, [CallerFilePath] string filePath = null, [CallerMemberName] string method = null)
 		{
 			Debug.Assert(filePath != null, "filePath != null");
-
-			if (logType == LogTypes.Fatal && !Bt.IsInitialized())
-			{
-				return;
-			}
+			
 		}
 
 		/// <summary>Creates a new <see cref="Log" /> in the database.</summary>

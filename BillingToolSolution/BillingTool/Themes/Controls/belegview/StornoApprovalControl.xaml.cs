@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;
 using CsWpfBase.Themes.Resources.Converters.logic;

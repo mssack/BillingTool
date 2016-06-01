@@ -8,7 +8,6 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using BillingDataAccess.DatabaseCreation;
 using BillingTool.btScope.administrator;
 using BillingTool.btScope.configuration;
 using BillingTool.btScope.db;
@@ -22,6 +21,7 @@ using BillingTool.Windows.privileged;
 using BillingTool.Windows.tools;
 using BillingTool.Windows._installation;
 using BillingTool._SharedEnumerations;
+using BillingToolDataAccess.DatabaseCreation;
 using CsWpfBase.Global;
 
 

@@ -5,8 +5,8 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
 		xmlns:belegdatacreation="clr-namespace:BillingTool.Themes.Controls.belegdatacreation"
-		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 		xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		mc:Ignorable="d" Title="Beleg Abschluss" MaximizeButtonVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		CloseButtonVisibility="Collapsed" Style="{StaticResource {x:Type CsWindow}}"
 		Name="Uc" Width="730">
@@ -157,7 +157,7 @@
 						<designElements:RedBorderBox.Style>
 							<Style TargetType="{x:Type designElements:RedBorderBox}">
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding Path=InvalidReason}" Value="{x:Static enumerations:BelegDataInvalidReasons.Valid}">
+									<DataTrigger Binding="{Binding Path=InvalidReason}" Value="{x:Static billingDatabaseDb:BelegDataInvalidReasons.Valid}">
 										<Setter Property="Visibility" Value="Collapsed" />
 									</DataTrigger>
 								</Style.Triggers>

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase">
+                    xmlns:billingDatabaseDb="clr-namespace:BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;assembly=BillingTool.DataAccess">
     <DataTemplate DataType="{x:Type billingDatabaseDb:OutputFormat}">
 		<TextBlock Text="{Binding Path=Name}"/>
 	</DataTemplate>

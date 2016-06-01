@@ -10,9 +10,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rowinterfaces;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.Exceptions;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rowinterfaces;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
 
 

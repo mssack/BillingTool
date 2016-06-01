@@ -3,8 +3,8 @@
 					xmlns:local="clr-namespace:BillingTool.Themes.Controls"
 					xmlns:belegview="clr-namespace:BillingTool.Themes.Controls.belegview"
 					xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
-					xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
-					xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements">
+					xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
+					xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="/CsWpfBase;component/Themes/Controls/_shared/Styles.xaml" />
 		<ResourceDictionary Source="/BillingTool;component/Themes/Styles/uitext/BelegData.xaml" />
@@ -63,16 +63,16 @@
 										<Grid.Style>
 											<Style TargetType="{x:Type Grid}">
 												<Style.Triggers>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.Storno}">
 														<Setter Property="Visibility" Value="Collapsed" />
 													</DataTrigger>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.TagesBon}">
 														<Setter Property="Visibility" Value="Collapsed" />
 													</DataTrigger>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.MonatsBon}">
 														<Setter Property="Visibility" Value="Collapsed" />
 													</DataTrigger>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.JahresBon}">
 														<Setter Property="Visibility" Value="Collapsed" />
 													</DataTrigger>
 												</Style.Triggers>
@@ -118,7 +118,7 @@
 											<Style TargetType="{x:Type Grid}">
 												<Setter Property="Visibility" Value="Collapsed" />
 												<Style.Triggers>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.Storno}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.Storno}">
 														<Setter Property="Visibility" Value="Visible" />
 													</DataTrigger>
 												</Style.Triggers>
@@ -149,13 +149,13 @@
 											<Style TargetType="{x:Type Grid}">
 												<Setter Property="Visibility" Value="Collapsed" />
 												<Style.Triggers>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.TagesBon}">
 														<Setter Property="Visibility" Value="Visible" />
 													</DataTrigger>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.MonatsBon}">
 														<Setter Property="Visibility" Value="Visible" />
 													</DataTrigger>
-													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+													<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.JahresBon}">
 														<Setter Property="Visibility" Value="Visible" />
 													</DataTrigger>
 												</Style.Triggers>
@@ -191,13 +191,13 @@
 									<Expander.Style>
 										<Style TargetType="{x:Type Expander}" BasedOn="{StaticResource {x:Type Expander}}">
 											<Style.Triggers>
-												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.TagesBon}">
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.TagesBon}">
 													<Setter Property="Visibility" Value="Collapsed" />
 												</DataTrigger>
-												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.MonatsBon}">
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.MonatsBon}">
 													<Setter Property="Visibility" Value="Collapsed" />
 												</DataTrigger>
-												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static enumerations:BelegDataTypes.JahresBon}">
+												<DataTrigger Binding="{Binding Path=Typ}" Value="{x:Static billingDatabaseDb:BelegDataTypes.JahresBon}">
 													<Setter Property="Visibility" Value="Collapsed" />
 												</DataTrigger>
 											</Style.Triggers>

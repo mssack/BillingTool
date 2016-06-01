@@ -6,7 +6,7 @@
 
 using System;
 using System.IO;
-using BillingOutput.Interfaces;
+using BillingToolOutput.Interfaces;
 using CsWpfBase.Global;
 using CsWpfBase.Utilitys.templates;
 

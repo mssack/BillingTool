@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -444,13 +444,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BillingOutput\BillingOutput.csproj">
+    <ProjectReference Include="..\BillingTool.Output\BillingTool.Output.csproj">
       <Project>{70A5E400-FF6B-49DC-830E-C1867FFF8ACD}</Project>
-      <Name>BillingOutput</Name>
+      <Name>BillingTool.Output</Name>
     </ProjectReference>
-    <ProjectReference Include="..\_BillingDataAccess\_BillingDataAccess.csproj">
+    <ProjectReference Include="..\BillingTool.DataAccess\BillingTool.DataAccess.csproj">
       <Project>{672DE474-CC73-45F5-819A-FDCDD687570F}</Project>
-      <Name>_BillingDataAccess</Name>
+      <Name>BillingTool.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\_CsWpfBase\_CsWpfBase.csproj">
       <Project>{63CB4E91-9D9C-4C97-8097-FC3964593796}</Project>

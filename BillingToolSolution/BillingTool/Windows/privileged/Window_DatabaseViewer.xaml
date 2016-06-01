@@ -3,10 +3,9 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
 		xmlns:shared="clr-namespace:BillingTool.Themes.Controls._shared"
-		xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		mc:Ignorable="d"
 		Title="Datenbank" Height="500" Width="900" x:Name="Uc" FooterVisibility="Collapsed" MinimizeButtonVisibility="Collapsed"
 		AWindowDragMove.IsActive="True">
@@ -278,10 +277,10 @@
 												<Image.Style>
 													<Style TargetType="Image">
 														<Style.Triggers>
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Error}">
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static billingDatabaseDb:LogTypes.Error}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-Error}" />
 															</DataTrigger>
-															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static enumerations:LogTypes.Fatal}">
+															<DataTrigger Binding="{Binding Path=Type}" Value="{x:Static billingDatabaseDb:LogTypes.Fatal}">
 																<Setter Property="Source" Value="{StaticResource GIco-Message-FatalError}" />
 															</DataTrigger>
 														</Style.Triggers>

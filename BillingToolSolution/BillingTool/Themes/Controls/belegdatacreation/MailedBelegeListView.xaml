@@ -3,8 +3,8 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:rows="clr-namespace:BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;assembly=BillingTool.DataAccess"
 		mc:Ignorable="d" Style="{StaticResource CondensedListViewStyle}"
 		ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=Item.MailedBelege}">
 	<ListView.Resources>
@@ -19,7 +19,7 @@
 		<GridView>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-TargetMailAddress}" Width="160">
 				<GridViewColumn.CellTemplate>
-					<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
+					<DataTemplate DataType="rows:MailedBeleg">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
@@ -33,14 +33,14 @@
 			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Betreff}" Width="120">
 				<GridViewColumn.CellTemplate>
-					<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
+					<DataTemplate DataType="rows:MailedBeleg">
 						<TextBox Style="{StaticResource StdTextBox}" Text="{Binding Path=Betreff}" />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Text}" Width="80">
 				<GridViewColumn.CellTemplate>
-					<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
+					<DataTemplate DataType="rows:MailedBeleg">
 						<PopupButton Style="{StaticResource StdPopupButton}">
 							<PopupButton.Content>
 								<TextBlock Text="{Binding Path=Text, Converter={StaticResource GConv-ShortSingleLine}}" TextTrimming="CharacterEllipsis" />
@@ -55,7 +55,7 @@
 			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-OutputFormat}" Width="150">
 				<GridViewColumn.CellTemplate>
-					<DataTemplate DataType="billingDatabaseDb:MailedBeleg">
+					<DataTemplate DataType="rows:MailedBeleg">
 						<ComboBox Style="{StaticResource StdComboBox}"
 								ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.MailFormate}"
 								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />

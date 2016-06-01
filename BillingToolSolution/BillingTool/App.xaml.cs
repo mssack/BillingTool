@@ -7,14 +7,11 @@
 // ReSharper disable RedundantUsingDirective
 
 using System;
-using System.Net;
-using System.Net.Mail;
-using System.Threading.Tasks;
 using System.Windows;
-using BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using BillingTool.btScope;
 using BillingTool.Exceptions;
 using BillingTool._SharedEnumerations;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
 using CsWpfBase.Ev.Public.Extensions;
 using CsWpfBase.Global;
 using CsWpfBase.Global.message;

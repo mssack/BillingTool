@@ -6,8 +6,8 @@
 
 using System;
 using System.IO;
-using BillingDataAccess.sqlcedatabases.billingdatabase.tables;
 using BillingTool.btScope.configuration;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.tables;
 using CsWpfBase.Global;
 
 

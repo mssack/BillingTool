@@ -5,8 +5,8 @@
 // <date>2016-05-31</date>
 
 using System;
-using BillingDataAccess.sqlcedatabases.billingdatabase.rows;
 using BillingTool.btScope.configuration;
+using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 
 
 

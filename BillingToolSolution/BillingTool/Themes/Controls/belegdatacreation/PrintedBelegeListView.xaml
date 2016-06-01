@@ -3,8 +3,8 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 		xmlns:btScope="clr-namespace:BillingTool.btScope"
+		xmlns:rows="clr-namespace:BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;assembly=BillingTool.DataAccess"
 		mc:Ignorable="d" Style="{StaticResource CondensedListViewStyle}"
 		ItemsSource="{Binding RelativeSource={RelativeSource Self}, Path=Item.PrintedBelege}">
 	<ListView.Resources>
@@ -19,7 +19,7 @@
 		<GridView>
 			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-PrinterDevice}" Width="220">
 				<GridViewColumn.CellTemplate>
-					<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
+					<DataTemplate DataType="rows:PrintedBeleg">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto" />
@@ -35,7 +35,7 @@
 			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-PrintedBeleg-OutputFormat}" Width="150">
 				<GridViewColumn.CellTemplate>
-					<DataTemplate DataType="billingDatabaseDb:PrintedBeleg">
+					<DataTemplate DataType="rows:PrintedBeleg">
 						<ComboBox Style="{StaticResource StdComboBox}"
 								ItemsSource="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.OutputFormats.PrintFormate}"
 								SelectedItem="{Binding Path=OutputFormat}" SelectionChanged="NewFormatsAvailable" />

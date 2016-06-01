@@ -3,22 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
+             xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Width="14" Height="14" Margin="2" x:Name="Control">
 	<Image.Style>
 		<Style TargetType="{x:Type Image}">
 			<Style.Triggers>
-				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.NotProcessed}">
+				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static billingDatabaseDb:ProcessingStates.NotProcessed}">
 					<Setter Property="Source" Value="{StaticResource GIco-State-NotStarted}"/>
 				</DataTrigger>
-				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Processing}">
+				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static billingDatabaseDb:ProcessingStates.Processing}">
 					<Setter Property="Source" Value="{StaticResource GIco-State-Loading}"/>
 				</DataTrigger>
-				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Processed}">
+				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static billingDatabaseDb:ProcessingStates.Processed}">
 					<Setter Property="Source" Value="{StaticResource GIco-State-Success}"/>
 				</DataTrigger>
-				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static enumerations:ProcessingStates.Failed}">
+				<DataTrigger Binding="{Binding ElementName=Control, Path=ProcessingState}" Value="{x:Static billingDatabaseDb:ProcessingStates.Failed}">
 					<Setter Property="Source" Value="{StaticResource GIco-State-Faulted}"/>
 				</DataTrigger>
 			</Style.Triggers>

@@ -4,11 +4,10 @@
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			xmlns:btScope="clr-namespace:BillingTool.btScope"
-			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
 			xmlns:system="clr-namespace:System;assembly=mscorlib"
-			xmlns:enumerations="clr-namespace:BillingDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;assembly=BillingDataAccess"
 			xmlns:designElements="clr-namespace:BillingTool.Themes.Controls._designElements"
-			xmlns:shared="clr-namespace:BillingOutput.Controls._shared;assembly=BillingOutput"
+			xmlns:billingDatabaseDb="SqlCeDatabases.BillingDatabase"
+			xmlns:billingToolOutput="BillingTool.Output"
 			mc:Ignorable="d" x:Name="Control">
 	<UserControl.Resources>
 		<ResourceDictionary>
@@ -103,8 +102,8 @@
 									<Param Grid.Row="3" Header="{StaticResource Bez-OutputFormat-BonLayoutName}" >
 										<Param.Resources>
 											<x:Array x:Key="IgnoredEnums" Type="system:Enum">
-												<x:Static MemberType="enumerations:BonLayouts" Member="Unknown" />
-												<x:Static MemberType="enumerations:BonLayouts" Member="V1StornoBon" />
+												<x:Static MemberType="billingDatabaseDb:BonLayouts" Member="Unknown" />
+												<x:Static MemberType="billingDatabaseDb:BonLayouts" Member="V1StornoBon" />
 											</x:Array>
 										</Param.Resources>
 										<Param.Content>
@@ -114,7 +113,7 @@
 													<ColumnDefinition Width="Auto" />
 												</Grid.ColumnDefinitions>
 												<ComboBox SelectedValue="{Binding Path=BonLayout}" SelectedValuePath="Value" DisplayMemberPath="Name"
-												ItemsSource="{Binding Source={EnumerationExtension {x:Type enumerations:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}">
+												ItemsSource="{Binding Source={EnumerationExtension {x:Type billingDatabaseDb:BonLayouts}, IgnoredEnums={StaticResource IgnoredEnums}}}">
 													<ComboBox.Style>
 														<Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
 															<Style.Triggers>
@@ -309,7 +308,7 @@
 						</Grid.RowDefinitions>
 						<ScrollViewer Grid.Row="1" Padding="0" Margin="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 							<Border Padding="10" Background="White">
-								<shared:AnyBonVisual Item="{Binding ElementName=Control, Path=SampleBelegData}" OutputFormat="{Binding}" />
+								<billingToolOutput:AnyBonVisual Item="{Binding ElementName=Control, Path=SampleBelegData}" OutputFormat="{Binding}" />
 							</Border>
 						</ScrollViewer>
 					</Grid>
