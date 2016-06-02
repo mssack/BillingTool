@@ -1,4 +1,4 @@
-#Schmid-Cash
+## Billingtool
 
 Aktuell [RC292 vom 02.06.2016 um 14:22](BillingToolSolution/_Anhänge/_ReleaseCandidates/BillingTool - RC292.zip?raw=true).
 
