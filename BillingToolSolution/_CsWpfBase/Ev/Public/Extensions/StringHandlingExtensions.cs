@@ -1,11 +1,12 @@
-// Copyright (c) 2014, 2015 All Right Reserved Christian Sack
+// Copyright (c) 2016 All rights reserved Christian Sack, Michael Sack
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-01-02</date>
+// <date>2016-06-02</date>
 
 using System;
 using System.Diagnostics;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -113,7 +114,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 
 
 			var centerInput = input.Length/2;
-			var toRemove = (input.Length - length) + insert.Length;
+			var toRemove = input.Length - length + insert.Length;
 			var toRemoveHalf = toRemove/2;
 			var insertPoint = centerInput - toRemoveHalf;
 			input = input.Remove(insertPoint, toRemove).Insert(insertPoint, insert);
@@ -158,7 +159,7 @@ namespace CsWpfBase.Ev.Public.Extensions
 			{
 				for (var j = 1; j <= m; j++)
 				{
-					var cost = (to[j - 1] == input[i - 1]) ? 0 : 1;
+					var cost = to[j - 1] == input[i - 1] ? 0 : 1;
 
 					d[i, j] = Math.Min(
 						Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
@@ -194,6 +195,21 @@ namespace CsWpfBase.Ev.Public.Extensions
 				return string.Empty;
 
 			return Encoding.UTF8.GetBytes(input).Md5Hash().ConvertTo_Hex();
+		}
+
+		/// <summary>returns true if the string can be converted to an valid mail address.</summary>
+		public static bool IsValidMailAddress(this string emailaddress)
+		{
+			try
+			{
+				// ReSharper disable once ObjectCreationAsStatement
+				new MailAddress(emailaddress);
+				return true;
+			}
+			catch (FormatException)
+			{
+				return false;
+			}
 		}
 	}
 }

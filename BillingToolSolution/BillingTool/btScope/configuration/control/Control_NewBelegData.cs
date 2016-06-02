@@ -14,6 +14,7 @@ using BillingTool.Exceptions;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase.rowinterfaces;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase.rows;
 using CsWpfBase.Ev.Objects;
+using CsWpfBase.Ev.Public.Extensions;
 
 
 
@@ -269,7 +270,7 @@ namespace BillingTool.btScope.configuration.control
 			var first = new Regex("\\{(.*?[^\\\\])\\}", RegexOptions.Singleline);
 
 			var enumerable = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value);
-			Mails = enumerable.Select(x=> new Control_MailTemplate(x)).Where(x=>IsValidMailAddress(x.Address)).ToArray();
+			Mails = enumerable.Select(x=> new Control_MailTemplate(x)).Where(x=>x.Address.IsValidMailAddress()).ToArray();
 		}
 
 		private void ParsePosten(string parameterName, string value)
@@ -283,19 +284,6 @@ namespace BillingTool.btScope.configuration.control
 			var first = new Regex("\\{(.*?[^\\\\])\\}", RegexOptions.Singleline) ;
 
 			Postens = first.Matches(value).OfType<Match>().Select(x => x.Groups[1].Value).Select(x => new Control_BelegPostenTemplate(x)).ToArray();
-		}
-		private bool IsValidMailAddress(string emailaddress)
-		{
-			try
-			{
-				// ReSharper disable once ObjectCreationAsStatement
-				new MailAddress(emailaddress);
-				return true;
-			}
-			catch (FormatException)
-			{
-				return false;
-			}
 		}
 
 	}

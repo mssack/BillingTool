@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-05-18</date>
+// <date>2016-06-02</date>
 
 using System;
 using System.Collections.Generic;
@@ -27,6 +27,10 @@ namespace BillingTool.Themes.Controls.belegview
 	/// <summary>Interaction logic for RemailBelegControl.xaml</summary>
 	public partial class RemailBelegControl : UserControl
 	{
+		#region DP Keys
+		#endregion
+
+
 		/// <summary>ctor</summary>
 		public RemailBelegControl()
 		{
@@ -52,6 +56,12 @@ namespace BillingTool.Themes.Controls.belegview
 		{
 			get { return (string) GetValue(TextProperty); }
 			set { SetValue(TextProperty, value); }
+		}
+
+		public string Bcc
+		{
+			get { return (string) GetValue(BccProperty); }
+			set { SetValue(BccProperty, value); }
 		}
 
 		/// <summary></summary>
@@ -94,6 +104,7 @@ namespace BillingTool.Themes.Controls.belegview
 
 			Betreff = Bt.Db.Billing.Configurations.Default.MailBetreff;
 			Text = Bt.Db.Billing.Configurations.Default.MailText;
+			Bcc = Bt.Db.Billing.Configurations.Default.MailBcc;
 			TargetMailAddress = Item?.MailedBelege.Union(Item?.StornoBeleg?.MailedBelege.ToList() ?? new List<MailedBeleg>()).OrderBy(x => x.ProcessingDate).FirstOrDefault()?.TargetMailAddress;
 		}
 
@@ -103,6 +114,7 @@ namespace BillingTool.Themes.Controls.belegview
 			{
 				var mailedBeleg = Bt.Data.MailedBeleg.New(Item, TargetMailAddress);
 				mailedBeleg.OutputFormat = OutputFormat;
+				mailedBeleg.Bcc = string.IsNullOrEmpty(Bcc) ? null : Bcc;
 				mailedBeleg.Betreff = Betreff;
 				mailedBeleg.Text = Text;
 				Bt.Data.MailedBeleg.Finalize(mailedBeleg);
@@ -123,8 +135,7 @@ namespace BillingTool.Themes.Controls.belegview
 
 #pragma warning disable 1591
 		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register("Item", typeof(BelegData), typeof(RemailBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(BelegData), DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged, PropertyChangedCallback = (o, args) => ((RemailBelegControl) o).ItemChanged()});
-
-
+		public static readonly DependencyProperty BccProperty = DependencyProperty.Register("Bcc", typeof(string), typeof(RemailBelegControl), new FrameworkPropertyMetadata { DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
 		public static readonly DependencyProperty OutputFormatProperty = DependencyProperty.Register("OutputFormat", typeof(OutputFormat), typeof(RemailBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(OutputFormat), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty BetreffProperty = DependencyProperty.Register("Betreff", typeof(string), typeof(RemailBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});
 		public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(RemailBelegControl), new FrameworkPropertyMetadata {DefaultValue = default(string), BindsTwoWayByDefault = true, DefaultUpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged});

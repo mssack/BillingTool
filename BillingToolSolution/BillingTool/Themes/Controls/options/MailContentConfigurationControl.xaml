@@ -15,9 +15,11 @@
     <Grid DataContext="{Binding Source={x:Static btScope:Bt.Db}, Path=Billing.Configurations}">
 	    <Grid.RowDefinitions>
 		    <RowDefinition Height="Auto"/>
+		    <RowDefinition Height="Auto"/>
 		    <RowDefinition Height="*"/>
 	    </Grid.RowDefinitions>
-	    <StringParam Grid.Row="0" Header="{StaticResource Bez-MailedBeleg-Betreff}" Value="{Binding Path=Default.MailBetreff}" />
-		<StringParam Grid.Row="1" Header="{StaticResource Bez-MailedBeleg-Text}" Value="{Binding Path=Default.MailText}" AcceptsReturn="True" HeaderAlignment="Top" ExtensionMinHeight="60"  />
+	    <StringParam Grid.Row="0" Header="{StaticResource Bez-MailedBeleg-Bcc}" Value="{Binding Path=Default.MailBcc}" />
+	    <StringParam Grid.Row="1" Header="{StaticResource Bez-MailedBeleg-Betreff}" Value="{Binding Path=Default.MailBetreff}" />
+		<StringParam Grid.Row="2" Header="{StaticResource Bez-MailedBeleg-Text}" Value="{Binding Path=Default.MailText}" AcceptsReturn="True" HeaderAlignment="Top" ExtensionMinHeight="60"  />
     </Grid>
 </UserControl>

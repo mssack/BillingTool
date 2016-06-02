@@ -57,6 +57,13 @@
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>
+			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Bcc}" Width="100">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">
+						<TextBlock Text="{Binding Path=Bcc}" TextTrimming="CharacterEllipsis" />
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Betreff}" Width="120">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="{x:Type billingDatabaseDb:MailedBeleg}">

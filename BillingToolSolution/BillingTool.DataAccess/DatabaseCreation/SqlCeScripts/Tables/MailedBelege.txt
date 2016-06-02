@@ -12,6 +12,7 @@
 	[TargetMailAddress]		ntext NOT NULL,
 	[Betreff]				ntext NOT NULL DEFAULT(''),
 	[Text]					ntext NOT NULL DEFAULT(''),
+	[Bcc]					ntext,
 
 
 	

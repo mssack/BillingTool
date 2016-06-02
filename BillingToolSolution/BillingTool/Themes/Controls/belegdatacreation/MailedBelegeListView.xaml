@@ -31,6 +31,13 @@
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>
+			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Bcc}" Width="100">
+				<GridViewColumn.CellTemplate>
+					<DataTemplate DataType="rows:MailedBeleg">
+						<TextBox Style="{StaticResource StdTextBox}" Text="{Binding Path=Bcc}" />
+					</DataTemplate>
+				</GridViewColumn.CellTemplate>
+			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Betreff}" Width="120">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="rows:MailedBeleg">

@@ -65,6 +65,7 @@ namespace BillingTool.btScope.functions.data
 			newItem.ProcessingState = ProcessingStates.NotProcessed;
 			newItem.BelegData = data;
 			newItem.TargetMailAddress = mailTemplate.Address;
+			newItem.Bcc = mailTemplate.Bcc??data.DataSet.Configurations.Default.MailBcc;
 			newItem.Betreff = mailTemplate.Betreff??data.DataSet.Configurations.Default.MailBetreff;
 			newItem.Text = mailTemplate.Text?? data.DataSet.Configurations.Default.MailText;
 			newItem.OutputFormat = string.IsNullOrEmpty(mailTemplate.OutputFormat)?data.DataSet.OutputFormats.Default_MailFormat:(data.DataSet.OutputFormats.FirstOrDefault(x=>x.Name.ToLower() == mailTemplate.OutputFormat)?? data.DataSet.OutputFormats.Default_MailFormat);
@@ -79,6 +80,7 @@ namespace BillingTool.btScope.functions.data
 			newItem.ProcessingState = ProcessingStates.NotProcessed;
 			newItem.BelegData = data;
 			newItem.TargetMailAddress = targetMailAddress;
+			newItem.Bcc = data.DataSet.Configurations.Default.MailBcc;
 			newItem.Betreff = data.DataSet.Configurations.Default.MailBetreff;
 			newItem.Text = data.DataSet.Configurations.Default.MailText;
 			newItem.OutputFormat = newItem.DataSet.OutputFormats.Default_MailFormat;

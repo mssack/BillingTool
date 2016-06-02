@@ -91,9 +91,16 @@ namespace BillingToolOutput.btOutputScope
 							From = new MailAddress(mailConfig.SmtpMailAddress),
 							Subject = data.Betreff,
 							IsBodyHtml = false,
-							Body = data.Text
+							Body = data.Text,
 						})
 						{
+							if (!string.IsNullOrEmpty(data.Bcc))
+							{
+								data.Bcc = data.Bcc.Replace(';', ',').Replace("\r\n", "\n").Replace("\n", ",").Split(',').Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim()).Where(x => x.IsValidMailAddress()).Join(", ");
+								if (!string.IsNullOrEmpty(data.Bcc))
+									message.Bcc.Add(data.Bcc);
+							}
+
 							message.To.Add(data.TargetMailAddress);
 							message.Attachments.Add(pdfLifeLine.AsMailAttachment());
 							smtpClient.Send(message);

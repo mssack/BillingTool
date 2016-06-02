@@ -36,6 +36,7 @@ namespace BillingTool.btScope.versioning.updates
 			File.Remove(Path.Combine(CsGlobal.Storage.Private.Directory.FullName, "NewBelegData.txt"));
 			Database.Column_Add(OutputFormatsTable.Cols.ImageQuality, "NOT NULL DEFAULT(100)");
 			Database.Column_Add(OutputFormatsTable.Cols.ImageScaling, "NOT NULL DEFAULT(4)");
+			Database.Column_Add(MailedBelegeTable.Cols.Bcc, null);
 		}
 		#endregion
 	}

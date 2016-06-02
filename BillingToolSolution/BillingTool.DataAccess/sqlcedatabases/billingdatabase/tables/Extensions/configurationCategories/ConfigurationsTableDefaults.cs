@@ -90,6 +90,13 @@ namespace BillingToolDataAccess.sqlcedatabases.billingdatabase.tables.configurat
 		}
 
 
+		/// <summary>The default BCC which should be used as default for mailing.</summary>
+		public string MailBcc
+		{
+			get { return GetValue<string>(); }
+			set { SetValue(value); }
+		}
+
 		/// <summary>The default Betreff which should be used as default for mailing.</summary>
 		public string MailBetreff
 		{

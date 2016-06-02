@@ -34,7 +34,7 @@ namespace BillingTool.btScope.configuration.control
 			{
 				if (_reflectedProperties != null)
 					return _reflectedProperties;
-				_reflectedProperties = typeof (Control_BelegPostenTemplate).GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(x => x.Name, x => x);
+				_reflectedProperties = typeof (Control_BelegPostenTemplate).GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(x => x.Name.ToLower(), x => x);
 				return _reflectedProperties;
 			}
 		}
@@ -94,7 +94,7 @@ namespace BillingTool.btScope.configuration.control
 		private void SetProperty(string name, string value)
 		{
 			PropertyInfo target;
-			if (!ReflectedProperties.TryGetValue(name, out target))
+			if (!ReflectedProperties.TryGetValue(name.ToLower(), out target))
 				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(Control_NewBelegData.Postens)}] enthält ein Posten ein ungültiges Argument ({name}). Überprüfen Sie '{_command}'");
 
 			object typedValue;

@@ -9,6 +9,7 @@
 	<system:String x:Key="Bez-MailedBeleg-OutputFormat">Format</system:String>
 	<system:String x:Key="Bez-MailedBeleg-MailTypeName">Mail Typ</system:String>
 	<system:String x:Key="Bez-MailedBeleg-TargetMailAddress">Mail - Adress</system:String>
+	<system:String x:Key="Bez-MailedBeleg-Bcc">BCC</system:String>
 	<system:String x:Key="Bez-MailedBeleg-Betreff">Betreff</system:String>
 	<system:String x:Key="Bez-MailedBeleg-Text">Text</system:String>
 	<system:String x:Key="Bez-MailedBeleg-Comment">Kommentar</system:String>

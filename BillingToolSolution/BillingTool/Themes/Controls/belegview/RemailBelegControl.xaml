@@ -25,10 +25,12 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
 			<belegview:OutputFormatParam Header="{StaticResource Bez-MailedBeleg-OutputFormat}" Item="{Binding Path=Item}" OutputFormat="{Binding Path=OutputFormat}" />
 			<StringParam Grid.Row="1" Header="{StaticResource Bez-MailedBeleg-TargetMailAddress}" Value="{Binding Path=TargetMailAddress}"/>
-			<StringParam Grid.Row="2" Header="{StaticResource Bez-MailedBeleg-Betreff}" Value="{Binding Path=Betreff}"/>
+			<StringParam Grid.Row="2" Header="{StaticResource Bez-MailedBeleg-Bcc}" Value="{Binding Path=Bcc}"/>
+			<StringParam Grid.Row="3" Header="{StaticResource Bez-MailedBeleg-Betreff}" Value="{Binding Path=Betreff}"/>
 		</Grid>
 
 		<TextBox Grid.Row="1" Text="{Binding Path=Text}" AcceptsReturn="True" MinHeight="60" MinWidth="300" Margin="5,0,5,0" VerticalContentAlignment="Top"/>

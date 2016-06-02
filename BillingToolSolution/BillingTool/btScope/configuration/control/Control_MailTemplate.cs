@@ -34,7 +34,7 @@ namespace BillingTool.btScope.configuration.control
 			{
 				if (_reflectedProperties != null)
 					return _reflectedProperties;
-				_reflectedProperties = typeof(Control_MailTemplate).GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(x => x.Name, x => x);
+				_reflectedProperties = typeof(Control_MailTemplate).GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(x => x.Name.ToLower(), x => x);
 				return _reflectedProperties;
 			}
 		}
@@ -44,6 +44,7 @@ namespace BillingTool.btScope.configuration.control
 		private string _command;
 		private string _text;
 		private string _outputFormat;
+		private string _bcc;
 
 
 		/// <summary>ctor</summary>
@@ -57,6 +58,12 @@ namespace BillingTool.btScope.configuration.control
 		{
 			get { return _address; }
 			set { SetProperty(ref _address, value); }
+		}
+		///<summary>Gets or sets the Bcc.</summary>
+		public string Bcc
+		{
+			get { return _bcc; }
+			set { SetProperty(ref _bcc, value); }
 		}
 		/// <summary>Gets or sets the Betreff.</summary>
 		public string Betreff
@@ -95,7 +102,7 @@ namespace BillingTool.btScope.configuration.control
 		private void SetProperty(string name, string value)
 		{
 			PropertyInfo target;
-			if (!ReflectedProperties.TryGetValue(name, out target))
+			if (!ReflectedProperties.TryGetValue(name.ToLower(), out target))
 				throw new BillingToolException(BillingToolException.Types.Invalid_StartupParam, $"Bei dem Parameter[{nameof(Control_NewBelegData.Mails)}] enthält eine Mail ein ungültiges Argument ({name}). Überprüfen Sie '{_command}'");
 
 			object typedValue;
