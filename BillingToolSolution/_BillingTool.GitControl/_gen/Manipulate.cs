@@ -36,6 +36,21 @@ namespace BillingToolGitControl._gen
 			text = Regex.Replace(text, "using (BillingTool)(?!\\.enumerations).*", match => ""); // remove using's
 			text = Regex.Replace(text, "namespace .*", match => "namespace BillingTool"); // adjust namespace
 			text = Regex.Replace(text, "(\\/\\/.*?(?:$|\n))", match => match.Groups[1].Value.StartsWith("///") ? match.Groups[1].Value : ""); // remove comments
+			text = Regex.Replace(text, "{nameof\\((.*?)\\)}", match => match.Groups[1].Value); // remove {nameof()}
+
+			var regex = new Regex("\\$\"(.*?){(.*?)}");// remove {expression} and make ..." + expression + "...   instead
+			bool matched = false;
+			do
+			{
+				matched = false;
+				text = regex.Replace(text, match =>
+				{
+					matched = true;
+					return $"$\"{match.Groups[1].Value}\" + {match.Groups[2].Value} + \"";
+				});
+			} while (matched);
+
+			text = Regex.Replace(text, "\\$\"", "\""); // remove {expression} and make ..." + expression + "...   instead
 			text = text.Trim('\n');
 			text = text.Replace("\n", "\r\n");
 			return text;

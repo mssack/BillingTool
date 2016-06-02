@@ -2,12 +2,13 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-06-01</date>
+// <date>2016-06-02</date>
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using BillingTool.enumerations;
 using BillingToolDataAccess.sqlcedatabases.billingdatabase._Extensions.enumerations;
@@ -28,14 +29,36 @@ namespace BillingToolGitControl.codeSamples
 		private readonly string _filePath;
 		private readonly string _kassenoperator;
 
+		/// <summary>used for generation. Do not use in Production.</summary>
+		public BillingToolStarter(string kassenoperator)
+		{
+			_kassenoperator = kassenoperator;
+		}
+
 		/// <summary>Creates a new BillingTool Interaction.</summary>
 		/// <param name="filePath">The file path to the executable.</param>
 		/// <param name="kassenoperator">The operator of the Kassa.</param>
 		public BillingToolStarter(string filePath, string kassenoperator)
 		{
+			if (kassenoperator == null)
+				throw new ArgumentException($"Es muss ein {nameof(kassenoperator)} angegeben werden.");
+			if (!File.Exists(filePath))
+				throw new ArgumentException($"Der übergebene File existiert nicht ['{filePath}']");
+
 			_filePath = filePath;
 			_kassenoperator = kassenoperator;
 		}
+
+
+		#region Abstract
+		public interface IValidateable
+		{
+			#region Abstract
+			bool Validate(bool throwError);
+			#endregion
+		}
+		#endregion
+
 
 		/// <summary>Used to approve one instance of <see cref="BelegData" />.</summary>
 		public ExitCodes BelegDataApproval(BelegData data)
@@ -85,17 +108,22 @@ namespace BillingToolGitControl.codeSamples
 			return GetCommand(StartupModes.BelegDataViewer);
 		}
 
-		private string GetCommand(StartupModes mode, string commandlineArgs = null)
+
+
+		private string GetCommand(StartupModes mode, string args = null)
 		{
-			var fullArgument = "/" + mode + " /NceKassenOperator " + _kassenoperator;
-			if (!string.IsNullOrEmpty(commandlineArgs))
-				fullArgument = fullArgument + " " + commandlineArgs;
+			var fullArgument = $"/{mode} /NceKassenOperator {_kassenoperator}";
+			if (!string.IsNullOrEmpty(args))
+				fullArgument = fullArgument + " " + args;
 			return fullArgument;
 		}
 
-		private ExitCodes OpenProcess(string command)
+		private ExitCodes OpenProcess(string args)
 		{
-			using (var process = Process.Start(_filePath, command))
+			if (string.IsNullOrEmpty(_filePath) || !File.Exists(_filePath))
+				throw new ArgumentException($"Der angegebene file existiert nicht ['{_filePath}']");
+
+			using (var process = Process.Start(_filePath, args))
 			{
 				process.WaitForExit();
 				return (ExitCodes) process.ExitCode;
@@ -105,7 +133,7 @@ namespace BillingToolGitControl.codeSamples
 
 
 		/// <summary>used for the Bon approval.</summary>
-		public class BelegData
+		public class BelegData : IValidateable
 		{
 			#region Overrides/Interfaces
 			public override string ToString()
@@ -130,27 +158,43 @@ namespace BillingToolGitControl.codeSamples
 			/// <summary>Should be printed to the default printer.</summary>
 			public bool PrintBeleg { get; set; }
 			/// <summary>The articles which are included onto the Bon.</summary>
-			public IList<Posten> Postens { get; set; }
+			public IList<Posten> Postens { get; set; } = new List<Posten>();
 			/// <summary>The mails which should be sended.</summary>
-			public IList<Mail> Mails { get; set; }
+			public IList<Mail> Mails { get; set; } = new List<Mail>();
+
+			public bool Validate(bool throwError = false)
+			{
+				var state = true;
+				if (Postens != null)
+					foreach (var posten in Postens)
+					{
+						if (posten.Validate(throwError) == false)
+							state = false;
+					}
+				if (Mails != null)
+					foreach (var mail in Mails)
+					{
+						if (mail.Validate(throwError) == false)
+							state = false;
+					}
+				return state;
+			}
 		}
 
 
 
 		/// <summary>Describes one item on a Bon.</summary>
-		public class Posten
+		public class Posten : IValidateable
 		{
-			/// <summary>Creates a new article.</summary>
+			/// <summary>Creates a new <see cref="Posten" />.</summary>
+			public Posten()
+			{
+
+			}
+
+			/// <summary>Creates a new <see cref="Posten" />.</summary>
 			public Posten(string name, decimal betragBrutto, decimal steuer, int anzahl)
 			{
-				if (anzahl == 0)
-					throw new ArgumentException("anzahl = 0", "anzahl");
-				if (betragBrutto == 0)
-					throw new ArgumentException("betragBrutto = 0", "betragBrutto");
-				if (string.IsNullOrEmpty(name))
-					throw new ArgumentException("name = ''", "name");
-
-
 				Name = name;
 				BetragBrutto = betragBrutto;
 				Steuer = steuer;
@@ -163,31 +207,55 @@ namespace BillingToolGitControl.codeSamples
 			{
 				return Helper.Get_ListItem_String(this);
 			}
+
+
+			public bool Validate(bool throwError = false)
+			{
+				string message = null;
+				if (Anzahl == 0)
+					message = $"Die {nameof(Anzahl)} eines {nameof(Posten)} kann nicht 0 sein.";
+				else if (BetragBrutto == 0)
+					message = $"Die {nameof(BetragBrutto)} eines {nameof(Posten)} kann nicht 0 sein.";
+				else if (string.IsNullOrEmpty(Name))
+					message = $"Der {nameof(Name)} des {nameof(Posten)} kann nicht leer sein.";
+
+				if (throwError && message != null)
+					throw new ArgumentException(message);
+
+				return message == null;
+			}
 			#endregion
 
 
-			/// <summary>The name of the article.</summary>
-			public string Name { get; }
-			/// <summary>The cost of one entity of this article.</summary>
-			public decimal BetragBrutto { get; }
-			/// <summary>The tax which is applied to the article*amount</summary>
-			public decimal Steuer { get; }
-			/// <summary>the number of articles of this type.</summary>
-			public int Anzahl { get; }
+			/// <summary>The name of the <see cref="Posten" />.</summary>
+			public string Name { get; set; }
+			/// <summary>The cost of one entity of this <see cref="Posten" />.</summary>
+			public decimal BetragBrutto { get; set; }
+			/// <summary>The tax which is applied to the (<see cref="BetragBrutto" />*<see cref="Anzahl" />) calculation.</summary>
+			public decimal Steuer { get; set; }
+			/// <summary>
+			///     the quantity of this type. The quantity will be multiplied with the <see cref="BetragBrutto" /> field to get the total cost of this
+			///     <see cref="Posten" />.
+			/// </summary>
+			public int Anzahl { get; set; }
 		}
 
 
 
-		/// <summary>Describes one mail.</summary>
-		public class Mail
+		/// <summary>Describes one mail, which will be sent on approval.</summary>
+		public class Mail : IValidateable
 		{
-			/// <summary>Creates a new article.</summary>
-			public Mail(string address, string betreff = null, string text = null, string outputformat = null)
+			/// <summary>ctor</summary>
+			public Mail()
 			{
-				if (string.IsNullOrEmpty(address))
-					throw new ArgumentException("address = null", "address");
 
+			}
+
+			/// <summary>ctor</summary>
+			public Mail(string address, string betreff = null, string text = null, string bcc = null, string outputformat = null)
+			{
 				Address = address;
+				Bcc = bcc;
 				Betreff = betreff;
 				Text = text;
 				OutputFormat = outputformat;
@@ -199,17 +267,32 @@ namespace BillingToolGitControl.codeSamples
 			{
 				return Helper.Get_ListItem_String(this);
 			}
+
+
+			public bool Validate(bool throwError = false)
+			{
+				string message = null;
+				if (string.IsNullOrEmpty(Address))
+					message = $"{nameof(Address)} kann nicht null sein in {nameof(Mail)}.";
+
+				if (throwError && message != null)
+					throw new ArgumentException(message);
+
+				return message == null;
+			}
 			#endregion
 
 
-			/// <summary>The mail address of the receiver.</summary>
-			public string Address { get; }
-			/// <summary>The subject of the mail</summary>
-			public string Betreff { get; }
-			/// <summary>the text of the mail message</summary>
-			public string Text { get; }
-			/// <summary>the layout name which should be used for the mail.</summary>
-			public string OutputFormat { get; }
+			/// <summary>The mail address of the receiver of the mail.</summary>
+			public string Address { get; set; }
+			/// <summary>the blind carbon copy addresses, used to send the mail to other recipients. Different mails have to be comma separated.</summary>
+			public string Bcc { get; set; }
+			/// <summary>The mail subject.</summary>
+			public string Betreff { get; set; }
+			/// <summary>the mail text.</summary>
+			public string Text { get; set; }
+			/// <summary>the name of the layout which should be used for the mail, if the format does not exist the default will be chosen.</summary>
+			public string OutputFormat { get; set; }
 		}
 
 
@@ -229,7 +312,7 @@ namespace BillingToolGitControl.codeSamples
 					if (valueText == null)
 						continue;
 
-					arguments = arguments + "/Nce" + property.Name + " " + valueText + " ";
+					arguments = arguments + $"/Nce{property.Name} {valueText} ";
 				}
 				return arguments.Substring(0, arguments.Length - 1);
 			}
@@ -247,7 +330,7 @@ namespace BillingToolGitControl.codeSamples
 					if (valueText == null)
 						continue;
 
-					arguments = arguments + property.Name + " = " + valueText + "; ";
+					arguments = arguments + $"{property.Name} = {valueText}; ";
 				}
 
 				return "{" + arguments.Substring(0, arguments.Length - 2) + "}";
@@ -269,6 +352,9 @@ namespace BillingToolGitControl.codeSamples
 					var valueText = "{ ";
 					foreach (var obj in (IEnumerable) value)
 					{
+						if (obj is IValidateable && ((IValidateable) obj).Validate(false) == false)
+							continue;
+
 						count++;
 						valueText = valueText + obj + ", ";
 					}

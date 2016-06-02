@@ -36,10 +36,10 @@ namespace BillingToolGitControl._gen
 													"Frühgeschichte zugerechnet Somit wird eine aber dennoch sehr bedeutsame Definition des Gegenstandes" +
 													" der Geschichtswissenschaft durch die Überlieferung von Texten gegeben";
 		private static List<BillingToolStarter.Posten> _manyPostensArray;
-		private static readonly BillingToolStarter _starter = new BillingToolStarter("", $"{Utils.Build.Version.Name}-SCRIPT");
+		private static readonly BillingToolStarter _starter = new BillingToolStarter($"{Utils.Build.Version.Name}-SCRIPT");
 		private static List<BillingToolStarter.Posten> _defaultPostensArray;
 
-		private static readonly List<int> Steuersätze = new List<int>() {20, 13, 10, 0, 19};
+		private static readonly List<int> Steuersätze = new List<int> {20, 13, 10, 0, 19};
 		private static string TargetFolder;
 		private static List<BillingToolStarter.Posten> ManyPostensArray
 		{
