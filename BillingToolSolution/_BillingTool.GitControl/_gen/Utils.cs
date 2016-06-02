@@ -91,7 +91,8 @@ namespace BillingToolGitControl._gen
 			var targetFile = new FileInfo(Path.Combine(targetFolder, fileInfo.Name));
 			targetFile.CreateDirectory_IfNotExists();
 			File.Copy(from, targetFile.FullName, true);
-			File.WriteAllText(targetFile.FullName, fileContentManipulationAction?.Invoke(File.ReadAllText(targetFile.FullName)));
+			if (fileContentManipulationAction != null)
+				File.WriteAllText(targetFile.FullName, fileContentManipulationAction.Invoke(File.ReadAllText(targetFile.FullName)));
 		}
 
 
