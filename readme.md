@@ -11,6 +11,7 @@ Aktuell [RC283 vom 02.06.2016 um 13:42](BillingToolSolution/_Anhänge/_ReleaseCa
 * *.dll filenames haben sich geändert (Refactur)
 * Weißer Rahmen beim Mailbon
 * BillingToolStarter Class implementiert. Zur automatisierten und richtigen Erstellung der Commandline parameter
+* added bcc field for mails
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
