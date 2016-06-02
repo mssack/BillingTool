@@ -10,6 +10,7 @@ Aktuell [RC282 vom 02.06.2016 um 01:48](BillingToolSolution/_Anhänge/_ReleaseCa
 * Man kann nun beim anfügen eines weiteren Artikels beim manuellen erstellen einer Rechnung, direkt einen neuen Posten erstellen.
 * *.dll filenames haben sich geändert (Refactur)
 * Weißer Rahmen beim Mailbon
+* BillingToolStarter Class implementiert. Zur automatisierten und richtigen Erstellung der Commandline parameter
 [](CHANGELOGEND)
 
 #####Aktuelle Entwicklung, Treiber und Ähnliches:
