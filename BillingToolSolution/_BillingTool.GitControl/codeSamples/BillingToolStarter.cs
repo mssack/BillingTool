@@ -60,25 +60,28 @@ namespace BillingToolGitControl.codeSamples
 		#endregion
 
 
-		/// <summary>Used to approve one instance of <see cref="BelegData" />.</summary>
+		/// <summary>
+		///     Verwendet um einen <see cref="BelegData" /> abzuwickeln. Liefert einen <see cref="ExitCodes" /> zurück der weiters interpretiert werden
+		///     kann.
+		/// </summary>
 		public ExitCodes BelegDataApproval(BelegData data)
 		{
 			return OpenProcess(Cmd_BelegDataApproval(data));
 		}
 
-		/// <summary>Used to open the options.</summary>
+		/// <summary>Öffnet die Optionen.</summary>
 		public ExitCodes Options()
 		{
 			return OpenProcess(Cmd_Options());
 		}
 
-		/// <summary>Used to create a Monatsbon.</summary>
+		/// <summary>Erstellt im unsichtbaren einen neuen Monatsbon dieser wird an dem Standarddrucker ausgedruckt.</summary>
 		public ExitCodes SilentMonatsBonPrint()
 		{
 			return OpenProcess(Cmd_SilentMonatsBonPrint());
 		}
 
-		/// <summary>Used for Storno, viewing, manual creation and others.</summary>
+		/// <summary>Öffnet ein Fenster in dem manuell Rechnungen erstellt werden können, sowie alte Belege storniert, und bestehende angeschaut werden können.</summary>
 		public ExitCodes BelegDataViewer()
 		{
 			return OpenProcess(Cmd_BelegDataViewer());
@@ -140,27 +143,6 @@ namespace BillingToolGitControl.codeSamples
 			{
 				return Helper.Get_RootItem_String(this);
 			}
-			#endregion
-
-
-			/// <summary>The type of the transaction.</summary>
-			public BelegDataTypes TypNumber { get; set; }
-			/// <summary>The receiver of the Bon.</summary>
-			public string Empfänger { get; set; }
-			/// <summary>The ID of the receiver of the Bon.</summary>
-			public string EmpfängerId { get; set; }
-			/// <summary>Some text which is printed onto the Bon.</summary>
-			public string ZusatzText { get; set; }
-			/// <summary>A system internal string which could be a GUID for further references.</summary>
-			public string ZahlungsReferenz { get; set; }
-			/// <summary>A comment visible to the operator.</summary>
-			public string Comment { get; set; }
-			/// <summary>Should be printed to the default printer.</summary>
-			public bool PrintBeleg { get; set; }
-			/// <summary>The articles which are included onto the Bon.</summary>
-			public IList<Posten> Postens { get; set; } = new List<Posten>();
-			/// <summary>The mails which should be sended.</summary>
-			public IList<Mail> Mails { get; set; } = new List<Mail>();
 
 			public bool Validate(bool throwError = false)
 			{
@@ -179,20 +161,51 @@ namespace BillingToolGitControl.codeSamples
 					}
 				return state;
 			}
+			#endregion
+
+
+			/// <summary>
+			///     Die Art der Transaktion. Mögliche Werte: <see cref="BelegDataTypes.Bar" />, <see cref="BelegDataTypes.Bankomat" /> and
+			///     <see cref="BelegDataTypes.Kreditkarte" />
+			/// </summary>
+			public BelegDataTypes TypNumber { get; set; }
+			/// <summary>Der Empfänger des Bons. Dieser Wert wird nicht auf dem Bon aufgedruckt. Er ist lediglich für Dokumentationszwecke gedacht.</summary>
+			public string Empfänger { get; set; }
+			/// <summary>Die ID des Empfänger des Bons. Dieser Wert wird nicht auf dem Bon aufgedruckt. Er ist lediglich für Dokumentationszwecke gedacht.</summary>
+			public string EmpfängerId { get; set; }
+			/// <summary>Zusätzlicher Text der ans Ende des Bons angehängt wird. Kann auch Mehrzeilig sein.</summary>
+			public string ZusatzText { get; set; }
+			/// <summary>Die Zahlungsreferenz entspricht einer ID um Transaktion mit anderen Datenbanken in Beziehung zu stellen.</summary>
+			public string ZahlungsReferenz { get; set; }
+			/// <summary>Ein Kommentar der ausschließlich in der Datenbank und dem Kassenoperator sichtbar ist.</summary>
+			public string Comment { get; set; }
+			/// <summary>Wenn True, dann wird dieser Bon ausgedruckt.</summary>
+			public bool PrintBeleg { get; set; }
+			/// <summary>Die einzelnen Posten die auf dieser Rechnung erscheinen zum Beispiel Reinigungsgebühr oder Ähnliches.</summary>
+			public IList<Posten> Postens { get; set; } = new List<Posten>();
+			/// <summary>Die Mails die versendet werden sollen mit entsprechendem Bon im Anhang.</summary>
+			public IList<Mail> Mails { get; set; } = new List<Mail>();
 		}
 
 
 
-		/// <summary>Describes one item on a Bon.</summary>
+		/// <summary>Der Typ eines Posten auf einem Bon.</summary>
 		public class Posten : IValidateable
 		{
-			/// <summary>Creates a new <see cref="Posten" />.</summary>
+			/// <summary>Erstellt einen neuen <see cref="Posten" />.</summary>
 			public Posten()
 			{
 
 			}
 
-			/// <summary>Creates a new <see cref="Posten" />.</summary>
+			/// <summary>Erstellt einen Posten auf der zugehörigen Rechnung.</summary>
+			/// <param name="name">[REQUIRED] Der Name des <see cref="Posten" /> z.B Reinigung.</param>
+			/// <param name="betragBrutto">[REQUIRED] Die Kosten eines Stückes dieses <see cref="Posten" />s in Brutto.</param>
+			/// <param name="steuer">[OPTIONAL] Die Steuer die angewendet wird auf folgende Rechnung (<see cref="BetragBrutto" />*<see cref="Anzahl" />).</param>
+			/// <param name="anzahl">
+			///     [REQUIRED] Die Stückanzahl dieses Postens die verkauft wird. Sie wird später mit dem Feld <see cref="BetragBrutto" /> multipliziert um auf die
+			///     gesamt Kosten zu kommen.
+			/// </param>
 			public Posten(string name, decimal betragBrutto, decimal steuer, int anzahl)
 			{
 				Name = name;
@@ -227,22 +240,22 @@ namespace BillingToolGitControl.codeSamples
 			#endregion
 
 
-			/// <summary>The name of the <see cref="Posten" />.</summary>
+			/// <summary>[REQUIRED] Der Name des <see cref="Posten" /> z.B Reinigung.</summary>
 			public string Name { get; set; }
-			/// <summary>The cost of one entity of this <see cref="Posten" />.</summary>
+			/// <summary>[REQUIRED] Die Kosten eines Stückes dieses <see cref="Posten" />s in Brutto.</summary>
 			public decimal BetragBrutto { get; set; }
-			/// <summary>The tax which is applied to the (<see cref="BetragBrutto" />*<see cref="Anzahl" />) calculation.</summary>
+			/// <summary>[OPTIONAL] Die Steuer die angewendet wird auf folgende Rechnung (<see cref="BetragBrutto" />*<see cref="Anzahl" />).</summary>
 			public decimal Steuer { get; set; }
 			/// <summary>
-			///     the quantity of this type. The quantity will be multiplied with the <see cref="BetragBrutto" /> field to get the total cost of this
-			///     <see cref="Posten" />.
+			///     [REQUIRED] Die Stückanzahl dieses Postens die verkauft wird. Sie wird später mit dem Feld <see cref="BetragBrutto" /> multipliziert um auf die
+			///     gesamt Kosten zu kommen.
 			/// </summary>
 			public int Anzahl { get; set; }
 		}
 
 
 
-		/// <summary>Describes one mail, which will be sent on approval.</summary>
+		/// <summary>Der Typ einer Mail die versendet werden kann</summary>
 		public class Mail : IValidateable
 		{
 			/// <summary>ctor</summary>
@@ -251,7 +264,15 @@ namespace BillingToolGitControl.codeSamples
 
 			}
 
-			/// <summary>ctor</summary>
+			/// <summary>Erstellt eine neue Mail</summary>
+			/// <param name="address">die Zieladresse dieser E-Mail.</param>
+			/// <param name="betreff">[OPTIONAL] Der Betreff dieser E-Mail.</param>
+			/// <param name="text">[OPTIONAL] Der Text dieser Mail.</param>
+			/// <param name="bcc">[OPTIONAL] Die blind carbon copy Empfänger dieser Mail. Mehrere Mails werden durch einen Beistrich von einander separiert.</param>
+			/// <param name="outputformat">
+			///     [OPTIONAL] Der Name des output formats welches benutzt werden soll. Wenn das angegebene Format nicht existiert wird der Applikations default
+			///     verwendet.
+			/// </param>
 			public Mail(string address, string betreff = null, string text = null, string bcc = null, string outputformat = null)
 			{
 				Address = address;
@@ -283,15 +304,18 @@ namespace BillingToolGitControl.codeSamples
 			#endregion
 
 
-			/// <summary>The mail address of the receiver of the mail.</summary>
+			/// <summary>[REQUIRED] die Zieladresse dieser E-Mail.</summary>
 			public string Address { get; set; }
-			/// <summary>the blind carbon copy addresses, used to send the mail to other recipients. Different mails have to be comma separated.</summary>
+			/// <summary>[OPTIONAL] Die blind carbon copy Empfänger dieser Mail. Mehrere Mails werden durch einen Beistrich von einander separiert.</summary>
 			public string Bcc { get; set; }
-			/// <summary>The mail subject.</summary>
+			/// <summary>[OPTIONAL] Der Betreff dieser E-Mail.</summary>
 			public string Betreff { get; set; }
-			/// <summary>the mail text.</summary>
+			/// <summary>[OPTIONAL] Der Text dieser Mail.</summary>
 			public string Text { get; set; }
-			/// <summary>the name of the layout which should be used for the mail, if the format does not exist the default will be chosen.</summary>
+			/// <summary>
+			///     [OPTIONAL] Der Name des output formats welches benutzt werden soll. Wenn das angegebene Format nicht existiert wird der Applikations default
+			///     verwendet.
+			/// </summary>
 			public string OutputFormat { get; set; }
 		}
 
