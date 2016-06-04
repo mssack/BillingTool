@@ -1,6 +1,6 @@
 ## Billingtool
 
-Aktuell [RC292 vom 02.06.2016 um 14:22](BillingToolSolution/_Anhänge/_ReleaseCandidates/BillingTool - RC292.zip?raw=true).
+Aktuell [RC296 vom 04.06.2016 um 21:19](BillingToolSolution/_Anhänge/_ReleaseCandidates/BillingTool - RC296.zip?raw=true).
 
 #####Wichtige Änderungen
 * Datenbank geändert sodass nun die Bildqualität und Größe justiert werden kann
