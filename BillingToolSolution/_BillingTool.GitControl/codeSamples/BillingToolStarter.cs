@@ -2,7 +2,7 @@
 // <author>Christian Sack</author>
 // <email>christian@sack.at</email>
 // <website>christian.sack.at</website>
-// <date>2016-06-02</date>
+// <date>2016-06-04</date>
 
 using System;
 using System.Collections;
@@ -138,6 +138,10 @@ namespace BillingToolGitControl.codeSamples
 		/// <summary>used for the Bon approval.</summary>
 		public class BelegData : IValidateable
 		{
+			private IList<Mail> _mails;
+			private IList<Posten> _postens;
+
+
 			#region Overrides/Interfaces
 			public override string ToString()
 			{
@@ -182,9 +186,27 @@ namespace BillingToolGitControl.codeSamples
 			/// <summary>Wenn True, dann wird dieser Bon ausgedruckt.</summary>
 			public bool PrintBeleg { get; set; }
 			/// <summary>Die einzelnen Posten die auf dieser Rechnung erscheinen zum Beispiel Reinigungsgebühr oder Ähnliches.</summary>
-			public IList<Posten> Postens { get; set; } = new List<Posten>();
+			public IList<Posten> Postens
+			{
+				get
+				{
+					if (_postens == null)
+						_postens = new List<Posten>();
+					return _postens;
+				}
+				set { _postens = value; }
+			}
 			/// <summary>Die Mails die versendet werden sollen mit entsprechendem Bon im Anhang.</summary>
-			public IList<Mail> Mails { get; set; } = new List<Mail>();
+			public IList<Mail> Mails
+			{
+				get
+				{
+					if (_mails == null)
+						_mails = new List<Mail>();
+					return _mails;
+				}
+				set { _mails = value; }
+			}
 		}
 
 

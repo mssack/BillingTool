@@ -26,7 +26,7 @@
 								<ColumnDefinition Width="*" />
 							</Grid.ColumnDefinitions>
 							<Image Source="{StaticResource GIco-Property-Mail}" RenderOptions.BitmapScalingMode="HighQuality" Height="15" Margin="0,0,5,0" />
-							<TextBox Style="{StaticResource StdTextBox}" Grid.Column="1" Text="{Binding Path=TargetMailAddress}" />
+							<TextBox Style="{StaticResource StdTextBox}" Grid.Column="1" Text="{Binding Path=TargetMailAddress, UpdateSourceTrigger=PropertyChanged}" />
 						</Grid>
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
@@ -34,14 +34,14 @@
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Bcc}" Width="100">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="rows:MailedBeleg">
-						<TextBox Style="{StaticResource StdTextBox}" Text="{Binding Path=Bcc}" />
+						<TextBox Style="{StaticResource StdTextBox}" Text="{Binding Path=Bcc, UpdateSourceTrigger=PropertyChanged}" />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>
 			<GridViewColumn Header="{StaticResource Bez-MailedBeleg-Betreff}" Width="120">
 				<GridViewColumn.CellTemplate>
 					<DataTemplate DataType="rows:MailedBeleg">
-						<TextBox Style="{StaticResource StdTextBox}" Text="{Binding Path=Betreff}" />
+						<TextBox Style="{StaticResource StdTextBox}" Text="{Binding Path=Betreff, UpdateSourceTrigger=PropertyChanged}" />
 					</DataTemplate>
 				</GridViewColumn.CellTemplate>
 			</GridViewColumn>
@@ -53,7 +53,7 @@
 								<TextBlock Text="{Binding Path=Text, Converter={StaticResource GConv-ShortSingleLine}}" TextTrimming="CharacterEllipsis" />
 							</PopupButton.Content>
 							<PopupButton.PopupContent>
-								<TextBox Text="{Binding Path=Text}" AcceptsReturn="True" MinWidth="300" MinHeight="60" VerticalContentAlignment="Top" MaxHeight="600"
+								<TextBox Text="{Binding Path=Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" MinWidth="300" MinHeight="60" VerticalContentAlignment="Top" MaxHeight="600"
 										MaxWidth="600" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
 							</PopupButton.PopupContent>
 						</PopupButton>
